@@ -791,67 +791,7 @@ function HeroVisual({ tds }) {
 
 /* ─── WATER DROPS CANVAS ─────────────────────────────────── */
 
-function WaterDropsCanvas() {
-  const canvasRef = useRef(null);
 
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext("2d");
-
-    let particles = [];
-    let animationFrame;
-
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-
-    resize();
-    window.addEventListener("resize", resize);
-
-    for (let i = 0; i < 60; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        r: Math.random() * 4 + 1,
-        speed: Math.random() * 1 + 0.5,
-        opacity: Math.random() * 0.5 + 0.2,
-      });
-    }
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((p) => {
-        p.y += p.speed;
-
-        if (p.y > canvas.height) {
-          p.y = -10;
-          p.x = Math.random() * canvas.width;
-        }
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-
-        ctx.fillStyle = `rgba(120,180,255,${p.opacity})`;
-        ctx.fill();
-      });
-
-      animationFrame = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => {
-      cancelAnimationFrame(animationFrame);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return <canvas ref={canvasRef} className="water-canvas" />;
-}
 
 /* ─── AMBIENT DROPS CANVAS (for new section) ─────────────── */
 function AmbientDrops({ count = 20, color = "0,87,255", dark = false }) {
