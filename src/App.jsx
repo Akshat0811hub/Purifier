@@ -125,13 +125,19 @@ nav.scrolled {
 .hero {
   min-height: 100vh; display: flex; align-items: center;
   position: relative; overflow: hidden;
-  padding: 120px 4vw 60px; background: var(--white);
+  padding: 120px 4vw 60px;
+  background-image: url('/HOME.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 .hero-bg-grid {
   position: absolute; inset: 0; z-index: 0;
-  background-image: linear-gradient(rgba(0,87,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,87,255,0.04) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(0,87,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(0,87,255,0.02) 1px, transparent 1px);
   background-size: 60px 60px;
 }
+
 .hero-glow {
   position: absolute; top: -100px; right: -100px;
   width: 700px; height: 700px;
@@ -645,22 +651,56 @@ function ModelObsidian() {
 const MODEL_SVG = { elite: ModelElite, element: ModelElement, hydro: ModelHydro, obsidian: ModelObsidian };
 
 /* ─── HERO RO VISUAL ─────────────────────────────────────── */
-function HeroVisual({ tds }) {
+function HeroVisual() {
+  const wrapperRef = useRef(null);
+  const imgRef = useRef(null);
+
+  useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const img = imgRef.current;
+    if (!wrapper || !img) return;
+
+    const onMove = (e) => {
+      const rect = wrapper.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      img.style.transform = `perspective(800px) rotateY(${dx * 12}deg) rotateX(${-dy * 10}deg) scale(1.04) translateX(${dx * 8}px)`;
+    };
+
+    const onLeave = () => {
+      img.style.transform = `perspective(800px) rotateY(0deg) rotateX(0deg) scale(1) translateX(0px)`;
+    };
+
+    wrapper.addEventListener("mousemove", onMove);
+    wrapper.addEventListener("mouseleave", onLeave);
+    return () => {
+      wrapper.removeEventListener("mousemove", onMove);
+      wrapper.removeEventListener("mouseleave", onLeave);
+    };
+  }, []);
+
   return (
     <div className="hero-visual">
-      <div className="ro-stage-wrapper">
-        <div className="ro-top-ring"/>
-        <div className="ro-body">
-          <div className="ro-sheen"/>
-          <div className="ro-filter-lines">
-            {[1,2,3,4,5].map(i=><div key={i} className={`filter-line fl-${i}`}/>)}
-          </div>
-          <div className="ro-display">
-            <div className="tds-num">{String(tds).padStart(3,"0")}</div>
-            <div className="tds-lbl">OPTIMAL TDS</div>
-          </div>
-        </div>
-        <div className="ro-spout"/>
+      <div
+        className="ro-stage-wrapper"
+        ref={wrapperRef}
+        style={{ cursor: "none" }}
+      >
+        <img
+          ref={imgRef}
+          src="/assets/RO.png"
+          alt="AquaPura RO System"
+          style={{
+            maxHeight: "420px",
+            maxWidth: "100%",
+            objectFit: "contain",
+            filter: "drop-shadow(0 30px 60px rgba(0,87,255,0.25))",
+            transition: "transform 0.15s ease-out",
+            willChange: "transform",
+          }}
+        />
         <div className="hero-label label-1"><span className="ldot"/>14-Stage RO+UV</div>
         <div className="hero-label label-2"><span className="ldot"/>Alkaline pH 8.5</div>
         <div className="hero-label label-3"><span className="ldot"/>Smart TDS Monitor</div>
@@ -1232,7 +1272,7 @@ function HomePage({ navigate, tds }) {
               <div><div className="stat-num">1:1</div><div className="stat-lbl">Waste Ratio</div></div>
             </div>
           </div>
-          <HeroVisual tds={tds}/>
+          <HeroVisual/>
         </div>
       </section>
 
