@@ -205,7 +205,7 @@ nav.scrolled {
 .hero-label { position: absolute; background: var(--white); border: 1px solid var(--light-gray); padding: 0.6rem 1rem; border-radius: 12px; font-size: 0.78rem; font-weight: 500; color: var(--ink); white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.07); display: flex; align-items: center; gap: 6px; }
 .ldot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
 .label-1{top:40px;right:-170px;animation:float1 7s ease-in-out infinite}
-.label-2{bottom:100px;right:-150px;animation:float2 7s 0.5s ease-in-out infinite}
+.label-2{bottom:150px;right:-200px;animation:float2 7s 0.5s ease-in-out infinite}
 .label-3{bottom:60px;left:0;animation:float1 7s 1s ease-in-out infinite}
 @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
