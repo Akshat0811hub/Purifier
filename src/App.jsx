@@ -9,16 +9,17 @@ const STYLES = `
 :root {
   --white:      #ffffff;
   --off-white:  #f7f8fc;
-  --light-gray: #eef0f5;
+  --light-gray: #A6A6A6;
   --mid-gray:   #c8cdd8;
-  --muted:      #7a8195;
+  --muted:      #A6A6A6;
   --dark:       #111827;
   --darkest:    #040810;
-  --blue:       #0057FF;
-  --blue-light: #3b82f6;
-  --blue-pale:  #e8f0ff;
-  --blue-mid:   #1d4ed8;
+  --blue:       #ff6200;
+  --blue-light: #ff6200;
+  --blue-pale:  #A6A6A6;
+  --blue-mid:   #ff6200;
   --ink:        #1e2840;
+  --text-color:     #ff6200;    
   --font-display: 'Cormorant Garamond', serif;
   --font-body:    'DM Sans', sans-serif;
 }
@@ -126,7 +127,7 @@ nav.scrolled {
   min-height: 100vh; display: flex; align-items: center;
   position: relative; overflow: hidden;
   padding: 120px 4vw 60px;
-  background-image: url('/HOME.png');
+  background-image: url('/assets/HOME.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -152,9 +153,10 @@ nav.scrolled {
 }
 .hero-inner {
   max-width: 1200px; margin: 0 auto; width: 100%;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: center;
   position: relative; z-index: 1;
 }
+
 .hero-badge {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--blue-pale); color: var(--blue);
@@ -169,18 +171,18 @@ nav.scrolled {
   font-family: var(--font-display);
   font-size: clamp(3.2rem, 5.5vw, 6rem);
   font-weight: 700; line-height: 1.02; letter-spacing: -2px;
-  color: var(--darkest); margin-bottom: 1.5rem;
+  color: var(--off-white); margin-bottom: 1.5rem;
   animation: fadeSlideUp 0.7s 0.1s ease both;
 }
 .hero-h1 em { font-style: italic; color: var(--blue); }
-.hero-sub { color: var(--muted); font-size: 1.08rem; line-height: 1.7; max-width: 430px; margin-bottom: 2.5rem; animation: fadeSlideUp 0.7s 0.2s ease both; }
+.hero-sub { color: var(--off-white); font-size: 1.08rem; line-height: 1.7; max-width: 430px; margin-bottom: 2.5rem; animation: fadeSlideUp 0.7s 0.2s ease both; }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeSlideUp 0.7s 0.3s ease both; }
 .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--light-gray); animation: fadeSlideUp 0.7s 0.4s ease both; }
 .stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--blue); line-height: 1; }
 .stat-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
 @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
-.hero-visual { display: flex; justify-content: center; align-items: center; position: relative; height: 540px; animation: fadeSlideUp 0.9s 0.2s ease both; }
+.hero-visual { display: flex; justify-content: flex-end; align-items: center; position: relative; height: 540px; animation: fadeSlideUp 0.9s 0.2s ease both; }
 .ro-stage-wrapper { position: relative; width: 340px; height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .ro-top-ring { width: 120px; height: 18px; background: linear-gradient(90deg, #c8d8ff, #a0b8ff); border-radius: 10px 10px 0 0; border: 1.5px solid rgba(0,87,255,0.2); border-bottom: none; }
 .ro-body {
@@ -234,7 +236,7 @@ nav.scrolled {
 
 .section-header { text-align: center; margin-bottom: 4rem; }
 .section-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: var(--darkest); letter-spacing: -1.5px; margin-bottom: 0.8rem; }
-.section-h em { font-style: italic; color: var(--blue); }
+.section-h em { font-style: italic; color: var(--tet-coloro); }
 .section-sub { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
 .page-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-pale); border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
 .page-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--darkest); letter-spacing: -2px; max-width: 700px; margin: 0 auto 1.5rem; }
@@ -505,48 +507,239 @@ nav.scrolled {
 /* ─── DATA ─────────────────────────────────────────────── */
 const NAV_LINKS = ["home", "about", "products", "contact"];
 const FEATURES = [
-  { icon: "🧬", title: "Molecular Filtration", desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen." },
-  { icon: "💎", title: "Mineral Restoration", desc: "Adds back calcium, magnesium & alkaline compounds your body craves." },
-  { icon: "📱", title: "Smart Monitoring", desc: "Live TDS, pH, and flow-rate data on the integrated display and app." },
-  { icon: "♻️", title: "Zero-Waste Design", desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule." },
+  {
+    icon: "🧬",
+    title: "Molecular Filtration",
+    desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen.",
+  },
+  {
+    icon: "💎",
+    title: "Mineral Restoration",
+    desc: "Adds back calcium, magnesium & alkaline compounds your body craves.",
+  },
+  {
+    icon: "📱",
+    title: "Smart Monitoring",
+    desc: "Live TDS, pH, and flow-rate data on the integrated display and app.",
+  },
+  {
+    icon: "♻️",
+    title: "Zero-Waste Design",
+    desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule.",
+  },
 ];
 const PILLARS = [
-  { icon: "🛡️", title: "Bio-Defense RO+", desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair." },
-  { icon: "💧", title: "Natural Mineralization", desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water." },
-  { icon: "🌿", title: "Eco Carbon Architecture", desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently." },
+  {
+    icon: "🛡️",
+    title: "Bio-Defense RO+",
+    desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair.",
+  },
+  {
+    icon: "💧",
+    title: "Natural Mineralization",
+    desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water.",
+  },
+  {
+    icon: "🌿",
+    title: "Eco Carbon Architecture",
+    desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
+  },
 ];
 const TIMELINE = [
-  { year: "2018", dot: "18", title: "Founded in Bangalore", desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system." },
-  { year: "2020", dot: "20", title: "14-Stage Breakthrough", desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice." },
-  { year: "2022", dot: "22", title: "1:1 Waste Ratio Achieved", desc: "First company in the world to hit true zero-waste filtration at consumer scale." },
-  { year: "2024", dot: "24", title: "Smart Display Launch", desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped." },
-  { year: "2026", dot: "26", title: "The X-Series", desc: "Our most advanced purification engineering ever. Launching to the world now." },
+  {
+    year: "2018",
+    dot: "18",
+    title: "Founded in Bangalore",
+    desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system.",
+  },
+  {
+    year: "2020",
+    dot: "20",
+    title: "14-Stage Breakthrough",
+    desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice.",
+  },
+  {
+    year: "2022",
+    dot: "22",
+    title: "1:1 Waste Ratio Achieved",
+    desc: "First company in the world to hit true zero-waste filtration at consumer scale.",
+  },
+  {
+    year: "2024",
+    dot: "24",
+    title: "Smart Display Launch",
+    desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped.",
+  },
+  {
+    year: "2026",
+    dot: "26",
+    title: "The X-Series",
+    desc: "Our most advanced purification engineering ever. Launching to the world now.",
+  },
 ];
 const PRODUCTS = [
-  { id: "elite", badge: "Flagship", badgeDark: false, bgClass: "blue-bg", dark: false, name: "Elite X-1", tagline: "The pinnacle of home water purification.", specs: ["14-Stage RO + UV + UF + Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert (App)","1:1 Zero Waste Recovery Ratio"], price: "₹89,999", btnLight: false, btnLabel: "Pre-Order", tds: "002" },
-  { id: "element", badge: "Pro Series", badgeDark: true, bgClass: "dark-bg", dark: true, name: "Element Pro", tagline: "Compact brilliance for modern kitchens.", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle","Fits under standard sink cabinet"], price: "₹64,999", btnLight: true, btnLabel: "Pre-Order", tds: "004" },
-  { id: "hydro", badge: "Under Sink", badgeDark: false, bgClass: "slate-bg", dark: false, name: "HydroCore S", tagline: "Hidden genius — designed to disappear under your sink.", specs: ["10-Stage RO Under-Sink Module","Separate Dedicated Pure Water Tap","12L Storage Tank Included","Wi-Fi TDS Reporting to App"], price: "₹49,999", btnLight: false, btnLabel: "Pre-Order", tds: "001" },
-  { id: "obsidian", badge: "Luxury", badgeDark: true, bgClass: "ink-bg", dark: true, name: "Obsidian One", tagline: "For those who demand the extraordinary.", specs: ["16-Stage Luxury Filtration","Platinum-grade Membrane","Bespoke Installation Service","5-Year White Glove Warranty"], price: "₹1,49,999", btnLight: true, btnLabel: "Enquire", tds: "001" },
+  {
+    id: "elite",
+    badge: "Flagship",
+    badgeDark: false,
+    bgClass: "blue-bg",
+    dark: false,
+    name: "Elite X-1",
+    tagline: "The pinnacle of home water purification.",
+    specs: [
+      "14-Stage RO + UV + UF + Mineraliser",
+      "Intelligent TDS & pH Live Display",
+      "Alkaline Balancer (pH 8.2–9.0)",
+      "Smart Filter Change Alert (App)",
+      "1:1 Zero Waste Recovery Ratio",
+    ],
+    price: "₹89,999",
+    btnLight: false,
+    btnLabel: "Pre-Order",
+    tds: "002",
+  },
+  {
+    id: "element",
+    badge: "Pro Series",
+    badgeDark: true,
+    bgClass: "dark-bg",
+    dark: true,
+    name: "Element Pro",
+    tagline: "Compact brilliance for modern kitchens.",
+    specs: [
+      "12-Stage Compact Filtration",
+      "UV-C Chamber Sterilization",
+      "Sleek Countertop Glass Profile",
+      "Auto Flush & Self-Clean Cycle",
+      "Fits under standard sink cabinet",
+    ],
+    price: "₹64,999",
+    btnLight: true,
+    btnLabel: "Pre-Order",
+    tds: "004",
+  },
+  {
+    id: "hydro",
+    badge: "Under Sink",
+    badgeDark: false,
+    bgClass: "slate-bg",
+    dark: false,
+    name: "HydroCore S",
+    tagline: "Hidden genius — designed to disappear under your sink.",
+    specs: [
+      "10-Stage RO Under-Sink Module",
+      "Separate Dedicated Pure Water Tap",
+      "12L Storage Tank Included",
+      "Wi-Fi TDS Reporting to App",
+    ],
+    price: "₹49,999",
+    btnLight: false,
+    btnLabel: "Pre-Order",
+    tds: "001",
+  },
+  {
+    id: "obsidian",
+    badge: "Luxury",
+    badgeDark: true,
+    bgClass: "ink-bg",
+    dark: true,
+    name: "Obsidian One",
+    tagline: "For those who demand the extraordinary.",
+    specs: [
+      "16-Stage Luxury Filtration",
+      "Platinum-grade Membrane",
+      "Bespoke Installation Service",
+      "5-Year White Glove Warranty",
+    ],
+    price: "₹1,49,999",
+    btnLight: true,
+    btnLabel: "Enquire",
+    tds: "001",
+  },
 ];
 const COMP_ROWS = [
-  { label: "Filter Stages", vals: ["14","12","10"] },
+  { label: "Filter Stages", vals: ["14", "12", "10"] },
   { label: "UV-C Sterilization", vals: [true, true, false] },
   { label: "Alkaline Mineralization", vals: [true, false, false] },
   { label: "Smart Display", vals: [true, true, "App Only"] },
   { label: "1:1 Zero Waste", vals: [true, true, false] },
 ];
-const MARQUEE_ITEMS = ["Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor","Alkaline Infused","Zero Waste Architecture","UV-C Sterilization","Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor","Alkaline Infused","Zero Waste Architecture","UV-C Sterilization"];
+const MARQUEE_ITEMS = [
+  "Molecular Filtration",
+  "14-Stage Purification",
+  "99.9% Purity",
+  "Smart TDS Monitor",
+  "Alkaline Infused",
+  "Zero Waste Architecture",
+  "UV-C Sterilization",
+  "Molecular Filtration",
+  "14-Stage Purification",
+  "99.9% Purity",
+  "Smart TDS Monitor",
+  "Alkaline Infused",
+  "Zero Waste Architecture",
+  "UV-C Sterilization",
+];
 const HOW_STEPS = [
-  { num: "01", icon: "🌊", title: "Source Water Enters", desc: "Raw tap water enters the pre-filter chamber, capturing large sediment and chlorine with activated carbon." },
-  { num: "02", icon: "🔬", title: "Molecular Membrane", desc: "Our 0.0001-micron RO membrane rejects heavy metals, fluoride, nitrates, and all known pathogens." },
-  { num: "03", icon: "💡", title: "UV-C Sterilization", desc: "A 254nm UV-C lamp annihilates any remaining microbial life — 99.9999% sterilization efficiency." },
-  { num: "04", icon: "💎", title: "Mineral Infusion", desc: "Bio-ceramic mineral stones restore calcium, magnesium, and potassium for a crisp, alkaline finish." },
-  { num: "05", icon: "📊", title: "Smart Validation", desc: "Live TDS & pH sensors confirm purity before every pour. Your app logs every drop in real time." },
+  {
+    num: "01",
+    icon: "🌊",
+    title: "Source Water Enters",
+    desc: "Raw tap water enters the pre-filter chamber, capturing large sediment and chlorine with activated carbon.",
+  },
+  {
+    num: "02",
+    icon: "🔬",
+    title: "Molecular Membrane",
+    desc: "Our 0.0001-micron RO membrane rejects heavy metals, fluoride, nitrates, and all known pathogens.",
+  },
+  {
+    num: "03",
+    icon: "💡",
+    title: "UV-C Sterilization",
+    desc: "A 254nm UV-C lamp annihilates any remaining microbial life — 99.9999% sterilization efficiency.",
+  },
+  {
+    num: "04",
+    icon: "💎",
+    title: "Mineral Infusion",
+    desc: "Bio-ceramic mineral stones restore calcium, magnesium, and potassium for a crisp, alkaline finish.",
+  },
+  {
+    num: "05",
+    icon: "📊",
+    title: "Smart Validation",
+    desc: "Live TDS & pH sensors confirm purity before every pour. Your app logs every drop in real time.",
+  },
 ];
 const TESTIMONIALS = [
-  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
-  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
-  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
+  {
+    name: "Priya Raghavan",
+    role: "Architect · Mumbai",
+    avatar: "PR",
+    rating: 5,
+    quote:
+      "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.",
+    model: "Elite X-1",
+  },
+  {
+    name: "Arjun Mehta",
+    role: "Cardiologist · Delhi",
+    avatar: "AM",
+    rating: 5,
+    quote:
+      "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.",
+    model: "HydroCore S",
+  },
+  {
+    name: "Sonal & Vivek Iyer",
+    role: "Home Owners · Bengaluru",
+    avatar: "SI",
+    rating: 5,
+    quote:
+      "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.",
+    model: "Obsidian One",
+  },
 ];
 const COUNTER_STATS = [
   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
@@ -555,100 +748,499 @@ const COUNTER_STATS = [
   { end: 1, suffix: ":1", label: "Waste Ratio", prefix: "" },
 ];
 const FOOTER_LINKS = {
-  Products: ["Elite X-1","Element Pro","HydroCore S","Obsidian One"],
-  Company:  ["About Us","Our Technology","Sustainability","Press"],
-  Support:  ["Consultation","Filter Replacement","Warranty","App Download"],
-  Legal:    ["Privacy Policy","Terms of Use","Cookie Policy"],
+  Products: ["Elite X-1", "Element Pro", "HydroCore S", "Obsidian One"],
+  Company: ["About Us", "Our Technology", "Sustainability", "Press"],
+  Support: ["Consultation", "Filter Replacement", "Warranty", "App Download"],
+  Legal: ["Privacy Policy", "Terms of Use", "Cookie Policy"],
 };
 
 /* ─── SVG MODELS ─────────────────────────────────────────── */
 function ModelElite() {
   return (
-    <svg className="ro-model-svg" width="160" height="260" viewBox="0 0 160 260" fill="none">
+    <svg
+      className="ro-model-svg"
+      width="160"
+      height="260"
+      viewBox="0 0 160 260"
+      fill="none"
+    >
       <defs>
-        <linearGradient id="grad1" x1="30" y1="40" x2="130" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#ddeeff"/><stop offset="100%" stopColor="#a8c8ff"/></linearGradient>
-        <linearGradient id="grad2" x1="45" y1="28" x2="115" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#b8d0ff"/><stop offset="100%" stopColor="#7aaaff"/></linearGradient>
-        <linearGradient id="grad3" x1="68" y1="220" x2="92" y2="250" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#a0c0ff"/><stop offset="100%" stopColor="#6090ff"/></linearGradient>
+        <linearGradient
+          id="grad1"
+          x1="30"
+          y1="40"
+          x2="130"
+          y2="220"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#ddeeff" />
+          <stop offset="100%" stopColor="#a8c8ff" />
+        </linearGradient>
+        <linearGradient
+          id="grad2"
+          x1="45"
+          y1="28"
+          x2="115"
+          y2="44"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#b8d0ff" />
+          <stop offset="100%" stopColor="#7aaaff" />
+        </linearGradient>
+        <linearGradient
+          id="grad3"
+          x1="68"
+          y1="220"
+          x2="92"
+          y2="250"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#a0c0ff" />
+          <stop offset="100%" stopColor="#6090ff" />
+        </linearGradient>
       </defs>
-      <rect x="30" y="40" width="100" height="180" rx="22" fill="url(#grad1)"/>
-      <rect x="30" y="40" width="100" height="180" rx="22" stroke="rgba(0,87,255,0.3)" strokeWidth="1.5"/>
-      <rect x="48" y="40" width="20" height="180" rx="10" fill="rgba(255,255,255,0.25)"/>
-      <rect x="45" y="28" width="70" height="16" rx="8" fill="url(#grad2)"/>
-      <rect x="45" y="150" width="70" height="50" rx="12" fill="rgba(255,255,255,0.15)" stroke="rgba(0,87,255,0.3)" strokeWidth="1"/>
-      <text x="80" y="183" textAnchor="middle" fontFamily="Georgia" fontSize="22" fontWeight="700" fill="#0057FF">002</text>
-      <text x="80" y="196" textAnchor="middle" fontFamily="Arial" fontSize="7" fill="rgba(0,87,255,0.7)" letterSpacing="1">TDS PPM</text>
-      {[80,96,112,128].map((y,i)=><line key={i} x1="50" y1={y} x2="110" y2={y} stroke={`rgba(0,87,255,${0.4-i*0.08})`} strokeWidth="2" strokeLinecap="round"/>)}
-      <circle cx="100" cy="58" r="5" fill="#0057FF"/>
-      <circle cx="100" cy="58" r="8" fill="rgba(0,87,255,0.2)"/>
-      <rect x="68" y="220" width="24" height="30" rx="6" fill="url(#grad3)"/>
-      <ellipse cx="80" cy="258" rx="5" ry="7" fill="rgba(0,87,255,0.5)"/>
+      <rect x="30" y="40" width="100" height="180" rx="22" fill="url(#grad1)" />
+      <rect
+        x="30"
+        y="40"
+        width="100"
+        height="180"
+        rx="22"
+        stroke="rgba(0,87,255,0.3)"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="48"
+        y="40"
+        width="20"
+        height="180"
+        rx="10"
+        fill="rgba(255,255,255,0.25)"
+      />
+      <rect x="45" y="28" width="70" height="16" rx="8" fill="url(#grad2)" />
+      <rect
+        x="45"
+        y="150"
+        width="70"
+        height="50"
+        rx="12"
+        fill="rgba(255,255,255,0.15)"
+        stroke="rgba(0,87,255,0.3)"
+        strokeWidth="1"
+      />
+      <text
+        x="80"
+        y="183"
+        textAnchor="middle"
+        fontFamily="Georgia"
+        fontSize="22"
+        fontWeight="700"
+        fill="#0057FF"
+      >
+        002
+      </text>
+      <text
+        x="80"
+        y="196"
+        textAnchor="middle"
+        fontFamily="Arial"
+        fontSize="7"
+        fill="rgba(0,87,255,0.7)"
+        letterSpacing="1"
+      >
+        TDS PPM
+      </text>
+      {[80, 96, 112, 128].map((y, i) => (
+        <line
+          key={i}
+          x1="50"
+          y1={y}
+          x2="110"
+          y2={y}
+          stroke={`rgba(0,87,255,${0.4 - i * 0.08})`}
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      ))}
+      <circle cx="100" cy="58" r="5" fill="#0057FF" />
+      <circle cx="100" cy="58" r="8" fill="rgba(0,87,255,0.2)" />
+      <rect x="68" y="220" width="24" height="30" rx="6" fill="url(#grad3)" />
+      <ellipse cx="80" cy="258" rx="5" ry="7" fill="rgba(0,87,255,0.5)" />
     </svg>
   );
 }
 function ModelElement() {
   return (
-    <svg className="ro-model-svg" width="140" height="240" viewBox="0 0 140 240" fill="none">
+    <svg
+      className="ro-model-svg"
+      width="140"
+      height="240"
+      viewBox="0 0 140 240"
+      fill="none"
+    >
       <defs>
-        <linearGradient id="darkgrad1" x1="20" y1="30" x2="120" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1a2030"/><stop offset="100%" stopColor="#0b1020"/></linearGradient>
-        <linearGradient id="darkgrad2" x1="38" y1="20" x2="102" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1e3060"/><stop offset="100%" stopColor="#0a1830"/></linearGradient>
-        <linearGradient id="darkgrad3" x1="55" y1="200" x2="85" y2="228" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1e3060"/><stop offset="100%" stopColor="#0a1830"/></linearGradient>
+        <linearGradient
+          id="darkgrad1"
+          x1="20"
+          y1="30"
+          x2="120"
+          y2="200"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#1a2030" />
+          <stop offset="100%" stopColor="#0b1020" />
+        </linearGradient>
+        <linearGradient
+          id="darkgrad2"
+          x1="38"
+          y1="20"
+          x2="102"
+          y2="34"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#1e3060" />
+          <stop offset="100%" stopColor="#0a1830" />
+        </linearGradient>
+        <linearGradient
+          id="darkgrad3"
+          x1="55"
+          y1="200"
+          x2="85"
+          y2="228"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#1e3060" />
+          <stop offset="100%" stopColor="#0a1830" />
+        </linearGradient>
       </defs>
-      <rect x="20" y="30" width="100" height="170" rx="18" fill="url(#darkgrad1)"/>
-      <rect x="20" y="30" width="100" height="170" rx="18" stroke="rgba(100,150,255,0.2)" strokeWidth="1.5"/>
-      <rect x="36" y="30" width="16" height="170" rx="8" fill="rgba(255,255,255,0.05)"/>
-      <rect x="38" y="20" width="64" height="14" rx="7" fill="url(#darkgrad2)"/>
-      {[65,80,95].map((y,i)=><line key={i} x1="35" y1={y} x2="105" y2={y} stroke={`rgba(100,160,255,${0.3-i*0.07})`} strokeWidth="1.5" strokeLinecap="round"/>)}
-      <rect x="38" y="125" width="64" height="42" rx="10" fill="rgba(0,87,255,0.12)" stroke="rgba(100,160,255,0.3)" strokeWidth="1"/>
-      <text x="70" y="151" textAnchor="middle" fontFamily="Georgia" fontSize="20" fontWeight="700" fill="#60a0ff">004</text>
-      <text x="70" y="163" textAnchor="middle" fontFamily="Arial" fontSize="6" fill="rgba(100,160,255,0.7)" letterSpacing="1">TDS PPM</text>
-      <circle cx="95" cy="45" r="4" fill="#3b82f6"/>
-      <rect x="55" y="200" width="30" height="28" rx="7" fill="url(#darkgrad3)"/>
-      <ellipse cx="70" cy="233" rx="5" ry="6" fill="rgba(100,160,255,0.4)"/>
+      <rect
+        x="20"
+        y="30"
+        width="100"
+        height="170"
+        rx="18"
+        fill="url(#darkgrad1)"
+      />
+      <rect
+        x="20"
+        y="30"
+        width="100"
+        height="170"
+        rx="18"
+        stroke="rgba(100,150,255,0.2)"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="36"
+        y="30"
+        width="16"
+        height="170"
+        rx="8"
+        fill="rgba(255,255,255,0.05)"
+      />
+      <rect
+        x="38"
+        y="20"
+        width="64"
+        height="14"
+        rx="7"
+        fill="url(#darkgrad2)"
+      />
+      {[65, 80, 95].map((y, i) => (
+        <line
+          key={i}
+          x1="35"
+          y1={y}
+          x2="105"
+          y2={y}
+          stroke={`rgba(100,160,255,${0.3 - i * 0.07})`}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      ))}
+      <rect
+        x="38"
+        y="125"
+        width="64"
+        height="42"
+        rx="10"
+        fill="rgba(0,87,255,0.12)"
+        stroke="rgba(100,160,255,0.3)"
+        strokeWidth="1"
+      />
+      <text
+        x="70"
+        y="151"
+        textAnchor="middle"
+        fontFamily="Georgia"
+        fontSize="20"
+        fontWeight="700"
+        fill="#60a0ff"
+      >
+        004
+      </text>
+      <text
+        x="70"
+        y="163"
+        textAnchor="middle"
+        fontFamily="Arial"
+        fontSize="6"
+        fill="rgba(100,160,255,0.7)"
+        letterSpacing="1"
+      >
+        TDS PPM
+      </text>
+      <circle cx="95" cy="45" r="4" fill="#3b82f6" />
+      <rect
+        x="55"
+        y="200"
+        width="30"
+        height="28"
+        rx="7"
+        fill="url(#darkgrad3)"
+      />
+      <ellipse cx="70" cy="233" rx="5" ry="6" fill="rgba(100,160,255,0.4)" />
     </svg>
   );
 }
 function ModelHydro() {
   return (
-    <svg className="ro-model-svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
+    <svg
+      className="ro-model-svg"
+      width="200"
+      height="200"
+      viewBox="0 0 200 200"
+      fill="none"
+    >
       <defs>
-        <linearGradient id="slategrad" x1="10" y1="60" x2="190" y2="140" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#e8f0ff"/><stop offset="100%" stopColor="#c8daff"/></linearGradient>
-        <linearGradient id="cylgrad1" x1="18" y1="78" x2="62" y2="122" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#c0d8ff"/><stop offset="100%" stopColor="#8ab0ff"/></linearGradient>
+        <linearGradient
+          id="slategrad"
+          x1="10"
+          y1="60"
+          x2="190"
+          y2="140"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#e8f0ff" />
+          <stop offset="100%" stopColor="#c8daff" />
+        </linearGradient>
+        <linearGradient
+          id="cylgrad1"
+          x1="18"
+          y1="78"
+          x2="62"
+          y2="122"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#c0d8ff" />
+          <stop offset="100%" stopColor="#8ab0ff" />
+        </linearGradient>
       </defs>
-      <rect x="10" y="60" width="180" height="80" rx="18" fill="url(#slategrad)"/>
-      <rect x="10" y="60" width="180" height="80" rx="18" stroke="rgba(0,87,255,0.2)" strokeWidth="1.5"/>
-      <rect x="10" y="60" width="60" height="80" rx="18" fill="rgba(0,87,255,0.08)"/>
-      <circle cx="40" cy="100" r="22" fill="url(#cylgrad1)" stroke="rgba(0,87,255,0.3)" strokeWidth="1"/>
-      <circle cx="40" cy="100" r="14" fill="rgba(255,255,255,0.5)"/>
-      <circle cx="40" cy="100" r="6" fill="#0057FF" opacity="0.4"/>
-      <rect x="100" y="75" width="70" height="50" rx="10" fill="rgba(255,255,255,0.5)" stroke="rgba(0,87,255,0.15)"/>
-      <text x="135" y="103" textAnchor="middle" fontFamily="Georgia" fontSize="18" fontWeight="700" fill="#0057FF">001</text>
-      <text x="135" y="115" textAnchor="middle" fontFamily="Arial" fontSize="6" fill="rgba(0,87,255,0.6)" letterSpacing="1">TDS PPM</text>
-      <line x1="10" y1="85" x2="0" y2="85" stroke="rgba(0,87,255,0.5)" strokeWidth="4" strokeLinecap="round"/>
-      <line x1="190" y1="115" x2="200" y2="115" stroke="rgba(0,87,255,0.5)" strokeWidth="4" strokeLinecap="round"/>
+      <rect
+        x="10"
+        y="60"
+        width="180"
+        height="80"
+        rx="18"
+        fill="url(#slategrad)"
+      />
+      <rect
+        x="10"
+        y="60"
+        width="180"
+        height="80"
+        rx="18"
+        stroke="rgba(0,87,255,0.2)"
+        strokeWidth="1.5"
+      />
+      <rect
+        x="10"
+        y="60"
+        width="60"
+        height="80"
+        rx="18"
+        fill="rgba(0,87,255,0.08)"
+      />
+      <circle
+        cx="40"
+        cy="100"
+        r="22"
+        fill="url(#cylgrad1)"
+        stroke="rgba(0,87,255,0.3)"
+        strokeWidth="1"
+      />
+      <circle cx="40" cy="100" r="14" fill="rgba(255,255,255,0.5)" />
+      <circle cx="40" cy="100" r="6" fill="#0057FF" opacity="0.4" />
+      <rect
+        x="100"
+        y="75"
+        width="70"
+        height="50"
+        rx="10"
+        fill="rgba(255,255,255,0.5)"
+        stroke="rgba(0,87,255,0.15)"
+      />
+      <text
+        x="135"
+        y="103"
+        textAnchor="middle"
+        fontFamily="Georgia"
+        fontSize="18"
+        fontWeight="700"
+        fill="#0057FF"
+      >
+        001
+      </text>
+      <text
+        x="135"
+        y="115"
+        textAnchor="middle"
+        fontFamily="Arial"
+        fontSize="6"
+        fill="rgba(0,87,255,0.6)"
+        letterSpacing="1"
+      >
+        TDS PPM
+      </text>
+      <line
+        x1="10"
+        y1="85"
+        x2="0"
+        y2="85"
+        stroke="rgba(0,87,255,0.5)"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
+      <line
+        x1="190"
+        y1="115"
+        x2="200"
+        y2="115"
+        stroke="rgba(0,87,255,0.5)"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
     </svg>
   );
 }
 function ModelObsidian() {
   return (
-    <svg className="ro-model-svg" width="130" height="260" viewBox="0 0 130 260" fill="none">
+    <svg
+      className="ro-model-svg"
+      width="130"
+      height="260"
+      viewBox="0 0 130 260"
+      fill="none"
+    >
       <defs>
-        <linearGradient id="luxgrad" x1="35" y1="20" x2="95" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#141c30"/><stop offset="100%" stopColor="#060a14"/></linearGradient>
+        <linearGradient
+          id="luxgrad"
+          x1="35"
+          y1="20"
+          x2="95"
+          y2="220"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop offset="0%" stopColor="#141c30" />
+          <stop offset="100%" stopColor="#060a14" />
+        </linearGradient>
       </defs>
-      <rect x="35" y="20" width="60" height="200" rx="30" fill="url(#luxgrad)"/>
-      <rect x="35" y="20" width="60" height="200" rx="30" stroke="rgba(200,220,255,0.1)" strokeWidth="1.5"/>
-      <ellipse cx="65" cy="50" rx="22" ry="6" fill="none" stroke="rgba(200,180,100,0.5)" strokeWidth="2"/>
-      <rect x="43" y="20" width="12" height="200" rx="6" fill="rgba(255,255,255,0.04)"/>
-      <rect x="43" y="130" width="44" height="55" rx="12" fill="rgba(0,40,120,0.3)" stroke="rgba(100,140,255,0.2)"/>
-      <text x="65" y="162" textAnchor="middle" fontFamily="Georgia" fontSize="18" fontWeight="700" fill="#7aafff">001</text>
-      <text x="65" y="176" textAnchor="middle" fontFamily="Arial" fontSize="5.5" fill="rgba(120,160,255,0.6)" letterSpacing="1">PURE TDS</text>
-      {[78,94,110].map((y,i)=><line key={i} x1="43" y1={y} x2="87" y2={y} stroke={`rgba(100,140,255,${0.15-i*0.03})`} strokeWidth="1.5" strokeLinecap="round"/>)}
-      <circle cx="75" cy="38" r="3.5" fill="#3b7aff"/>
-      <rect x="52" y="220" width="26" height="30" rx="6" fill="rgba(30,50,100,0.8)"/>
-      <ellipse cx="65" cy="254" rx="4" ry="5.5" fill="rgba(100,150,255,0.3)"/>
+      <rect
+        x="35"
+        y="20"
+        width="60"
+        height="200"
+        rx="30"
+        fill="url(#luxgrad)"
+      />
+      <rect
+        x="35"
+        y="20"
+        width="60"
+        height="200"
+        rx="30"
+        stroke="rgba(200,220,255,0.1)"
+        strokeWidth="1.5"
+      />
+      <ellipse
+        cx="65"
+        cy="50"
+        rx="22"
+        ry="6"
+        fill="none"
+        stroke="rgba(200,180,100,0.5)"
+        strokeWidth="2"
+      />
+      <rect
+        x="43"
+        y="20"
+        width="12"
+        height="200"
+        rx="6"
+        fill="rgba(255,255,255,0.04)"
+      />
+      <rect
+        x="43"
+        y="130"
+        width="44"
+        height="55"
+        rx="12"
+        fill="rgba(0,40,120,0.3)"
+        stroke="rgba(100,140,255,0.2)"
+      />
+      <text
+        x="65"
+        y="162"
+        textAnchor="middle"
+        fontFamily="Georgia"
+        fontSize="18"
+        fontWeight="700"
+        fill="#7aafff"
+      >
+        001
+      </text>
+      <text
+        x="65"
+        y="176"
+        textAnchor="middle"
+        fontFamily="Arial"
+        fontSize="5.5"
+        fill="rgba(120,160,255,0.6)"
+        letterSpacing="1"
+      >
+        PURE TDS
+      </text>
+      {[78, 94, 110].map((y, i) => (
+        <line
+          key={i}
+          x1="43"
+          y1={y}
+          x2="87"
+          y2={y}
+          stroke={`rgba(100,140,255,${0.15 - i * 0.03})`}
+          strokeWidth="1.5"
+          strokeLinecap="round"
+        />
+      ))}
+      <circle cx="75" cy="38" r="3.5" fill="#3b7aff" />
+      <rect
+        x="52"
+        y="220"
+        width="26"
+        height="30"
+        rx="6"
+        fill="rgba(30,50,100,0.8)"
+      />
+      <ellipse cx="65" cy="254" rx="4" ry="5.5" fill="rgba(100,150,255,0.3)" />
     </svg>
   );
 }
-const MODEL_SVG = { elite: ModelElite, element: ModelElement, hydro: ModelHydro, obsidian: ModelObsidian };
+const MODEL_SVG = {
+  elite: ModelElite,
+  element: ModelElement,
+  hydro: ModelHydro,
+  obsidian: ModelObsidian,
+};
 
 /* ─── HERO RO VISUAL ─────────────────────────────────────── */
 function HeroVisual() {
@@ -693,59 +1285,86 @@ function HeroVisual() {
           src="/assets/RO.png"
           alt="AquaPura RO System"
           style={{
-            maxHeight: "420px",
-            maxWidth: "100%",
+            maxHeight: "700px",
+            maxWidth: "400px",
             objectFit: "contain",
             filter: "drop-shadow(0 30px 60px rgba(0,87,255,0.25))",
             transition: "transform 0.15s ease-out",
             willChange: "transform",
+            marginLeft: "auto", // ← yeh add karo
+            marginRight: "0", // ← yeh add karo
           }}
         />
-        <div className="hero-label label-1"><span className="ldot"/>14-Stage RO+UV</div>
-        <div className="hero-label label-2"><span className="ldot"/>Alkaline pH 8.5</div>
-        <div className="hero-label label-3"><span className="ldot"/>Smart TDS Monitor</div>
+        <div className="hero-label label-1">
+          <span className="ldot" />
+          14-Stage RO+UV
+        </div>
+        <div className="hero-label label-2">
+          <span className="ldot" />
+          Alkaline pH 8.5
+        </div>
+        <div className="hero-label label-3">
+          <span className="ldot" />
+          Smart TDS Monitor
+        </div>
       </div>
     </div>
   );
 }
 
 /* ─── AMBIENT DROPS ──────────────────────────────────────── */
-function AmbientDrops({ count=20, color="0,87,255" }) {
+function AmbientDrops({ count = 20, color = "0,87,255" }) {
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
   const rafRef = useRef(null);
-  useEffect(()=>{
+  useEffect(() => {
     const canvas = canvasRef.current;
-    if(!canvas) return;
+    if (!canvas) return;
     const ctx = canvas.getContext("2d");
-    const resize = ()=>{
+    const resize = () => {
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-      particlesRef.current = Array.from({length:count},()=>({
-        x:Math.random()*canvas.width, y:Math.random()*canvas.height,
-        vy:0.2+Math.random()*0.5, vx:(Math.random()-.5)*.3,
-        r:2+Math.random()*6, a:0.15+Math.random()*0.35,
-        wobble:Math.random()*Math.PI*2, wobbleSpeed:0.01+Math.random()*0.02,
+      particlesRef.current = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vy: 0.2 + Math.random() * 0.5,
+        vx: (Math.random() - 0.5) * 0.3,
+        r: 2 + Math.random() * 6,
+        a: 0.15 + Math.random() * 0.35,
+        wobble: Math.random() * Math.PI * 2,
+        wobbleSpeed: 0.01 + Math.random() * 0.02,
       }));
     };
     resize();
-    window.addEventListener("resize",resize);
-    const anim=()=>{
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      particlesRef.current.forEach(p=>{
-        p.wobble+=p.wobbleSpeed; p.x+=p.vx+Math.sin(p.wobble)*.3; p.y+=p.vy;
-        if(p.y>canvas.height+20){p.y=-20;p.x=Math.random()*canvas.width;}
-        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r*.55,p.r,0,0,Math.PI*2);
-        ctx.fillStyle=`rgba(${color},${p.a})`; ctx.fill();
-        ctx.beginPath(); ctx.arc(p.x-p.r*.2,p.y-p.r*.3,p.r*.2,0,Math.PI*2);
-        ctx.fillStyle=`rgba(255,255,255,${p.a*.8})`; ctx.fill();
+    window.addEventListener("resize", resize);
+    const anim = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particlesRef.current.forEach((p) => {
+        p.wobble += p.wobbleSpeed;
+        p.x += p.vx + Math.sin(p.wobble) * 0.3;
+        p.y += p.vy;
+        if (p.y > canvas.height + 20) {
+          p.y = -20;
+          p.x = Math.random() * canvas.width;
+        }
+        ctx.beginPath();
+        ctx.ellipse(p.x, p.y, p.r * 0.55, p.r, 0, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${color},${p.a})`;
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(p.x - p.r * 0.2, p.y - p.r * 0.3, p.r * 0.2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${p.a * 0.8})`;
+        ctx.fill();
       });
-      rafRef.current=requestAnimationFrame(anim);
+      rafRef.current = requestAnimationFrame(anim);
     };
     anim();
-    return()=>{ cancelAnimationFrame(rafRef.current); window.removeEventListener("resize",resize); };
-  },[count,color]);
-  return <canvas ref={canvasRef} className="ambient-drops-canvas"/>;
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      window.removeEventListener("resize", resize);
+    };
+  }, [count, color]);
+  return <canvas ref={canvasRef} className="ambient-drops-canvas" />;
 }
 
 /* ─── RIPPLE ZONE ────────────────────────────────────────── */
@@ -754,34 +1373,51 @@ function RippleZone() {
   const zoneRef = useRef(null);
   const ripplesRef = useRef([]);
   const rafRef = useRef(null);
-  useEffect(()=>{
+  useEffect(() => {
     const canvas = canvasRef.current;
     const zone = zoneRef.current;
-    if(!canvas||!zone) return;
+    if (!canvas || !zone) return;
     const ctx = canvas.getContext("2d");
-    const resize=()=>{ canvas.width=zone.offsetWidth; canvas.height=zone.offsetHeight; };
-    resize(); window.addEventListener("resize",resize);
-    const onMove=(e)=>{
-      const r=zone.getBoundingClientRect();
-      ripplesRef.current.push({x:e.clientX-r.left, y:e.clientY-r.top, r:0, a:0.6});
+    const resize = () => {
+      canvas.width = zone.offsetWidth;
+      canvas.height = zone.offsetHeight;
     };
-    zone.addEventListener("mousemove",onMove);
-    const anim=()=>{
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      ripplesRef.current=ripplesRef.current.filter(rp=>rp.a>0.01);
-      ripplesRef.current.forEach(rp=>{
-        rp.r+=2.5; rp.a*=0.96;
-        ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r,0,Math.PI*2);
-        ctx.strokeStyle=`rgba(255,255,255,${rp.a})`; ctx.lineWidth=1.5; ctx.stroke();
+    resize();
+    window.addEventListener("resize", resize);
+    const onMove = (e) => {
+      const r = zone.getBoundingClientRect();
+      ripplesRef.current.push({
+        x: e.clientX - r.left,
+        y: e.clientY - r.top,
+        r: 0,
+        a: 0.6,
       });
-      rafRef.current=requestAnimationFrame(anim);
+    };
+    zone.addEventListener("mousemove", onMove);
+    const anim = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ripplesRef.current = ripplesRef.current.filter((rp) => rp.a > 0.01);
+      ripplesRef.current.forEach((rp) => {
+        rp.r += 2.5;
+        rp.a *= 0.96;
+        ctx.beginPath();
+        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255,255,255,${rp.a})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+      });
+      rafRef.current = requestAnimationFrame(anim);
     };
     anim();
-    return()=>{ cancelAnimationFrame(rafRef.current); zone.removeEventListener("mousemove",onMove); window.removeEventListener("resize",resize); };
-  },[]);
+    return () => {
+      cancelAnimationFrame(rafRef.current);
+      zone.removeEventListener("mousemove", onMove);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
   return (
     <div className="ripple-zone" ref={zoneRef}>
-      <canvas ref={canvasRef} className="ripple-canvas"/>
+      <canvas ref={canvasRef} className="ripple-canvas" />
       <h2 className="ripple-h">Move your cursor to feel the flow.</h2>
       <p className="ripple-p">Our water is alive. So is our design.</p>
     </div>
@@ -789,65 +1425,100 @@ function RippleZone() {
 }
 
 /* ─── ANIMATED COUNTER ───────────────────────────────────── */
-function AnimCounter({ end, suffix, prefix, duration=2000 }) {
+function AnimCounter({ end, suffix, prefix, duration = 2000 }) {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
-  useEffect(()=>{
-    const obs = new IntersectionObserver(([entry])=>{
-      if(entry.isIntersecting && !started.current){
-        started.current=true;
-        const startTime=performance.now();
-        const tick=(now)=>{
-          const elapsed=now-startTime;
-          const progress=Math.min(elapsed/duration,1);
-          const eased=1-Math.pow(1-progress,3);
-          setVal(end<100?+(end*eased).toFixed(1):Math.round(end*eased));
-          if(progress<1) requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-        obs.disconnect();
-      }
-    },{threshold:0.5});
-    if(ref.current) obs.observe(ref.current);
-    return()=>obs.disconnect();
-  },[end,duration]);
-  const display = end>=1000000 ? (val>=1000000?(val/1000000).toFixed(1)+"M":(val/1000).toFixed(0)+"K") : val;
-  return <span ref={ref}>{prefix}{display}{suffix}</span>;
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const startTime = performance.now();
+          const tick = (now) => {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setVal(
+              end < 100 ? +(end * eased).toFixed(1) : Math.round(end * eased),
+            );
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+          requestAnimationFrame(tick);
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.5 },
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [end, duration]);
+  const display =
+    end >= 1000000
+      ? val >= 1000000
+        ? (val / 1000000).toFixed(1) + "M"
+        : (val / 1000).toFixed(0) + "K"
+      : val;
+  return (
+    <span ref={ref}>
+      {prefix}
+      {display}
+      {suffix}
+    </span>
+  );
 }
 
 /* ─── SCROLL REVEAL ──────────────────────────────────────── */
-function useReveal(deps=[]) {
-  useEffect(()=>{
-    const timer=setTimeout(()=>{
-      const obs=new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);} });
-      },{threshold:0.12});
-      document.querySelectorAll(".reveal,.reveal-left,.tl-item").forEach(el=>obs.observe(el));
-      return()=>obs.disconnect();
-    },100);
-    return()=>clearTimeout(timer);
+function useReveal(deps = []) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("visible");
+              obs.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+      document
+        .querySelectorAll(".reveal,.reveal-left,.tl-item")
+        .forEach((el) => obs.observe(el));
+      return () => obs.disconnect();
+    }, 100);
+    return () => clearTimeout(timer);
     // eslint-disable-next-line
-  },deps);
+  }, deps);
 }
 
 /* ─── HOW IT WORKS ───────────────────────────────────────── */
 function HowItWorks() {
   return (
     <section className="how-section">
-      <AmbientDrops count={35} color="0,87,255"/>
+      <AmbientDrops count={35} color="0,87,255" />
       <div className="how-inner">
         <div className="section-header reveal">
           <div className="page-eyebrow">The Science</div>
-          <h2 className="section-h">From tap to <em>perfection</em>.</h2>
-          <p className="section-sub">Every drop of AquaPura water is a journey through five precision stages.</p>
+          <h2 className="section-h">
+            From tap to <em>perfection</em>.
+          </h2>
+          <p className="section-sub">
+            Every drop of AquaPura water is a journey through five precision
+            stages.
+          </p>
         </div>
         <div className="how-steps">
-          {HOW_STEPS.map((step,i)=>(
-            <div key={i} className="how-step reveal" style={{transitionDelay:`${i*.12}s`}}>
+          {HOW_STEPS.map((step, i) => (
+            <div
+              key={i}
+              className="how-step reveal"
+              style={{ transitionDelay: `${i * 0.12}s` }}
+            >
               <div className="how-step-left">
                 <div className="how-num">{step.num}</div>
-                <div className="how-connector"/>
+                <div className="how-connector" />
               </div>
               <div className="how-step-right">
                 <div className="how-icon">{step.icon}</div>
@@ -867,9 +1538,15 @@ function StatsSection() {
   return (
     <section className="stats-section">
       <div className="stats-inner">
-        {COUNTER_STATS.map((s,i)=>(
-          <div key={i} className="stat-block reveal" style={{transitionDelay:`${i*.1}s`}}>
-            <div className="stat-big"><AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix}/></div>
+        {COUNTER_STATS.map((s, i) => (
+          <div
+            key={i}
+            className="stat-block reveal"
+            style={{ transitionDelay: `${i * 0.1}s` }}
+          >
+            <div className="stat-big">
+              <AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix} />
+            </div>
             <div className="stat-label">{s.label}</div>
           </div>
         ))}
@@ -882,20 +1559,40 @@ function StatsSection() {
 function TestimonialsSection() {
   return (
     <section className="testi-section">
-      <AmbientDrops count={25} color="255,255,255"/>
+      <AmbientDrops count={25} color="255,255,255" />
       <div className="testi-inner">
         <div className="section-header reveal">
-          <div className="page-eyebrow" style={{background:"rgba(255,255,255,0.15)",color:"#fff",borderColor:"rgba(255,255,255,0.3)"}}>Testimonials</div>
-          <h2 className="section-h" style={{color:"#fff"}}>Trusted by those who<br/><em style={{color:"rgba(180,210,255,1)"}}>demand more.</em></h2>
+          <div
+            className="page-eyebrow"
+            style={{
+              background: "rgba(255,255,255,0.15)",
+              color: "#fff",
+              borderColor: "rgba(255,255,255,0.3)",
+            }}
+          >
+            Testimonials
+          </div>
+          <h2 className="section-h" style={{ color: "#fff" }}>
+            Trusted by those who
+            <br />
+            <em style={{ color: "rgba(180,210,255,1)" }}>demand more.</em>
+          </h2>
         </div>
         <div className="testi-grid">
-          {TESTIMONIALS.map((t,i)=>(
-            <div key={i} className="testi-card reveal" style={{transitionDelay:`${i*.15}s`}}>
+          {TESTIMONIALS.map((t, i) => (
+            <div
+              key={i}
+              className="testi-card reveal"
+              style={{ transitionDelay: `${i * 0.15}s` }}
+            >
               <div className="testi-stars">{"★".repeat(t.rating)}</div>
               <p className="testi-quote">"{t.quote}"</p>
               <div className="testi-meta">
                 <div className="testi-avatar">{t.avatar}</div>
-                <div><div className="testi-name">{t.name}</div><div className="testi-role">{t.role}</div></div>
+                <div>
+                  <div className="testi-name">{t.name}</div>
+                  <div className="testi-role">{t.role}</div>
+                </div>
                 <div className="testi-model">{t.model}</div>
               </div>
             </div>
@@ -911,15 +1608,41 @@ function CTABanner({ navigate }) {
   return (
     <section className="cta-banner">
       <div className="cta-bg-rings">
-        {[1,2,3].map(i=><div key={i} className={`cta-ring cta-ring-${i}`}/>)}
+        {[1, 2, 3].map((i) => (
+          <div key={i} className={`cta-ring cta-ring-${i}`} />
+        ))}
       </div>
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
-        <h2 className="cta-h">Your water will never<br/>be the same again.</h2>
-        <p className="cta-sub">Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.</p>
+        <h2 className="cta-h">
+          Your water will never
+          <br />
+          be the same again.
+        </h2>
+        <p className="cta-sub">
+          Pre-order the X-Series now. Free installation across 18 Indian cities.
+          Free water quality assessment included.
+        </p>
         <div className="cta-actions">
-          <button className="btn-primary" onClick={()=>navigate("products")}>View All Models<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-          <button className="btn-ghost cta-ghost" onClick={()=>navigate("contact")}>Book Free Assessment</button>
+          <button className="btn-primary" onClick={() => navigate("products")}>
+            View All Models
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
+              <path d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </button>
+          <button
+            className="btn-ghost cta-ghost"
+            onClick={() => navigate("contact")}
+          >
+            Book Free Assessment
+          </button>
         </div>
       </div>
     </section>
@@ -933,11 +1656,11 @@ function Footer() {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
   const stateRef = useRef({
-    drops: [],       // falling drops
-    splashes: [],    // splash micro-particles
-    rings: [],       // pool ripple rings
-    poolLevel: 0,    // current filled pool height (grows over time)
-    maxPool: 0,      // max pool height (set on resize)
+    drops: [], // falling drops
+    splashes: [], // splash micro-particles
+    rings: [], // pool ripple rings
+    poolLevel: 0, // current filled pool height (grows over time)
+    maxPool: 0, // max pool height (set on resize)
     nextId: 0,
   });
   const rafRef = useRef(null);
@@ -955,7 +1678,7 @@ function Footer() {
 
     /* resize handler */
     const resize = () => {
-      canvas.width  = container.offsetWidth;
+      canvas.width = container.offsetWidth;
       canvas.height = container.offsetHeight;
       S.maxPool = Math.floor(canvas.height * 0.36); // bottom 36% is pool
       // clamp poolLevel on resize
@@ -973,9 +1696,9 @@ function Footer() {
         S.drops.push({
           id: S.nextId++,
           x,
-          y: -(10 + Math.random() * 60),        // start above canvas
-          vy: 1.8 + Math.random() * 2.2,         // initial fall speed
-          r: 3 + Math.random() * 5,              // radius
+          y: -(10 + Math.random() * 60), // start above canvas
+          vy: 1.8 + Math.random() * 2.2, // initial fall speed
+          r: 3 + Math.random() * 5, // radius
           alpha: 0.75 + Math.random() * 0.25,
           wobble: Math.random() * Math.PI * 2,
           wobbleAmp: 0.3 + Math.random() * 0.4,
@@ -1007,38 +1730,49 @@ function Footer() {
 
       /* ── 1. draw pool body ── */
       const poolGrad = ctx.createLinearGradient(0, poolY, 0, H);
-      poolGrad.addColorStop(0,   "rgba(0,87,255,0.32)");
+      poolGrad.addColorStop(0, "rgba(0,87,255,0.32)");
       poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)");
       poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)");
-      poolGrad.addColorStop(1,   "rgba(0,10,60,0.12)");
+      poolGrad.addColorStop(1, "rgba(0,10,60,0.12)");
       ctx.fillStyle = poolGrad;
       ctx.fillRect(0, poolY, W, H - poolY);
 
       /* ── 2. animated shimmer surface line ── */
       const shimmerTime = performance.now() * 0.001;
       const shimmerX = ((shimmerTime * 0.3) % 2) * W - W * 0.5;
-      const shimmerGrad = ctx.createLinearGradient(shimmerX, poolY, shimmerX + W, poolY);
-      shimmerGrad.addColorStop(0,    "rgba(100,190,255,0)");
+      const shimmerGrad = ctx.createLinearGradient(
+        shimmerX,
+        poolY,
+        shimmerX + W,
+        poolY,
+      );
+      shimmerGrad.addColorStop(0, "rgba(100,190,255,0)");
       shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
-      shimmerGrad.addColorStop(0.5,  "rgba(255,255,255,0.85)");
+      shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)");
       shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)");
-      shimmerGrad.addColorStop(1,    "rgba(100,190,255,0)");
+      shimmerGrad.addColorStop(1, "rgba(100,190,255,0)");
       ctx.strokeStyle = shimmerGrad;
       ctx.lineWidth = 1.8;
-      ctx.beginPath(); ctx.moveTo(0, poolY); ctx.lineTo(W, poolY); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, poolY);
+      ctx.lineTo(W, poolY);
+      ctx.stroke();
 
       /* second shimmer line (depth feel) */
       ctx.strokeStyle = `rgba(100,180,255,${0.18 + 0.1 * Math.sin(shimmerTime * 1.7)})`;
       ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(0, poolY + 10); ctx.lineTo(W, poolY + 10); ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(0, poolY + 10);
+      ctx.lineTo(W, poolY + 10);
+      ctx.stroke();
 
       /* subsurface glow streaks */
       for (let s = 0; s < 4; s++) {
-        const sx = (shimmerTime * (30 + s * 18) + s * 150) % (W + 100) - 50;
+        const sx = ((shimmerTime * (30 + s * 18) + s * 150) % (W + 100)) - 50;
         const sg = ctx.createLinearGradient(sx - 40, 0, sx + 40, 0);
-        sg.addColorStop(0,   "rgba(120,200,255,0)");
+        sg.addColorStop(0, "rgba(120,200,255,0)");
         sg.addColorStop(0.5, `rgba(160,220,255,${0.07 + s * 0.015})`);
-        sg.addColorStop(1,   "rgba(120,200,255,0)");
+        sg.addColorStop(1, "rgba(120,200,255,0)");
         ctx.fillStyle = sg;
         ctx.fillRect(sx - 40, poolY + 5, 80, 20 + s * 8);
       }
@@ -1049,10 +1783,10 @@ function Footer() {
         if (d.hit) continue; // already triggered splash, skip
 
         /* physics */
-        d.vy   += 0.18;                                  // gravity
-        d.y    += d.vy;
+        d.vy += 0.18; // gravity
+        d.y += d.vy;
         d.wobble += d.wobbleSpeed;
-        d.x    += Math.sin(d.wobble) * d.wobbleAmp;
+        d.x += Math.sin(d.wobble) * d.wobbleAmp;
 
         /* check hit pool surface */
         if (d.y + d.r >= poolY) {
@@ -1060,7 +1794,8 @@ function Footer() {
 
           /* spawn ripple ring */
           S.rings.push({
-            x: d.x, y: poolY,
+            x: d.x,
+            y: poolY,
             r: d.r * 0.5,
             maxR: 28 + d.r * 3.5 + Math.random() * 20,
             a: 0.55 + d.alpha * 0.2,
@@ -1070,7 +1805,8 @@ function Footer() {
 
           /* tiny secondary ring */
           S.rings.push({
-            x: d.x, y: poolY,
+            x: d.x,
+            y: poolY,
             r: 1,
             maxR: 14 + d.r * 1.5,
             a: 0.35,
@@ -1105,23 +1841,38 @@ function Footer() {
       /* draw remaining drops */
       for (const d of S.drops) {
         /* teardrop shape: ellipse wider at bottom */
-        const stretch = 1 + (d.vy / 20);
+        const stretch = 1 + d.vy / 20;
         ctx.save();
         ctx.translate(d.x, d.y);
 
         /* drop body */
         ctx.beginPath();
         ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
-        const dg = ctx.createRadialGradient(-d.r * 0.2, -d.r * 0.3, 0, 0, 0, d.r);
-        dg.addColorStop(0,   `rgba(180,220,255,${d.alpha})`);
+        const dg = ctx.createRadialGradient(
+          -d.r * 0.2,
+          -d.r * 0.3,
+          0,
+          0,
+          0,
+          d.r,
+        );
+        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`);
         dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha * 0.9})`);
-        dg.addColorStop(1,   `rgba(30,100,220,${d.alpha * 0.7})`);
+        dg.addColorStop(1, `rgba(30,100,220,${d.alpha * 0.7})`);
         ctx.fillStyle = dg;
         ctx.fill();
 
         /* specular shine */
         ctx.beginPath();
-        ctx.ellipse(-d.r * 0.22, -d.r * 0.32, d.r * 0.22, d.r * 0.14, -0.4, 0, Math.PI * 2);
+        ctx.ellipse(
+          -d.r * 0.22,
+          -d.r * 0.32,
+          d.r * 0.22,
+          d.r * 0.14,
+          -0.4,
+          0,
+          Math.PI * 2,
+        );
         ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.75})`;
         ctx.fill();
 
@@ -1138,17 +1889,24 @@ function Footer() {
       const nextSplashes = [];
       for (const sp of S.splashes) {
         sp.vy += 0.22; // gravity on splash
-        sp.x  += sp.vx;
-        sp.y  += sp.vy;
+        sp.x += sp.vx;
+        sp.y += sp.vy;
         sp.life -= sp.decay;
         if (sp.life <= 0) continue;
 
         ctx.beginPath();
         ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
-        const spg = ctx.createRadialGradient(sp.x - sp.r * 0.2, sp.y - sp.r * 0.2, 0, sp.x, sp.y, sp.r);
-        spg.addColorStop(0,   `rgba(220,240,255,${sp.life * 0.85})`);
+        const spg = ctx.createRadialGradient(
+          sp.x - sp.r * 0.2,
+          sp.y - sp.r * 0.2,
+          0,
+          sp.x,
+          sp.y,
+          sp.r,
+        );
+        spg.addColorStop(0, `rgba(220,240,255,${sp.life * 0.85})`);
         spg.addColorStop(0.6, `rgba(100,180,255,${sp.life * 0.6})`);
-        spg.addColorStop(1,   `rgba(50,120,220,0)`);
+        spg.addColorStop(1, `rgba(50,120,220,0)`);
         ctx.fillStyle = spg;
         ctx.fill();
 
@@ -1207,28 +1965,50 @@ function Footer() {
   return (
     <footer className="footer-new">
       {/* Drop theatre */}
-      <div className="footer-drop-theatre" ref={containerRef} aria-hidden="true">
-        <canvas ref={canvasRef} className="footer-drop-canvas"/>
+      <div
+        className="footer-drop-theatre"
+        ref={containerRef}
+        aria-hidden="true"
+      >
+        <canvas ref={canvasRef} className="footer-drop-canvas" />
       </div>
 
       {/* Links grid */}
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo-big">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style={{color:"var(--blue-light)"}}>
-              <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/>
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              style={{ color: "var(--blue-light)" }}
+            >
+              <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
             </svg>
             AQUA<span>PURA</span>
           </div>
-          <p className="footer-tagline">Molecular purity.<br/>Engineered for life.</p>
+          <p className="footer-tagline">
+            Molecular purity.
+            <br />
+            Engineered for life.
+          </p>
           <div className="footer-socials">
-            {["𝕏","in","f","▶"].map((s,i)=><div key={i} className="social-dot">{s}</div>)}
+            {["𝕏", "in", "f", "▶"].map((s, i) => (
+              <div key={i} className="social-dot">
+                {s}
+              </div>
+            ))}
           </div>
         </div>
-        {Object.entries(FOOTER_LINKS).map(([cat,links])=>(
+        {Object.entries(FOOTER_LINKS).map(([cat, links]) => (
           <div key={cat} className="footer-col">
             <div className="footer-col-head">{cat}</div>
-            {links.map(l=><button type="button" key={l} className="footer-link">{l}</button>)}
+            {links.map((l) => (
+              <button type="button" key={l} className="footer-link">
+                {l}
+              </button>
+            ))}
           </div>
         ))}
       </div>
@@ -1254,31 +2034,75 @@ function HomePage({ navigate, tds }) {
   return (
     <div className="page-home">
       <section className="hero">
-        <div className="hero-bg-grid"/>
-        <div className="hero-glow"/>
-        <div className="hero-glow2"/>
+        <div className="hero-bg-grid" />
+        <div className="hero-glow" />
+        <div className="hero-glow2" />
         <div className="hero-inner">
           <div className="hero-text">
-            <div className="hero-badge"><span className="badge-dot"/>2026 Collection Now Live</div>
-            <h1 className="hero-h1">Water,<br/><em>Perfected</em><br/>at the Atom.</h1>
-            <p className="hero-sub">AquaPura's multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.</p>
+            <div className="hero-badge">
+              <span className="badge-dot" />
+              2026 Collection Now Live
+            </div>
+            <h1 className="hero-h1">
+              Water,
+              <br />
+              <em>Perfected</em>
+              <br />
+              at the Atom.
+            </h1>
+            <p className="hero-sub">
+              AquaPura's multi-stage molecular filtration system removes 99.9%
+              of contaminants while restoring essential minerals —
+              intelligently, beautifully.
+            </p>
             <div className="hero-actions">
-              <button className="btn-primary" onClick={()=>navigate("products")}>Explore Models<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-              <button className="btn-ghost" onClick={()=>navigate("about")}>Our Technology</button>
+              <button
+                className="btn-primary"
+                onClick={() => navigate("products")}
+              >
+                Explore Models
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </button>
+              <button className="btn-ghost" onClick={() => navigate("about")}>
+                Our Technology
+              </button>
             </div>
             <div className="hero-stats">
-              <div><div className="stat-num">99.9%</div><div className="stat-lbl">Purity Rate</div></div>
-              <div><div className="stat-num">14</div><div className="stat-lbl">Filter Stages</div></div>
-              <div><div className="stat-num">1:1</div><div className="stat-lbl">Waste Ratio</div></div>
+              <div>
+                <div className="stat-num">99.9%</div>
+                <div className="stat-lbl">Purity Rate</div>
+              </div>
+              <div>
+                <div className="stat-num">14</div>
+                <div className="stat-lbl">Filter Stages</div>
+              </div>
+              <div>
+                <div className="stat-num">1:1</div>
+                <div className="stat-lbl">Waste Ratio</div>
+              </div>
             </div>
           </div>
-          <HeroVisual/>
+          <HeroVisual />
         </div>
       </section>
 
       <div className="marquee-strip">
         <div className="marquee-inner">
-          {MARQUEE_ITEMS.map((item,i)=><span key={i}>{item}{i<MARQUEE_ITEMS.length-1&&<span className="sep"> ◆ </span>}</span>)}
+          {MARQUEE_ITEMS.map((item, i) => (
+            <span key={i}>
+              {item}
+              {i < MARQUEE_ITEMS.length - 1 && <span className="sep"> ◆ </span>}
+            </span>
+          ))}
         </div>
       </div>
 
@@ -1286,12 +2110,21 @@ function HomePage({ navigate, tds }) {
         <div className="features-inner">
           <div className="section-header reveal">
             <div className="page-eyebrow">Why AquaPura</div>
-            <h2 className="section-h">Not just filtered — <em>perfected</em>.</h2>
-            <p className="section-sub">Every drop engineered to exceed WHO purity standards, while restoring what your body truly needs.</p>
+            <h2 className="section-h">
+              Not just filtered — <em>perfected</em>.
+            </h2>
+            <p className="section-sub">
+              Every drop engineered to exceed WHO purity standards, while
+              restoring what your body truly needs.
+            </p>
           </div>
           <div className="features-grid">
-            {FEATURES.map((f,i)=>(
-              <div key={i} className="pillar-card reveal" style={{transitionDelay:`${i*.1}s`}}>
+            {FEATURES.map((f, i) => (
+              <div
+                key={i}
+                className="pillar-card reveal"
+                style={{ transitionDelay: `${i * 0.1}s` }}
+              >
                 <div className="pillar-icon">{f.icon}</div>
                 <div className="pillar-h small">{f.title}</div>
                 <p className="pillar-p">{f.desc}</p>
@@ -1301,11 +2134,11 @@ function HomePage({ navigate, tds }) {
         </div>
       </section>
 
-      <HowItWorks/>
-      <StatsSection/>
-      <TestimonialsSection/>
-      <CTABanner navigate={navigate}/>
-      <Footer/>
+      <HowItWorks />
+      <StatsSection />
+      <TestimonialsSection />
+      <CTABanner navigate={navigate} />
+      <Footer />
     </div>
   );
 }
@@ -1316,27 +2149,42 @@ function AboutPage() {
     <div>
       <div className="about-hero">
         <div className="page-eyebrow">Our Story</div>
-        <h1 className="page-h1">Redefining What<br/>Pure Means.</h1>
-        <p className="page-sub">Founded in 2018 in Bangalore, AquaPura was born from a single obsession: what if water could be genuinely perfect?</p>
+        <h1 className="page-h1">
+          Redefining What
+          <br />
+          Pure Means.
+        </h1>
+        <p className="page-sub">
+          Founded in 2018 in Bangalore, AquaPura was born from a single
+          obsession: what if water could be genuinely perfect?
+        </p>
       </div>
       <div className="pillars">
-        {PILLARS.map((p,i)=>(
-          <div key={i} className="pillar-card reveal" style={{transitionDelay:`${i*.15}s`}}>
+        {PILLARS.map((p, i) => (
+          <div
+            key={i}
+            className="pillar-card reveal"
+            style={{ transitionDelay: `${i * 0.15}s` }}
+          >
             <div className="pillar-icon">{p.icon}</div>
             <h3 className="pillar-h">{p.title}</h3>
             <p className="pillar-p">{p.desc}</p>
           </div>
         ))}
       </div>
-      <RippleZone/>
+      <RippleZone />
       <div className="timeline-section">
         <div className="section-header">
           <div className="page-eyebrow">Our Journey</div>
           <h2 className="section-h">Built milestone by milestone.</h2>
         </div>
         <div className="timeline">
-          {TIMELINE.map((t,i)=>(
-            <div key={i} className="tl-item" style={{transitionDelay:`${i*.1}s`}}>
+          {TIMELINE.map((t, i) => (
+            <div
+              key={i}
+              className="tl-item"
+              style={{ transitionDelay: `${i * 0.1}s` }}
+            >
               <div className="tl-dot">{t.dot}</div>
               <div className="tl-content">
                 <div className="tl-year">{t.year}</div>
@@ -1347,7 +2195,7 @@ function AboutPage() {
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -1355,23 +2203,36 @@ function AboutPage() {
 function ProductCard({ p, navigate }) {
   const SVGModel = MODEL_SVG[p.id];
   return (
-    <div className={`prod-card reveal ${p.dark?"dark-card":""}`}>
+    <div className={`prod-card reveal ${p.dark ? "dark-card" : ""}`}>
       <div className={`prod-image-area ${p.bgClass}`}>
-        <div className={`prod-badge ${p.badgeDark?"dark":""}`}>{p.badge}</div>
-        <SVGModel/>
+        <div className={`prod-badge ${p.badgeDark ? "dark" : ""}`}>
+          {p.badge}
+        </div>
+        <SVGModel />
       </div>
       <div className="prod-body">
         <div className="prod-name">{p.name}</div>
         <div className="prod-tagline">{p.tagline}</div>
         <div className="prod-specs">
-          {p.specs.map((s,i)=><div key={i} className="spec-row"><span className="check">✦</span> {s}</div>)}
+          {p.specs.map((s, i) => (
+            <div key={i} className="spec-row">
+              <span className="check">✦</span> {s}
+            </div>
+          ))}
         </div>
         <div className="prod-footer">
-          <div className={`prod-price ${p.dark?"white":""}`}>
-            <small style={p.dark?{color:"rgba(255,255,255,0.5)"}:{}}>Starting at</small>
+          <div className={`prod-price ${p.dark ? "white" : ""}`}>
+            <small style={p.dark ? { color: "rgba(255,255,255,0.5)" } : {}}>
+              Starting at
+            </small>
             {p.price}
           </div>
-          <button className={`btn-order ${p.btnLight?"light":""}`} onClick={()=>navigate("contact")}>{p.btnLabel}</button>
+          <button
+            className={`btn-order ${p.btnLight ? "light" : ""}`}
+            onClick={() => navigate("contact")}
+          >
+            {p.btnLabel}
+          </button>
         </div>
       </div>
     </div>
@@ -1384,11 +2245,20 @@ function ProductsPage({ navigate }) {
     <div>
       <div className="products-hero">
         <div className="page-eyebrow">Our Collection</div>
-        <h1 className="page-h1">Masterpieces of<br/>Engineering.</h1>
-        <p className="page-sub">Four models. One obsession. Choose the AquaPura that fits your life — all redefine what pure water means.</p>
+        <h1 className="page-h1">
+          Masterpieces of
+          <br />
+          Engineering.
+        </h1>
+        <p className="page-sub">
+          Four models. One obsession. Choose the AquaPura that fits your life —
+          all redefine what pure water means.
+        </p>
       </div>
       <div className="products-grid">
-        {PRODUCTS.map(p=><ProductCard key={p.id} p={p} navigate={navigate}/>)}
+        {PRODUCTS.map((p) => (
+          <ProductCard key={p.id} p={p} navigate={navigate} />
+        ))}
       </div>
       <div className="comparison-section">
         <div className="section-header">
@@ -1402,19 +2272,25 @@ function ProductsPage({ navigate }) {
             <div className="comp-cell comp-head">Element Pro</div>
             <div className="comp-cell comp-head">HydroCore S</div>
           </div>
-          {COMP_ROWS.map((row,i)=>(
+          {COMP_ROWS.map((row, i) => (
             <div key={i} className="comp-row">
               <div className="comp-cell">{row.label}</div>
-              {row.vals.map((v,j)=>(
+              {row.vals.map((v, j) => (
                 <div key={j} className="comp-cell">
-                  {v===true?<span className="comp-check">✓</span>:v===false?<span className="comp-dash">—</span>:v}
+                  {v === true ? (
+                    <span className="comp-check">✓</span>
+                  ) : v === false ? (
+                    <span className="comp-dash">—</span>
+                  ) : (
+                    v
+                  )}
                 </div>
               ))}
             </div>
           ))}
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -1426,40 +2302,75 @@ function ContactPage() {
     <div>
       <div className="contact-wrap">
         <div className="contact-left reveal-left">
-          <div className="page-eyebrow" style={{marginBottom:"1.5rem"}}>Get In Touch</div>
-          <h1>Bring Purity<br/>Home Today.</h1>
-          <p>Whether you need a bespoke installation, a water quality test, or simply want to find your ideal model — our Hydration Consultants are ready.</p>
+          <div className="page-eyebrow" style={{ marginBottom: "1.5rem" }}>
+            Get In Touch
+          </div>
+          <h1>
+            Bring Purity
+            <br />
+            Home Today.
+          </h1>
+          <p>
+            Whether you need a bespoke installation, a water quality test, or
+            simply want to find your ideal model — our Hydration Consultants are
+            ready.
+          </p>
           <div className="contact-info">
             {[
-              {icon:"📞",label:"Expert Helpline",val:"+91 800-AQUAPURA"},
-              {icon:"✉️",label:"Email Support",val:"consult@aquapura.in"},
-              {icon:"📍",label:"Headquarters",val:"Whitefield, Bengaluru 560066"},
-              {icon:"🕐",label:"Hours",val:"Mon – Sat, 9 AM – 7 PM IST"},
-            ].map((c,i)=>(
+              { icon: "📞", label: "Expert Helpline", val: "+91 800-AQUAPURA" },
+              {
+                icon: "✉️",
+                label: "Email Support",
+                val: "consult@aquapura.in",
+              },
+              {
+                icon: "📍",
+                label: "Headquarters",
+                val: "Whitefield, Bengaluru 560066",
+              },
+              { icon: "🕐", label: "Hours", val: "Mon – Sat, 9 AM – 7 PM IST" },
+            ].map((c, i) => (
               <div key={i} className="contact-info-row">
                 <div className="contact-info-icon">{c.icon}</div>
-                <div className="contact-info-text"><span>{c.label}</span><strong>{c.val}</strong></div>
+                <div className="contact-info-text">
+                  <span>{c.label}</span>
+                  <strong>{c.val}</strong>
+                </div>
               </div>
             ))}
           </div>
         </div>
         <div className="form-card reveal">
-          {submitted?(
+          {submitted ? (
             <div className="form-success">
-              <div style={{fontSize:"3rem",marginBottom:"1rem"}}>💧</div>
+              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>💧</div>
               <h3>Request Received!</h3>
               <p>A Hydration Consultant will reach out within 24 hours.</p>
             </div>
-          ):(
+          ) : (
             <div className="contact-form">
               <h3>Request a Consultation</h3>
-              <p className="form-sub">Free water quality assessment included.</p>
+              <p className="form-sub">
+                Free water quality assessment included.
+              </p>
               <div className="form-2col">
-                <div className="form-row"><label>First Name</label><input type="text" placeholder="Rahul"/></div>
-                <div className="form-row"><label>Last Name</label><input type="text" placeholder="Sharma"/></div>
+                <div className="form-row">
+                  <label>First Name</label>
+                  <input type="text" placeholder="Rahul" />
+                </div>
+                <div className="form-row">
+                  <label>Last Name</label>
+                  <input type="text" placeholder="Sharma" />
+                </div>
               </div>
-              <div className="form-row"><label>Email Address</label><input type="email" placeholder="rahul@email.com"/></div>
-              <div className="form-row"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
+              <div className="form-row">
+                <label>Email Address</label>
+                <input type="email" placeholder="rahul@email.com" />
+              </div>
+              <div className="form-row">
+                <label>Phone Number</label>
+                <input type="tel" placeholder="+91 98765 43210" />
+              </div>
               <div className="form-row">
                 <label>Model of Interest</label>
                 <select>
@@ -1471,29 +2382,64 @@ function ContactPage() {
                   <option>Not sure yet</option>
                 </select>
               </div>
-              <div className="form-row"><label>Requirements / Message</label><textarea rows="3" placeholder="Tell us about your home, family size, or any water quality concerns..."/></div>
-              <button className="submit-btn" onClick={()=>setSubmitted(true)}>
+              <div className="form-row">
+                <label>Requirements / Message</label>
+                <textarea
+                  rows="3"
+                  placeholder="Tell us about your home, family size, or any water quality concerns..."
+                />
+              </div>
+              <button className="submit-btn" onClick={() => setSubmitted(true)}>
                 Request Consultation
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                >
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
           )}
         </div>
       </div>
       <div className="map-section">
-        <div className="section-header" style={{marginBottom:"2rem"}}>
+        <div className="section-header" style={{ marginBottom: "2rem" }}>
           <div className="page-eyebrow">Find Us</div>
-          <h2 className="section-h" style={{fontSize:"2rem"}}>Visit our Experience Centre</h2>
+          <h2 className="section-h" style={{ fontSize: "2rem" }}>
+            Visit our Experience Centre
+          </h2>
         </div>
         <div className="map-inner">
-          <div style={{textAlign:"center"}}>
+          <div style={{ textAlign: "center" }}>
             <div className="map-pin">📍</div>
-            <p style={{marginTop:".5rem",color:"var(--muted)",fontSize:".9rem"}}>AquaPura Experience Centre, Whitefield, Bengaluru</p>
-            <button className="btn-primary" style={{marginTop:"1.2rem",fontSize:".82rem",padding:".7rem 1.5rem"}} onClick={()=>window.open("https://maps.google.com","_blank")}>Open in Maps</button>
+            <p
+              style={{
+                marginTop: ".5rem",
+                color: "var(--muted)",
+                fontSize: ".9rem",
+              }}
+            >
+              AquaPura Experience Centre, Whitefield, Bengaluru
+            </p>
+            <button
+              className="btn-primary"
+              style={{
+                marginTop: "1.2rem",
+                fontSize: ".82rem",
+                padding: ".7rem 1.5rem",
+              }}
+              onClick={() => window.open("https://maps.google.com", "_blank")}
+            >
+              Open in Maps
+            </button>
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }
@@ -1506,64 +2452,86 @@ export default function AquaPura() {
   const [tds, setTds] = useState(280);
 
   /* inject styles */
-  useEffect(()=>{
+  useEffect(() => {
     const el = document.createElement("style");
     el.textContent = STYLES;
     document.head.appendChild(el);
-    return()=>document.head.removeChild(el);
-  },[]);
+    return () => document.head.removeChild(el);
+  }, []);
 
-  useEffect(()=>{
-    const onScroll=()=>setScrolled(window.scrollY>20);
-    window.addEventListener("scroll",onScroll);
-    return()=>window.removeEventListener("scroll",onScroll);
-  },[]);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  useEffect(()=>{
-    let val=280;
-    const iv=setInterval(()=>{
-      val=Math.max(2,val-Math.floor(Math.random()*3+1));
+  useEffect(() => {
+    let val = 280;
+    const iv = setInterval(() => {
+      val = Math.max(2, val - Math.floor(Math.random() * 3 + 1));
       setTds(val);
-      if(val<=2) clearInterval(iv);
-    },180);
-    const t=setTimeout(()=>clearInterval(iv),30000);
-    return()=>{ clearInterval(iv); clearTimeout(t); };
-  },[]);
+      if (val <= 2) clearInterval(iv);
+    }, 180);
+    const t = setTimeout(() => clearInterval(iv), 30000);
+    return () => {
+      clearInterval(iv);
+      clearTimeout(t);
+    };
+  }, []);
 
-  const navigate = useCallback((p)=>{ setPage(p); setMobileOpen(false); window.scrollTo(0,0); },[]);
+  const navigate = useCallback((p) => {
+    setPage(p);
+    setMobileOpen(false);
+    window.scrollTo(0, 0);
+  }, []);
 
   const pages = {
-    home:     <HomePage navigate={navigate} tds={tds}/>,
-    about:    <AboutPage/>,
-    products: <ProductsPage navigate={navigate}/>,
-    contact:  <ContactPage/>,
+    home: <HomePage navigate={navigate} tds={tds} />,
+    about: <AboutPage />,
+    products: <ProductsPage navigate={navigate} />,
+    contact: <ContactPage />,
   };
 
   return (
     <>
-      <nav className={scrolled?"scrolled":""}>
-        <button type="button" className="nav-logo" onClick={()=>navigate("home")}>
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
+      <nav className={scrolled ? "scrolled" : ""}>
+        <button
+          type="button"
+          className="nav-logo"
+          onClick={() => navigate("home")}
+        >
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
+          </svg>
           AQUA<span>PURA</span>
         </button>
         <div className="nav-links">
-          {NAV_LINKS.map(p=>(
-            <button type="button" key={p} onClick={()=>navigate(p)} className={page===p?"active":""}>
-              {p.charAt(0).toUpperCase()+p.slice(1)}
+          {NAV_LINKS.map((p) => (
+            <button
+              type="button"
+              key={p}
+              onClick={() => navigate(p)}
+              className={page === p ? "active" : ""}
+            >
+              {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
           ))}
-          <button className="nav-cta" onClick={()=>navigate("contact")}>Get a Quote</button>
+          <button className="nav-cta" onClick={() => navigate("contact")}>
+            Get a Quote
+          </button>
         </div>
-        <button className="hamburger" onClick={()=>setMobileOpen(v=>!v)}>
-          <span/><span/><span/>
+        <button className="hamburger" onClick={() => setMobileOpen((v) => !v)}>
+          <span />
+          <span />
+          <span />
         </button>
       </nav>
 
-      {mobileOpen&&(
+      {mobileOpen && (
         <div className="mobile-menu open">
-          {NAV_LINKS.map(p=>(
-            <button type="button" key={p} onClick={()=>navigate(p)}>
-              {p.charAt(0).toUpperCase()+p.slice(1)}
+          {NAV_LINKS.map((p) => (
+            <button type="button" key={p} onClick={() => navigate(p)}>
+              {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
           ))}
         </div>
