@@ -1,912 +1,747 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import "./App.css";
+
+/* ─── GLOBAL STYLES ──────────────────────────────────────── */
+const STYLES = `
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --white:      #ffffff;
+  --off-white:  #f7f8fc;
+  --light-gray: #eef0f5;
+  --mid-gray:   #c8cdd8;
+  --muted:      #7a8195;
+  --dark:       #111827;
+  --darkest:    #040810;
+  --blue:       #0057FF;
+  --blue-light: #3b82f6;
+  --blue-pale:  #e8f0ff;
+  --blue-mid:   #1d4ed8;
+  --ink:        #1e2840;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body {
+  font-family: var(--font-body);
+  background: var(--white);
+  color: var(--dark);
+  overflow-x: hidden;
+}
+
+button { font: inherit; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: 72px;
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 4vw;
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background 0.3s, box-shadow 0.3s;
+  animation: navDropIn .55s cubic-bezier(.2,.75,.2,1) both;
+}
+@keyframes navDropIn {
+  from { opacity: 0; transform: translateY(-18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+nav.scrolled {
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 2px 30px rgba(0,87,255,0.06);
+}
+.nav-logo {
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+  color: var(--darkest); letter-spacing: -0.5px; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  border: 0; background: transparent; padding: .45rem .2rem;
+  transition: transform .25s ease, color .25s ease;
+}
+.nav-logo:hover { color: var(--blue); transform: translateY(-1px); }
+.nav-logo svg { color: var(--blue); filter: drop-shadow(0 6px 14px rgba(0,87,255,.28)); transition: transform .35s ease; }
+.nav-logo:hover svg { transform: rotate(-8deg) scale(1.08); }
+.nav-logo span { color: var(--blue); }
+.nav-links { margin-left: auto; display: flex; gap: 2.5rem; align-items: center; }
+.nav-links button:not(.nav-cta) {
+  position: relative; border: 0; background: transparent; color: var(--ink); cursor: pointer;
+  font-size: .88rem; font-weight: 600; letter-spacing: .03em; padding: .65rem .05rem;
+  opacity: .72; transition: color .25s ease, opacity .25s ease, transform .25s ease;
+}
+.nav-links button:not(.nav-cta)::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: .3rem;
+  height: 2px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--blue), var(--blue-light));
+  transform: scaleX(0); transform-origin: right; transition: transform .28s ease;
+}
+.nav-links button:not(.nav-cta):hover,
+.nav-links button:not(.nav-cta).active { color: var(--blue); opacity: 1; transform: translateY(-1px); }
+.nav-links button:not(.nav-cta):hover::after,
+.nav-links button:not(.nav-cta).active::after { transform: scaleX(1); transform-origin: left; }
+.nav-cta {
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.6rem 1.5rem; border-radius: 100px;
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  cursor: pointer; margin-left: 1rem; overflow: hidden; position: relative;
+  box-shadow: 0 4px 20px rgba(0,87,255,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,87,255,0.35); }
+.nav-cta::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%);
+  transform: translateX(-120%); transition: transform .65s ease;
+}
+.nav-cta:hover::before { transform: translateX(120%); }
+.hamburger {
+  display: none; flex-direction: column; gap: 5px;
+  background: rgba(0,87,255,.06); border: none; cursor: pointer;
+  padding: 4px; margin-left: auto; width: 42px; height: 42px;
+  align-items: center; justify-content: center; border-radius: 14px;
+  transition: background .25s ease, transform .25s ease;
+}
+.hamburger:hover { background: rgba(0,87,255,.12); transform: translateY(-1px); }
+.hamburger span { width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
+.mobile-menu {
+  display: none; position: fixed; top: 72px; left: 0; right: 0;
+  background: rgba(255,255,255,.96); backdrop-filter: blur(18px);
+  padding: 2rem; z-index: 999;
+  border-bottom: 1px solid var(--light-gray);
+  flex-direction: column; gap: 1.5rem;
+  animation: menuSlide .28s ease both;
+  box-shadow: 0 24px 50px rgba(4,8,16,.08);
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu button { font-size: 1.05rem; color: var(--dark); border: 0; background: transparent; cursor: pointer; text-align: left; padding: .85rem 0; width: 100%; }
+@keyframes menuSlide { from { opacity: 0; transform: translateY(-12px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } nav { height: 68px; padding: 0 1.25rem; } }
+
+.page-wrap { animation: pageFadeIn 0.5s ease both; isolation: isolate; }
+@keyframes pageFadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 120px 4vw 60px; background: var(--white);
+}
+.hero-bg-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image: linear-gradient(rgba(0,87,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,87,255,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.hero-glow {
+  position: absolute; top: -100px; right: -100px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(0,87,255,0.08) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.hero-glow2 {
+  position: absolute; bottom: -200px; left: -100px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(100,180,255,0.06) 0%, transparent 70%);
+  pointer-events: none; z-index: 0;
+}
+.hero-inner {
+  max-width: 1200px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+  position: relative; z-index: 1;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-pale); color: var(--blue);
+  border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem;
+  border-radius: 100px; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.8rem;
+  animation: fadeSlideUp 0.6s ease both;
+}
+.badge-dot { width: 6px; height: 6px; background: var(--blue); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.hero-h1 {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 5.5vw, 6rem);
+  font-weight: 700; line-height: 1.02; letter-spacing: -2px;
+  color: var(--darkest); margin-bottom: 1.5rem;
+  animation: fadeSlideUp 0.7s 0.1s ease both;
+}
+.hero-h1 em { font-style: italic; color: var(--blue); }
+.hero-sub { color: var(--muted); font-size: 1.08rem; line-height: 1.7; max-width: 430px; margin-bottom: 2.5rem; animation: fadeSlideUp 0.7s 0.2s ease both; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeSlideUp 0.7s 0.3s ease both; }
+.hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--light-gray); animation: fadeSlideUp 0.7s 0.4s ease both; }
+.stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--blue); line-height: 1; }
+.stat-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
+@keyframes fadeSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+
+.hero-visual { display: flex; justify-content: center; align-items: center; position: relative; height: 540px; animation: fadeSlideUp 0.9s 0.2s ease both; }
+.ro-stage-wrapper { position: relative; width: 340px; height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.ro-top-ring { width: 120px; height: 18px; background: linear-gradient(90deg, #c8d8ff, #a0b8ff); border-radius: 10px 10px 0 0; border: 1.5px solid rgba(0,87,255,0.2); border-bottom: none; }
+.ro-body {
+  width: 200px; height: 380px; border-radius: 30px 30px 40px 40px;
+  background: linear-gradient(175deg, #f0f4ff 0%, #e0e8ff 40%, #c8d8ff 100%);
+  border: 2px solid rgba(0,87,255,0.15); position: relative; overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0,87,255,0.10), 0 0 0 1px rgba(255,255,255,0.8) inset;
+  transition: transform 0.3s ease;
+}
+.ro-body:hover { transform: translateY(-8px) rotateX(4deg); }
+.ro-sheen { position: absolute; top: 0; left: 15%; width: 30%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent); border-radius: 50%; }
+.ro-filter-lines { position: absolute; top: 60px; left: 50%; transform: translateX(-50%); width: 120px; display: flex; flex-direction: column; gap: 12px; }
+.filter-line { height: 3px; border-radius: 3px; background: linear-gradient(90deg, rgba(0,87,255,0.15), rgba(0,87,255,0.4), rgba(0,87,255,0.15)); animation: flowLine 4s ease-in-out infinite; }
+.fl-2{animation-delay:0.3s;opacity:0.8}.fl-3{animation-delay:0.6s;opacity:0.6}.fl-4{animation-delay:0.9s;opacity:0.4}.fl-5{animation-delay:1.2s;opacity:0.3}
+@keyframes flowLine { 0%,100%{transform:scaleX(0.7);opacity:0.3} 50%{transform:scaleX(1);opacity:1} }
+.ro-display { position: absolute; bottom: 50px; left: 50%; transform: translateX(-50%); width: 110px; padding: 12px; border-radius: 14px; background: rgba(255,255,255,0.6); backdrop-filter: blur(10px); border: 1px solid rgba(0,87,255,0.15); text-align: center; }
+.tds-num { font-family: var(--font-display); font-size: 2rem; font-weight: 700; color: var(--blue); line-height: 1; }
+.tds-lbl { font-size: 0.6rem; color: var(--muted); letter-spacing: 0.05em; }
+.ro-spout { width: 20px; height: 40px; background: linear-gradient(180deg, #a0b8ff, #7aa0ff); border-radius: 0 0 10px 10px; }
+.hero-label { position: absolute; background: var(--white); border: 1px solid var(--light-gray); padding: 0.6rem 1rem; border-radius: 12px; font-size: 0.78rem; font-weight: 500; color: var(--ink); white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.07); display: flex; align-items: center; gap: 6px; }
+.ldot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+.label-1{top:40px;right:20px;animation:float1 7s ease-in-out infinite}
+.label-2{bottom:100px;right:-20px;animation:float2 7s 0.5s ease-in-out infinite}
+.label-3{bottom:60px;left:0;animation:float1 7s 1s ease-in-out infinite}
+@keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+@keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
+
+.marquee-strip { background: var(--blue); color: #fff; padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
+.marquee-inner { display: inline-flex; align-items: center; animation: marqueeScroll 30s linear infinite; }
+.marquee-inner span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 1.5rem; opacity: 0.9; }
+.sep { opacity: 0.4 !important; }
+@keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 30px rgba(0,87,255,0.3); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+.btn-primary::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,87,255,0.4); }
+.btn-primary:hover::before { transform: translateX(120%); }
+.btn-ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+.btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+.features-section { padding: 80px 4vw; background: var(--white); }
+.features-inner { max-width: 1200px; margin: 0 auto; }
+.features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 3rem; }
+.pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 80px 4vw; }
+.pillar-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 24px; padding: 2.5rem; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.pillar-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,87,255,0.08); border-color: rgba(0,87,255,0.3); }
+.pillar-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
+.pillar-h { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--darkest); }
+.pillar-h.small { font-size: 1.15rem; }
+.pillar-p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
+
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: var(--darkest); letter-spacing: -1.5px; margin-bottom: 0.8rem; }
+.section-h em { font-style: italic; color: var(--blue); }
+.section-sub { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
+.page-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-pale); border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+.page-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--darkest); letter-spacing: -2px; max-width: 700px; margin: 0 auto 1.5rem; }
+.page-sub { color: var(--muted); font-size: 1.1rem; line-height: 1.7; max-width: 520px; margin: 0 auto 3rem; }
+
+.about-hero { padding: 140px 4vw 80px; background: linear-gradient(160deg, var(--white) 60%, var(--blue-pale) 100%); text-align: center; position: relative; overflow: hidden; }
+.ripple-zone { background: var(--blue); padding: 80px 4vw; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 360px; cursor: crosshair; }
+.ripple-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.ripple-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: #fff; text-align: center; position: relative; z-index: 2; }
+.ripple-p { color: rgba(255,255,255,0.7); margin-top: 1rem; z-index: 2; position: relative; }
+
+.timeline-section { background: var(--off-white); padding: 80px 4vw; }
+.timeline { max-width: 700px; margin: 0 auto; position: relative; }
+.timeline::before { content:''; position: absolute; left: 24px; top: 0; bottom: 0; width: 1.5px; background: linear-gradient(180deg, var(--blue) 0%, var(--mid-gray) 100%); }
+.tl-item { display: flex; gap: 2rem; margin-bottom: 3rem; opacity: 0; transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.tl-item.visible { opacity: 1; transform: translateX(0); }
+.tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(0,87,255,0.3); }
+.tl-content h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+.tl-content p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+.tl-year { color: var(--blue); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+
+.products-hero { padding: 140px 4vw 60px; text-align: center; background: linear-gradient(160deg, var(--blue-pale) 0%, var(--white) 60%); }
+.products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; max-width: 1200px; margin: 0 auto; padding: 60px 4vw 100px; }
+.prod-card { border: 1px solid var(--light-gray); border-radius: 28px; overflow: hidden; background: var(--white); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.prod-card:hover { transform: translateY(-12px) scale(1.01); box-shadow: 0 18px 40px rgba(0,87,255,.10); border-color: rgba(0,87,255,0.3); }
+.prod-image-area { height: 300px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.blue-bg { background: linear-gradient(135deg, #e8f0ff 0%, #c8d8ff 100%); }
+.dark-bg { background: linear-gradient(135deg, #111827 0%, #1e2840 100%); }
+.slate-bg { background: linear-gradient(135deg, #f0f4ff 0%, #dde8ff 100%); }
+.ink-bg { background: linear-gradient(135deg, #040810 0%, #0b1329 100%); }
+.ro-model-svg { filter: drop-shadow(0 20px 40px rgba(0,87,255,0.2)); transition: transform 0.4s ease; }
+.prod-card:hover .ro-model-svg { transform: translateY(-8px) rotate(-2deg); }
+.prod-badge { position: absolute; top: 16px; left: 16px; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; }
+.prod-badge.dark { background: var(--darkest); }
+.prod-body { padding: 2rem 2rem 2.5rem; }
+.prod-name { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--darkest); margin-bottom: 0.5rem; }
+.prod-tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+.prod-specs { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+.spec-row { display: flex; align-items: center; gap: 0.7rem; font-size: 0.88rem; color: var(--ink); }
+.check { color: var(--blue); font-size: 1rem; }
+.prod-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--light-gray); padding-top: 1.5rem; }
+.prod-price { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--darkest); }
+.prod-price small { font-size: 0.75rem; color: var(--muted); font-family: var(--font-body); display: block; margin-bottom: 2px; }
+.prod-price.white { color: #fff; }
+.dark-card { border-color: rgba(255,255,255,0.06) !important; }
+.dark-card .prod-body { background: var(--darkest); }
+.dark-card .prod-name { color: #fff; }
+.dark-card .prod-tagline { color: rgba(255,255,255,0.5); }
+.dark-card .spec-row { color: rgba(255,255,255,0.8); }
+.dark-card .prod-footer { border-color: rgba(255,255,255,0.08); }
+.btn-order { background: var(--blue); color: #fff; border: none; padding: 0.75rem 1.6rem; border-radius: 100px; font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(0,87,255,0.25); position: relative; overflow: hidden; }
+.btn-order::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
+.btn-order:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,87,255,0.4); }
+.btn-order:hover::before { transform: translateX(120%); }
+.btn-order.light { background: #fff; color: var(--darkest); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+
+.comparison-section { background: var(--off-white); padding: 80px 4vw; }
+.comp-table { max-width: 900px; margin: 3rem auto 0; border-radius: 20px; overflow: hidden; border: 1px solid var(--light-gray); background: var(--white); }
+.comp-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; border-bottom: 1px solid var(--light-gray); }
+.comp-row:last-child { border-bottom: none; }
+.comp-cell { padding: 1rem 1.5rem; font-size: 0.88rem; color: var(--ink); display: flex; align-items: center; }
+.comp-cell:not(:first-child) { justify-content: center; }
+.comp-head { background: var(--blue-pale); font-weight: 700; color: var(--blue); font-size: 0.8rem; letter-spacing: 0.05em; }
+.comp-check { color: var(--blue); font-size: 1.1rem; }
+.comp-dash { color: var(--mid-gray); }
+
+.contact-wrap { max-width: 1200px; margin: 0 auto; padding: 140px 4vw 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
+.contact-left h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 4.5rem); font-weight: 700; color: var(--darkest); letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.2rem; }
+.contact-left p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 3rem; }
+.contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
+.contact-info-row { display: flex; align-items: center; gap: 1rem; }
+.contact-info-icon { width: 48px; height: 48px; border-radius: 14px; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.contact-info-text span { display: block; font-size: 0.75rem; color: var(--muted); margin-bottom: 2px; }
+.contact-info-text strong { font-size: 0.95rem; color: var(--dark); }
+.form-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 28px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,87,255,.05); }
+.contact-form { display: flex; flex-direction: column; gap: 0; }
+.contact-form h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--darkest); }
+.form-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.8rem; }
+.form-row { margin-bottom: 1.5rem; }
+.form-row label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+.form-row input, .form-row select, .form-row textarea { width: 100%; padding: 0.9rem 1.1rem; border: 1.5px solid var(--light-gray); border-radius: 14px; background: var(--off-white); color: var(--dark); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: none; }
+.form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,87,255,0.1); }
+.form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.submit-btn { width: 100%; background: var(--blue); color: #fff; border: none; padding: 1rem; border-radius: 14px; font-size: 0.95rem; font-weight: 600; font-family: var(--font-body); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 24px rgba(0,87,255,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 0.5rem; position: relative; overflow: hidden; }
+.submit-btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
+.submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,87,255,0.4); }
+.submit-btn:hover::before { transform: translateX(120%); }
+.form-success { text-align: center; padding: 3rem 0; }
+.form-success h3 { font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--darkest); }
+.form-success p { color: var(--muted); }
+.map-section { background: var(--off-white); padding: 60px 4vw; }
+.map-inner { max-width: 1200px; margin: 0 auto; background: var(--light-gray); border-radius: 24px; height: 300px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--mid-gray); position: relative; overflow: hidden; }
+.map-pin { font-size: 2.5rem; animation: bounce 2s ease-in-out infinite; }
+@keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+.ambient-drops-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:.8; }
+
+.how-section { position:relative; overflow:hidden; padding:120px 4vw; background:linear-gradient(180deg,var(--off-white) 0%,#fff 100%); }
+.how-inner { max-width:1100px; margin:auto; position:relative; z-index:2; }
+.how-steps { display:flex; flex-direction:column; gap:2rem; }
+.how-step { display:grid; grid-template-columns:90px 1fr; gap:2rem; padding:2rem; background:#fff; border-radius:28px; border:1px solid var(--light-gray); box-shadow:0 10px 40px rgba(0,0,0,.04); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.how-step:hover { transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,87,255,.1); }
+.how-step-left { display:flex; flex-direction:column; align-items:center; }
+.how-num { font-family:var(--font-display); color:var(--blue); font-size:2rem; font-weight:700; }
+.how-connector { width:2px; flex:1; margin-top:15px; background:linear-gradient(var(--blue),transparent); }
+.how-icon { width:70px; height:70px; border-radius:20px; display:flex; align-items:center; justify-content:center; background:var(--blue-pale); font-size:2rem; margin-bottom:1rem; }
+.how-title { font-family:var(--font-display); font-size:1.7rem; margin-bottom:.7rem; }
+.how-desc { color:var(--muted); line-height:1.7; }
+
+.stats-section { background:var(--blue); padding:100px 4vw; }
+.stats-inner { max-width:1100px; margin:auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; }
+.stat-block { text-align:center; }
+.stat-big { font-family:var(--font-display); font-size:4rem; color:white; font-weight:700; }
+.stat-label { color:rgba(255,255,255,.7); margin-top:.6rem; letter-spacing:.05em; }
+
+.testi-section { position:relative; overflow:hidden; background:linear-gradient(135deg,var(--darkest),#09162e); padding:120px 4vw; }
+.testi-inner { position:relative; z-index:2; max-width:1200px; margin:auto; }
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
+.testi-card { background:rgba(255,255,255,.04); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.08); border-radius:30px; padding:2rem; transition: transform 0.25s ease, border-color 0.25s ease; }
+.testi-card:hover { transform:translateY(-8px); border-color:rgba(100,170,255,.4); }
+.testi-stars { color:#FFD700; margin-bottom:1rem; }
+.testi-quote { color:rgba(255,255,255,.85); line-height:1.8; font-size:.95rem; }
+.testi-meta { margin-top:2rem; display:flex; align-items:center; gap:1rem; }
+.testi-avatar { width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-light)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; }
+.testi-name { color:#fff; font-weight:600; }
+.testi-role { color:rgba(255,255,255,.5); font-size:.8rem; }
+.testi-model { margin-left:auto; color:var(--blue-light); font-size:.8rem; }
+
+.cta-banner { position:relative; overflow:hidden; padding:120px 4vw; background:white; }
+.cta-inner { max-width:900px; margin:auto; text-align:center; position:relative; z-index:2; }
+.cta-h { font-family:var(--font-display); font-size:clamp(2.5rem,5vw,5rem); line-height:1; margin-bottom:1rem; }
+.cta-sub { max-width:650px; margin:auto; color:var(--muted); line-height:1.8; }
+.cta-actions { display:flex; gap:1rem; justify-content:center; margin-top:2rem; flex-wrap: wrap; }
+.cta-bg-rings { position:absolute; inset:0; }
+.cta-ring { position:absolute; border-radius:50%; border:1px solid rgba(0,87,255,.08); }
+.cta-ring-1{width:500px;height:500px;left:-150px;top:0}
+.cta-ring-2{width:800px;height:800px;right:-300px;top:-150px}
+.cta-ring-3{width:300px;height:300px;bottom:-100px;left:50%}
+.cta-ghost { color: var(--blue); border-color: rgba(0,87,255,0.3); }
+
+/* ─── IMPROVED FOOTER ─────────────────────────────────────── */
+.footer-new {
+  background:
+    radial-gradient(circle at 20% 0%, rgba(59,130,246,.18), transparent 34%),
+    linear-gradient(180deg, #06101f 0%, var(--darkest) 42%, #03050a 100%);
+  overflow: hidden;
+  position: relative;
+}
+
+/* The drop theatre — tall enough to feel dramatic */
+.footer-drop-theatre {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+
+.footer-drop-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.footer-content {
+  padding: 4rem 4vw;
+  display: grid;
+  grid-template-columns: 2fr repeat(4, 1fr);
+  gap: 2rem;
+  max-width: 1400px;
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.footer-logo-big {
+  display: flex; align-items: center; gap: 8px;
+  color: #fff; font-size: 2rem;
+  font-family: var(--font-display); font-weight: 700;
+}
+.footer-logo-big span { color: var(--blue-light); }
+.footer-logo-big svg {
+  filter: drop-shadow(0 0 16px rgba(59,130,246,.5));
+  animation: footerDropPulse 3.2s ease-in-out infinite;
+}
+@keyframes footerDropPulse {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.06); }
+}
+
+.footer-tagline { margin-top: 1rem; color: rgba(255,255,255,.6); line-height: 1.6; }
+.footer-socials { display: flex; gap: 1rem; margin-top: 2rem; }
+.social-dot {
+  width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08);
+  color: #fff; display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.social-dot:hover { transform: translateY(-4px); background: rgba(59,130,246,.22); border-color: rgba(100,170,255,.45); box-shadow: 0 12px 28px rgba(0,87,255,.22); }
+
+.footer-col-head { color: #fff; margin-bottom: 1rem; font-weight: 600; }
+.footer-link {
+  display: block; color: rgba(255,255,255,.5); margin-bottom: .7rem;
+  text-decoration: none; font-size: .9rem; width: fit-content;
+  border: 0; background: transparent; font-family: var(--font-body);
+  text-align: left; cursor: pointer; padding: .1rem 0; position: relative;
+  transition: color .24s ease, transform .24s ease;
+}
+.footer-link::after { content: ""; position: absolute; left: 0; bottom: -.15rem; width: 100%; height: 1px; background: var(--blue-light); transform: scaleX(0); transform-origin: right; transition: transform .25s ease; }
+.footer-link:hover { color: #fff; transform: translateX(4px); }
+.footer-link:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.06); }
+.footer-bottom-inner { max-width: 1300px; margin: auto; padding: 1.5rem 4vw; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem; color: rgba(255,255,255,.45); }
+.footer-cert { display: flex; gap: 1rem; }
+.cert-badge { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); padding: .5rem .8rem; border-radius: 100px; transition: border-color .25s ease, background .25s ease, transform .25s ease; }
+.cert-badge:hover { background: rgba(59,130,246,.12); border-color: rgba(100,170,255,.35); transform: translateY(-2px); }
+
+@media(max-width:1024px){
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-content{grid-template-columns:1fr 1fr}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:3rem}
+  .hero-visual{height:380px}
+  .pillars{grid-template-columns:1fr}
+  .products-grid{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr;gap:3rem;padding-top:120px}
+  .form-2col{grid-template-columns:1fr}
+  .comp-table{overflow-x:auto}
+}
+@media(max-width:768px){
+  .how-step{grid-template-columns:1fr}
+  .cta-actions{flex-direction:column}
+  .footer-content{grid-template-columns:1fr}
+  .stats-inner{grid-template-columns:1fr}
+  .footer-bottom-inner{flex-direction:column;text-align:center}
+  .footer-cert{justify-content:center;flex-wrap:wrap}
+  .footer-drop-theatre{height:150px}
+  .hero-glow,.hero-glow2{display:none}
+  .hero-label{animation:none}
+  .filter-line{animation:none}
+}
+@media(max-width:640px){
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  .hero-actions{flex-direction:column}
+  .btn-primary,.btn-ghost{width:100%;justify-content:center}
+  .features-grid{grid-template-columns:1fr}
+  .hero-label.label-2,.hero-label.label-3{display:none}
+}
+@media(max-width:480px){
+  .ro-stage-wrapper{transform:scale(0.85)}
+  .prod-footer{flex-direction:column;gap:1rem;align-items:flex-start}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+`;
 
 /* ─── DATA ─────────────────────────────────────────────── */
 const NAV_LINKS = ["home", "about", "products", "contact"];
-
 const FEATURES = [
-  {
-    icon: "🧬",
-    title: "Molecular Filtration",
-    desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen.",
-  },
-  {
-    icon: "💎",
-    title: "Mineral Restoration",
-    desc: "Adds back calcium, magnesium & alkaline compounds your body craves.",
-  },
-  {
-    icon: "📱",
-    title: "Smart Monitoring",
-    desc: "Live TDS, pH, and flow-rate data on the integrated display and app.",
-  },
-  {
-    icon: "♻️",
-    title: "Zero-Waste Design",
-    desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule.",
-  },
+  { icon: "🧬", title: "Molecular Filtration", desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen." },
+  { icon: "💎", title: "Mineral Restoration", desc: "Adds back calcium, magnesium & alkaline compounds your body craves." },
+  { icon: "📱", title: "Smart Monitoring", desc: "Live TDS, pH, and flow-rate data on the integrated display and app." },
+  { icon: "♻️", title: "Zero-Waste Design", desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule." },
 ];
-
 const PILLARS = [
-  {
-    icon: "🛡️",
-    title: "Bio-Defense RO+",
-    desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair.",
-  },
-  {
-    icon: "💧",
-    title: "Natural Mineralization",
-    desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water.",
-  },
-  {
-    icon: "🌿",
-    title: "Eco Carbon Architecture",
-    desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
-  },
+  { icon: "🛡️", title: "Bio-Defense RO+", desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair." },
+  { icon: "💧", title: "Natural Mineralization", desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water." },
+  { icon: "🌿", title: "Eco Carbon Architecture", desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently." },
 ];
-
 const TIMELINE = [
-  {
-    year: "2018",
-    dot: "18",
-    title: "Founded in Bangalore",
-    desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system.",
-  },
-  {
-    year: "2020",
-    dot: "20",
-    title: "14-Stage Breakthrough",
-    desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice.",
-  },
-  {
-    year: "2022",
-    dot: "22",
-    title: "1:1 Waste Ratio Achieved",
-    desc: "First company in the world to hit true zero-waste filtration at consumer scale.",
-  },
-  {
-    year: "2024",
-    dot: "24",
-    title: "Smart Display Launch",
-    desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped.",
-  },
-  {
-    year: "2026",
-    dot: "26",
-    title: "The X-Series",
-    desc: "Our most advanced purification engineering ever. Launching to the world now.",
-  },
+  { year: "2018", dot: "18", title: "Founded in Bangalore", desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system." },
+  { year: "2020", dot: "20", title: "14-Stage Breakthrough", desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice." },
+  { year: "2022", dot: "22", title: "1:1 Waste Ratio Achieved", desc: "First company in the world to hit true zero-waste filtration at consumer scale." },
+  { year: "2024", dot: "24", title: "Smart Display Launch", desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped." },
+  { year: "2026", dot: "26", title: "The X-Series", desc: "Our most advanced purification engineering ever. Launching to the world now." },
 ];
-
 const PRODUCTS = [
-  {
-    id: "elite",
-    badge: "Flagship",
-    badgeDark: false,
-    bgClass: "blue-bg",
-    dark: false,
-    name: "Elite X-1",
-    tagline: "The pinnacle of home water purification.",
-    specs: [
-      "14-Stage RO + UV + UF + Mineraliser",
-      "Intelligent TDS & pH Live Display",
-      "Alkaline Balancer (pH 8.2–9.0)",
-      "Smart Filter Change Alert (App)",
-      "1:1 Zero Waste Recovery Ratio",
-    ],
-    price: "₹89,999",
-    btnLight: false,
-    btnLabel: "Pre-Order",
-    tds: "002",
-  },
-  {
-    id: "element",
-    badge: "Pro Series",
-    badgeDark: true,
-    bgClass: "dark-bg",
-    dark: true,
-    name: "Element Pro",
-    tagline: "Compact brilliance for modern kitchens.",
-    specs: [
-      "12-Stage Compact Filtration",
-      "UV-C Chamber Sterilization",
-      "Sleek Countertop Glass Profile",
-      "Auto Flush & Self-Clean Cycle",
-      "Fits under standard sink cabinet",
-    ],
-    price: "₹64,999",
-    btnLight: true,
-    btnLabel: "Pre-Order",
-    tds: "004",
-  },
-  {
-    id: "hydro",
-    badge: "Under Sink",
-    badgeDark: false,
-    bgClass: "slate-bg",
-    dark: false,
-    name: "HydroCore S",
-    tagline: "Hidden genius — designed to disappear under your sink.",
-    specs: [
-      "10-Stage RO Under-Sink Module",
-      "Separate Dedicated Pure Water Tap",
-      "12L Storage Tank Included",
-      "Wi-Fi TDS Reporting to App",
-    ],
-    price: "₹49,999",
-    btnLight: false,
-    btnLabel: "Pre-Order",
-    tds: "001",
-  },
-  {
-    id: "obsidian",
-    badge: "Luxury",
-    badgeDark: true,
-    bgClass: "ink-bg",
-    dark: true,
-    name: "Obsidian One",
-    tagline: "For those who demand the extraordinary.",
-    specs: [
-      "16-Stage Luxury Filtration",
-      "Platinum-grade Membrane",
-      "Bespoke Installation Service",
-      "5-Year White Glove Warranty",
-    ],
-    price: "₹1,49,999",
-    btnLight: true,
-    btnLabel: "Enquire",
-    tds: "001",
-  },
+  { id: "elite", badge: "Flagship", badgeDark: false, bgClass: "blue-bg", dark: false, name: "Elite X-1", tagline: "The pinnacle of home water purification.", specs: ["14-Stage RO + UV + UF + Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert (App)","1:1 Zero Waste Recovery Ratio"], price: "₹89,999", btnLight: false, btnLabel: "Pre-Order", tds: "002" },
+  { id: "element", badge: "Pro Series", badgeDark: true, bgClass: "dark-bg", dark: true, name: "Element Pro", tagline: "Compact brilliance for modern kitchens.", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle","Fits under standard sink cabinet"], price: "₹64,999", btnLight: true, btnLabel: "Pre-Order", tds: "004" },
+  { id: "hydro", badge: "Under Sink", badgeDark: false, bgClass: "slate-bg", dark: false, name: "HydroCore S", tagline: "Hidden genius — designed to disappear under your sink.", specs: ["10-Stage RO Under-Sink Module","Separate Dedicated Pure Water Tap","12L Storage Tank Included","Wi-Fi TDS Reporting to App"], price: "₹49,999", btnLight: false, btnLabel: "Pre-Order", tds: "001" },
+  { id: "obsidian", badge: "Luxury", badgeDark: true, bgClass: "ink-bg", dark: true, name: "Obsidian One", tagline: "For those who demand the extraordinary.", specs: ["16-Stage Luxury Filtration","Platinum-grade Membrane","Bespoke Installation Service","5-Year White Glove Warranty"], price: "₹1,49,999", btnLight: true, btnLabel: "Enquire", tds: "001" },
 ];
-
 const COMP_ROWS = [
-  { label: "Filter Stages", vals: ["14", "12", "10"] },
+  { label: "Filter Stages", vals: ["14","12","10"] },
   { label: "UV-C Sterilization", vals: [true, true, false] },
   { label: "Alkaline Mineralization", vals: [true, false, false] },
   { label: "Smart Display", vals: [true, true, "App Only"] },
   { label: "1:1 Zero Waste", vals: [true, true, false] },
 ];
-
-const MARQUEE_ITEMS = [
-  "Molecular Filtration",
-  "14-Stage Purification",
-  "99.9% Purity",
-  "Smart TDS Monitor",
-  "Alkaline Infused",
-  "Zero Waste Architecture",
-  "UV-C Sterilization",
-  "Molecular Filtration",
-  "14-Stage Purification",
-  "99.9% Purity",
-  "Smart TDS Monitor",
-  "Alkaline Infused",
-  "Zero Waste Architecture",
-  "UV-C Sterilization",
-];
-
+const MARQUEE_ITEMS = ["Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor","Alkaline Infused","Zero Waste Architecture","UV-C Sterilization","Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor","Alkaline Infused","Zero Waste Architecture","UV-C Sterilization"];
 const HOW_STEPS = [
-  {
-    num: "01",
-    icon: "🌊",
-    title: "Source Water Enters",
-    desc: "Raw tap water enters the pre-filter chamber, capturing large sediment and chlorine with activated carbon.",
-  },
-  {
-    num: "02",
-    icon: "🔬",
-    title: "Molecular Membrane",
-    desc: "Our 0.0001-micron RO membrane rejects heavy metals, fluoride, nitrates, and all known pathogens.",
-  },
-  {
-    num: "03",
-    icon: "💡",
-    title: "UV-C Sterilization",
-    desc: "A 254nm UV-C lamp annihilates any remaining microbial life — 99.9999% sterilization efficiency.",
-  },
-  {
-    num: "04",
-    icon: "💎",
-    title: "Mineral Infusion",
-    desc: "Bio-ceramic mineral stones restore calcium, magnesium, and potassium for a crisp, alkaline finish.",
-  },
-  {
-    num: "05",
-    icon: "📊",
-    title: "Smart Validation",
-    desc: "Live TDS & pH sensors confirm purity before every pour. Your app logs every drop in real time.",
-  },
+  { num: "01", icon: "🌊", title: "Source Water Enters", desc: "Raw tap water enters the pre-filter chamber, capturing large sediment and chlorine with activated carbon." },
+  { num: "02", icon: "🔬", title: "Molecular Membrane", desc: "Our 0.0001-micron RO membrane rejects heavy metals, fluoride, nitrates, and all known pathogens." },
+  { num: "03", icon: "💡", title: "UV-C Sterilization", desc: "A 254nm UV-C lamp annihilates any remaining microbial life — 99.9999% sterilization efficiency." },
+  { num: "04", icon: "💎", title: "Mineral Infusion", desc: "Bio-ceramic mineral stones restore calcium, magnesium, and potassium for a crisp, alkaline finish." },
+  { num: "05", icon: "📊", title: "Smart Validation", desc: "Live TDS & pH sensors confirm purity before every pour. Your app logs every drop in real time." },
 ];
-
 const TESTIMONIALS = [
-  {
-    name: "Priya Raghavan",
-    role: "Architect · Mumbai",
-    avatar: "PR",
-    rating: 5,
-    quote:
-      "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.",
-    model: "Elite X-1",
-  },
-  {
-    name: "Arjun Mehta",
-    role: "Cardiologist · Delhi",
-    avatar: "AM",
-    rating: 5,
-    quote:
-      "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.",
-    model: "HydroCore S",
-  },
-  {
-    name: "Sonal & Vivek Iyer",
-    role: "Home Owners · Bengaluru",
-    avatar: "SI",
-    rating: 5,
-    quote:
-      "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.",
-    model: "Obsidian One",
-  },
+  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
+  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
+  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
 ];
-
 const COUNTER_STATS = [
   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
   { end: 99.9, suffix: "%", label: "Purity Rate", prefix: "" },
   { end: 14, suffix: "", label: "Filter Stages", prefix: "" },
   { end: 1, suffix: ":1", label: "Waste Ratio", prefix: "" },
 ];
-
 const FOOTER_LINKS = {
-  Products: ["Elite X-1", "Element Pro", "HydroCore S", "Obsidian One"],
-  Company: ["About Us", "Our Technology", "Sustainability", "Press"],
-  Support: ["Consultation", "Filter Replacement", "Warranty", "App Download"],
-  Legal: ["Privacy Policy", "Terms of Use", "Cookie Policy"],
+  Products: ["Elite X-1","Element Pro","HydroCore S","Obsidian One"],
+  Company:  ["About Us","Our Technology","Sustainability","Press"],
+  Support:  ["Consultation","Filter Replacement","Warranty","App Download"],
+  Legal:    ["Privacy Policy","Terms of Use","Cookie Policy"],
 };
 
 /* ─── SVG MODELS ─────────────────────────────────────────── */
 function ModelElite() {
   return (
-    <svg
-      className="ro-model-svg"
-      width="160"
-      height="260"
-      viewBox="0 0 160 260"
-      fill="none"
-    >
+    <svg className="ro-model-svg" width="160" height="260" viewBox="0 0 160 260" fill="none">
       <defs>
-        <linearGradient
-          id="grad1"
-          x1="30"
-          y1="40"
-          x2="130"
-          y2="220"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#ddeeff" />
-          <stop offset="100%" stopColor="#a8c8ff" />
-        </linearGradient>
-        <linearGradient
-          id="grad2"
-          x1="45"
-          y1="28"
-          x2="115"
-          y2="44"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#b8d0ff" />
-          <stop offset="100%" stopColor="#7aaaff" />
-        </linearGradient>
-        <linearGradient
-          id="grad3"
-          x1="68"
-          y1="220"
-          x2="92"
-          y2="250"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#a0c0ff" />
-          <stop offset="100%" stopColor="#6090ff" />
-        </linearGradient>
+        <linearGradient id="grad1" x1="30" y1="40" x2="130" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#ddeeff"/><stop offset="100%" stopColor="#a8c8ff"/></linearGradient>
+        <linearGradient id="grad2" x1="45" y1="28" x2="115" y2="44" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#b8d0ff"/><stop offset="100%" stopColor="#7aaaff"/></linearGradient>
+        <linearGradient id="grad3" x1="68" y1="220" x2="92" y2="250" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#a0c0ff"/><stop offset="100%" stopColor="#6090ff"/></linearGradient>
       </defs>
-      <rect x="30" y="40" width="100" height="180" rx="22" fill="url(#grad1)" />
-      <rect
-        x="30"
-        y="40"
-        width="100"
-        height="180"
-        rx="22"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="48"
-        y="40"
-        width="20"
-        height="180"
-        rx="10"
-        fill="rgba(255,255,255,0.25)"
-      />
-      <rect x="45" y="28" width="70" height="16" rx="8" fill="url(#grad2)" />
-      <rect
-        x="45"
-        y="150"
-        width="70"
-        height="50"
-        rx="12"
-        fill="rgba(255,255,255,0.15)"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1"
-      />
-      <text
-        x="80"
-        y="183"
-        textAnchor="middle"
-        fontFamily="Georgia"
-        fontSize="22"
-        fontWeight="700"
-        fill="#0057FF"
-      >
-        002
-      </text>
-      <text
-        x="80"
-        y="196"
-        textAnchor="middle"
-        fontFamily="Arial"
-        fontSize="7"
-        fill="rgba(0,87,255,0.7)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      {[80, 96, 112, 128].map((y, i) => (
-        <line
-          key={i}
-          x1="50"
-          y1={y}
-          x2="110"
-          y2={y}
-          stroke={`rgba(0,87,255,${0.4 - i * 0.08})`}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      ))}
-      <circle cx="100" cy="58" r="5" fill="#0057FF" />
-      <circle cx="100" cy="58" r="8" fill="rgba(0,87,255,0.2)" />
-      <rect x="68" y="220" width="24" height="30" rx="6" fill="url(#grad3)" />
-      <ellipse cx="80" cy="258" rx="5" ry="7" fill="rgba(0,87,255,0.5)" />
+      <rect x="30" y="40" width="100" height="180" rx="22" fill="url(#grad1)"/>
+      <rect x="30" y="40" width="100" height="180" rx="22" stroke="rgba(0,87,255,0.3)" strokeWidth="1.5"/>
+      <rect x="48" y="40" width="20" height="180" rx="10" fill="rgba(255,255,255,0.25)"/>
+      <rect x="45" y="28" width="70" height="16" rx="8" fill="url(#grad2)"/>
+      <rect x="45" y="150" width="70" height="50" rx="12" fill="rgba(255,255,255,0.15)" stroke="rgba(0,87,255,0.3)" strokeWidth="1"/>
+      <text x="80" y="183" textAnchor="middle" fontFamily="Georgia" fontSize="22" fontWeight="700" fill="#0057FF">002</text>
+      <text x="80" y="196" textAnchor="middle" fontFamily="Arial" fontSize="7" fill="rgba(0,87,255,0.7)" letterSpacing="1">TDS PPM</text>
+      {[80,96,112,128].map((y,i)=><line key={i} x1="50" y1={y} x2="110" y2={y} stroke={`rgba(0,87,255,${0.4-i*0.08})`} strokeWidth="2" strokeLinecap="round"/>)}
+      <circle cx="100" cy="58" r="5" fill="#0057FF"/>
+      <circle cx="100" cy="58" r="8" fill="rgba(0,87,255,0.2)"/>
+      <rect x="68" y="220" width="24" height="30" rx="6" fill="url(#grad3)"/>
+      <ellipse cx="80" cy="258" rx="5" ry="7" fill="rgba(0,87,255,0.5)"/>
     </svg>
   );
 }
-
 function ModelElement() {
   return (
-    <svg
-      className="ro-model-svg"
-      width="140"
-      height="240"
-      viewBox="0 0 140 240"
-      fill="none"
-    >
+    <svg className="ro-model-svg" width="140" height="240" viewBox="0 0 140 240" fill="none">
       <defs>
-        <linearGradient
-          id="darkgrad1"
-          x1="20"
-          y1="30"
-          x2="120"
-          y2="200"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1a2030" />
-          <stop offset="100%" stopColor="#0b1020" />
-        </linearGradient>
-        <linearGradient
-          id="darkgrad2"
-          x1="38"
-          y1="20"
-          x2="102"
-          y2="34"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1e3060" />
-          <stop offset="100%" stopColor="#0a1830" />
-        </linearGradient>
-        <linearGradient
-          id="darkgrad3"
-          x1="55"
-          y1="200"
-          x2="85"
-          y2="228"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1e3060" />
-          <stop offset="100%" stopColor="#0a1830" />
-        </linearGradient>
+        <linearGradient id="darkgrad1" x1="20" y1="30" x2="120" y2="200" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1a2030"/><stop offset="100%" stopColor="#0b1020"/></linearGradient>
+        <linearGradient id="darkgrad2" x1="38" y1="20" x2="102" y2="34" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1e3060"/><stop offset="100%" stopColor="#0a1830"/></linearGradient>
+        <linearGradient id="darkgrad3" x1="55" y1="200" x2="85" y2="228" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#1e3060"/><stop offset="100%" stopColor="#0a1830"/></linearGradient>
       </defs>
-      <rect
-        x="20"
-        y="30"
-        width="100"
-        height="170"
-        rx="18"
-        fill="url(#darkgrad1)"
-      />
-      <rect
-        x="20"
-        y="30"
-        width="100"
-        height="170"
-        rx="18"
-        stroke="rgba(100,150,255,0.2)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="36"
-        y="30"
-        width="16"
-        height="170"
-        rx="8"
-        fill="rgba(255,255,255,0.05)"
-      />
-      <rect
-        x="38"
-        y="20"
-        width="64"
-        height="14"
-        rx="7"
-        fill="url(#darkgrad2)"
-      />
-      {[65, 80, 95].map((y, i) => (
-        <line
-          key={i}
-          x1="35"
-          y1={y}
-          x2="105"
-          y2={y}
-          stroke={`rgba(100,160,255,${0.3 - i * 0.07})`}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      ))}
-      <rect
-        x="38"
-        y="125"
-        width="64"
-        height="42"
-        rx="10"
-        fill="rgba(0,87,255,0.12)"
-        stroke="rgba(100,160,255,0.3)"
-        strokeWidth="1"
-      />
-      <text
-        x="70"
-        y="151"
-        textAnchor="middle"
-        fontFamily="Georgia"
-        fontSize="20"
-        fontWeight="700"
-        fill="#60a0ff"
-      >
-        004
-      </text>
-      <text
-        x="70"
-        y="163"
-        textAnchor="middle"
-        fontFamily="Arial"
-        fontSize="6"
-        fill="rgba(100,160,255,0.7)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      <circle cx="95" cy="45" r="4" fill="#3b82f6" />
-      <rect
-        x="55"
-        y="200"
-        width="30"
-        height="28"
-        rx="7"
-        fill="url(#darkgrad3)"
-      />
-      <ellipse cx="70" cy="233" rx="5" ry="6" fill="rgba(100,160,255,0.4)" />
+      <rect x="20" y="30" width="100" height="170" rx="18" fill="url(#darkgrad1)"/>
+      <rect x="20" y="30" width="100" height="170" rx="18" stroke="rgba(100,150,255,0.2)" strokeWidth="1.5"/>
+      <rect x="36" y="30" width="16" height="170" rx="8" fill="rgba(255,255,255,0.05)"/>
+      <rect x="38" y="20" width="64" height="14" rx="7" fill="url(#darkgrad2)"/>
+      {[65,80,95].map((y,i)=><line key={i} x1="35" y1={y} x2="105" y2={y} stroke={`rgba(100,160,255,${0.3-i*0.07})`} strokeWidth="1.5" strokeLinecap="round"/>)}
+      <rect x="38" y="125" width="64" height="42" rx="10" fill="rgba(0,87,255,0.12)" stroke="rgba(100,160,255,0.3)" strokeWidth="1"/>
+      <text x="70" y="151" textAnchor="middle" fontFamily="Georgia" fontSize="20" fontWeight="700" fill="#60a0ff">004</text>
+      <text x="70" y="163" textAnchor="middle" fontFamily="Arial" fontSize="6" fill="rgba(100,160,255,0.7)" letterSpacing="1">TDS PPM</text>
+      <circle cx="95" cy="45" r="4" fill="#3b82f6"/>
+      <rect x="55" y="200" width="30" height="28" rx="7" fill="url(#darkgrad3)"/>
+      <ellipse cx="70" cy="233" rx="5" ry="6" fill="rgba(100,160,255,0.4)"/>
     </svg>
   );
 }
-
 function ModelHydro() {
   return (
-    <svg
-      className="ro-model-svg"
-      width="200"
-      height="200"
-      viewBox="0 0 200 200"
-      fill="none"
-    >
+    <svg className="ro-model-svg" width="200" height="200" viewBox="0 0 200 200" fill="none">
       <defs>
-        <linearGradient
-          id="slategrad"
-          x1="10"
-          y1="60"
-          x2="190"
-          y2="140"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#e8f0ff" />
-          <stop offset="100%" stopColor="#c8daff" />
-        </linearGradient>
-        <linearGradient
-          id="cylgrad1"
-          x1="18"
-          y1="78"
-          x2="62"
-          y2="122"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#c0d8ff" />
-          <stop offset="100%" stopColor="#8ab0ff" />
-        </linearGradient>
+        <linearGradient id="slategrad" x1="10" y1="60" x2="190" y2="140" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#e8f0ff"/><stop offset="100%" stopColor="#c8daff"/></linearGradient>
+        <linearGradient id="cylgrad1" x1="18" y1="78" x2="62" y2="122" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#c0d8ff"/><stop offset="100%" stopColor="#8ab0ff"/></linearGradient>
       </defs>
-      <rect
-        x="10"
-        y="60"
-        width="180"
-        height="80"
-        rx="18"
-        fill="url(#slategrad)"
-      />
-      <rect
-        x="10"
-        y="60"
-        width="180"
-        height="80"
-        rx="18"
-        stroke="rgba(0,87,255,0.2)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="10"
-        y="60"
-        width="60"
-        height="80"
-        rx="18"
-        fill="rgba(0,87,255,0.08)"
-      />
-      <circle
-        cx="40"
-        cy="100"
-        r="22"
-        fill="url(#cylgrad1)"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1"
-      />
-      <circle cx="40" cy="100" r="14" fill="rgba(255,255,255,0.5)" />
-      <circle cx="40" cy="100" r="6" fill="#0057FF" opacity="0.4" />
-      <rect
-        x="100"
-        y="75"
-        width="70"
-        height="50"
-        rx="10"
-        fill="rgba(255,255,255,0.5)"
-        stroke="rgba(0,87,255,0.15)"
-      />
-      <text
-        x="135"
-        y="103"
-        textAnchor="middle"
-        fontFamily="Georgia"
-        fontSize="18"
-        fontWeight="700"
-        fill="#0057FF"
-      >
-        001
-      </text>
-      <text
-        x="135"
-        y="115"
-        textAnchor="middle"
-        fontFamily="Arial"
-        fontSize="6"
-        fill="rgba(0,87,255,0.6)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      <line
-        x1="10"
-        y1="85"
-        x2="0"
-        y2="85"
-        stroke="rgba(0,87,255,0.5)"
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-      <line
-        x1="190"
-        y1="115"
-        x2="200"
-        y2="115"
-        stroke="rgba(0,87,255,0.5)"
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
+      <rect x="10" y="60" width="180" height="80" rx="18" fill="url(#slategrad)"/>
+      <rect x="10" y="60" width="180" height="80" rx="18" stroke="rgba(0,87,255,0.2)" strokeWidth="1.5"/>
+      <rect x="10" y="60" width="60" height="80" rx="18" fill="rgba(0,87,255,0.08)"/>
+      <circle cx="40" cy="100" r="22" fill="url(#cylgrad1)" stroke="rgba(0,87,255,0.3)" strokeWidth="1"/>
+      <circle cx="40" cy="100" r="14" fill="rgba(255,255,255,0.5)"/>
+      <circle cx="40" cy="100" r="6" fill="#0057FF" opacity="0.4"/>
+      <rect x="100" y="75" width="70" height="50" rx="10" fill="rgba(255,255,255,0.5)" stroke="rgba(0,87,255,0.15)"/>
+      <text x="135" y="103" textAnchor="middle" fontFamily="Georgia" fontSize="18" fontWeight="700" fill="#0057FF">001</text>
+      <text x="135" y="115" textAnchor="middle" fontFamily="Arial" fontSize="6" fill="rgba(0,87,255,0.6)" letterSpacing="1">TDS PPM</text>
+      <line x1="10" y1="85" x2="0" y2="85" stroke="rgba(0,87,255,0.5)" strokeWidth="4" strokeLinecap="round"/>
+      <line x1="190" y1="115" x2="200" y2="115" stroke="rgba(0,87,255,0.5)" strokeWidth="4" strokeLinecap="round"/>
     </svg>
   );
 }
-
 function ModelObsidian() {
   return (
-    <svg
-      className="ro-model-svg"
-      width="130"
-      height="260"
-      viewBox="0 0 130 260"
-      fill="none"
-    >
+    <svg className="ro-model-svg" width="130" height="260" viewBox="0 0 130 260" fill="none">
       <defs>
-        <linearGradient
-          id="luxgrad"
-          x1="35"
-          y1="20"
-          x2="95"
-          y2="220"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#141c30" />
-          <stop offset="100%" stopColor="#060a14" />
-        </linearGradient>
+        <linearGradient id="luxgrad" x1="35" y1="20" x2="95" y2="220" gradientUnits="userSpaceOnUse"><stop offset="0%" stopColor="#141c30"/><stop offset="100%" stopColor="#060a14"/></linearGradient>
       </defs>
-      <rect
-        x="35"
-        y="20"
-        width="60"
-        height="200"
-        rx="30"
-        fill="url(#luxgrad)"
-      />
-      <rect
-        x="35"
-        y="20"
-        width="60"
-        height="200"
-        rx="30"
-        stroke="rgba(200,220,255,0.1)"
-        strokeWidth="1.5"
-      />
-      <ellipse
-        cx="65"
-        cy="50"
-        rx="22"
-        ry="6"
-        fill="none"
-        stroke="rgba(200,180,100,0.5)"
-        strokeWidth="2"
-      />
-      <rect
-        x="43"
-        y="20"
-        width="12"
-        height="200"
-        rx="6"
-        fill="rgba(255,255,255,0.04)"
-      />
-      <rect
-        x="43"
-        y="130"
-        width="44"
-        height="55"
-        rx="12"
-        fill="rgba(0,40,120,0.3)"
-        stroke="rgba(100,140,255,0.2)"
-      />
-      <text
-        x="65"
-        y="162"
-        textAnchor="middle"
-        fontFamily="Georgia"
-        fontSize="18"
-        fontWeight="700"
-        fill="#7aafff"
-      >
-        001
-      </text>
-      <text
-        x="65"
-        y="176"
-        textAnchor="middle"
-        fontFamily="Arial"
-        fontSize="5.5"
-        fill="rgba(120,160,255,0.6)"
-        letterSpacing="1"
-      >
-        PURE TDS
-      </text>
-      {[78, 94, 110].map((y, i) => (
-        <line
-          key={i}
-          x1="43"
-          y1={y}
-          x2="87"
-          y2={y}
-          stroke={`rgba(100,140,255,${0.15 - i * 0.03})`}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      ))}
-      <circle cx="75" cy="38" r="3.5" fill="#3b7aff" />
-      <rect
-        x="52"
-        y="220"
-        width="26"
-        height="30"
-        rx="6"
-        fill="rgba(30,50,100,0.8)"
-      />
-      <ellipse cx="65" cy="254" rx="4" ry="5.5" fill="rgba(100,150,255,0.3)" />
+      <rect x="35" y="20" width="60" height="200" rx="30" fill="url(#luxgrad)"/>
+      <rect x="35" y="20" width="60" height="200" rx="30" stroke="rgba(200,220,255,0.1)" strokeWidth="1.5"/>
+      <ellipse cx="65" cy="50" rx="22" ry="6" fill="none" stroke="rgba(200,180,100,0.5)" strokeWidth="2"/>
+      <rect x="43" y="20" width="12" height="200" rx="6" fill="rgba(255,255,255,0.04)"/>
+      <rect x="43" y="130" width="44" height="55" rx="12" fill="rgba(0,40,120,0.3)" stroke="rgba(100,140,255,0.2)"/>
+      <text x="65" y="162" textAnchor="middle" fontFamily="Georgia" fontSize="18" fontWeight="700" fill="#7aafff">001</text>
+      <text x="65" y="176" textAnchor="middle" fontFamily="Arial" fontSize="5.5" fill="rgba(120,160,255,0.6)" letterSpacing="1">PURE TDS</text>
+      {[78,94,110].map((y,i)=><line key={i} x1="43" y1={y} x2="87" y2={y} stroke={`rgba(100,140,255,${0.15-i*0.03})`} strokeWidth="1.5" strokeLinecap="round"/>)}
+      <circle cx="75" cy="38" r="3.5" fill="#3b7aff"/>
+      <rect x="52" y="220" width="26" height="30" rx="6" fill="rgba(30,50,100,0.8)"/>
+      <ellipse cx="65" cy="254" rx="4" ry="5.5" fill="rgba(100,150,255,0.3)"/>
     </svg>
   );
 }
-
-const MODEL_SVG = {
-  elite: ModelElite,
-  element: ModelElement,
-  hydro: ModelHydro,
-  obsidian: ModelObsidian,
-};
+const MODEL_SVG = { elite: ModelElite, element: ModelElement, hydro: ModelHydro, obsidian: ModelObsidian };
 
 /* ─── HERO RO VISUAL ─────────────────────────────────────── */
 function HeroVisual({ tds }) {
   return (
     <div className="hero-visual">
       <div className="ro-stage-wrapper">
-        <div className="ro-top-ring" />
+        <div className="ro-top-ring"/>
         <div className="ro-body">
-          <div className="ro-sheen" />
+          <div className="ro-sheen"/>
           <div className="ro-filter-lines">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div key={i} className={`filter-line fl-${i}`} />
-            ))}
+            {[1,2,3,4,5].map(i=><div key={i} className={`filter-line fl-${i}`}/>)}
           </div>
           <div className="ro-display">
-            <div className="tds-num">{String(tds).padStart(3, "0")}</div>
+            <div className="tds-num">{String(tds).padStart(3,"0")}</div>
             <div className="tds-lbl">OPTIMAL TDS</div>
           </div>
         </div>
-        <div className="ro-spout" />
-        <div className="hero-label label-1">
-          <span className="ldot" />
-          14-Stage RO+UV
-        </div>
-        <div className="hero-label label-2">
-          <span className="ldot" />
-          Alkaline pH 8.5
-        </div>
-        <div className="hero-label label-3">
-          <span className="ldot" />
-          Smart TDS Monitor
-        </div>
+        <div className="ro-spout"/>
+        <div className="hero-label label-1"><span className="ldot"/>14-Stage RO+UV</div>
+        <div className="hero-label label-2"><span className="ldot"/>Alkaline pH 8.5</div>
+        <div className="hero-label label-3"><span className="ldot"/>Smart TDS Monitor</div>
       </div>
     </div>
   );
 }
 
-/* ─── WATER DROPS CANVAS ─────────────────────────────────── */
-
-
-
-/* ─── AMBIENT DROPS CANVAS (for new section) ─────────────── */
-function AmbientDrops({ count = 20, color = "0,87,255", dark = false }) {
+/* ─── AMBIENT DROPS ──────────────────────────────────────── */
+function AmbientDrops({ count=20, color="0,87,255" }) {
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
   const rafRef = useRef(null);
-
-  useEffect(() => {
+  useEffect(()=>{
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    if(!canvas) return;
     const ctx = canvas.getContext("2d");
-    const resize = () => {
+    const resize = ()=>{
       canvas.width = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-      particlesRef.current = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vy: 0.2 + Math.random() * 0.5,
-        vx: (Math.random() - 0.5) * 0.3,
-        r: 2 + Math.random() * 6,
-        a: 0.15 + Math.random() * 0.35,
-        wobble: Math.random() * Math.PI * 2,
-        wobbleSpeed: 0.01 + Math.random() * 0.02,
+      particlesRef.current = Array.from({length:count},()=>({
+        x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+        vy:0.2+Math.random()*0.5, vx:(Math.random()-.5)*.3,
+        r:2+Math.random()*6, a:0.15+Math.random()*0.35,
+        wobble:Math.random()*Math.PI*2, wobbleSpeed:0.01+Math.random()*0.02,
       }));
     };
     resize();
-    window.addEventListener("resize", resize);
-
-    const anim = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesRef.current.forEach((p) => {
-        p.wobble += p.wobbleSpeed;
-        p.x += p.vx + Math.sin(p.wobble) * 0.3;
-        p.y += p.vy;
-        if (p.y > canvas.height + 20) {
-          p.y = -20;
-          p.x = Math.random() * canvas.width;
-        }
-        ctx.beginPath();
-        ctx.ellipse(p.x, p.y, p.r * 0.55, p.r, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color},${p.a})`;
-        ctx.fill();
-        // shine dot
-        ctx.beginPath();
-        ctx.arc(p.x - p.r * 0.2, p.y - p.r * 0.3, p.r * 0.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.a * 0.8})`;
-        ctx.fill();
+    window.addEventListener("resize",resize);
+    const anim=()=>{
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      particlesRef.current.forEach(p=>{
+        p.wobble+=p.wobbleSpeed; p.x+=p.vx+Math.sin(p.wobble)*.3; p.y+=p.vy;
+        if(p.y>canvas.height+20){p.y=-20;p.x=Math.random()*canvas.width;}
+        ctx.beginPath(); ctx.ellipse(p.x,p.y,p.r*.55,p.r,0,0,Math.PI*2);
+        ctx.fillStyle=`rgba(${color},${p.a})`; ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x-p.r*.2,p.y-p.r*.3,p.r*.2,0,Math.PI*2);
+        ctx.fillStyle=`rgba(255,255,255,${p.a*.8})`; ctx.fill();
       });
-      rafRef.current = requestAnimationFrame(anim);
+      rafRef.current=requestAnimationFrame(anim);
     };
     anim();
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
-    };
-  }, [count, color]);
-
-  return <canvas ref={canvasRef} className="ambient-drops-canvas" />;
+    return()=>{ cancelAnimationFrame(rafRef.current); window.removeEventListener("resize",resize); };
+  },[count,color]);
+  return <canvas ref={canvasRef} className="ambient-drops-canvas"/>;
 }
 
-/* ─── RIPPLE CANVAS ──────────────────────────────────────── */
+/* ─── RIPPLE ZONE ────────────────────────────────────────── */
 function RippleZone() {
   const canvasRef = useRef(null);
   const zoneRef = useRef(null);
   const ripplesRef = useRef([]);
   const rafRef = useRef(null);
-
-  useEffect(() => {
+  useEffect(()=>{
     const canvas = canvasRef.current;
     const zone = zoneRef.current;
-    if (!canvas || !zone) return;
+    if(!canvas||!zone) return;
     const ctx = canvas.getContext("2d");
-    const resize = () => {
-      canvas.width = zone.offsetWidth;
-      canvas.height = zone.offsetHeight;
+    const resize=()=>{ canvas.width=zone.offsetWidth; canvas.height=zone.offsetHeight; };
+    resize(); window.addEventListener("resize",resize);
+    const onMove=(e)=>{
+      const r=zone.getBoundingClientRect();
+      ripplesRef.current.push({x:e.clientX-r.left, y:e.clientY-r.top, r:0, a:0.6});
     };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const onMove = (e) => {
-      const r = zone.getBoundingClientRect();
-      ripplesRef.current.push({
-        x: e.clientX - r.left,
-        y: e.clientY - r.top,
-        r: 0,
-        a: 0.6,
+    zone.addEventListener("mousemove",onMove);
+    const anim=()=>{
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ripplesRef.current=ripplesRef.current.filter(rp=>rp.a>0.01);
+      ripplesRef.current.forEach(rp=>{
+        rp.r+=2.5; rp.a*=0.96;
+        ctx.beginPath(); ctx.arc(rp.x,rp.y,rp.r,0,Math.PI*2);
+        ctx.strokeStyle=`rgba(255,255,255,${rp.a})`; ctx.lineWidth=1.5; ctx.stroke();
       });
-    };
-    zone.addEventListener("mousemove", onMove);
-
-    const anim = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ripplesRef.current = ripplesRef.current.filter((rp) => rp.a > 0.01);
-      ripplesRef.current.forEach((rp) => {
-        rp.r += 2.5;
-        rp.a *= 0.96;
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255,255,255,${rp.a})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      });
-      rafRef.current = requestAnimationFrame(anim);
+      rafRef.current=requestAnimationFrame(anim);
     };
     anim();
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      zone.removeEventListener("mousemove", onMove);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
+    return()=>{ cancelAnimationFrame(rafRef.current); zone.removeEventListener("mousemove",onMove); window.removeEventListener("resize",resize); };
+  },[]);
   return (
     <div className="ripple-zone" ref={zoneRef}>
-      <canvas ref={canvasRef} className="ripple-canvas" />
+      <canvas ref={canvasRef} className="ripple-canvas"/>
       <h2 className="ripple-h">Move your cursor to feel the flow.</h2>
       <p className="ripple-p">Our water is alive. So is our design.</p>
     </div>
@@ -914,103 +749,65 @@ function RippleZone() {
 }
 
 /* ─── ANIMATED COUNTER ───────────────────────────────────── */
-function AnimCounter({ end, suffix, prefix, duration = 2000 }) {
+function AnimCounter({ end, suffix, prefix, duration=2000 }) {
   const [val, setVal] = useState(0);
   const ref = useRef(null);
   const started = useRef(false);
-
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const startTime = performance.now();
-          const tick = (now) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setVal(
-              end < 100 ? +(end * eased).toFixed(1) : Math.round(end * eased),
-            );
-            if (progress < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [end, duration]);
-
-  const display =
-    end >= 1000000
-      ? val >= 1000000
-        ? (val / 1000000).toFixed(1) + "M"
-        : (val / 1000).toFixed(0) + "K"
-      : val;
-
-  return (
-    <span ref={ref}>
-      {prefix}
-      {display}
-      {suffix}
-    </span>
-  );
+  useEffect(()=>{
+    const obs = new IntersectionObserver(([entry])=>{
+      if(entry.isIntersecting && !started.current){
+        started.current=true;
+        const startTime=performance.now();
+        const tick=(now)=>{
+          const elapsed=now-startTime;
+          const progress=Math.min(elapsed/duration,1);
+          const eased=1-Math.pow(1-progress,3);
+          setVal(end<100?+(end*eased).toFixed(1):Math.round(end*eased));
+          if(progress<1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+        obs.disconnect();
+      }
+    },{threshold:0.5});
+    if(ref.current) obs.observe(ref.current);
+    return()=>obs.disconnect();
+  },[end,duration]);
+  const display = end>=1000000 ? (val>=1000000?(val/1000000).toFixed(1)+"M":(val/1000).toFixed(0)+"K") : val;
+  return <span ref={ref}>{prefix}{display}{suffix}</span>;
 }
 
-/* ─── SCROLL REVEAL HOOK ─────────────────────────────────── */
-function useReveal(deps = []) {
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              obs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.12 },
-      );
-      document
-        .querySelectorAll(".reveal, .reveal-left, .tl-item")
-        .forEach((el) => obs.observe(el));
-      return () => obs.disconnect();
-    }, 100);
-    return () => clearTimeout(timer);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+/* ─── SCROLL REVEAL ──────────────────────────────────────── */
+function useReveal(deps=[]) {
+  useEffect(()=>{
+    const timer=setTimeout(()=>{
+      const obs=new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{ if(e.isIntersecting){e.target.classList.add("visible");obs.unobserve(e.target);} });
+      },{threshold:0.12});
+      document.querySelectorAll(".reveal,.reveal-left,.tl-item").forEach(el=>obs.observe(el));
+      return()=>obs.disconnect();
+    },100);
+    return()=>clearTimeout(timer);
+    // eslint-disable-next-line
+  },deps);
 }
 
-/* ─── HOW IT WORKS SECTION ───────────────────────────────── */
+/* ─── HOW IT WORKS ───────────────────────────────────────── */
 function HowItWorks() {
   return (
     <section className="how-section">
-      <AmbientDrops count={35} color="0,87,255" />
+      <AmbientDrops count={35} color="0,87,255"/>
       <div className="how-inner">
         <div className="section-header reveal">
           <div className="page-eyebrow">The Science</div>
-          <h2 className="section-h">
-            From tap to <em>perfection</em>.
-          </h2>
-          <p className="section-sub">
-            Every drop of AquaPura water is a journey through five precision
-            stages.
-          </p>
+          <h2 className="section-h">From tap to <em>perfection</em>.</h2>
+          <p className="section-sub">Every drop of AquaPura water is a journey through five precision stages.</p>
         </div>
         <div className="how-steps">
-          {HOW_STEPS.map((step, i) => (
-            <div
-              key={i}
-              className="how-step reveal"
-              style={{ transitionDelay: `${i * 0.12}s` }}
-            >
+          {HOW_STEPS.map((step,i)=>(
+            <div key={i} className="how-step reveal" style={{transitionDelay:`${i*.12}s`}}>
               <div className="how-step-left">
                 <div className="how-num">{step.num}</div>
-                <div className="how-connector" />
+                <div className="how-connector"/>
               </div>
               <div className="how-step-right">
                 <div className="how-icon">{step.icon}</div>
@@ -1025,20 +822,14 @@ function HowItWorks() {
   );
 }
 
-/* ─── STATS COUNTER SECTION ──────────────────────────────── */
+/* ─── STATS ──────────────────────────────────────────────── */
 function StatsSection() {
   return (
     <section className="stats-section">
       <div className="stats-inner">
-        {COUNTER_STATS.map((s, i) => (
-          <div
-            key={i}
-            className="stat-block reveal"
-            style={{ transitionDelay: `${i * 0.1}s` }}
-          >
-            <div className="stat-big">
-              <AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix} />
-            </div>
+        {COUNTER_STATS.map((s,i)=>(
+          <div key={i} className="stat-block reveal" style={{transitionDelay:`${i*.1}s`}}>
+            <div className="stat-big"><AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix}/></div>
             <div className="stat-label">{s.label}</div>
           </div>
         ))}
@@ -1047,44 +838,24 @@ function StatsSection() {
   );
 }
 
-/* ─── TESTIMONIALS SECTION ───────────────────────────────── */
+/* ─── TESTIMONIALS ───────────────────────────────────────── */
 function TestimonialsSection() {
   return (
     <section className="testi-section">
-      <AmbientDrops count={25} color="255,255,255" />
+      <AmbientDrops count={25} color="255,255,255"/>
       <div className="testi-inner">
         <div className="section-header reveal">
-          <div
-            className="page-eyebrow"
-            style={{
-              background: "rgba(255,255,255,0.15)",
-              color: "#fff",
-              borderColor: "rgba(255,255,255,0.3)",
-            }}
-          >
-            Testimonials
-          </div>
-          <h2 className="section-h" style={{ color: "#fff" }}>
-            Trusted by those who
-            <br />
-            <em style={{ color: "rgba(180,210,255,1)" }}>demand more.</em>
-          </h2>
+          <div className="page-eyebrow" style={{background:"rgba(255,255,255,0.15)",color:"#fff",borderColor:"rgba(255,255,255,0.3)"}}>Testimonials</div>
+          <h2 className="section-h" style={{color:"#fff"}}>Trusted by those who<br/><em style={{color:"rgba(180,210,255,1)"}}>demand more.</em></h2>
         </div>
         <div className="testi-grid">
-          {TESTIMONIALS.map((t, i) => (
-            <div
-              key={i}
-              className="testi-card reveal"
-              style={{ transitionDelay: `${i * 0.15}s` }}
-            >
+          {TESTIMONIALS.map((t,i)=>(
+            <div key={i} className="testi-card reveal" style={{transitionDelay:`${i*.15}s`}}>
               <div className="testi-stars">{"★".repeat(t.rating)}</div>
               <p className="testi-quote">"{t.quote}"</p>
               <div className="testi-meta">
                 <div className="testi-avatar">{t.avatar}</div>
-                <div>
-                  <div className="testi-name">{t.name}</div>
-                  <div className="testi-role">{t.role}</div>
-                </div>
+                <div><div className="testi-name">{t.name}</div><div className="testi-role">{t.role}</div></div>
                 <div className="testi-model">{t.model}</div>
               </div>
             </div>
@@ -1095,245 +866,329 @@ function TestimonialsSection() {
   );
 }
 
-/* ─── CTA BANNER ─────────────────────────────────────────── */
+/* ─── CTA ────────────────────────────────────────────────── */
 function CTABanner({ navigate }) {
   return (
     <section className="cta-banner">
       <div className="cta-bg-rings">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className={`cta-ring cta-ring-${i}`} />
-        ))}
+        {[1,2,3].map(i=><div key={i} className={`cta-ring cta-ring-${i}`}/>)}
       </div>
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
-        <h2 className="cta-h">
-          Your water will never
-          <br />
-          be the same again.
-        </h2>
-        <p className="cta-sub">
-          Pre-order the X-Series now. Free installation across 18 Indian cities.
-          Free water quality assessment included.
-        </p>
+        <h2 className="cta-h">Your water will never<br/>be the same again.</h2>
+        <p className="cta-sub">Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.</p>
         <div className="cta-actions">
-          <button className="btn-primary" onClick={() => navigate("products")}>
-            View All Models
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </button>
-          <button
-            className="btn-ghost cta-ghost"
-            onClick={() => navigate("contact")}
-          >
-            Book Free Assessment
-          </button>
+          <button className="btn-primary" onClick={()=>navigate("products")}>View All Models<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+          <button className="btn-ghost cta-ghost" onClick={()=>navigate("contact")}>Book Free Assessment</button>
         </div>
       </div>
     </section>
   );
 }
 
-/* ─── ANIMATED FOOTER ────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════
+   IMPROVED FOOTER — fully rewritten droplet physics engine
+═══════════════════════════════════════════════════════════ */
 function Footer() {
   const canvasRef = useRef(null);
-  const poolRef = useRef(null);
-  const dropsRef = useRef([]);
-  const ringsRef = useRef([]);
+  const containerRef = useRef(null);
+  const stateRef = useRef({
+    drops: [],       // falling drops
+    splashes: [],    // splash micro-particles
+    rings: [],       // pool ripple rings
+    poolLevel: 0,    // current filled pool height (grows over time)
+    maxPool: 0,      // max pool height (set on resize)
+    nextId: 0,
+  });
   const rafRef = useRef(null);
+  const spawnTimerRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const pool = poolRef.current;
-    if (!canvas || !pool) return;
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const isCompactScreen = window.matchMedia("(max-width: 768px)").matches;
-    if (prefersReducedMotion || isCompactScreen) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = canvas.getContext("2d");
+    const S = stateRef.current;
 
+    /* resize handler */
     const resize = () => {
-      canvas.width = pool.offsetWidth;
-      canvas.height = pool.offsetHeight;
+      canvas.width  = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      S.maxPool = Math.floor(canvas.height * 0.36); // bottom 36% is pool
+      // clamp poolLevel on resize
+      if (S.poolLevel > S.maxPool) S.poolLevel = S.maxPool;
     };
     resize();
     window.addEventListener("resize", resize);
 
-    // Spawn a drop
-    const spawnDrop = () => {
-      const x = 60 + Math.random() * (canvas.width - 120);
-      dropsRef.current.push({
-        x,
-        y: -20,
-        vy: 1.5 + Math.random() * 2,
-        r: 3 + Math.random() * 4,
-        a: 0.8,
-        done: false,
-      });
-      if (dropsRef.current.length > 18) {
-        dropsRef.current = dropsRef.current.slice(-18);
+    /* spawn a batch of drops */
+    const spawnBatch = () => {
+      const W = canvas.width;
+      const count = 1 + Math.floor(Math.random() * 3);
+      for (let i = 0; i < count; i++) {
+        const x = 40 + Math.random() * (W - 80);
+        S.drops.push({
+          id: S.nextId++,
+          x,
+          y: -(10 + Math.random() * 60),        // start above canvas
+          vy: 1.8 + Math.random() * 2.2,         // initial fall speed
+          r: 3 + Math.random() * 5,              // radius
+          alpha: 0.75 + Math.random() * 0.25,
+          wobble: Math.random() * Math.PI * 2,
+          wobbleAmp: 0.3 + Math.random() * 0.4,
+          wobbleSpeed: 0.025 + Math.random() * 0.03,
+          hit: false,
+        });
       }
     };
-    const iv = setInterval(spawnDrop, 1800);
 
-    const anim = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    /* initial burst so pool doesn't start empty */
+    for (let b = 0; b < 6; b++) spawnBatch();
+    spawnTimerRef.current = setInterval(spawnBatch, 600 + Math.random() * 400);
 
-      // Animate drops
-      dropsRef.current.forEach((d) => {
-        if (d.done) return;
-        d.vy += 0.08;
-        d.y += d.vy;
-        ctx.beginPath();
-        ctx.ellipse(d.x, d.y, d.r * 0.55, d.r, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(100,170,255,${d.a})`;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(d.x - d.r * 0.2, d.y - d.r * 0.35, d.r * 0.22, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,0.6)`;
-        ctx.fill();
+    /* collision Y = canvas.height - S.poolLevel - 2 */
+    const getPoolSurface = () => canvas.height - S.poolLevel - 2;
 
-        // Hit the pool
-        const poolY = canvas.height - 60;
-        if (d.y >= poolY && !d.done) {
-          d.done = true;
-          ringsRef.current.push({
-            x: d.x,
-            y: poolY,
-            r: 2,
-            maxR: 34 + Math.random() * 20,
-            a: 0.35,
-            speed: 0.8 + Math.random() * 0.5,
+    /* main render loop */
+    const render = () => {
+      const W = canvas.width;
+      const H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+
+      /* slowly grow pool (cap at maxPool) */
+      if (S.poolLevel < S.maxPool) {
+        S.poolLevel = Math.min(S.poolLevel + 0.08, S.maxPool);
+      }
+
+      const poolY = getPoolSurface();
+
+      /* ── 1. draw pool body ── */
+      const poolGrad = ctx.createLinearGradient(0, poolY, 0, H);
+      poolGrad.addColorStop(0,   "rgba(0,87,255,0.32)");
+      poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)");
+      poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)");
+      poolGrad.addColorStop(1,   "rgba(0,10,60,0.12)");
+      ctx.fillStyle = poolGrad;
+      ctx.fillRect(0, poolY, W, H - poolY);
+
+      /* ── 2. animated shimmer surface line ── */
+      const shimmerTime = performance.now() * 0.001;
+      const shimmerX = ((shimmerTime * 0.3) % 2) * W - W * 0.5;
+      const shimmerGrad = ctx.createLinearGradient(shimmerX, poolY, shimmerX + W, poolY);
+      shimmerGrad.addColorStop(0,    "rgba(100,190,255,0)");
+      shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
+      shimmerGrad.addColorStop(0.5,  "rgba(255,255,255,0.85)");
+      shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)");
+      shimmerGrad.addColorStop(1,    "rgba(100,190,255,0)");
+      ctx.strokeStyle = shimmerGrad;
+      ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(0, poolY); ctx.lineTo(W, poolY); ctx.stroke();
+
+      /* second shimmer line (depth feel) */
+      ctx.strokeStyle = `rgba(100,180,255,${0.18 + 0.1 * Math.sin(shimmerTime * 1.7)})`;
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, poolY + 10); ctx.lineTo(W, poolY + 10); ctx.stroke();
+
+      /* subsurface glow streaks */
+      for (let s = 0; s < 4; s++) {
+        const sx = (shimmerTime * (30 + s * 18) + s * 150) % (W + 100) - 50;
+        const sg = ctx.createLinearGradient(sx - 40, 0, sx + 40, 0);
+        sg.addColorStop(0,   "rgba(120,200,255,0)");
+        sg.addColorStop(0.5, `rgba(160,220,255,${0.07 + s * 0.015})`);
+        sg.addColorStop(1,   "rgba(120,200,255,0)");
+        ctx.fillStyle = sg;
+        ctx.fillRect(sx - 40, poolY + 5, 80, 20 + s * 8);
+      }
+
+      /* ── 3. update + draw falling drops ── */
+      const nextDrops = [];
+      for (const d of S.drops) {
+        if (d.hit) continue; // already triggered splash, skip
+
+        /* physics */
+        d.vy   += 0.18;                                  // gravity
+        d.y    += d.vy;
+        d.wobble += d.wobbleSpeed;
+        d.x    += Math.sin(d.wobble) * d.wobbleAmp;
+
+        /* check hit pool surface */
+        if (d.y + d.r >= poolY) {
+          d.hit = true;
+
+          /* spawn ripple ring */
+          S.rings.push({
+            x: d.x, y: poolY,
+            r: d.r * 0.5,
+            maxR: 28 + d.r * 3.5 + Math.random() * 20,
+            a: 0.55 + d.alpha * 0.2,
+            speed: 0.9 + Math.random() * 0.8,
+            scaleY: 0.28 + Math.random() * 0.08, // elliptical squish
           });
-          for (let s = 0; s < 2; s++) {
-            const angle = -Math.PI + Math.random() * Math.PI;
-            dropsRef.current.push({
-              x: d.x,
+
+          /* tiny secondary ring */
+          S.rings.push({
+            x: d.x, y: poolY,
+            r: 1,
+            maxR: 14 + d.r * 1.5,
+            a: 0.35,
+            speed: 1.4 + Math.random() * 0.6,
+            scaleY: 0.22,
+          });
+
+          /* splash micro-droplets — upward fan */
+          const splashCount = 4 + Math.floor(d.r * 1.2);
+          for (let i = 0; i < splashCount; i++) {
+            const ang = -Math.PI + Math.random() * Math.PI;
+            const spd = 1.5 + Math.random() * 3.5;
+            S.splashes.push({
+              x: d.x + (Math.random() - 0.5) * d.r,
               y: poolY,
-              vx: Math.cos(angle) * (1 + Math.random() * 2),
-              vy: -(1.5 + Math.random() * 2.5),
-              r: 1.5 + Math.random() * 2,
-              a: 0.6,
-              splash: true,
-              life: 1,
-              done: false,
+              vx: Math.cos(ang) * spd,
+              vy: -(1.8 + Math.random() * 3.8),
+              r: 1 + Math.random() * (d.r * 0.5),
+              life: 1.0,
+              decay: 0.028 + Math.random() * 0.022,
             });
           }
+          continue; // don't push back
         }
-      });
 
-      // Splash particles
-      dropsRef.current = dropsRef.current.filter((d) => {
-        if (!d.splash) return !d.done || true;
-        d.vy += 0.1;
-        d.x += d.vx;
-        d.y += d.vy;
-        d.life -= 0.04;
-        if (d.life <= 0) return false;
-        ctx.beginPath();
-        ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(100,170,255,${d.life * 0.6})`;
-        ctx.fill();
-        return true;
-      });
-
-      // Pool ripples
-      ringsRef.current = ringsRef.current.filter((rp) => rp.a > 0.01);
-      if (ringsRef.current.length > 8) {
-        ringsRef.current = ringsRef.current.slice(-8);
+        /* keep alive drops that haven't hit */
+        /* also discard drops that somehow went way off-screen */
+        if (d.y < H + 40) nextDrops.push(d);
       }
-      ringsRef.current.forEach((rp) => {
-        rp.r += rp.speed;
-        rp.a *= 0.97;
+      S.drops = nextDrops;
+
+      /* draw remaining drops */
+      for (const d of S.drops) {
+        /* teardrop shape: ellipse wider at bottom */
+        const stretch = 1 + (d.vy / 20);
+        ctx.save();
+        ctx.translate(d.x, d.y);
+
+        /* drop body */
         ctx.beginPath();
-        ctx.ellipse(rp.x, rp.y, rp.r, rp.r * 0.3, 0, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(100,180,255,${rp.a})`;
+        ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
+        const dg = ctx.createRadialGradient(-d.r * 0.2, -d.r * 0.3, 0, 0, 0, d.r);
+        dg.addColorStop(0,   `rgba(180,220,255,${d.alpha})`);
+        dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha * 0.9})`);
+        dg.addColorStop(1,   `rgba(30,100,220,${d.alpha * 0.7})`);
+        ctx.fillStyle = dg;
+        ctx.fill();
+
+        /* specular shine */
+        ctx.beginPath();
+        ctx.ellipse(-d.r * 0.22, -d.r * 0.32, d.r * 0.22, d.r * 0.14, -0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.75})`;
+        ctx.fill();
+
+        /* smaller secondary shine */
+        ctx.beginPath();
+        ctx.arc(-d.r * 0.1, d.r * 0.15, d.r * 0.1, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.35})`;
+        ctx.fill();
+
+        ctx.restore();
+      }
+
+      /* ── 4. splash particles ── */
+      const nextSplashes = [];
+      for (const sp of S.splashes) {
+        sp.vy += 0.22; // gravity on splash
+        sp.x  += sp.vx;
+        sp.y  += sp.vy;
+        sp.life -= sp.decay;
+        if (sp.life <= 0) continue;
+
+        ctx.beginPath();
+        ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
+        const spg = ctx.createRadialGradient(sp.x - sp.r * 0.2, sp.y - sp.r * 0.2, 0, sp.x, sp.y, sp.r);
+        spg.addColorStop(0,   `rgba(220,240,255,${sp.life * 0.85})`);
+        spg.addColorStop(0.6, `rgba(100,180,255,${sp.life * 0.6})`);
+        spg.addColorStop(1,   `rgba(50,120,220,0)`);
+        ctx.fillStyle = spg;
+        ctx.fill();
+
+        /* splash particle trails below pool surface merge */
+        if (sp.y > poolY) {
+          // fade into pool — already below surface, just skip drawing
+          sp.life -= 0.08;
+        }
+        nextSplashes.push(sp);
+      }
+      S.splashes = nextSplashes;
+
+      /* ── 5. pool rings ── */
+      const nextRings = [];
+      for (const rp of S.rings) {
+        rp.r += rp.speed;
+        rp.a *= 0.962;
+        if (rp.a < 0.008 || rp.r > rp.maxR) continue;
+
+        ctx.save();
+        ctx.translate(rp.x, rp.y);
+        ctx.scale(1, rp.scaleY);
+
+        /* outer ring */
+        ctx.beginPath();
+        ctx.arc(0, 0, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(140,210,255,${rp.a})`;
         ctx.lineWidth = 1.5;
         ctx.stroke();
-      });
 
-      // Pool surface shimmer
-      const poolY = canvas.height - 60;
-      const grad = ctx.createLinearGradient(0, poolY, 0, canvas.height);
-      grad.addColorStop(0, "rgba(0,87,255,0.18)");
-      grad.addColorStop(1, "rgba(0,30,100,0.08)");
-      ctx.fillStyle = grad;
-      ctx.fillRect(0, poolY, canvas.width, 60);
+        /* inner highlight arc */
+        if (rp.r > 6) {
+          ctx.beginPath();
+          ctx.arc(0, 0, rp.r * 0.65, Math.PI * 1.1, Math.PI * 1.9);
+          ctx.strokeStyle = `rgba(255,255,255,${rp.a * 0.55})`;
+          ctx.lineWidth = 0.8;
+          ctx.stroke();
+        }
+        ctx.restore();
+        nextRings.push(rp);
+      }
+      S.rings = nextRings;
 
-      // Shimmer line
-      const shimmer = ctx.createLinearGradient(0, poolY, canvas.width, poolY);
-      shimmer.addColorStop(0, "transparent");
-      shimmer.addColorStop(0.4, "rgba(150,200,255,0.4)");
-      shimmer.addColorStop(0.6, "rgba(255,255,255,0.6)");
-      shimmer.addColorStop(1, "transparent");
-      ctx.strokeStyle = shimmer;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, poolY);
-      ctx.lineTo(canvas.width, poolY);
-      ctx.stroke();
-
-      rafRef.current = requestAnimationFrame(anim);
+      rafRef.current = requestAnimationFrame(render);
     };
-    anim();
+
+    render();
 
     return () => {
-      clearInterval(iv);
       cancelAnimationFrame(rafRef.current);
+      clearInterval(spawnTimerRef.current);
       window.removeEventListener("resize", resize);
     };
   }, []);
 
   return (
     <footer className="footer-new">
-      <div className="footer-drop-pool" ref={poolRef} aria-hidden="true">
-        <canvas ref={canvasRef} className="footer-drop-canvas" />
+      {/* Drop theatre */}
+      <div className="footer-drop-theatre" ref={containerRef} aria-hidden="true">
+        <canvas ref={canvasRef} className="footer-drop-canvas"/>
       </div>
+
+      {/* Links grid */}
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo-big">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              style={{ color: "var(--blue-light)" }}
-            >
-              <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" style={{color:"var(--blue-light)"}}>
+              <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/>
             </svg>
             AQUA<span>PURA</span>
           </div>
-          <p className="footer-tagline">
-            Molecular purity.
-            <br />
-            Engineered for life.
-          </p>
+          <p className="footer-tagline">Molecular purity.<br/>Engineered for life.</p>
           <div className="footer-socials">
-            {["𝕏", "in", "f", "▶"].map((s, i) => (
-              <div key={i} className="social-dot">
-                {s}
-              </div>
-            ))}
+            {["𝕏","in","f","▶"].map((s,i)=><div key={i} className="social-dot">{s}</div>)}
           </div>
         </div>
-
-        {Object.entries(FOOTER_LINKS).map(([cat, links]) => (
+        {Object.entries(FOOTER_LINKS).map(([cat,links])=>(
           <div key={cat} className="footer-col">
             <div className="footer-col-head">{cat}</div>
-            {links.map((l) => (
-              <button type="button" key={l} className="footer-link">
-                {l}
-              </button>
-            ))}
+            {links.map(l=><button type="button" key={l} className="footer-link">{l}</button>)}
           </div>
         ))}
       </div>
@@ -1358,101 +1213,45 @@ function HomePage({ navigate, tds }) {
   useReveal(["home"]);
   return (
     <div className="page-home">
-      {/* HERO */}
       <section className="hero">
-        <div className="hero-bg-grid" />
-        <div className="hero-glow" />
-        <div className="hero-glow2" />
+        <div className="hero-bg-grid"/>
+        <div className="hero-glow"/>
+        <div className="hero-glow2"/>
         <div className="hero-inner">
           <div className="hero-text">
-            <div className="hero-badge">
-              <span className="badge-dot" />
-              2026 Collection Now Live
-            </div>
-            <h1 className="hero-h1">
-              Water,
-              <br />
-              <em>Perfected</em>
-              <br />
-              at the Atom.
-            </h1>
-            <p className="hero-sub">
-              AquaPura's multi-stage molecular filtration system removes 99.9%
-              of contaminants while restoring essential minerals —
-              intelligently, beautifully.
-            </p>
+            <div className="hero-badge"><span className="badge-dot"/>2026 Collection Now Live</div>
+            <h1 className="hero-h1">Water,<br/><em>Perfected</em><br/>at the Atom.</h1>
+            <p className="hero-sub">AquaPura's multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.</p>
             <div className="hero-actions">
-              <button
-                className="btn-primary"
-                onClick={() => navigate("products")}
-              >
-                Explore Models
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </button>
-              <button className="btn-ghost" onClick={() => navigate("about")}>
-                Our Technology
-              </button>
+              <button className="btn-primary" onClick={()=>navigate("products")}>Explore Models<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+              <button className="btn-ghost" onClick={()=>navigate("about")}>Our Technology</button>
             </div>
             <div className="hero-stats">
-              <div>
-                <div className="stat-num">99.9%</div>
-                <div className="stat-lbl">Purity Rate</div>
-              </div>
-              <div>
-                <div className="stat-num">14</div>
-                <div className="stat-lbl">Filter Stages</div>
-              </div>
-              <div>
-                <div className="stat-num">1:1</div>
-                <div className="stat-lbl">Waste Ratio</div>
-              </div>
+              <div><div className="stat-num">99.9%</div><div className="stat-lbl">Purity Rate</div></div>
+              <div><div className="stat-num">14</div><div className="stat-lbl">Filter Stages</div></div>
+              <div><div className="stat-num">1:1</div><div className="stat-lbl">Waste Ratio</div></div>
             </div>
           </div>
-          <HeroVisual tds={tds} />
+          <HeroVisual tds={tds}/>
         </div>
       </section>
 
-      {/* MARQUEE */}
       <div className="marquee-strip">
         <div className="marquee-inner">
-          {MARQUEE_ITEMS.map((item, i) => (
-            <span key={i}>
-              {item}
-              {i < MARQUEE_ITEMS.length - 1 && <span className="sep"> ◆ </span>}
-            </span>
-          ))}
+          {MARQUEE_ITEMS.map((item,i)=><span key={i}>{item}{i<MARQUEE_ITEMS.length-1&&<span className="sep"> ◆ </span>}</span>)}
         </div>
       </div>
 
-      {/* FEATURES */}
       <section className="features-section">
         <div className="features-inner">
           <div className="section-header reveal">
             <div className="page-eyebrow">Why AquaPura</div>
-            <h2 className="section-h">
-              Not just filtered — <em>perfected</em>.
-            </h2>
-            <p className="section-sub">
-              Every drop engineered to exceed WHO purity standards, while
-              restoring what your body truly needs.
-            </p>
+            <h2 className="section-h">Not just filtered — <em>perfected</em>.</h2>
+            <p className="section-sub">Every drop engineered to exceed WHO purity standards, while restoring what your body truly needs.</p>
           </div>
           <div className="features-grid">
-            {FEATURES.map((f, i) => (
-              <div
-                key={i}
-                className="pillar-card reveal"
-                style={{ transitionDelay: `${i * 0.1}s` }}
-              >
+            {FEATURES.map((f,i)=>(
+              <div key={i} className="pillar-card reveal" style={{transitionDelay:`${i*.1}s`}}>
                 <div className="pillar-icon">{f.icon}</div>
                 <div className="pillar-h small">{f.title}</div>
                 <p className="pillar-p">{f.desc}</p>
@@ -1462,19 +1261,11 @@ function HomePage({ navigate, tds }) {
         </div>
       </section>
 
-      {/* HOW IT WORKS — NEW */}
-      <HowItWorks />
-
-      {/* STATS COUNTER — NEW */}
-      <StatsSection />
-
-      {/* TESTIMONIALS — NEW */}
-      <TestimonialsSection />
-
-      {/* CTA BANNER — NEW */}
-      <CTABanner navigate={navigate} />
-
-      <Footer />
+      <HowItWorks/>
+      <StatsSection/>
+      <TestimonialsSection/>
+      <CTABanner navigate={navigate}/>
+      <Footer/>
     </div>
   );
 }
@@ -1485,45 +1276,27 @@ function AboutPage() {
     <div>
       <div className="about-hero">
         <div className="page-eyebrow">Our Story</div>
-        <h1 className="page-h1">
-          Redefining What
-          <br />
-          Pure Means.
-        </h1>
-        <p className="page-sub">
-          Founded in 2018 in Bangalore, AquaPura was born from a single
-          obsession: what if water could be genuinely perfect?
-        </p>
+        <h1 className="page-h1">Redefining What<br/>Pure Means.</h1>
+        <p className="page-sub">Founded in 2018 in Bangalore, AquaPura was born from a single obsession: what if water could be genuinely perfect?</p>
       </div>
-
       <div className="pillars">
-        {PILLARS.map((p, i) => (
-          <div
-            key={i}
-            className="pillar-card reveal"
-            style={{ transitionDelay: `${i * 0.15}s` }}
-          >
+        {PILLARS.map((p,i)=>(
+          <div key={i} className="pillar-card reveal" style={{transitionDelay:`${i*.15}s`}}>
             <div className="pillar-icon">{p.icon}</div>
             <h3 className="pillar-h">{p.title}</h3>
             <p className="pillar-p">{p.desc}</p>
           </div>
         ))}
       </div>
-
-      <RippleZone />
-
+      <RippleZone/>
       <div className="timeline-section">
         <div className="section-header">
           <div className="page-eyebrow">Our Journey</div>
           <h2 className="section-h">Built milestone by milestone.</h2>
         </div>
         <div className="timeline">
-          {TIMELINE.map((t, i) => (
-            <div
-              key={i}
-              className="tl-item"
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
+          {TIMELINE.map((t,i)=>(
+            <div key={i} className="tl-item" style={{transitionDelay:`${i*.1}s`}}>
               <div className="tl-dot">{t.dot}</div>
               <div className="tl-content">
                 <div className="tl-year">{t.year}</div>
@@ -1534,8 +1307,7 @@ function AboutPage() {
           ))}
         </div>
       </div>
-
-      <Footer />
+      <Footer/>
     </div>
   );
 }
@@ -1543,36 +1315,23 @@ function AboutPage() {
 function ProductCard({ p, navigate }) {
   const SVGModel = MODEL_SVG[p.id];
   return (
-    <div className={`prod-card reveal ${p.dark ? "dark-card" : ""}`}>
+    <div className={`prod-card reveal ${p.dark?"dark-card":""}`}>
       <div className={`prod-image-area ${p.bgClass}`}>
-        <div className={`prod-badge ${p.badgeDark ? "dark" : ""}`}>
-          {p.badge}
-        </div>
-        <SVGModel />
+        <div className={`prod-badge ${p.badgeDark?"dark":""}`}>{p.badge}</div>
+        <SVGModel/>
       </div>
       <div className="prod-body">
         <div className="prod-name">{p.name}</div>
         <div className="prod-tagline">{p.tagline}</div>
         <div className="prod-specs">
-          {p.specs.map((s, i) => (
-            <div key={i} className="spec-row">
-              <span className="check">✦</span> {s}
-            </div>
-          ))}
+          {p.specs.map((s,i)=><div key={i} className="spec-row"><span className="check">✦</span> {s}</div>)}
         </div>
         <div className="prod-footer">
-          <div className={`prod-price ${p.dark ? "white" : ""}`}>
-            <small style={p.dark ? { color: "rgba(255,255,255,0.5)" } : {}}>
-              Starting at
-            </small>
+          <div className={`prod-price ${p.dark?"white":""}`}>
+            <small style={p.dark?{color:"rgba(255,255,255,0.5)"}:{}}>Starting at</small>
             {p.price}
           </div>
-          <button
-            className={`btn-order ${p.btnLight ? "light" : ""}`}
-            onClick={() => navigate("contact")}
-          >
-            {p.btnLabel}
-          </button>
+          <button className={`btn-order ${p.btnLight?"light":""}`} onClick={()=>navigate("contact")}>{p.btnLabel}</button>
         </div>
       </div>
     </div>
@@ -1585,23 +1344,12 @@ function ProductsPage({ navigate }) {
     <div>
       <div className="products-hero">
         <div className="page-eyebrow">Our Collection</div>
-        <h1 className="page-h1">
-          Masterpieces of
-          <br />
-          Engineering.
-        </h1>
-        <p className="page-sub">
-          Two models. One obsession. Choose the AquaPura that fits your life —
-          both redefine what pure water means.
-        </p>
+        <h1 className="page-h1">Masterpieces of<br/>Engineering.</h1>
+        <p className="page-sub">Four models. One obsession. Choose the AquaPura that fits your life — all redefine what pure water means.</p>
       </div>
-
       <div className="products-grid">
-        {PRODUCTS.map((p) => (
-          <ProductCard key={p.id} p={p} navigate={navigate} />
-        ))}
+        {PRODUCTS.map(p=><ProductCard key={p.id} p={p} navigate={navigate}/>)}
       </div>
-
       <div className="comparison-section">
         <div className="section-header">
           <div className="page-eyebrow">Compare</div>
@@ -1614,26 +1362,19 @@ function ProductsPage({ navigate }) {
             <div className="comp-cell comp-head">Element Pro</div>
             <div className="comp-cell comp-head">HydroCore S</div>
           </div>
-          {COMP_ROWS.map((row, i) => (
+          {COMP_ROWS.map((row,i)=>(
             <div key={i} className="comp-row">
               <div className="comp-cell">{row.label}</div>
-              {row.vals.map((v, j) => (
+              {row.vals.map((v,j)=>(
                 <div key={j} className="comp-cell">
-                  {v === true ? (
-                    <span className="comp-check">✓</span>
-                  ) : v === false ? (
-                    <span className="comp-dash">—</span>
-                  ) : (
-                    v
-                  )}
+                  {v===true?<span className="comp-check">✓</span>:v===false?<span className="comp-dash">—</span>:v}
                 </div>
               ))}
             </div>
           ))}
         </div>
       </div>
-
-      <Footer />
+      <Footer/>
     </div>
   );
 }
@@ -1645,76 +1386,40 @@ function ContactPage() {
     <div>
       <div className="contact-wrap">
         <div className="contact-left reveal-left">
-          <div className="page-eyebrow" style={{ marginBottom: "1.5rem" }}>
-            Get In Touch
-          </div>
-          <h1>
-            Bring Purity
-            <br />
-            Home Today.
-          </h1>
-          <p>
-            Whether you need a bespoke installation, a water quality test, or
-            simply want to find your ideal model — our Hydration Consultants are
-            ready.
-          </p>
+          <div className="page-eyebrow" style={{marginBottom:"1.5rem"}}>Get In Touch</div>
+          <h1>Bring Purity<br/>Home Today.</h1>
+          <p>Whether you need a bespoke installation, a water quality test, or simply want to find your ideal model — our Hydration Consultants are ready.</p>
           <div className="contact-info">
             {[
-              { icon: "📞", label: "Expert Helpline", val: "+91 800-AQUAPURA" },
-              {
-                icon: "✉️",
-                label: "Email Support",
-                val: "consult@aquapura.in",
-              },
-              {
-                icon: "📍",
-                label: "Headquarters",
-                val: "Whitefield, Bengaluru 560066",
-              },
-              { icon: "🕐", label: "Hours", val: "Mon – Sat, 9 AM – 7 PM IST" },
-            ].map((c, i) => (
+              {icon:"📞",label:"Expert Helpline",val:"+91 800-AQUAPURA"},
+              {icon:"✉️",label:"Email Support",val:"consult@aquapura.in"},
+              {icon:"📍",label:"Headquarters",val:"Whitefield, Bengaluru 560066"},
+              {icon:"🕐",label:"Hours",val:"Mon – Sat, 9 AM – 7 PM IST"},
+            ].map((c,i)=>(
               <div key={i} className="contact-info-row">
                 <div className="contact-info-icon">{c.icon}</div>
-                <div className="contact-info-text">
-                  <span>{c.label}</span>
-                  <strong>{c.val}</strong>
-                </div>
+                <div className="contact-info-text"><span>{c.label}</span><strong>{c.val}</strong></div>
               </div>
             ))}
           </div>
         </div>
-
         <div className="form-card reveal">
-          {submitted ? (
+          {submitted?(
             <div className="form-success">
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>💧</div>
+              <div style={{fontSize:"3rem",marginBottom:"1rem"}}>💧</div>
               <h3>Request Received!</h3>
               <p>A Hydration Consultant will reach out within 24 hours.</p>
             </div>
-          ) : (
+          ):(
             <div className="contact-form">
               <h3>Request a Consultation</h3>
-              <p className="form-sub">
-                Free water quality assessment included.
-              </p>
+              <p className="form-sub">Free water quality assessment included.</p>
               <div className="form-2col">
-                <div className="form-row">
-                  <label>First Name</label>
-                  <input type="text" placeholder="Rahul" />
-                </div>
-                <div className="form-row">
-                  <label>Last Name</label>
-                  <input type="text" placeholder="Sharma" />
-                </div>
+                <div className="form-row"><label>First Name</label><input type="text" placeholder="Rahul"/></div>
+                <div className="form-row"><label>Last Name</label><input type="text" placeholder="Sharma"/></div>
               </div>
-              <div className="form-row">
-                <label>Email Address</label>
-                <input type="email" placeholder="rahul@email.com" />
-              </div>
-              <div className="form-row">
-                <label>Phone Number</label>
-                <input type="tel" placeholder="+91 98765 43210" />
-              </div>
+              <div className="form-row"><label>Email Address</label><input type="email" placeholder="rahul@email.com"/></div>
+              <div className="form-row"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210"/></div>
               <div className="form-row">
                 <label>Model of Interest</label>
                 <select>
@@ -1726,66 +1431,29 @@ function ContactPage() {
                   <option>Not sure yet</option>
                 </select>
               </div>
-              <div className="form-row">
-                <label>Requirements / Message</label>
-                <textarea
-                  rows="3"
-                  placeholder="Tell us about your home, family size, or any water quality concerns..."
-                />
-              </div>
-              <button className="submit-btn" onClick={() => setSubmitted(true)}>
+              <div className="form-row"><label>Requirements / Message</label><textarea rows="3" placeholder="Tell us about your home, family size, or any water quality concerns..."/></div>
+              <button className="submit-btn" onClick={()=>setSubmitted(true)}>
                 Request Consultation
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
               </button>
             </div>
           )}
         </div>
       </div>
-
       <div className="map-section">
-        <div className="section-header" style={{ marginBottom: "2rem" }}>
+        <div className="section-header" style={{marginBottom:"2rem"}}>
           <div className="page-eyebrow">Find Us</div>
-          <h2 className="section-h" style={{ fontSize: "2rem" }}>
-            Visit our Experience Centre
-          </h2>
+          <h2 className="section-h" style={{fontSize:"2rem"}}>Visit our Experience Centre</h2>
         </div>
         <div className="map-inner">
-          <div style={{ textAlign: "center" }}>
+          <div style={{textAlign:"center"}}>
             <div className="map-pin">📍</div>
-            <p
-              style={{
-                marginTop: "0.5rem",
-                color: "var(--muted)",
-                fontSize: "0.9rem",
-              }}
-            >
-              AquaPura Experience Centre, Whitefield, Bengaluru
-            </p>
-            <button
-              className="btn-primary"
-              style={{
-                marginTop: "1.2rem",
-                fontSize: "0.82rem",
-                padding: "0.7rem 1.5rem",
-              }}
-              onClick={() => window.open("https://maps.google.com", "_blank")}
-            >
-              Open in Maps
-            </button>
+            <p style={{marginTop:".5rem",color:"var(--muted)",fontSize:".9rem"}}>AquaPura Experience Centre, Whitefield, Bengaluru</p>
+            <button className="btn-primary" style={{marginTop:"1.2rem",fontSize:".82rem",padding:".7rem 1.5rem"}} onClick={()=>window.open("https://maps.google.com","_blank")}>Open in Maps</button>
           </div>
         </div>
       </div>
-
-      <Footer />
+      <Footer/>
     </div>
   );
 }
@@ -1797,79 +1465,65 @@ export default function AquaPura() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [tds, setTds] = useState(280);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  /* inject styles */
+  useEffect(()=>{
+    const el = document.createElement("style");
+    el.textContent = STYLES;
+    document.head.appendChild(el);
+    return()=>document.head.removeChild(el);
+  },[]);
 
-  useEffect(() => {
-    let val = 280;
-    const iv = setInterval(() => {
-      val = Math.max(2, val - Math.floor(Math.random() * 3 + 1));
+  useEffect(()=>{
+    const onScroll=()=>setScrolled(window.scrollY>20);
+    window.addEventListener("scroll",onScroll);
+    return()=>window.removeEventListener("scroll",onScroll);
+  },[]);
+
+  useEffect(()=>{
+    let val=280;
+    const iv=setInterval(()=>{
+      val=Math.max(2,val-Math.floor(Math.random()*3+1));
       setTds(val);
-      if (val <= 2) clearInterval(iv);
-    }, 180);
-    const t = setTimeout(() => clearInterval(iv), 30000);
-    return () => {
-      clearInterval(iv);
-      clearTimeout(t);
-    };
-  }, []);
+      if(val<=2) clearInterval(iv);
+    },180);
+    const t=setTimeout(()=>clearInterval(iv),30000);
+    return()=>{ clearInterval(iv); clearTimeout(t); };
+  },[]);
 
-  const navigate = useCallback((p) => {
-    setPage(p);
-    setMobileOpen(false);
-    window.scrollTo(0, 0);
-  }, []);
+  const navigate = useCallback((p)=>{ setPage(p); setMobileOpen(false); window.scrollTo(0,0); },[]);
 
   const pages = {
-    home: <HomePage navigate={navigate} tds={tds} />,
-    about: <AboutPage />,
-    products: <ProductsPage navigate={navigate} />,
-    contact: <ContactPage />,
+    home:     <HomePage navigate={navigate} tds={tds}/>,
+    about:    <AboutPage/>,
+    products: <ProductsPage navigate={navigate}/>,
+    contact:  <ContactPage/>,
   };
 
   return (
     <>
-      <nav className={scrolled ? "scrolled" : ""}>
-        <button
-          type="button"
-          className="nav-logo"
-          onClick={() => navigate("home")}
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
-          </svg>
+      <nav className={scrolled?"scrolled":""}>
+        <button type="button" className="nav-logo" onClick={()=>navigate("home")}>
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z"/></svg>
           AQUA<span>PURA</span>
         </button>
         <div className="nav-links">
-          {NAV_LINKS.map((p) => (
-            <button
-              type="button"
-              key={p}
-              onClick={() => navigate(p)}
-              className={page === p ? "active" : ""}
-            >
-              {p.charAt(0).toUpperCase() + p.slice(1)}
+          {NAV_LINKS.map(p=>(
+            <button type="button" key={p} onClick={()=>navigate(p)} className={page===p?"active":""}>
+              {p.charAt(0).toUpperCase()+p.slice(1)}
             </button>
           ))}
-          <button className="nav-cta" onClick={() => navigate("contact")}>
-            Get a Quote
-          </button>
+          <button className="nav-cta" onClick={()=>navigate("contact")}>Get a Quote</button>
         </div>
-        <button className="hamburger" onClick={() => setMobileOpen((v) => !v)}>
-          <span />
-          <span />
-          <span />
+        <button className="hamburger" onClick={()=>setMobileOpen(v=>!v)}>
+          <span/><span/><span/>
         </button>
       </nav>
 
-      {mobileOpen && (
+      {mobileOpen&&(
         <div className="mobile-menu open">
-          {NAV_LINKS.map((p) => (
-            <button type="button" key={p} onClick={() => navigate(p)}>
-              {p.charAt(0).toUpperCase() + p.slice(1)}
+          {NAV_LINKS.map(p=>(
+            <button type="button" key={p} onClick={()=>navigate(p)}>
+              {p.charAt(0).toUpperCase()+p.slice(1)}
             </button>
           ))}
         </div>
