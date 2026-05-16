@@ -204,8 +204,8 @@ nav.scrolled {
 .ro-spout { width: 20px; height: 40px; background: linear-gradient(180deg, #a0b8ff, #7aa0ff); border-radius: 0 0 10px 10px; }
 .hero-label { position: absolute; background: var(--white); border: 1px solid var(--light-gray); padding: 0.6rem 1rem; border-radius: 12px; font-size: 0.78rem; font-weight: 500; color: var(--ink); white-space: nowrap; box-shadow: 0 4px 20px rgba(0,0,0,0.07); display: flex; align-items: center; gap: 6px; }
 .ldot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
-.label-1{top:40px;right:20px;animation:float1 7s ease-in-out infinite}
-.label-2{bottom:100px;right:-20px;animation:float2 7s 0.5s ease-in-out infinite}
+.label-1{top:40px;right:-70px;animation:float1 7s ease-in-out infinite}
+.label-2{bottom:10px;right:-100px;animation:float2 7s 0.5s ease-in-out infinite}
 .label-3{bottom:60px;left:0;animation:float1 7s 1s ease-in-out infinite}
 @keyframes float1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
 @keyframes float2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
@@ -1297,7 +1297,7 @@ function HeroVisual() {
         />
         <div className="hero-label label-1">
           <span className="ldot" />
-          14-Stage RO+UV
+          Smart TDS Monitor
         </div>
         <div className="hero-label label-2">
           <span className="ldot" />
@@ -1305,7 +1305,7 @@ function HeroVisual() {
         </div>
         <div className="hero-label label-3">
           <span className="ldot" />
-          Smart TDS Monitor
+          14-Stage RO+UV
         </div>
       </div>
     </div>
@@ -2046,7 +2046,7 @@ function HomePage({ navigate, tds }) {
               at the Atom.
             </h1>
             <p className="hero-sub">
-              AquaPura's multi-stage molecular filtration system removes 99.9%
+              LetsPure multi-stage molecular filtration system removes 99.9%
               of contaminants while restoring essential minerals —
               intelligently, beautifully.
             </p>
