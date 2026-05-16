@@ -9,14 +9,14 @@ const STYLES = `
 :root {
   --white:      #ffffff;
   --off-white:  #f7f8fc;
-  --light-gray: #A6A6A6;
-  --mid-gray:   #c8cdd8;
-  --muted:      #A6A6A6;
+  --light-gray: #D3D3D3;
+  --mid-gray:   #808080;
+  --muted:      black;
   --dark:       #111827;
   --darkest:    #040810;
   --blue:       #ff6200;
   --blue-light: #ff6200;
-  --blue-pale:  #A6A6A6;
+  --blue-pale:  #ffffff;
   --blue-mid:   #ff6200;
   --ink:        #1e2840;
   --text-color:     #ff6200;    
@@ -216,11 +216,11 @@ nav.scrolled {
 .sep { opacity: 0.4 !important; }
 @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
-.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 30px rgba(0,87,255,0.3); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 14px 40px var(--white); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
 .btn-primary::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,87,255,0.4); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--white); }
 .btn-primary:hover::before { transform: translateX(120%); }
-.btn-ghost { background: transparent; color: var(--dark); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+.btn-ghost { background: transparent; color: var(--white); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
 .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
 
 .features-section { padding: 80px 4vw; background: var(--white); }
@@ -1286,7 +1286,7 @@ function HeroVisual() {
           alt="AquaPura RO System"
           style={{
             maxHeight: "700px",
-            maxWidth: "400px",
+            maxWidth: "600px",
             objectFit: "contain",
             filter: "drop-shadow(0 30px 60px rgba(0,87,255,0.25))",
             transition: "transform 0.15s ease-out",
@@ -1977,16 +1977,11 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo-big">
-            <svg
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              style={{ color: "var(--blue-light)" }}
-            >
-              <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
-            </svg>
-            AQUA<span>PURA</span>
+            <img
+              src="/assets/white logo.png"
+              alt="AquaPura"
+              style={{ height: "100px", width: "200px", objectFit: "contain" }}
+            />
           </div>
           <p className="footer-tagline">
             Molecular purity.
@@ -2500,10 +2495,11 @@ export default function AquaPura() {
           className="nav-logo"
           onClick={() => navigate("home")}
         >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C6 8 4 12 4 15a8 8 0 0016 0c0-3-2-7-8-13z" />
-          </svg>
-          AQUA<span>PURA</span>
+          <img
+            src="/assets/black logo.png"
+            alt="AquaPura"
+            style={{ height: "100px", width: "200px", objectFit: "contain" }}
+          />
         </button>
         <div className="nav-links">
           {NAV_LINKS.map((p) => (
