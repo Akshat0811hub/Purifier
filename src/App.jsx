@@ -646,6 +646,359 @@ nav.scrolled {
 .hps-strip-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--darkest); }
 .hps-strip-price { font-size: 0.88rem; color: var(--blue); font-weight: 600; margin-top: 2px; }
 
+/* ─── SPARE PARTS SECTION ────────────────────────────── */
+.spare-parts-section {
+  padding: 120px 4vw;
+  background: var(--darkest);
+  position: relative;
+  overflow: hidden;
+}
+.spare-parts-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,98,0,0.5), transparent);
+}
+.spare-parts-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,98,0,0.3), transparent);
+}
+
+.sp-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sp-orb-1 {
+  top: -200px; left: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(255,98,0,0.08) 0%, transparent 65%);
+}
+.sp-orb-2 {
+  bottom: -150px; right: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255,140,60,0.06) 0%, transparent 65%);
+}
+
+.spare-parts-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+
+.sp-header { text-align: center; margin-bottom: 3.5rem; }
+.sp-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--blue);
+  background: rgba(255,98,0,0.1);
+  border: 1px solid rgba(255,98,0,0.25);
+  padding: 0.45rem 1.1rem; border-radius: 100px;
+  margin-bottom: 1.5rem;
+}
+.sp-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -1.5px;
+  line-height: 1.05;
+  margin-bottom: 1rem;
+}
+.sp-title em { font-style: italic; color: var(--blue); }
+.sp-sub { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
+
+/* Filter pills */
+.sp-filters {
+  display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+  margin-bottom: 3.5rem;
+}
+.sp-filter-btn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: rgba(255,255,255,0.55);
+  padding: 0.5rem 1.2rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.sp-filter-btn:hover {
+  border-color: rgba(255,98,0,0.4);
+  background: rgba(255,98,0,0.08);
+  color: rgba(255,255,255,0.85);
+}
+.sp-filter-btn.active {
+  background: var(--blue);
+  border-color: var(--blue);
+  color: #fff;
+  box-shadow: 0 4px 20px rgba(255,98,0,0.35);
+}
+
+/* Masonry-style bento grid */
+.sp-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: 180px;
+  gap: 16px;
+}
+
+.sp-part-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.35s cubic-bezier(.2,.75,.2,1),
+              box-shadow 0.35s ease,
+              border-color 0.35s ease;
+  display: flex; flex-direction: column;
+  opacity: 1;
+  transform: none;
+}
+.sp-part-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@keyframes spCardIn {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.sp-part-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(255,98,0,0.18);
+  border-color: rgba(255,98,0,0.4);
+  z-index: 2;
+}
+
+/* size variants */
+.sp-part-card.sz-tall   { grid-row: span 2; }
+.sp-part-card.sz-wide   { grid-column: span 2; }
+.sp-part-card.sz-big    { grid-column: span 2; grid-row: span 2; }
+
+.sp-img-wrap {
+  flex: 1;
+  min-height: 0;       
+  height: 100%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.02);
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-img-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(255,98,0,0.08) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.sp-part-card:hover .sp-img-wrap::before { opacity: 1; }
+
+.sp-img-wrap img {
+  max-width: 80%;
+  max-height: 110px;   /* explicit pixel height */
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  filter: brightness(0.92) contrast(1.05);
+  transition: transform 0.5s cubic-bezier(.2,.75,.2,1), filter 0.5s ease;
+}
+.sp-part-card:hover .sp-img-wrap img {
+  transform: scale(1.1) translateY(-4px);
+  filter: brightness(1.05) contrast(1.08) drop-shadow(0 12px 24px rgba(255,98,0,0.3));
+}
+
+/* tall/big cards show more image */
+.sp-part-card.sz-tall .sp-img-wrap,
+.sp-part-card.sz-big .sp-img-wrap { padding: 2rem; }
+
+.sp-card-info {
+  padding: 0.85rem 1rem 0.9rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  background: rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sp-part-name {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sp-part-card.sz-tall .sp-part-name,
+.sp-part-card.sz-big .sp-part-name { font-size: 1.1rem; }
+
+.sp-part-cat {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+  flex-shrink: 0;
+  background: rgba(255,98,0,0.12);
+  border: 1px solid rgba(255,98,0,0.25);
+  padding: 0.2rem 0.6rem;
+  border-radius: 100px;
+}
+
+/* hover overlay with "View" */
+.sp-hover-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  backdrop-filter: blur(2px);
+  z-index: 3;
+  border-radius: 20px;
+}
+.sp-part-card:hover .sp-hover-overlay { opacity: 1; }
+.sp-view-btn {
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 100px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  box-shadow: 0 8px 24px rgba(255,98,0,0.4);
+  transition: transform 0.2s ease;
+}
+.sp-view-btn:hover { transform: scale(1.05); }
+
+/* bottom CTA strip */
+.sp-bottom-cta {
+  margin-top: 3.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 2rem 2.5rem;
+  background: rgba(255,98,0,0.06);
+  border: 1px solid rgba(255,98,0,0.2);
+  border-radius: 24px;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+.sp-cta-text h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 0.3rem;
+}
+.sp-cta-text p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+.sp-cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.sp-btn-primary {
+  background: var(--blue); color: #fff; border: none;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  font-family: var(--font-body); font-size: 0.88rem; font-weight: 600;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  box-shadow: 0 8px 28px rgba(255,98,0,0.35);
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.sp-btn-primary::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.28) 45%, transparent 60%);
+  transform: translateX(-120%); transition: transform 0.65s ease;
+}
+.sp-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(255,98,0,0.45); }
+.sp-btn-primary:hover::before { transform: translateX(120%); }
+.sp-btn-ghost {
+  background: transparent; color: rgba(255,255,255,0.75);
+  border: 1.5px solid rgba(255,255,255,0.18);
+  padding: 0.85rem 2rem; border-radius: 100px;
+  font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.sp-btn-ghost:hover { border-color: var(--blue); color: #fff; transform: translateY(-2px); }
+
+/* Modal lightbox */
+.sp-modal-backdrop {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(4,8,16,0.92);
+  display: flex; align-items: center; justify-content: center;
+  padding: 2rem;
+  animation: modalIn 0.25s ease;
+  backdrop-filter: blur(12px);
+}
+@keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
+.sp-modal {
+  background: rgba(20,24,36,0.98);
+  border: 1px solid rgba(255,98,0,0.25);
+  border-radius: 28px;
+  padding: 2.5rem;
+  max-width: 520px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+  animation: modalSlide 0.3s cubic-bezier(.2,.75,.2,1);
+}
+@keyframes modalSlide { from { transform: translateY(30px) scale(0.96); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+.sp-modal-close {
+  position: absolute; top: 1.2rem; right: 1.2rem;
+  background: rgba(255,255,255,0.08); border: none; color: rgba(255,255,255,0.7);
+  width: 36px; height: 36px; border-radius: 50%;
+  cursor: pointer; font-size: 1.2rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, color 0.2s;
+}
+.sp-modal-close:hover { background: rgba(255,98,0,0.2); color: #fff; }
+.sp-modal-img {
+  width: 100%; height: 260px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.03);
+  border-radius: 18px; margin-bottom: 1.5rem;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.sp-modal-img img { max-height: 220px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(255,98,0,0.2)); }
+.sp-modal-tag {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--blue); background: rgba(255,98,0,0.12);
+  border: 1px solid rgba(255,98,0,0.25);
+  padding: 0.3rem 0.8rem; border-radius: 100px;
+  display: inline-block; margin-bottom: 0.8rem;
+}
+.sp-modal-name {
+  font-family: var(--font-display);
+  font-size: 2rem; font-weight: 700; color: #fff;
+  margin-bottom: 0.5rem; line-height: 1.1;
+}
+.sp-modal-desc { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
+.sp-modal-actions { display: flex; gap: 0.8rem; }
+
+@media (max-width: 1100px) {
+  .sp-bento { grid-template-columns: repeat(4, 1fr); }
+  .sp-part-card.sz-big { grid-column: span 2; grid-row: span 2; }
+}
+@media (max-width: 768px) {
+  .sp-bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 150px; }
+  .sp-part-card.sz-big { grid-column: span 2; }
+  .sp-bottom-cta { flex-direction: column; }
+}
+@media (max-width: 520px) {
+  .sp-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 10px; }
+  .sp-part-card.sz-wide { grid-column: span 2; }
+  .sp-part-card.sz-big { grid-column: span 2; grid-row: span 2; }
+}
 
 .marquee-strip { background: var(--blue); color: #fff; padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
 .marquee-inner { display: inline-flex; align-items: center; animation: marqueeScroll 30s linear infinite; }
@@ -750,18 +1103,6 @@ nav.scrolled {
 
 .ambient-drops-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:.8; }
 
-.how-section { position:relative; overflow:hidden; padding:120px 4vw; background:linear-gradient(180deg,var(--off-white) 0%,#fff 100%); }
-.how-inner { max-width:1100px; margin:auto; position:relative; z-index:2; }
-.how-steps { display:flex; flex-direction:column; gap:2rem; }
-.how-step { display:grid; grid-template-columns:90px 1fr; gap:2rem; padding:2rem; background:#fff; border-radius:28px; border:1px solid var(--light-gray); box-shadow:0 10px 40px rgba(0,0,0,.04); transition: transform 0.25s ease, box-shadow 0.25s ease; }
-.how-step:hover { transform:translateY(-6px); box-shadow:0 24px 60px rgba(0,87,255,.1); }
-.how-step-left { display:flex; flex-direction:column; align-items:center; }
-.how-num { font-family:var(--font-display); color:var(--blue); font-size:2rem; font-weight:700; }
-.how-connector { width:2px; flex:1; margin-top:15px; background:linear-gradient(var(--blue),transparent); }
-.how-icon { width:70px; height:70px; border-radius:20px; display:flex; align-items:center; justify-content:center; background:var(--blue-pale); font-size:2rem; margin-bottom:1rem; }
-.how-title { font-family:var(--font-display); font-size:1.7rem; margin-bottom:.7rem; }
-.how-desc { color:var(--muted); line-height:1.7; }
-
 .stats-section { background:var(--blue); padding:100px 4vw; }
 .stats-inner { max-width:1100px; margin:auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; }
 .stat-block { text-align:center; }
@@ -842,7 +1183,6 @@ nav.scrolled {
   .comp-table{overflow-x:auto}
 }
 @media(max-width:768px){
-  .how-step{grid-template-columns:1fr}
   .cta-actions{flex-direction:column}
   .footer-content{grid-template-columns:1fr}
   .stats-inner{grid-template-columns:1fr}
@@ -850,8 +1190,6 @@ nav.scrolled {
   .footer-cert{justify-content:center;flex-wrap:wrap}
   .footer-drop-theatre{height:150px}
   .hero-glow,.hero-glow2{display:none}
-  .hero-label{animation:none}
-  .filter-line{animation:none}
   .home-products-tabs { width: 100%; }
 }
 @media(max-width:640px){
@@ -868,6 +1206,7 @@ nav.scrolled {
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .sp-part-card, .reveal, .reveal-left, .tl-item { opacity: 1 !important; transform: none !important; }
 }
 `;
 
@@ -930,23 +1269,16 @@ const MARQUEE_ITEMS = [
   "Molecular Filtration", "14-Stage Purification", "99.9% Purity", "Smart TDS Monitor",
   "Alkaline Infused", "Zero Waste Architecture", "UV-C Sterilization",
 ];
-const HOW_STEPS = [
-  { num: "01", icon: "🌊", title: "Source Water Enters", desc: "Raw tap water enters the pre-filter chamber, capturing large sediment and chlorine with activated carbon." },
-  { num: "02", icon: "🔬", title: "Molecular Membrane", desc: "Our 0.0001-micron RO membrane rejects heavy metals, fluoride, nitrates, and all known pathogens." },
-  { num: "03", icon: "💡", title: "UV-C Sterilization", desc: "A 254nm UV-C lamp annihilates any remaining microbial life — 99.9999% sterilization efficiency." },
-  { num: "04", icon: "💎", title: "Mineral Infusion", desc: "Bio-ceramic mineral stones restore calcium, magnesium, and potassium for a crisp, alkaline finish." },
-  { num: "05", icon: "📊", title: "Smart Validation", desc: "Live TDS & pH sensors confirm purity before every pour. Your app logs every drop in real time." },
-];
-const TESTIMONIALS = [
-  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
-  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
-  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
-];
 const COUNTER_STATS = [
   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
   { end: 99.9, suffix: "%", label: "Purity Rate", prefix: "" },
   { end: 14, suffix: "", label: "Filter Stages", prefix: "" },
   { end: 1, suffix: ":1", label: "Waste Ratio", prefix: "" },
+];
+const TESTIMONIALS = [
+  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
+  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
+  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
 ];
 const FOOTER_LINKS = {
   Products: ["Elite X-1", "Element Pro", "HydroCore S", "Obsidian One"],
@@ -1010,6 +1342,38 @@ const HOME_SHOWCASE = [
   },
 ];
 
+/* ─── SPARE PARTS DATA ───────────────────────────────────── */
+const SPARE_PARTS_CATEGORIES = ["All", "Filters", "Membranes", "UV & Sterilization", "Housings", "Accessories"];
+
+const SPARE_PARTS = [
+  // Big hero items
+  { id: 1,  img: "/assets/1.png",  name: "Pre-Sediment Filter",     cat: "Filters",            desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "sz-big" },
+  { id: 2,  img: "/assets/2.png",  name: "RO Membrane 75 GPD",      cat: "Membranes",          desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "sz-tall" },
+  // Standard
+  { id: 3,  img: "/assets/3.png",  name: "Activated Carbon Block",  cat: "Filters",            desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
+  { id: 4,  img: "/assets/4.png",  name: "UV-C Lamp 11W",           cat: "UV & Sterilization", desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
+  { id: 5,  img: "/assets/5.png",  name: "Post Carbon Filter",      cat: "Filters",            desc: "Inline post-carbon polishing filter for superior taste and clarity.", size: "" },
+  { id: 6,  img: "/assets/6.png",  name: "Mineral Cartridge",       cat: "Accessories",        desc: "Bio-ceramic mineral infusion cartridge for calcium, magnesium and alkaline restoration.", size: "" },
+  // Wide
+  { id: 7,  img: "/assets/7.png",  name: "Filter Housing Kit",      cat: "Housings",           desc: "Heavy-duty 10-inch polypropylene filter housing with mounting bracket and spanner.", size: "sz-wide" },
+  { id: 8,  img: "/assets/8.png",  name: "Membrane Housing",        cat: "Housings",           desc: "Pressure-rated fibreglass RO membrane vessel with integrated check valve.", size: "" },
+  { id: 9,  img: "/assets/9.png",  name: "Flow Restrictor 400cc",   cat: "Accessories",        desc: "Calibrated capillary flow restrictor for optimal recovery ratio.", size: "" },
+  { id: 10, img: "/assets/10.png", name: "Feed Water Solenoid",     cat: "Accessories",        desc: "24V DC normally-closed solenoid valve with integrated fittings.", size: "" },
+  // Tall
+  { id: 11, img: "/assets/11.png", name: "Storage Tank 12L",        cat: "Housings",           desc: "Bladder-type pressurised storage tank with NSF-certified liner.", size: "sz-tall" },
+  { id: 12, img: "/assets/12.png", name: "Booster Pump 50GPD",      cat: "Accessories",        desc: "High-efficiency DC booster pump for low-pressure inlet applications.", size: "" },
+  { id: 13, img: "/assets/13.png", name: "TDS Inline Meter",        cat: "Accessories",        desc: "Dual-display inline TDS monitor for pre/post comparison in real time.", size: "" },
+  // Standard grid
+  { id: 14, img: "/assets/14.png", name: "Alkaline Filter pH+",     cat: "Filters",            desc: "Raises pH to 8.0–9.5 with tourmaline, maifan stone, and mineral balls.", size: "" },
+  { id: 15, img: "/assets/15.png", name: "UF Hollow Fiber 0.01µm",  cat: "Membranes",          desc: "Ultra-fine hollow-fiber ultrafiltration membrane for pathogen-free water.", size: "sz-wide" },
+  { id: 16, img: "/assets/16.png", name: "UV Quartz Sleeve",        cat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber. High UV transmittance.", size: "" },
+  { id: 17, img: "/assets/17.png", name: "Quick-Connect Fittings",  cat: "Accessories",        desc: "Push-to-connect fittings for 1/4\" and 3/8\" tubing. Leak-proof rated to 6 bar.", size: "" },
+  { id: 18, img: "/assets/18.png", name: "SMPS Power Adapter",      cat: "Accessories",        desc: "24V/3A switching power supply for pump and solenoid systems.", size: "" },
+  { id: 19, img: "/assets/19.png", name: "Nano Silver Filter",      cat: "Filters",            desc: "Silver-impregnated granular activated carbon for antibacterial protection.", size: "" },
+  { id: 20, img: "/assets/20.png", name: "High Pressure Switch",    cat: "Accessories",        desc: "Auto cut-off pressure switch. Prevents tank overpressure and backflow.", size: "" },
+  { id: 21, img: "/assets/21.png", name: "RO Membrane 100 GPD",     cat: "Membranes",          desc: "Commercial-grade 100 GPD TFC membrane for high-volume household use.", size: "" },
+];
+
 /* ─── HERO VISUAL ────────────────────────────────────────── */
 function HeroVisual() {
   const wrapperRef = useRef(null);
@@ -1047,7 +1411,7 @@ function HeroVisual() {
 
 /* ─── HOME PRODUCT SHOWCASE ──────────────────────────────── */
 function HomeProductShowcase({ navigate }) {
-  const [active, setActive] = useState(1); // default center = white
+  const [active, setActive] = useState(1);
   const centerProduct = HOME_SHOWCASE[active];
   const leftProduct = HOME_SHOWCASE[(active + 2) % 3];
   const rightProduct = HOME_SHOWCASE[(active + 1) % 3];
@@ -1055,18 +1419,11 @@ function HomeProductShowcase({ navigate }) {
   return (
     <section className="home-products-section">
       <div className="home-products-inner">
-        {/* Header */}
         <div className="section-header reveal">
           <div className="page-eyebrow">Our Collection</div>
-          <h2 className="section-h">
-            Engineered to <em>impress</em>.
-          </h2>
-          <p className="section-sub">
-            Three iconic finishes. One obsession with purity. Choose the AquaPura that belongs in your home.
-          </p>
+          <h2 className="section-h">Engineered to <em>impress</em>.</h2>
+          <p className="section-sub">Three iconic finishes. One obsession with purity. Choose the AquaPura that belongs in your home.</p>
         </div>
-
-        {/* Tabs */}
         <div className="home-products-tabs reveal">
           {HOME_SHOWCASE.map((p, i) => (
             <button key={p.id} className={`home-products-tab${active === i ? " active" : ""}`} onClick={() => setActive(i)}>
@@ -1074,53 +1431,26 @@ function HomeProductShowcase({ navigate }) {
             </button>
           ))}
         </div>
-
-        {/* Main Stage */}
         <div className="home-products-stage reveal">
-          {/* Left card */}
           <div className={`hps-side-card${active === (active + 2) % 3 ? " active" : ""}`}
             onClick={() => setActive((active + 2) % 3)}
             style={{ background: leftProduct.lightBg }}>
             <div className="hps-card-tag">{leftProduct.tag}</div>
-            <div className="hps-card-img">
-              <img src={leftProduct.img} alt={leftProduct.name} />
-            </div>
+            <div className="hps-card-img"><img src={leftProduct.img} alt={leftProduct.name} /></div>
             <div className="hps-card-name">{leftProduct.name.replace("\n", " ")}</div>
-            <div className="hps-card-price">
-              <small>Starting at</small>
-              {leftProduct.price}
-            </div>
-            {leftProduct.specs.map((s, i) => (
-              <div key={i} className="hps-card-spec">{s}</div>
-            ))}
+            <div className="hps-card-price"><small>Starting at</small>{leftProduct.price}</div>
+            {leftProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
           </div>
-
-          {/* Center hero */}
           <div className="hps-center">
-            {/* Glow + rings */}
             <div className="hps-center-glow" />
-            <div className="hps-center-rings">
-              <div className="hps-ring" />
-              <div className="hps-ring" />
-              <div className="hps-ring" />
-            </div>
-
-            {/* Floating labels */}
+            <div className="hps-center-rings"><div className="hps-ring" /><div className="hps-ring" /><div className="hps-ring" /></div>
             <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
               {centerProduct.floatLabels.map((fl, i) => (
-                <div key={i} className={`hps-float-label ${fl.cls}`}>
-                  <span className="fl-dot" />{fl.text}
-                </div>
+                <div key={i} className={`hps-float-label ${fl.cls}`}><span className="fl-dot" />{fl.text}</div>
               ))}
-              <div className="hps-center-img-wrap">
-                <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} />
-              </div>
+              <div className="hps-center-img-wrap"><img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} /></div>
             </div>
-
-            {/* Ground shadow */}
             <div className="hps-center-shadow" />
-
-            {/* Info */}
             <div className="hps-center-info">
               <div className="hps-center-badge">
                 <span style={{ width: 6, height: 6, background: "var(--blue)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }} />
@@ -1129,9 +1459,7 @@ function HomeProductShowcase({ navigate }) {
               <div className="hps-center-name">{centerProduct.name.replace("\n", " ")}</div>
               <div className="hps-center-tagline">{centerProduct.tagline}</div>
               <div className="hps-center-chips">
-                {centerProduct.chips.map((c, i) => (
-                  <span key={i} className="hps-chip">{c}</span>
-                ))}
+                {centerProduct.chips.map((c, i) => <span key={i} className="hps-chip">{c}</span>)}
               </div>
               <div style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", fontWeight: 700, color: "var(--darkest)", marginBottom: "1.5rem" }}>
                 <span style={{ fontSize: "0.85rem", color: "var(--mid-gray)", fontFamily: "var(--font-body)", fontWeight: 400, display: "block", marginBottom: 4 }}>Starting at</span>
@@ -1143,65 +1471,151 @@ function HomeProductShowcase({ navigate }) {
               </div>
             </div>
           </div>
-
-          {/* Right card */}
           <div className={`hps-side-card${active === (active + 1) % 3 ? " active" : ""}`}
             onClick={() => setActive((active + 1) % 3)}
             style={{ background: rightProduct.lightBg }}>
             <div className="hps-card-tag">{rightProduct.tag}</div>
-            <div className="hps-card-img">
-              <img src={rightProduct.img} alt={rightProduct.name} />
-            </div>
+            <div className="hps-card-img"><img src={rightProduct.img} alt={rightProduct.name} /></div>
             <div className="hps-card-name">{rightProduct.name.replace("\n", " ")}</div>
-            <div className="hps-card-price">
-              <small>Starting at</small>
-              {rightProduct.price}
-            </div>
-            {rightProduct.specs.map((s, i) => (
-              <div key={i} className="hps-card-spec">{s}</div>
-            ))}
+            <div className="hps-card-price"><small>Starting at</small>{rightProduct.price}</div>
+            {rightProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
           </div>
         </div>
-
-        {/* Bottom strip — all 3 products */}
         <div className="hps-bottom-strip reveal">
           {HOME_SHOWCASE.map((p, i) => (
             <div key={p.id} className="hps-strip-item" onClick={() => setActive(i)}
               style={{ borderColor: active === i ? "rgba(255,98,0,0.4)" : undefined, boxShadow: active === i ? "0 8px 30px rgba(255,98,0,0.12)" : undefined }}>
-              <div className="hps-strip-thumb">
-                <img src={p.img} alt={p.name} />
-              </div>
+              <div className="hps-strip-thumb"><img src={p.img} alt={p.name} /></div>
               <div>
                 <div className="hps-strip-name">{p.name.replace("\n", " ")}</div>
                 <div className="hps-strip-price">{p.price}</div>
               </div>
             </div>
           ))}
-          {/* Also add other products from catalog */}
-          {[
-            { name: "Obsidian One", price: "₹1,49,999" },
-          ].map((p, i) => (
+          {[{ name: "Obsidian One", price: "₹1,49,999" }].map((p, i) => (
             <div key={i} className="hps-strip-item" onClick={() => navigate("products")}>
-              <div className="hps-strip-thumb" style={{ background: "#111827" }}>
-                <span style={{ fontSize: "1.5rem" }}>💧</span>
-              </div>
-              <div>
-                <div className="hps-strip-name">{p.name}</div>
-                <div className="hps-strip-price">{p.price}</div>
-              </div>
+              <div className="hps-strip-thumb" style={{ background: "#111827" }}><span style={{ fontSize: "1.5rem" }}>💧</span></div>
+              <div><div className="hps-strip-name">{p.name}</div><div className="hps-strip-price">{p.price}</div></div>
             </div>
           ))}
           <div className="hps-strip-item" onClick={() => navigate("products")}
             style={{ background: "var(--blue)", borderColor: "transparent", justifyContent: "center", minWidth: 160 }}>
             <div style={{ color: "#fff", fontWeight: 700, fontSize: "0.9rem", display: "flex", alignItems: "center", gap: 8 }}>
               View All
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </div>
           </div>
         </div>
       </div>
+    </section>
+  );
+}
+
+/* ─── SPARE PARTS SECTION ────────────────────────────────── */
+function SparePartsSection({ navigate }) {
+  const [activeFilter, setActiveFilter] = useState("All");
+  const [modalPart, setModalPart] = useState(null);
+  const sectionRef = useRef(null);
+
+  const filtered = activeFilter === "All"
+    ? SPARE_PARTS
+    : SPARE_PARTS.filter(p => p.cat === activeFilter);
+
+  // Animate cards in on filter change
+  const [animKey, setAnimKey] = useState(0);
+  const handleFilter = (f) => {
+    setActiveFilter(f);
+    setAnimKey(k => k + 1);
+  };
+
+  return (
+    <section className="spare-parts-section" ref={sectionRef}>
+      <div className="sp-bg-orb sp-orb-1" />
+      <div className="sp-bg-orb sp-orb-2" />
+
+      <div className="spare-parts-inner">
+        {/* Header */}
+        <div className="sp-header reveal">
+          <div className="sp-eyebrow">
+            <span style={{ width: 6, height: 6, background: "var(--blue)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }} />
+            Genuine Spare Parts
+          </div>
+          <h2 className="sp-title">Every part. <em>Engineered</em><br />to last a lifetime.</h2>
+          <p className="sp-sub">Original AquaPura components — precision-manufactured and certified. Keep your system performing at peak purity, always.</p>
+        </div>
+
+        {/* Filters */}
+        <div className="sp-filters reveal">
+          {SPARE_PARTS_CATEGORIES.map(cat => (
+            <button key={cat} className={`sp-filter-btn${activeFilter === cat ? " active" : ""}`} onClick={() => handleFilter(cat)}>
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Bento Grid */}
+        <div className="sp-bento" key={animKey}>
+          {filtered.map((part, i) => (
+            <div
+              key={part.id}
+              className={`sp-part-card ${part.size || ""}`}
+              style={{ animationDelay: `${i * 0.04}s` }}
+              onClick={() => setModalPart(part)}
+            >
+              <div className="sp-img-wrap">
+                <img src={part.img} alt={part.name} loading="lazy" />
+              </div>
+              <div className="sp-card-info">
+                <span className="sp-part-name">{part.name}</span>
+                <span className="sp-part-cat">{part.cat}</span>
+              </div>
+              <div className="sp-hover-overlay">
+                <button className="sp-view-btn">
+                  View Details
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="sp-bottom-cta reveal">
+          <div className="sp-cta-text">
+            <h3>Need a specific part?</h3>
+            <p>Our service team will identify and dispatch the exact component you need — within 24 hours.</p>
+          </div>
+          <div className="sp-cta-actions">
+            <button className="sp-btn-primary" onClick={() => navigate("contact")}>
+              Request a Part
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </button>
+            <button className="sp-btn-ghost" onClick={() => navigate("contact")}>Talk to a Technician</button>
+          </div>
+        </div>
+      </div>
+
+      {/* Lightbox Modal */}
+      {modalPart && (
+        <div className="sp-modal-backdrop" onClick={() => setModalPart(null)}>
+          <div className="sp-modal" onClick={e => e.stopPropagation()}>
+            <button className="sp-modal-close" onClick={() => setModalPart(null)}>✕</button>
+            <div className="sp-modal-img">
+              <img src={modalPart.img} alt={modalPart.name} />
+            </div>
+            <div className="sp-modal-tag">{modalPart.cat}</div>
+            <div className="sp-modal-name">{modalPart.name}</div>
+            <p className="sp-modal-desc">{modalPart.desc}</p>
+            <div className="sp-modal-actions">
+              <button className="sp-btn-primary" onClick={() => { setModalPart(null); navigate("contact"); }}>
+                Enquire Now
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              </button>
+              <button className="sp-btn-ghost" onClick={() => setModalPart(null)}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
@@ -1333,37 +1747,6 @@ function useReveal(deps = []) {
     return () => clearTimeout(timer);
     // eslint-disable-next-line
   }, deps);
-}
-
-/* ─── HOW IT WORKS ───────────────────────────────────────── */
-function HowItWorks() {
-  return (
-    <section className="how-section">
-      <AmbientDrops count={35} color="0,87,255" />
-      <div className="how-inner">
-        <div className="section-header reveal">
-          <div className="page-eyebrow">The Science</div>
-          <h2 className="section-h">From tap to <em>perfection</em>.</h2>
-          <p className="section-sub">Every drop of AquaPura water is a journey through five precision stages.</p>
-        </div>
-        <div className="how-steps">
-          {HOW_STEPS.map((step, i) => (
-            <div key={i} className="how-step reveal" style={{ transitionDelay: `${i * 0.12}s` }}>
-              <div className="how-step-left">
-                <div className="how-num">{step.num}</div>
-                <div className="how-connector" />
-              </div>
-              <div className="how-step-right">
-                <div className="how-icon">{step.icon}</div>
-                <h3 className="how-title">{step.title}</h3>
-                <p className="how-desc">{step.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
 }
 
 /* ─── STATS ──────────────────────────────────────────────── */
@@ -1740,10 +2123,11 @@ function HomePage({ navigate, tds }) {
         </div>
       </section>
 
-      {/* ★ NEW: Home Product Showcase */}
       <HomeProductShowcase navigate={navigate} />
 
-      <HowItWorks />
+      {/* ★ NEW: Spare Parts Section (replaces How It Works) */}
+      <SparePartsSection navigate={navigate} />
+
       <StatsSection />
       <TestimonialsSection />
       <CTABanner navigate={navigate} />
