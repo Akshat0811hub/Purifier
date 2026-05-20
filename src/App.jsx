@@ -14,12 +14,12 @@ const STYLES = `
   --muted:      black;
   --dark:       #111827;
   --darkest:    #040810;
-  --blue:       #ff6200;
-  --blue-light: #ff6200;
+  --blue:       #696969;
+  --blue-light: #696969;
   --blue-pale:  #ffffff;
-  --blue-mid:   #ff6200;
+  --blue-mid:   #696969;
   --ink:        #1e2840;
-  --text-color: #ff6200;    
+  --text-color: #696969;    
   --font-display: 'Cormorant Garamond', serif;
   --font-body:    'DM Sans', sans-serif;
 }
@@ -649,7 +649,12 @@ nav.scrolled {
 /* ─── SPARE PARTS SECTION ────────────────────────────── */
 .spare-parts-section {
   padding: 120px 4vw;
-  background: var(--darkest);
+  background-color: rgba(4,8,16,0.88);
+  background-image: url('/assets/bg.png');
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
   overflow: hidden;
 }
@@ -668,10 +673,25 @@ nav.scrolled {
   background: linear-gradient(90deg, transparent, rgba(255,98,0,0.3), transparent);
 }
 
+/* Dark overlay so content stays readable over bg.png */
+.spare-parts-section .spare-parts-inner {
+  position: relative;
+  z-index: 2;
+}
+.spare-parts-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(4, 8, 16, 0.72);
+  z-index: 1;
+  pointer-events: none;
+}
+
 .sp-bg-orb {
   position: absolute;
   border-radius: 50%;
   pointer-events: none;
+  z-index: 2;
 }
 .sp-orb-1 {
   top: -200px; left: -150px;
@@ -684,7 +704,7 @@ nav.scrolled {
   background: radial-gradient(circle, rgba(255,140,60,0.06) 0%, transparent 65%);
 }
 
-.spare-parts-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 1; }
+.spare-parts-inner { max-width: 1400px; margin: 0 auto; position: relative; z-index: 2; }
 
 .sp-header { text-align: center; margin-bottom: 3.5rem; }
 .sp-eyebrow {
@@ -712,32 +732,37 @@ nav.scrolled {
 .sp-filters {
   display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
   margin-bottom: 3.5rem;
-}
-.sp-filter-btn {
-  border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
-  color: rgba(255,255,255,0.55);
+}.sp-filter-btn {
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.65);
+  color: #ffffff;
   padding: 0.5rem 1.2rem;
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.25s ease;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
 .sp-filter-btn:hover {
-  border-color: rgba(255,98,0,0.4);
-  background: rgba(255,98,0,0.08);
-  color: rgba(255,255,255,0.85);
+  border-color: var(--blue);
+  background: rgba(255, 98, 0, 0.35);
+  color: #ffffff;
+  box-shadow: 0 4px 20px rgba(255,98,0,0.4);
 }
 .sp-filter-btn.active {
   background: var(--blue);
   border-color: var(--blue);
   color: #fff;
-  box-shadow: 0 4px 20px rgba(255,98,0,0.35);
+  font-weight: 700;
+  box-shadow: 0 4px 24px rgba(255,98,0,0.6);
+  text-shadow: none;
 }
-
 /* Masonry-style bento grid */
 .sp-bento {
   display: grid;
@@ -747,19 +772,51 @@ nav.scrolled {
 }
 
 .sp-part-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: linear-gradient(145deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 100%);
+  border: 1px solid rgba(255,255,255,0.14);
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
   position: relative;
   transition: transform 0.35s cubic-bezier(.2,.75,.2,1),
               box-shadow 0.35s ease,
-              border-color 0.35s ease;
-  display: flex; flex-direction: column;
-  opacity: 1;
-  transform: none;
+              border-color 0.35s ease,
+              background 0.35s ease;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.5),
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 0 0 1px rgba(255,255,255,0.04) inset;
 }
+
+/* top orange accent line — appears on hover */
+.sp-part-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,98,0,0.7), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 4;
+}
+
+/* inner warm glow sweep — appears on hover */
+.sp-part-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,98,0,0.07) 0%, rgba(255,140,60,0.04) 50%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .sp-part-card.visible {
   opacity: 1;
   transform: translateY(0);
@@ -769,11 +826,18 @@ nav.scrolled {
 }
 
 .sp-part-card:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 20px 60px rgba(255,98,0,0.18);
-  border-color: rgba(255,98,0,0.4);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow:
+    0 20px 60px rgba(255,98,0,0.22),
+    0 8px 24px rgba(0,0,0,0.55),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  border-color: rgba(255,98,0,0.5);
+  background: linear-gradient(145deg, rgba(255,255,255,0.09) 0%, rgba(255,98,0,0.04) 100%);
   z-index: 2;
 }
+
+.sp-part-card:hover::before { opacity: 1; }
+.sp-part-card:hover::after  { opacity: 1; }
 
 /* size variants */
 .sp-part-card.sz-tall   { grid-row: span 2; }
@@ -782,8 +846,8 @@ nav.scrolled {
 
 .sp-img-wrap {
   flex: 1;
-  min-height: 0;       
-  height: 100%; 
+  min-height: 0;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -791,29 +855,32 @@ nav.scrolled {
   background: rgba(255,255,255,0.02);
   position: relative;
   overflow: hidden;
+  z-index: 2;
 }
 
 .sp-img-wrap::before {
   content: '';
   position: absolute; inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(255,98,0,0.08) 0%, transparent 70%);
+  background: radial-gradient(circle at 50% 60%, rgba(255,98,0,0.13) 0%, transparent 68%);
   opacity: 0;
-  transition: opacity 0.35s ease;
+  transition: opacity 0.4s ease;
 }
 .sp-part-card:hover .sp-img-wrap::before { opacity: 1; }
 
 .sp-img-wrap img {
   max-width: 80%;
-  max-height: 110px;   /* explicit pixel height */
+  max-height: 110px;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: brightness(0.92) contrast(1.05);
+  filter: brightness(0.95) contrast(1.05) drop-shadow(0 6px 14px rgba(0,0,0,0.5));
   transition: transform 0.5s cubic-bezier(.2,.75,.2,1), filter 0.5s ease;
+  position: relative;
+  z-index: 1;
 }
 .sp-part-card:hover .sp-img-wrap img {
-  transform: scale(1.1) translateY(-4px);
-  filter: brightness(1.05) contrast(1.08) drop-shadow(0 12px 24px rgba(255,98,0,0.3));
+  transform: scale(1.12) translateY(-6px);
+  filter: brightness(1.08) contrast(1.1) drop-shadow(0 14px 28px rgba(255,98,0,0.35));
 }
 
 /* tall/big cards show more image */
@@ -822,20 +889,22 @@ nav.scrolled {
 
 .sp-card-info {
   padding: 0.85rem 1rem 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  background: rgba(0,0,0,0.3);
-  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 8px;
+  position: relative;
+  z-index: 3;
 }
 
 .sp-part-name {
   font-family: var(--font-display);
   font-size: 0.95rem;
-  font-weight: 600;
-  color: rgba(255,255,255,0.9);
+  font-weight: 700;
+  color: rgba(255,255,255,0.95);
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
@@ -851,8 +920,8 @@ nav.scrolled {
   text-transform: uppercase;
   color: var(--blue);
   flex-shrink: 0;
-  background: rgba(255,98,0,0.12);
-  border: 1px solid rgba(255,98,0,0.25);
+  background: rgba(255,98,0,0.15);
+  border: 1px solid rgba(255,98,0,0.35);
   padding: 0.2rem 0.6rem;
   border-radius: 100px;
 }
@@ -864,11 +933,12 @@ nav.scrolled {
   display: flex; align-items: center; justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  backdrop-filter: blur(2px);
-  z-index: 3;
+  backdrop-filter: blur(3px);
+  z-index: 5;
   border-radius: 20px;
 }
 .sp-part-card:hover .sp-hover-overlay { opacity: 1; }
+
 .sp-view-btn {
   background: var(--blue);
   color: #fff;
@@ -880,10 +950,10 @@ nav.scrolled {
   font-weight: 700;
   cursor: pointer;
   display: flex; align-items: center; gap: 6px;
-  box-shadow: 0 8px 24px rgba(255,98,0,0.4);
-  transition: transform 0.2s ease;
+  box-shadow: 0 8px 28px rgba(255,98,0,0.5);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.sp-view-btn:hover { transform: scale(1.05); }
+.sp-view-btn:hover { transform: scale(1.05); box-shadow: 0 12px 36px rgba(255,98,0,0.6); }
 
 /* bottom CTA strip */
 .sp-bottom-cta {
@@ -993,6 +1063,10 @@ nav.scrolled {
   .sp-bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 150px; }
   .sp-part-card.sz-big { grid-column: span 2; }
   .sp-bottom-cta { flex-direction: column; }
+  /* On mobile, fixed background attachment can be problematic — fallback to scroll */
+  .spare-parts-section {
+    background-attachment: scroll;
+  }
 }
 @media (max-width: 520px) {
   .sp-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 10px; }
@@ -1343,35 +1417,36 @@ const HOME_SHOWCASE = [
 ];
 
 /* ─── SPARE PARTS DATA ───────────────────────────────────── */
+/* Images 22.png – 30.png (9 images), cycling for all 21 parts */
 const SPARE_PARTS_CATEGORIES = ["All", "Filters", "Membranes", "UV & Sterilization", "Housings", "Accessories"];
 
 const SPARE_PARTS = [
   // Big hero items
-  { id: 1,  img: "/assets/1.png",  name: "Pre-Sediment Filter",     cat: "Filters",            desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "sz-big" },
-  { id: 2,  img: "/assets/2.png",  name: "RO Membrane 75 GPD",      cat: "Membranes",          desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "sz-tall" },
+  { id: 1,  img: "/assets/22.png", name: "Pre-Sediment Filter",     cat: "Filters",            desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "sz-big" },
+  { id: 2,  img: "/assets/23.png", name: "RO Membrane 75 GPD",      cat: "Membranes",          desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "sz-tall" },
   // Standard
-  { id: 3,  img: "/assets/3.png",  name: "Activated Carbon Block",  cat: "Filters",            desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
-  { id: 4,  img: "/assets/4.png",  name: "UV-C Lamp 11W",           cat: "UV & Sterilization", desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
-  { id: 5,  img: "/assets/5.png",  name: "Post Carbon Filter",      cat: "Filters",            desc: "Inline post-carbon polishing filter for superior taste and clarity.", size: "" },
-  { id: 6,  img: "/assets/6.png",  name: "Mineral Cartridge",       cat: "Accessories",        desc: "Bio-ceramic mineral infusion cartridge for calcium, magnesium and alkaline restoration.", size: "" },
+  { id: 3,  img: "/assets/24.png", name: "Activated Carbon Block",  cat: "Filters",            desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
+  { id: 4,  img: "/assets/25.png", name: "UV-C Lamp 11W",           cat: "UV & Sterilization", desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
+  { id: 5,  img: "/assets/26.png", name: "Post Carbon Filter",      cat: "Filters",            desc: "Inline post-carbon polishing filter for superior taste and clarity.", size: "" },
+  { id: 6,  img: "/assets/27.png", name: "Mineral Cartridge",       cat: "Accessories",        desc: "Bio-ceramic mineral infusion cartridge for calcium, magnesium and alkaline restoration.", size: "" },
   // Wide
-  { id: 7,  img: "/assets/7.png",  name: "Filter Housing Kit",      cat: "Housings",           desc: "Heavy-duty 10-inch polypropylene filter housing with mounting bracket and spanner.", size: "sz-wide" },
-  { id: 8,  img: "/assets/8.png",  name: "Membrane Housing",        cat: "Housings",           desc: "Pressure-rated fibreglass RO membrane vessel with integrated check valve.", size: "" },
-  { id: 9,  img: "/assets/9.png",  name: "Flow Restrictor 400cc",   cat: "Accessories",        desc: "Calibrated capillary flow restrictor for optimal recovery ratio.", size: "" },
-  { id: 10, img: "/assets/10.png", name: "Feed Water Solenoid",     cat: "Accessories",        desc: "24V DC normally-closed solenoid valve with integrated fittings.", size: "" },
+  { id: 7,  img: "/assets/28.png", name: "Filter Housing Kit",      cat: "Housings",           desc: "Heavy-duty 10-inch polypropylene filter housing with mounting bracket and spanner.", size: "sz-wide" },
+  { id: 8,  img: "/assets/29.png", name: "Membrane Housing",        cat: "Housings",           desc: "Pressure-rated fibreglass RO membrane vessel with integrated check valve.", size: "" },
+  { id: 9,  img: "/assets/30.png", name: "Flow Restrictor 400cc",   cat: "Accessories",        desc: "Calibrated capillary flow restrictor for optimal recovery ratio.", size: "" },
+  { id: 10, img: "/assets/22.png", name: "Feed Water Solenoid",     cat: "Accessories",        desc: "24V DC normally-closed solenoid valve with integrated fittings.", size: "" },
   // Tall
-  { id: 11, img: "/assets/11.png", name: "Storage Tank 12L",        cat: "Housings",           desc: "Bladder-type pressurised storage tank with NSF-certified liner.", size: "sz-tall" },
-  { id: 12, img: "/assets/12.png", name: "Booster Pump 50GPD",      cat: "Accessories",        desc: "High-efficiency DC booster pump for low-pressure inlet applications.", size: "" },
-  { id: 13, img: "/assets/13.png", name: "TDS Inline Meter",        cat: "Accessories",        desc: "Dual-display inline TDS monitor for pre/post comparison in real time.", size: "" },
+  { id: 11, img: "/assets/23.png", name: "Storage Tank 12L",        cat: "Housings",           desc: "Bladder-type pressurised storage tank with NSF-certified liner.", size: "sz-tall" },
+  { id: 12, img: "/assets/24.png", name: "Booster Pump 50GPD",      cat: "Accessories",        desc: "High-efficiency DC booster pump for low-pressure inlet applications.", size: "" },
+  { id: 13, img: "/assets/25.png", name: "TDS Inline Meter",        cat: "Accessories",        desc: "Dual-display inline TDS monitor for pre/post comparison in real time.", size: "" },
   // Standard grid
-  { id: 14, img: "/assets/14.png", name: "Alkaline Filter pH+",     cat: "Filters",            desc: "Raises pH to 8.0–9.5 with tourmaline, maifan stone, and mineral balls.", size: "" },
-  { id: 15, img: "/assets/15.png", name: "UF Hollow Fiber 0.01µm",  cat: "Membranes",          desc: "Ultra-fine hollow-fiber ultrafiltration membrane for pathogen-free water.", size: "sz-wide" },
-  { id: 16, img: "/assets/16.png", name: "UV Quartz Sleeve",        cat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber. High UV transmittance.", size: "" },
-  { id: 17, img: "/assets/17.png", name: "Quick-Connect Fittings",  cat: "Accessories",        desc: "Push-to-connect fittings for 1/4\" and 3/8\" tubing. Leak-proof rated to 6 bar.", size: "" },
-  { id: 18, img: "/assets/18.png", name: "SMPS Power Adapter",      cat: "Accessories",        desc: "24V/3A switching power supply for pump and solenoid systems.", size: "" },
-  { id: 19, img: "/assets/19.png", name: "Nano Silver Filter",      cat: "Filters",            desc: "Silver-impregnated granular activated carbon for antibacterial protection.", size: "" },
-  { id: 20, img: "/assets/20.png", name: "High Pressure Switch",    cat: "Accessories",        desc: "Auto cut-off pressure switch. Prevents tank overpressure and backflow.", size: "" },
-  { id: 21, img: "/assets/21.png", name: "RO Membrane 100 GPD",     cat: "Membranes",          desc: "Commercial-grade 100 GPD TFC membrane for high-volume household use.", size: "" },
+  { id: 14, img: "/assets/26.png", name: "Alkaline Filter pH+",     cat: "Filters",            desc: "Raises pH to 8.0–9.5 with tourmaline, maifan stone, and mineral balls.", size: "" },
+  { id: 15, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm",  cat: "Membranes",          desc: "Ultra-fine hollow-fiber ultrafiltration membrane for pathogen-free water.", size: "sz-wide" },
+  { id: 16, img: "/assets/28.png", name: "UV Quartz Sleeve",        cat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber. High UV transmittance.", size: "" },
+  { id: 17, img: "/assets/29.png", name: "Quick-Connect Fittings",  cat: "Accessories",        desc: "Push-to-connect fittings for 1/4\" and 3/8\" tubing. Leak-proof rated to 6 bar.", size: "" },
+  { id: 18, img: "/assets/30.png", name: "SMPS Power Adapter",      cat: "Accessories",        desc: "24V/3A switching power supply for pump and solenoid systems.", size: "" },
+  { id: 19, img: "/assets/22.png", name: "Nano Silver Filter",      cat: "Filters",            desc: "Silver-impregnated granular activated carbon for antibacterial protection.", size: "" },
+  { id: 20, img: "/assets/23.png", name: "High Pressure Switch",    cat: "Accessories",        desc: "Auto cut-off pressure switch. Prevents tank overpressure and backflow.", size: "" },
+  { id: 21, img: "/assets/24.png", name: "RO Membrane 100 GPD",     cat: "Membranes",          desc: "Commercial-grade 100 GPD TFC membrane for high-volume household use.", size: "" },
 ];
 
 /* ─── HERO VISUAL ────────────────────────────────────────── */
@@ -1521,7 +1596,6 @@ function SparePartsSection({ navigate }) {
     ? SPARE_PARTS
     : SPARE_PARTS.filter(p => p.cat === activeFilter);
 
-  // Animate cards in on filter change
   const [animKey, setAnimKey] = useState(0);
   const handleFilter = (f) => {
     setActiveFilter(f);
@@ -2124,10 +2198,7 @@ function HomePage({ navigate, tds }) {
       </section>
 
       <HomeProductShowcase navigate={navigate} />
-
-      {/* ★ NEW: Spare Parts Section (replaces How It Works) */}
       <SparePartsSection navigate={navigate} />
-
       <StatsSection />
       <TestimonialsSection />
       <CTABanner navigate={navigate} />
