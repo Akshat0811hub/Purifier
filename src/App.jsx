@@ -3439,6 +3439,7 @@ function ModelObsidian() {
     </svg>
   );
 }
+// eslint-disable-next-line no-unused-vars
 const MODEL_SVG = {
   elite: ModelElite,
   element: ModelElement,
@@ -4049,15 +4050,262 @@ function ProgressBar({ onDone }) {
   }, [onDone]);
 
   return (
-    <div
-      style={{
-        height: "100%",
-        width: `${width}%`,
-        background: "linear-gradient(90deg, #555, #ffffff)",
-        borderRadius: "2px",
-        transition: "width 0.025s linear",
-      }}
-    />
+    <div style={{
+      height: "100%",
+      width: `${width}%`,
+      background: "linear-gradient(90deg, #555, #ffffff)",
+      borderRadius: "2px",
+      transition: "width 0.025s linear",
+    }} />
+  );
+}
+
+function Preloader({ onDone }) {
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setStep(1), 100);
+    const t2 = setTimeout(() => setStep(2), 400);
+    const t3 = setTimeout(() => setStep(3), 700);
+    const t4 = setTimeout(() => setStep(4), 1000);
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+  }, []);
+
+  return (
+    <div style={{
+      position: "fixed",
+      top: 0, left: 0, right: 0, bottom: 0,
+      zIndex: 99999,
+      backgroundColor: "#000",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: "28px",
+      overflow: "hidden",
+    }}>
+
+      {/* Particles */}
+      {[...Array(20)].map((_, i) => (
+        <div key={i} style={{
+          position: "absolute",
+          left: `${(i * 5) % 95}%`,
+          bottom: `${(i * 7) % 40}%`,
+          width: "2px", height: "2px",
+          borderRadius: "50%",
+          background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`,
+          transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`,
+          transform: step >= 1 ? `translateY(-${60 + (i % 4) * 30}px)` : "translateY(0)",
+          opacity: step >= 1 ? 0 : 0.6,
+          animationDelay: `${i * 0.1}s`,
+        }} />
+      ))}
+
+      {/* Glow */}
+      <div style={{
+        position: "absolute",
+        top: "40%", left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: step >= 2 ? "500px" : "100px",
+        height: step >= 2 ? "500px" : "100px",
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)",
+        transition: "width 1.5s ease, height 1.5s ease",
+        pointerEvents: "none",
+      }} />
+
+      {/* Top decoration */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: "12px",
+        opacity: step >= 1 ? 1 : 0,
+        transform: step >= 1 ? "translateY(0)" : "translateY(-10px)",
+        transition: "all 0.6s ease",
+      }}>
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+        <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "rgba(255,255,255,0.4)" }} />
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+      </div>
+
+      {/* MAIN TEXT */}
+      <div style={{
+        display: "flex",
+        alignItems: "baseline",
+        gap: "4px",
+        fontFamily: "Georgia, 'Times New Roman', serif",
+        lineHeight: 1,
+        letterSpacing: "-2px",
+      }}>
+        {/* L */}
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "#fff",
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0s",
+          display: "inline-block",
+        }}>L</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "#fff",
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.05s",
+          display: "inline-block",
+        }}>e</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "#fff",
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.1s",
+          display: "inline-block",
+        }}>t</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "#fff",
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.15s",
+          display: "inline-block",
+        }}>s</span>
+
+        <span style={{ display: "inline-block", width: "0.2em" }} />
+
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "rgba(255,255,255,0.4)",
+          opacity: step >= 2 ? 1 : 0,
+          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0s",
+          display: "inline-block",
+        }}>P</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "rgba(255,255,255,0.4)",
+          opacity: step >= 2 ? 1 : 0,
+          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.05s",
+          display: "inline-block",
+        }}>u</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "rgba(255,255,255,0.4)",
+          opacity: step >= 2 ? 1 : 0,
+          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.1s",
+          display: "inline-block",
+        }}>r</span>
+        <span style={{
+          fontSize: "clamp(4rem, 12vw, 8rem)",
+          fontWeight: 700,
+          color: "rgba(255,255,255,0.4)",
+          opacity: step >= 2 ? 1 : 0,
+          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
+          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.15s",
+          display: "inline-block",
+        }}>e</span>
+      </div>
+
+      {/* Bottom decoration */}
+      <div style={{
+        display: "flex", alignItems: "center", gap: "12px",
+        opacity: step >= 3 ? 1 : 0,
+        transition: "all 0.6s ease",
+      }}>
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+        <div style={{
+          fontSize: "0.68rem",
+          color: "rgba(255,255,255,0.45)",
+          letterSpacing: "0.25em",
+          textTransform: "uppercase",
+          fontFamily: "Arial, sans-serif",
+          whiteSpace: "nowrap",
+        }}>
+          Molecular Purity · Engineered for Life
+        </div>
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+      </div>
+
+      {/* Progress */}
+      <div style={{
+        opacity: step >= 3 ? 1 : 0,
+        transition: "opacity 0.6s ease",
+      }}>
+        <PercentCounter onDone={onDone} />
+      </div>
+
+    </div>
+  );
+}
+
+function PercentCounter({ onDone }) {
+  const [pct, setPct] = useState(0);
+
+  useEffect(() => {
+    let w = 0;
+    const iv = setInterval(() => {
+      w += 1;
+      setPct(Math.min(w, 100));
+      if (w >= 100) {
+        clearInterval(iv);
+        setTimeout(onDone, 600);
+      }
+    }, 22);
+    return () => clearInterval(iv);
+  }, [onDone]);
+
+  return (
+    <div style={{ textAlign: "center" }}>
+      <div style={{
+        fontFamily: "Georgia, serif",
+        fontSize: "0.78rem",
+        color: "rgba(255,255,255,0.5)",
+        letterSpacing: "0.1em",
+        marginBottom: "10px",
+      }}>
+        {String(pct).padStart(3, "0")}
+      </div>
+      <div style={{
+        width: "260px", height: "1px",
+        background: "rgba(255,255,255,0.1)",
+        position: "relative",
+      }}>
+        <div style={{
+          height: "1px",
+          width: `${pct}%`,
+          background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)",
+          position: "relative",
+          transition: "width 0.022s linear",
+        }}>
+          <div style={{
+            position: "absolute",
+            right: "-1px", top: "50%",
+            transform: "translateY(-50%)",
+            width: "4px", height: "4px",
+            borderRadius: "50%",
+            background: "#fff",
+            boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)",
+          }} />
+        </div>
+      </div>
+      <div style={{
+        marginTop: "10px",
+        fontSize: "0.62rem",
+        color: "rgba(255,255,255,0.25)",
+        letterSpacing: "0.15em",
+        textTransform: "uppercase",
+        fontFamily: "Arial, sans-serif",
+      }}>
+        {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
+      </div>
+    </div>
   );
 }
 
@@ -4066,8 +4314,10 @@ export default function AquaPura() {
   const [page, setPage] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [tds, setTds] = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [barDone, setBarDone] = useState(false);
 
   useEffect(() => {
@@ -4115,67 +4365,9 @@ export default function AquaPura() {
     contact: <ContactPage />,
   };
 
+  
   if (!preloaderDone) {
-    return (
-      <div
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          zIndex: 99999,
-          backgroundColor: "#000000",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: "24px",
-        }}
-      >
-        {/* TEXT - no animation, just show it */}
-        <div
-          style={{
-            fontSize: "72px",
-            fontWeight: "700",
-            fontFamily: "Georgia, serif",
-            letterSpacing: "-3px",
-            display: "flex",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
-          <span style={{ color: "#ffffff" }}>Lets</span>
-          <span style={{ color: "#888888" }}>Pure</span>
-        </div>
-
-        {/* TAGLINE */}
-        <div
-          style={{
-            color: "rgba(255,255,255,0.55)",
-            fontSize: "11px",
-            letterSpacing: "3px",
-            textTransform: "uppercase",
-            fontFamily: "Arial, sans-serif",
-          }}
-        >
-          Molecular Purity · Engineered for Life
-        </div>
-
-        {/* PROGRESS BAR */}
-        <div
-          style={{
-            width: "180px",
-            height: "2px",
-            backgroundColor: "rgba(255,255,255,0.12)",
-            borderRadius: "2px",
-            overflow: "hidden",
-          }}
-        >
-          <ProgressBar onDone={() => setPreloaderDone(true)} />
-        </div>
-      </div>
-    );
+    return <Preloader onDone={() => setPreloaderDone(true)} />;
   }
 
   return (
