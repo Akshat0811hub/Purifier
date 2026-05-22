@@ -853,7 +853,7 @@ nav.scrolled {
   align-items: center;
   justify-content: center;
   padding: 1.5rem;
-  background: rgba(255,255,255,0.02);
+  background: rgba(0,0,0,0.3);
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -2078,7 +2078,7 @@ function HomeProductShowcase({ navigate }) {
                 style={{
                   fontFamily: "var(--font-display)",
                   fontSize: "2.5rem",
-                  fontWeight: 700,
+                  fontWeight: 600,
                   color: "var(--darkest)",
                   marginBottom: "1.5rem",
                 }}
@@ -2190,7 +2190,7 @@ function HomeProductShowcase({ navigate }) {
             <div
               style={{
                 color: "#fff",
-                fontWeight: 700,
+                fontWeight: 600,
                 fontSize: "0.9rem",
                 display: "flex",
                 alignItems: "center",
@@ -2375,6 +2375,7 @@ function SparePartsSection({ navigate }) {
 }
 
 /* ─── AMBIENT DROPS ──────────────────────────────────────── */
+// eslint-disable-next-line no-unused-vars
 function AmbientDrops({ count = 20, color = "0,87,255" }) {
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
@@ -2446,19 +2447,14 @@ function RippleZone() {
     };
     resize();
     window.addEventListener("resize", resize);
-    const onMove = (e) => {
-      const r = zone.getBoundingClientRect();
-      ripplesRef.current.push({
-        x: e.clientX - r.left,
-        y: e.clientY - r.top,
-        r: 0,
-        a: 0.6,
-      });
-    };
-    zone.addEventListener("mousemove", onMove);
+    let isRunning = false;
     const anim = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ripplesRef.current = ripplesRef.current.filter((rp) => rp.a > 0.01);
+      if (ripplesRef.current.length === 0) {
+        isRunning = false;
+        return;
+      }
       ripplesRef.current.forEach((rp) => {
         rp.r += 2.5;
         rp.a *= 0.96;
@@ -2470,7 +2466,20 @@ function RippleZone() {
       });
       rafRef.current = requestAnimationFrame(anim);
     };
-    anim();
+    const onMove = (e) => {
+      const r = zone.getBoundingClientRect();
+      ripplesRef.current.push({
+        x: e.clientX - r.left,
+        y: e.clientY - r.top,
+        r: 0,
+        a: 0.6,
+      });
+      if (!isRunning) {
+        isRunning = true;
+        rafRef.current = requestAnimationFrame(anim);
+      }
+    };
+    zone.addEventListener("mousemove", onMove);
     return () => {
       cancelAnimationFrame(rafRef.current);
       zone.removeEventListener("mousemove", onMove);
@@ -2581,7 +2590,6 @@ function StatsSection() {
 function TestimonialsSection() {
   return (
     <section className="testi-section">
-      <AmbientDrops count={25} color="255,255,255" />
       <div className="testi-inner">
         <div className="section-header reveal">
           <div
@@ -2913,7 +2921,7 @@ function Footer() {
         <div className="footer-brand">
           <div className="footer-logo-big">
             <img
-              src="/assets/white logo.png"
+              src="/assets/whiteLogo.png"
               alt="AquaPura"
               style={{ height: "100px", width: "200px", objectFit: "contain" }}
             />
@@ -3679,11 +3687,21 @@ function ProductsPage({ navigate }) {
   const [activeSub, setActiveSub] = useState("All Parts");
 
   const mainTabs = ["RO Systems", "Spare Parts"];
-  const subCats = ["All Parts", "Filters", "Membranes", "UV & Sterilization", "Housings", "Accessories"];
+  const subCats = [
+    "All Parts",
+    "Filters",
+    "Membranes",
+    "UV & Sterilization",
+    "Housings",
+    "Accessories",
+  ];
 
-  const filteredParts = activeSub === "All Parts"
-    ? ALL_PRODUCTS.filter(p => p.type === "Spare Parts")
-    : ALL_PRODUCTS.filter(p => p.type === "Spare Parts" && p.subCat === activeSub);
+  const filteredParts =
+    activeSub === "All Parts"
+      ? ALL_PRODUCTS.filter((p) => p.type === "Spare Parts")
+      : ALL_PRODUCTS.filter(
+          (p) => p.type === "Spare Parts" && p.subCat === activeSub,
+        );
 
   return (
     <div>
@@ -3700,14 +3718,21 @@ function ProductsPage({ navigate }) {
         </p>
 
         {/* Main Tabs */}
-        <div style={{
-          display: "flex", gap: "0.5rem", justifyContent: "center",
-          marginTop: "2rem",
-          background: "#f1f3f8", borderRadius: "100px",
-          padding: "6px", width: "fit-content",
-          marginLeft: "auto", marginRight: "auto",
-        }}>
-          {mainTabs.map(tab => (
+        <div
+          style={{
+            display: "flex",
+            gap: "0.5rem",
+            justifyContent: "center",
+            marginTop: "2rem",
+            background: "#f1f3f8",
+            borderRadius: "100px",
+            padding: "6px",
+            width: "fit-content",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          {mainTabs.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -3721,10 +3746,13 @@ function ProductsPage({ navigate }) {
                 fontWeight: 600,
                 color: activeTab === tab ? "#111827" : "#808080",
                 cursor: "pointer",
-                boxShadow: activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none",
+                boxShadow:
+                  activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none",
                 transition: "all 0.25s ease",
               }}
-            >{tab}</button>
+            >
+              {tab}
+            </button>
           ))}
         </div>
       </div>
@@ -3758,7 +3786,9 @@ function ProductsPage({ navigate }) {
                         <span className="comp-check">✓</span>
                       ) : v === false ? (
                         <span className="comp-dash">—</span>
-                      ) : v}
+                      ) : (
+                        v
+                      )}
                     </div>
                   ))}
                 </div>
@@ -3770,15 +3800,24 @@ function ProductsPage({ navigate }) {
 
       {/* Spare Parts Tab */}
       {activeTab === "Spare Parts" && (
-        <div style={{ padding: "60px 4vw 100px", maxWidth: "1400px", margin: "0 auto" }}>
-
+        <div
+          style={{
+            padding: "60px 4vw 100px",
+            maxWidth: "1400px",
+            margin: "0 auto",
+          }}
+        >
           {/* Sub category filters */}
-          <div style={{
-            display: "flex", gap: "0.5rem",
-            justifyContent: "center", flexWrap: "wrap",
-            marginBottom: "3rem",
-          }}>
-            {subCats.map(cat => (
+          <div
+            style={{
+              display: "flex",
+              gap: "0.5rem",
+              justifyContent: "center",
+              flexWrap: "wrap",
+              marginBottom: "3rem",
+            }}
+          >
+            {subCats.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveSub(cat)}
@@ -3793,18 +3832,23 @@ function ProductsPage({ navigate }) {
                   fontWeight: 600,
                   cursor: "pointer",
                   transition: "all 0.25s ease",
-                  boxShadow: activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
+                  boxShadow:
+                    activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
                 }}
-              >{cat}</button>
+              >
+                {cat}
+              </button>
             ))}
           </div>
 
           {/* Parts Grid */}
-          <div style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-            gap: "1.5rem",
-          }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+              gap: "1.5rem",
+            }}
+          >
             {filteredParts.map((part) => (
               <div
                 key={part.id}
@@ -3816,25 +3860,28 @@ function ProductsPage({ navigate }) {
                   cursor: "pointer",
                   transition: "transform 0.25s ease, box-shadow 0.25s ease",
                 }}
-                onMouseEnter={e => {
+                onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.1)";
+                  e.currentTarget.style.boxShadow =
+                    "0 16px 40px rgba(0,0,0,0.1)";
                 }}
-                onMouseLeave={e => {
+                onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
                   e.currentTarget.style.boxShadow = "none";
                 }}
                 onClick={() => navigate("contact")}
               >
                 {/* Image */}
-                <div style={{
-                  height: "180px",
-                  background: "#f7f8fc",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  padding: "1.5rem",
-                }}>
+                <div
+                  style={{
+                    height: "180px",
+                    background: "#f7f8fc",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "1.5rem",
+                  }}
+                >
                   <img
                     src={part.img}
                     alt={part.name}
@@ -3848,34 +3895,64 @@ function ProductsPage({ navigate }) {
                 </div>
                 {/* Info */}
                 <div style={{ padding: "1.2rem" }}>
-                  <div style={{
-                    fontSize: "0.68rem", fontWeight: 700,
-                    letterSpacing: "0.08em", textTransform: "uppercase",
-                    color: "#696969",
-                    background: "rgba(105,105,105,0.08)",
-                    border: "1px solid rgba(105,105,105,0.2)",
-                    padding: "0.2rem 0.6rem", borderRadius: "100px",
-                    display: "inline-block", marginBottom: "0.6rem",
-                  }}>{part.subCat || "RO System"}</div>
-                  <div style={{
-                    fontFamily: "var(--font-display)",
-                    fontSize: "1rem", fontWeight: 700,
-                    color: "#040810", marginBottom: "0.4rem",
-                  }}>{part.name}</div>
-                  <div style={{
-                    fontSize: "0.82rem", color: "#808080", lineHeight: 1.5,
-                  }}>{part.desc}</div>
+                  <div
+                    style={{
+                      fontSize: "0.68rem",
+                      fontWeight: 600,
+                      letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: "#696969",
+                      background: "rgba(105,105,105,0.08)",
+                      border: "1px solid rgba(105,105,105,0.2)",
+                      padding: "0.2rem 0.6rem",
+                      borderRadius: "100px",
+                      display: "inline-block",
+                      marginBottom: "0.6rem",
+                    }}
+                  >
+                    {part.subCat || "RO System"}
+                  </div>
+                  <div
+                    style={{
+                      fontFamily: "var(--font-display)",
+                      fontSize: "1rem",
+                      fontWeight: 600,
+                      color: "#040810",
+                      marginBottom: "0.4rem",
+                    }}
+                  >
+                    {part.name}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "0.82rem",
+                      color: "#808080",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    {part.desc}
+                  </div>
                   <button
                     style={{
-                      marginTop: "1rem", width: "100%",
-                      background: "#696969", color: "#fff",
-                      border: "none", padding: "0.65rem",
-                      borderRadius: "100px", fontSize: "0.82rem",
-                      fontWeight: 600, cursor: "pointer",
+                      marginTop: "1rem",
+                      width: "100%",
+                      background: "#696969",
+                      color: "#fff",
+                      border: "none",
+                      padding: "0.65rem",
+                      borderRadius: "100px",
+                      fontSize: "0.82rem",
+                      fontWeight: 600,
+                      cursor: "pointer",
                       fontFamily: "var(--font-body)",
                     }}
-                    onClick={(e) => { e.stopPropagation(); navigate("contact"); }}
-                  >Enquire Now</button>
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate("contact");
+                    }}
+                  >
+                    Enquire Now
+                  </button>
                 </div>
               </div>
             ))}
@@ -4037,7 +4114,6 @@ function ContactPage() {
   );
 }
 
-
 function Preloader({ onDone }) {
   const [step, setStep] = useState(0);
 
@@ -4046,179 +4122,175 @@ function Preloader({ onDone }) {
     const t2 = setTimeout(() => setStep(2), 400);
     const t3 = setTimeout(() => setStep(3), 700);
     const t4 = setTimeout(() => setStep(4), 1000);
-    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+      clearTimeout(t3);
+      clearTimeout(t4);
+    };
   }, []);
 
   return (
-    <div style={{
-      position: "fixed",
-      top: 0, left: 0, right: 0, bottom: 0,
-      zIndex: 99999,
-      backgroundColor: "#000",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      justifyContent: "center",
-      gap: "28px",
-      overflow: "hidden",
-    }}>
-
+    <div
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        zIndex: 99999,
+        backgroundColor: "#000",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        gap: "28px",
+        overflow: "hidden",
+      }}
+    >
       {/* Particles */}
       {[...Array(20)].map((_, i) => (
-        <div key={i} style={{
-          position: "absolute",
-          left: `${(i * 5) % 95}%`,
-          bottom: `${(i * 7) % 40}%`,
-          width: "2px", height: "2px",
-          borderRadius: "50%",
-          background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`,
-          transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`,
-          transform: step >= 1 ? `translateY(-${60 + (i % 4) * 30}px)` : "translateY(0)",
-          opacity: step >= 1 ? 0 : 0.6,
-          animationDelay: `${i * 0.1}s`,
-        }} />
+        <div
+          key={i}
+          style={{
+            position: "absolute",
+            left: `${(i * 5) % 95}%`,
+            bottom: `${(i * 7) % 40}%`,
+            width: "2px",
+            height: "2px",
+            borderRadius: "50%",
+            background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`,
+            transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`,
+            transform:
+              step >= 1
+                ? `translateY(-${60 + (i % 4) * 30}px)`
+                : "translateY(0)",
+            opacity: step >= 1 ? 0 : 0.6,
+            animationDelay: `${i * 0.1}s`,
+          }}
+        />
       ))}
 
       {/* Glow */}
-      <div style={{
-        position: "absolute",
-        top: "40%", left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: step >= 2 ? "500px" : "100px",
-        height: step >= 2 ? "500px" : "100px",
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)",
-        transition: "width 1.5s ease, height 1.5s ease",
-        pointerEvents: "none",
-      }} />
+      <div
+        style={{
+          position: "absolute",
+          top: "40%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          width: step >= 2 ? "500px" : "100px",
+          height: step >= 2 ? "500px" : "100px",
+          borderRadius: "50%",
+          background:
+            "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)",
+          transition: "width 1.5s ease, height 1.5s ease",
+          pointerEvents: "none",
+        }}
+      />
 
       {/* Top decoration */}
-      <div style={{
-        display: "flex", alignItems: "center", gap: "12px",
-        opacity: step >= 1 ? 1 : 0,
-        transform: step >= 1 ? "translateY(0)" : "translateY(-10px)",
-        transition: "all 0.6s ease",
-      }}>
-        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
-        <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "rgba(255,255,255,0.4)" }} />
-        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          opacity: step >= 1 ? 1 : 0,
+          transform: step >= 1 ? "translateY(0)" : "translateY(-10px)",
+          transition: "all 0.6s ease",
+        }}
+      >
+        <div
+          style={{
+            width: "40px",
+            height: "1px",
+            background: "rgba(255,255,255,0.2)",
+          }}
+        />
+        <div
+          style={{
+            width: "4px",
+            height: "4px",
+            borderRadius: "50%",
+            background: "rgba(255,255,255,0.4)",
+          }}
+        />
+        <div
+          style={{
+            width: "40px",
+            height: "1px",
+            background: "rgba(255,255,255,0.2)",
+          }}
+        />
       </div>
 
       {/* MAIN TEXT */}
-      <div style={{
-        display: "flex",
-        alignItems: "baseline",
-        gap: "4px",
-        fontFamily: "Georgia, 'Times New Roman', serif",
-        lineHeight: 1,
-        letterSpacing: "-2px",
-      }}>
-        {/* L */}
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "#fff",
+      {/* LOGO */}
+      <div
+        style={{
           opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0s",
-          display: "inline-block",
-        }}>L</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "#fff",
-          opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.05s",
-          display: "inline-block",
-        }}>e</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "#fff",
-          opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.1s",
-          display: "inline-block",
-        }}>t</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "#fff",
-          opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.15s",
-          display: "inline-block",
-        }}>s</span>
-
-        <span style={{ display: "inline-block", width: "0.2em" }} />
-
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "rgba(255,255,255,0.4)",
-          opacity: step >= 2 ? 1 : 0,
-          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0s",
-          display: "inline-block",
-        }}>P</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "rgba(255,255,255,0.4)",
-          opacity: step >= 2 ? 1 : 0,
-          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.05s",
-          display: "inline-block",
-        }}>u</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "rgba(255,255,255,0.4)",
-          opacity: step >= 2 ? 1 : 0,
-          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.1s",
-          display: "inline-block",
-        }}>r</span>
-        <span style={{
-          fontSize: "clamp(4rem, 12vw, 8rem)",
-          fontWeight: 700,
-          color: "rgba(255,255,255,0.4)",
-          opacity: step >= 2 ? 1 : 0,
-          transform: step >= 2 ? "translateY(0)" : "translateY(50px)",
-          transition: "all 0.6s cubic-bezier(.2,.75,.2,1) 0.15s",
-          display: "inline-block",
-        }}>e</span>
+          transform: step >= 1 ? "translateY(0)" : "translateY(30px)",
+          transition: "all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s",
+        }}
+      >
+        <img
+          src="/assets/black logo.png"
+          alt="LetsPure"
+          style={{
+            maxHeight: "120px",
+            maxWidth: "320px",
+            objectFit: "contain",
+            filter: "brightness(0) invert(1)",
+          }}
+        />
       </div>
 
       {/* Bottom decoration */}
-      <div style={{
-        display: "flex", alignItems: "center", gap: "12px",
-        opacity: step >= 3 ? 1 : 0,
-        transition: "all 0.6s ease",
-      }}>
-        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
-        <div style={{
-          fontSize: "0.68rem",
-          color: "rgba(255,255,255,0.45)",
-          letterSpacing: "0.25em",
-          textTransform: "uppercase",
-          fontFamily: "Arial, sans-serif",
-          whiteSpace: "nowrap",
-        }}>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+          opacity: step >= 3 ? 1 : 0,
+          transition: "all 0.6s ease",
+        }}
+      >
+        <div
+          style={{
+            width: "60px",
+            height: "1px",
+            background: "rgba(255,255,255,0.15)",
+          }}
+        />
+        <div
+          style={{
+            fontSize: "0.68rem",
+            color: "rgba(255,255,255,0.45)",
+            letterSpacing: "0.25em",
+            textTransform: "uppercase",
+            fontFamily: "Arial, sans-serif",
+            whiteSpace: "nowrap",
+          }}
+        >
           Molecular Purity · Engineered for Life
         </div>
-        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+        <div
+          style={{
+            width: "60px",
+            height: "1px",
+            background: "rgba(255,255,255,0.15)",
+          }}
+        />
       </div>
 
       {/* Progress */}
-      <div style={{
-        opacity: step >= 3 ? 1 : 0,
-        transition: "opacity 0.6s ease",
-      }}>
+      <div
+        style={{
+          opacity: step >= 3 ? 1 : 0,
+          transition: "opacity 0.6s ease",
+        }}
+      >
         <PercentCounter onDone={onDone} />
       </div>
-
     </div>
   );
 }
@@ -4241,47 +4313,66 @@ function PercentCounter({ onDone }) {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <div style={{
-        fontFamily: "Georgia, serif",
-        fontSize: "0.78rem",
-        color: "rgba(255,255,255,0.5)",
-        letterSpacing: "0.1em",
-        marginBottom: "10px",
-      }}>
+      <div
+        style={{
+          fontFamily: "Georgia, serif",
+          fontSize: "0.78rem",
+          color: "rgba(255,255,255,0.5)",
+          letterSpacing: "0.1em",
+          marginBottom: "10px",
+        }}
+      >
         {String(pct).padStart(3, "0")}
       </div>
-      <div style={{
-        width: "260px", height: "1px",
-        background: "rgba(255,255,255,0.1)",
-        position: "relative",
-      }}>
-        <div style={{
+      <div
+        style={{
+          width: "260px",
           height: "1px",
-          width: `${pct}%`,
-          background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)",
+          background: "rgba(255,255,255,0.1)",
           position: "relative",
-          transition: "width 0.022s linear",
-        }}>
-          <div style={{
-            position: "absolute",
-            right: "-1px", top: "50%",
-            transform: "translateY(-50%)",
-            width: "4px", height: "4px",
-            borderRadius: "50%",
-            background: "#fff",
-            boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)",
-          }} />
+        }}
+      >
+        <div
+          style={{
+            height: "1px",
+            width: `${pct}%`,
+            background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)",
+            position: "relative",
+            transition: "width 0.022s linear",
+          }}
+        >
+          <div
+            style={{
+              position: "absolute",
+              right: "-1px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "4px",
+              height: "4px",
+              borderRadius: "50%",
+              background: "#fff",
+              boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)",
+            }}
+          />
         </div>
       </div>
-      <div style={{
-        marginTop: "10px",
-        fontSize: "0.62rem",
-        color: "rgba(255,255,255,0.25)",
-        letterSpacing: "0.15em",
-        textTransform: "uppercase",
-        fontFamily: "Arial, sans-serif",
-      }}>
-        {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
+      <div
+        style={{
+          marginTop: "10px",
+          fontSize: "0.62rem",
+          color: "rgba(255,255,255,0.25)",
+          letterSpacing: "0.15em",
+          textTransform: "uppercase",
+          fontFamily: "Arial, sans-serif",
+        }}
+      >
+        {pct < 30
+          ? "Initializing"
+          : pct < 60
+            ? "Loading Assets"
+            : pct < 90
+              ? "Preparing"
+              : "Ready"}
       </div>
     </div>
   );
@@ -4343,7 +4434,6 @@ export default function AquaPura() {
     contact: <ContactPage />,
   };
 
-  
   if (!preloaderDone) {
     return <Preloader onDone={() => setPreloaderDone(true)} />;
   }
