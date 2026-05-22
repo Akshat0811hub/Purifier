@@ -2959,6 +2959,7 @@ function Footer() {
 }
 
 /* ─── SVG MODELS ─────────────────────────────────────────── */
+// eslint-disable-next-line no-unused-vars
 function ModelElite() {
   return (
     <svg
@@ -3073,6 +3074,7 @@ function ModelElite() {
     </svg>
   );
 }
+// eslint-disable-next-line no-unused-vars
 function ModelElement() {
   return (
     <svg
@@ -3207,6 +3209,7 @@ function ModelElement() {
     </svg>
   );
 }
+// eslint-disable-next-line no-unused-vars
 function ModelHydro() {
   return (
     <svg
@@ -3327,6 +3330,7 @@ function ModelHydro() {
     </svg>
   );
 }
+// eslint-disable-next-line no-unused-vars
 function ModelObsidian() {
   return (
     <svg
