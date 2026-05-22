@@ -3439,13 +3439,13 @@ function ModelObsidian() {
     </svg>
   );
 }
-// eslint-disable-next-line no-unused-vars
-const MODEL_SVG = {
-  elite: ModelElite,
-  element: ModelElement,
-  hydro: ModelHydro,
-  obsidian: ModelObsidian,
-};
+// // eslint-disable-next-line no-unused-vars
+// const MODEL_SVG = {
+//   elite: ModelElite,
+//   element: ModelElement,
+//   hydro: ModelHydro,
+//   obsidian: ModelObsidian,
+// };
 
 /* ─── PAGES ──────────────────────────────────────────────── */
 function HomePage({ navigate, tds }) {
@@ -4033,32 +4033,6 @@ function ContactPage() {
   );
 }
 
-function ProgressBar({ onDone }) {
-  const [width, setWidth] = useState(0);
-
-  useEffect(() => {
-    let w = 0;
-    const iv = setInterval(() => {
-      w += 1;
-      setWidth(Math.min(w, 100));
-      if (w >= 100) {
-        clearInterval(iv);
-        setTimeout(onDone, 500);
-      }
-    }, 25);
-    return () => clearInterval(iv);
-  }, [onDone]);
-
-  return (
-    <div style={{
-      height: "100%",
-      width: `${width}%`,
-      background: "linear-gradient(90deg, #555, #ffffff)",
-      borderRadius: "2px",
-      transition: "width 0.025s linear",
-    }} />
-  );
-}
 
 function Preloader({ onDone }) {
   const [step, setStep] = useState(0);
@@ -4315,10 +4289,10 @@ export default function AquaPura() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [tds, setTds] = useState(280);
+  // const [tds, setTds] = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  const [barDone, setBarDone] = useState(false);
+  // const [barDone, setBarDone] = useState(false);
 
   useEffect(() => {
     const el = document.createElement("style");
