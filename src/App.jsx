@@ -4289,7 +4289,7 @@ export default function AquaPura() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   // eslint-disable-next-line no-unused-vars
-  // const [tds, setTds] = useState(280);
+  const [tds, setTds] = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
   // eslint-disable-next-line no-unused-vars
   // const [barDone, setBarDone] = useState(false);
