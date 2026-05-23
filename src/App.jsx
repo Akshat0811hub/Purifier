@@ -2,21 +2,41 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── GLOBAL STYLES ──────────────────────────────────────── */
 const STYLES = `
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  font-family: 'Poppins', sans-serif !important;
+}
+html, body {
+  font-family: 'Poppins', sans-serif !important;
+}
+:root {
+  --font-display: "Poppins", sans-serif;
+  --font-body:    "Poppins", sans-serif;
+}
+/* baaki CSS same rahega... */
+
+
+/* baaki CSS... */
+
 
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'etna', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   -webkit-font-smoothing: antialiased;
 }
+  
 html, body {
-  font-family: 'etna', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 button, input, select, textarea, a, span, p,
 h1, h2, h3, h4, h5, h6, li, td, th, label {
-  font-family: 'etna', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
+
+
 :root {
   --white:      #ffffff;
   --off-white:  #f7f8fc;
@@ -31,13 +51,13 @@ h1, h2, h3, h4, h5, h6, li, td, th, label {
   --blue-mid:   #696969;
   --ink:        #1e2840;
   --text-color: #696969;    
-  --font-display: "etna", sans-serif;
-  --font-body:    "etna", sans-serif;
+  --font-display: "Poppins", sans-serif;
+  --font-body:    "Poppins", sans-serif;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-  font-family: 'etna', sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
   background: var(--white);
   color: var(--dark);
   overflow-x: hidden;
@@ -1339,7 +1359,7 @@ nav.scrolled {
 }
 .preloader-letters {
   display: flex; align-items: flex-end; gap: 0.15em;
-  font-family: 'etna', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: 400; letter-spacing: -2px;
   perspective: 600px;
@@ -1365,7 +1385,7 @@ nav.scrolled {
   animation: preloaderBarFill 2.2s cubic-bezier(.4,0,.2,1) forwards;
 }
 .preloader-tagline {
-  font-family: 'etna', sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 0.75rem; font-weight: 400;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: rgba(255,255,255,0.35);
@@ -1565,8 +1585,8 @@ function HomeProductShowcase({ navigate }) {
               <div className="hps-center-chips">
                 {centerProduct.chips.map((c, i) => <span key={i} className="hps-chip">{c}</span>)}
               </div>
-              <div style={{ fontFamily:"'etna', sans-serif", fontSize:"2.5rem", fontWeight:400, color:"var(--darkest)", marginBottom:"1.5rem" }}>
-                <span style={{ fontSize:"0.85rem", color:"var(--mid-gray)", fontFamily:"'etna', sans-serif", fontWeight:400, display:"block", marginBottom:4 }}>Starting at</span>
+              <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"2.5rem", fontWeight:400, color:"var(--darkest)", marginBottom:"1.5rem" }}>
+                <span style={{ fontSize:"0.85rem", color:"var(--mid-gray)", fontFamily:"'Poppins', sans-serif", fontWeight:400, display:"block", marginBottom:4 }}>Starting at</span>
                 {centerProduct.price}
               </div>
               <div className="hps-center-actions">
@@ -2069,7 +2089,7 @@ function AboutPage() {
           <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#696969" }} />
           <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
         </div>
-        <h1 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
+        <h1 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
           Redefining What <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em> Means.
         </h1>
         <p style={{ fontSize:"1.05rem", color:"rgba(255,255,255,0.55)", lineHeight:1.8, maxWidth:"540px", fontWeight:300, marginBottom:"3rem" }}>
@@ -2086,7 +2106,7 @@ function AboutPage() {
         <div style={{ maxWidth:"1000px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1rem", textAlign:"center" }}>
           {aboutStats.map((s, i) => (
             <div key={i} style={{ padding:"1rem" }}>
-              <div style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
+              <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
               <div style={{ fontSize:"0.75rem", color:"rgba(255,255,255,0.65)", letterSpacing:"0.1em", textTransform:"uppercase" }}>{s.label}</div>
             </div>
           ))}
@@ -2096,7 +2116,7 @@ function AboutPage() {
       <div style={{ background:"#fff", padding:"120px 4vw", textAlign:"center" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <div className="page-eyebrow">Our Mission</div>
-          <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
+          <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
             Water is life's most fundamental input.{" "}<em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
           </h2>
           <p style={{ fontSize:"1.05rem", color:"#808080", lineHeight:1.9, fontWeight:300, maxWidth:"660px", margin:"0 auto" }}>
@@ -2115,7 +2135,7 @@ function AboutPage() {
             {values.map((v, i) => (
               <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.12}s`, background:"#fff", borderRadius:"28px", padding:"3rem", border:"1px solid #e5e7eb" }}>
                 <div style={{ width:"60px", height:"60px", borderRadius:"18px", background:"rgba(105,105,105,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.6rem", marginBottom:"1.5rem" }}>{v.icon}</div>
-                <h3 style={{ fontFamily:"'etna', sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
+                <h3 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
                 <p style={{ fontSize:"0.92rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{v.desc}</p>
               </div>
             ))}
@@ -2130,7 +2150,7 @@ function AboutPage() {
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
               <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
             </div>
-            <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Three engineers.<br />One obsession.</h2>
+            <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Three engineers.<br />One obsession.</h2>
             <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization: the water purifiers available in India — even the expensive ones — were failing basic molecular purity benchmarks that aerospace filtration had solved decades ago.</p>
             <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>They set out to build something different. Not just another purifier, but a filtration system that could stand next to laboratory-grade equipment — and win. That obsession became LetsPure.</p>
           </div>
@@ -2158,8 +2178,8 @@ function AboutPage() {
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
             {team.map((m, i) => (
               <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.15}s`, textAlign:"center", padding:"3rem 2rem", borderRadius:"28px", border:"1px solid #e5e7eb" }}>
-                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"'etna', sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
-                <div style={{ fontFamily:"'etna', sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
+                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"'Poppins', sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
+                <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
                 <div style={{ fontSize:"0.75rem", color:"#696969", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"1.2rem" }}>{m.role}</div>
                 <p style={{ fontSize:"0.88rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{m.bio}</p>
               </div>
@@ -2221,7 +2241,7 @@ function ProductsPage({ navigate }) {
         <p className="page-sub">Four models. One obsession. Choose the LetsPure that fits your life — all redefine what pure water means.</p>
         <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", marginTop:"2rem", background:"#f1f3f8", borderRadius:"100px", padding:"6px", width:"fit-content", marginLeft:"auto", marginRight:"auto" }}>
           {mainTabs.map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)} style={{ border:"none", background:activeTab===tab?"#fff":"transparent", padding:"0.6rem 1.8rem", borderRadius:"100px", fontFamily:"'etna', sans-serif", fontSize:"0.88rem", fontWeight:400, color:activeTab===tab?"#111827":"#808080", cursor:"pointer", boxShadow:activeTab===tab?"0 2px 16px rgba(0,0,0,0.1)":"none", transition:"all 0.25s ease" }}>
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ border:"none", background:activeTab===tab?"#fff":"transparent", padding:"0.6rem 1.8rem", borderRadius:"100px", fontFamily:"'Poppins', sans-serif", fontSize:"0.88rem", fontWeight:400, color:activeTab===tab?"#111827":"#808080", cursor:"pointer", boxShadow:activeTab===tab?"0 2px 16px rgba(0,0,0,0.1)":"none", transition:"all 0.25s ease" }}>
               {tab}
             </button>
           ))}
@@ -2264,7 +2284,7 @@ function ProductsPage({ navigate }) {
         <div style={{ padding:"60px 4vw 100px", maxWidth:"1400px", margin:"0 auto" }}>
           <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", flexWrap:"wrap", marginBottom:"3rem" }}>
             {subCats.map((cat) => (
-              <button key={cat} onClick={() => setActiveSub(cat)} style={{ border:activeSub===cat?"none":"1.5px solid #D3D3D3", background:activeSub===cat?"#696969":"#fff", color:activeSub===cat?"#fff":"#111827", padding:"0.55rem 1.3rem", borderRadius:"100px", fontFamily:"'etna', sans-serif", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", transition:"all 0.25s ease", boxShadow:activeSub===cat?"0 4px 20px rgba(0,0,0,0.15)":"none" }}>
+              <button key={cat} onClick={() => setActiveSub(cat)} style={{ border:activeSub===cat?"none":"1.5px solid #D3D3D3", background:activeSub===cat?"#696969":"#fff", color:activeSub===cat?"#fff":"#111827", padding:"0.55rem 1.3rem", borderRadius:"100px", fontFamily:"'Poppins', sans-serif", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", transition:"all 0.25s ease", boxShadow:activeSub===cat?"0 4px 20px rgba(0,0,0,0.15)":"none" }}>
                 {cat}
               </button>
             ))}
@@ -2283,9 +2303,9 @@ function ProductsPage({ navigate }) {
                 </div>
                 <div style={{ padding:"1.2rem" }}>
                   <div style={{ fontSize:"0.68rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"#696969", background:"rgba(105,105,105,0.08)", border:"1px solid rgba(105,105,105,0.2)", padding:"0.2rem 0.6rem", borderRadius:"100px", display:"inline-block", marginBottom:"0.6rem" }}>{part.subCat || "RO System"}</div>
-                  <div style={{ fontFamily:"'etna', sans-serif", fontSize:"1rem", fontWeight:400, color:"#040810", marginBottom:"0.4rem" }}>{part.name}</div>
+                  <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1rem", fontWeight:400, color:"#040810", marginBottom:"0.4rem" }}>{part.name}</div>
                   <div style={{ fontSize:"0.82rem", color:"#808080", lineHeight:1.5 }}>{part.desc}</div>
-                  <button style={{ marginTop:"1rem", width:"100%", background:"#696969", color:"#fff", border:"none", padding:"0.65rem", borderRadius:"100px", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", fontFamily:"'etna', sans-serif" }}
+                  <button style={{ marginTop:"1rem", width:"100%", background:"#696969", color:"#fff", border:"none", padding:"0.65rem", borderRadius:"100px", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", fontFamily:"'Poppins', sans-serif" }}
                     onClick={(e) => { e.stopPropagation(); navigate("contact"); }}>
                     Enquire Now
                   </button>
@@ -2408,7 +2428,7 @@ function Preloader({ onDone }) {
       </div>
       <div style={{ display:"flex", alignItems:"center", gap:"12px", opacity:step>=3?1:0, transition:"all 0.6s ease" }}>
         <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
-        <div style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.25em", textTransform:"uppercase", fontFamily:"'etna', sans-serif", whiteSpace:"nowrap" }}>Molecular Purity · Engineered for Life</div>
+        <div style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.25em", textTransform:"uppercase", fontFamily:"'Poppins', sans-serif", whiteSpace:"nowrap" }}>Molecular Purity · Engineered for Life</div>
         <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
       </div>
       <div style={{ opacity:step>=3?1:0, transition:"opacity 0.6s ease" }}>
@@ -2431,13 +2451,13 @@ function PercentCounter({ onDone }) {
 
   return (
     <div style={{ textAlign:"center" }}>
-      <div style={{ fontFamily:"'etna', sans-serif", fontSize:"0.78rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.1em", marginBottom:"10px" }}>{String(pct).padStart(3,"0")}</div>
+      <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"0.78rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.1em", marginBottom:"10px" }}>{String(pct).padStart(3,"0")}</div>
       <div style={{ width:"260px", height:"1px", background:"rgba(255,255,255,0.1)", position:"relative" }}>
         <div style={{ height:"1px", width:`${pct}%`, background:"linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position:"relative", transition:"width 0.022s linear" }}>
           <div style={{ position:"absolute", right:"-1px", top:"50%", transform:"translateY(-50%)", width:"4px", height:"4px", borderRadius:"50%", background:"#fff", boxShadow:"0 0 8px 3px rgba(255,255,255,0.6)" }} />
         </div>
       </div>
-      <div style={{ marginTop:"10px", fontSize:"0.62rem", color:"rgba(255,255,255,0.25)", letterSpacing:"0.15em", textTransform:"uppercase", fontFamily:"'etna', sans-serif" }}>
+      <div style={{ marginTop:"10px", fontSize:"0.62rem", color:"rgba(255,255,255,0.25)", letterSpacing:"0.15em", textTransform:"uppercase", fontFamily:"'Poppins', sans-serif" }}>
         {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
       </div>
     </div>
