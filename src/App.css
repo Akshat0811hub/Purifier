@@ -1271,9 +1271,9 @@ nav.scrolled {
   transition: transform 0.35s cubic-bezier(0.2, 0.75, 0.2, 1), box-shadow 0.35s ease, border-color 0.35s ease;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .sp-part-card::before {
   content: "";
@@ -1342,8 +1342,7 @@ nav.scrolled {
 .sp-card-info {
   padding: 0.9rem 1.1rem 1rem;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.72) 100%);
-  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.82) 100%);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1377,21 +1376,20 @@ nav.scrolled {
 .sp-hover-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  backdrop-filter: blur(4px);
   z-index: 5;
   border-radius: 20px;
 }
 .sp-part-card:hover .sp-hover-overlay { opacity: 1; }
 .sp-view-btn {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
   color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   padding: 0.6rem 1.5rem;
   border-radius: 100px;
   font-family: "etna", sans-serif !important;
@@ -1401,7 +1399,6 @@ nav.scrolled {
   display: flex;
   align-items: center;
   gap: 6px;
-  backdrop-filter: blur(8px);
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .sp-view-btn:hover {
@@ -1692,9 +1689,21 @@ nav.scrolled {
 @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
 
 /* ─── SCROLL REVEAL ──────────────────────────── */
-.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.reveal { 
+  opacity: 0; 
+  transform: translateY(30px); 
+  transition: opacity 0.45s ease, transform 0.45s ease; 
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
 .reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-left { opacity: 0; transform: translateX(-30px); transition: opacity 0.45s ease, transform 0.45s ease; }
+.reveal-left { 
+  opacity: 0; 
+  transform: translateX(-30px); 
+  transition: opacity 0.45s ease, transform 0.45s ease; 
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+}
 .reveal-left.visible { opacity: 1; transform: translateX(0); }
 
 /* ─── AMBIENT CANVAS ─────────────────────────── */
@@ -1711,7 +1720,15 @@ nav.scrolled {
 .testi-section { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--darkest), #09162e); padding: 120px 4vw; }
 .testi-inner { position: relative; z-index: 2; max-width: 1200px; margin: auto; }
 .testi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
-.testi-card { background: rgba(255, 255, 255, 0.04); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 30px; padding: 2rem; transition: transform 0.25s ease, border-color 0.25s ease; }
+.testi-card { 
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08); 
+  border-radius: 30px; 
+  padding: 2rem; 
+  transition: transform 0.25s ease, border-color 0.25s ease; 
+  will-change: transform;
+  backface-visibility: hidden;
+}
 .testi-card:hover { transform: translateY(-8px); border-color: rgba(100, 170, 255, 0.4); }
 .testi-stars { color: #ffd700; margin-bottom: 1rem; }
 .testi-quote { color: rgba(255, 255, 255, 0.85); font-family: "etna", sans-serif !important; line-height: 1.8; font-size: 0.95rem; font-weight: 300; }
