@@ -1439,9 +1439,9 @@ nav.scrolled {
 /* ── UNIFORM BENTO GRID — 3 columns, equal height ── */
 .sp-bento {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
-  grid-auto-rows: 280px; /* taller rows so images breathe */
-  gap: 16px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 480px;
+  gap: 24px;
 }
 
 /* Remove ALL size-variant overrides so every card is identical */
@@ -1530,11 +1530,13 @@ nav.scrolled {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 2.5rem; /* generous padding */
-  background: rgba(0, 0, 0, 0.3);
+  padding: 2.5rem 3rem; /* generous padding */
+  /* background: rgba(0, 0, 0, 0.3);
   position: relative;
   overflow: hidden;
   z-index: 2;
+    max-width: 95%;
+  max-height: 440px; */
 }
 /* subtle radial glow behind image */
 .sp-img-wrap::before {
@@ -1555,8 +1557,8 @@ nav.scrolled {
 }
 
 .sp-img-wrap img {
-  max-width: 75%;
-  max-height: 160px; /* ↑ increased from 110px */
+  max-width: 90%;
+  max-height: 320px; /* ↑ increased from 110px */
   width: auto;
   height: auto;
   object-fit: contain;
@@ -1664,8 +1666,8 @@ nav.scrolled {
   align-items: center;
   justify-content: space-between;
   padding: 2rem 2.5rem;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background:#081226;
+  border: 1px solid #081226;
   border-radius: 24px;
   flex-wrap: wrap;
   gap: 1.5rem;
@@ -2688,12 +2690,13 @@ nav.scrolled {
 }
 .footer-logo-big {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   gap: 8px;
   color: #fff;
   font-size: 2rem;
   font-family: var(--font-display);
-  font-weight: 300; /* ↓ */
+  font-weight: 300;
 }
 .footer-logo-big span {
   color: var(--blue-light);
