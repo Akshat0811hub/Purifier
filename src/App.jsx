@@ -1804,7 +1804,7 @@ function HomeProductShowcase({ navigate }) {
               </div>
               <div
                 style={{
-                  fontFamily: "var(--font-display)",
+                  fontFamily: "'etna', sans-serif",
                   fontSize: "2.5rem",
                   fontWeight: 600,
                   color: "var(--darkest)",
@@ -1815,7 +1815,7 @@ function HomeProductShowcase({ navigate }) {
                   style={{
                     fontSize: "0.85rem",
                     color: "var(--mid-gray)",
-                    fontFamily: "var(--font-body)",
+                    fontFamily: "'etna', sans-serif",
                     fontWeight: 400,
                     display: "block",
                     marginBottom: 4,
@@ -2909,7 +2909,7 @@ function ProductsPage({ navigate }) {
                 background: activeTab === tab ? "#fff" : "transparent",
                 padding: "0.6rem 1.8rem",
                 borderRadius: "100px",
-                fontFamily: "var(--font-body)",
+                fontFamily: "'etna', sans-serif",
                 fontSize: "0.88rem",
                 fontWeight: 600,
                 color: activeTab === tab ? "#111827" : "#808080",
@@ -2977,7 +2977,7 @@ function ProductsPage({ navigate }) {
                   color: activeSub === cat ? "#fff" : "#111827",
                   padding: "0.55rem 1.3rem",
                   borderRadius: "100px",
-                  fontFamily: "var(--font-body)",
+                  fontFamily: "'etna', sans-serif",
                   fontSize: "0.82rem",
                   fontWeight: 600,
                   cursor: "pointer",
@@ -3023,14 +3023,14 @@ function ProductsPage({ navigate }) {
                   <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#696969", background: "rgba(105,105,105,0.08)", border: "1px solid rgba(105,105,105,0.2)", padding: "0.2rem 0.6rem", borderRadius: "100px", display: "inline-block", marginBottom: "0.6rem" }}>
                     {part.subCat || "RO System"}
                   </div>
-                  <div style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 600, color: "#040810", marginBottom: "0.4rem" }}>
+                  <div style={{ fontFamily: "'etna', sans-serif", fontSize: "1rem", fontWeight: 600, color: "#040810", marginBottom: "0.4rem" }}>
                     {part.name}
                   </div>
                   <div style={{ fontSize: "0.82rem", color: "#808080", lineHeight: 1.5 }}>
                     {part.desc}
                   </div>
                   <button
-                    style={{ marginTop: "1rem", width: "100%", background: "#696969", color: "#fff", border: "none", padding: "0.65rem", borderRadius: "100px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-body)" }}
+                    style={{ marginTop: "1rem", width: "100%", background: "#696969", color: "#fff", border: "none", padding: "0.65rem", borderRadius: "100px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", fontFamily: "'etna', sans-serif" }}
                     onClick={(e) => { e.stopPropagation(); navigate("contact"); }}
                   >
                     Enquire Now
@@ -3283,7 +3283,7 @@ export default function LetsPure() {
   const navigate = useCallback((p) => {
     setPage(p);
     setMobileOpen(false);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const pages = {

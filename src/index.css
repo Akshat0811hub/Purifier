@@ -15,6 +15,7 @@ html, body {
   font-family: "etna", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 /* Override any browser UA stylesheet fonts */
