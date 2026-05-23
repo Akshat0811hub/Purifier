@@ -1405,55 +1405,55 @@ const FEATURES = [
     desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule.",
   },
 ];
-const PILLARS = [
-  {
-    icon: "🛡️",
-    title: "Bio-Defense RO+",
-    desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair.",
-  },
-  {
-    icon: "💧",
-    title: "Natural Mineralization",
-    desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water.",
-  },
-  {
-    icon: "🌿",
-    title: "Eco Carbon Architecture",
-    desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
-  },
-];
-const TIMELINE = [
-  {
-    year: "2018",
-    dot: "18",
-    title: "Founded in Bangalore",
-    desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system.",
-  },
-  {
-    year: "2020",
-    dot: "20",
-    title: "14-Stage Breakthrough",
-    desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice.",
-  },
-  {
-    year: "2022",
-    dot: "22",
-    title: "1:1 Waste Ratio Achieved",
-    desc: "First company in the world to hit true zero-waste filtration at consumer scale.",
-  },
-  {
-    year: "2024",
-    dot: "24",
-    title: "Smart Display Launch",
-    desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped.",
-  },
-  {
-    year: "2026",
-    dot: "26",
-    title: "The X-Series",
-    desc: "Our most advanced purification engineering ever. Launching to the world now.",
-  },
-];
+// const PILLARS = [
+//   {
+//     icon: "🛡️",
+//     title: "Bio-Defense RO+",
+//     desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair.",
+//   },
+//   {
+//     icon: "💧",
+//     title: "Natural Mineralization",
+//     desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water.",
+//   },
+//   {
+//     icon: "🌿",
+//     title: "Eco Carbon Architecture",
+//     desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
+//   },
+// ];
+// const TIMELINE = [
+//   {
+//     year: "2018",
+//     dot: "18",
+//     title: "Founded in Bangalore",
+//     desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system.",
+//   },
+//   {
+//     year: "2020",
+//     dot: "20",
+//     title: "14-Stage Breakthrough",
+//     desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice.",
+//   },
+//   {
+//     year: "2022",
+//     dot: "22",
+//     title: "1:1 Waste Ratio Achieved",
+//     desc: "First company in the world to hit true zero-waste filtration at consumer scale.",
+//   },
+//   {
+//     year: "2024",
+//     dot: "24",
+//     title: "Smart Display Launch",
+//     desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped.",
+//   },
+//   {
+//     year: "2026",
+//     dot: "26",
+//     title: "The X-Series",
+//     desc: "Our most advanced purification engineering ever. Launching to the world now.",
+//   },
+// ];
 const PRODUCTS = [
   {
     id: "elite",
@@ -2547,26 +2547,26 @@ function useReveal(deps = []) {
 }
 
 /* ─── STATS ──────────────────────────────────────────────── */
-function StatsSection() {
-  return (
-    <section className="stats-section">
-      <div className="stats-inner">
-        {COUNTER_STATS.map((s, i) => (
-          <div
-            key={i}
-            className="stat-block reveal"
-            style={{ transitionDelay: `${i * 0.1}s` }}
-          >
-            <div className="stat-big">
-              <AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix} />
-            </div>
-            <div className="stat-label">{s.label}</div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-}
+// function StatsSection() {
+//   return (
+//     <section className="stats-section">
+//       <div className="stats-inner">
+//         {COUNTER_STATS.map((s, i) => (
+//           <div
+//             key={i}
+//             className="stat-block reveal"
+//             style={{ transitionDelay: `${i * 0.1}s` }}
+//           >
+//             <div className="stat-big">
+//               <AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix} />
+//             </div>
+//             <div className="stat-label">{s.label}</div>
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// }
 
 /* ─── TESTIMONIALS ───────────────────────────────────────── */
 function TestimonialsSection() {
