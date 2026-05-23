@@ -1906,18 +1906,19 @@ const ALL_PRODUCTS = [
 ];
 
 /* ─── HERO VISUAL ────────────────────────────────────────── */
+const HERO_IMAGES = [
+  "/assets/RO.png",
+  "/assets/whitero.png",
+  "/assets/blackro.png",
+  "/assets/bluero.png",
+];
+
 function HeroVisual() {
-  const images = [
-    "/assets/RO.png",
-    "/assets/whitero.png",
-    "/assets/blackro.png",
-    "/assets/bluero.png",
-  ];
   const [current, setCurrent] = useState(0);
 
   useEffect(() => {
     const iv = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % images.length);
+      setCurrent((prev) => (prev + 1) % HERO_IMAGES.length);
     }, 3000);
     return () => clearInterval(iv);
   }, []);
@@ -1936,7 +1937,7 @@ function HeroVisual() {
       }}
     >
       <img
-        src={images[current]}
+        src={HERO_IMAGES[current]}
         alt="LetsPure RO"
         style={{
           height: "620px",
