@@ -1541,7 +1541,7 @@ const TESTIMONIALS = [
     avatar: "PR",
     rating: 5,
     quote:
-      "I've tried every premium water purifier on the market. AquaPura is in a different league entirely — the water tastes like it was born in a glacier.",
+      "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.",
     model: "Elite X-1",
   },
   {
@@ -1649,7 +1649,7 @@ const SPARE_PARTS = [
     name: "Pre-Sediment Filter",
     cat: "Filters",
     desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.",
-    size: "",   // ← was "sz-big"
+    size: "", // ← was "sz-big"
   },
   {
     id: 2,
@@ -1657,7 +1657,7 @@ const SPARE_PARTS = [
     name: "RO Membrane 75 GPD",
     cat: "Membranes",
     desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.",
-    size: "",   // ← was "sz-tall"
+    size: "", // ← was "sz-tall"
   },
   {
     id: 3,
@@ -1713,7 +1713,7 @@ const ALL_PRODUCTS = [
   {
     id: 7,
     img: "/assets/7.png",
-    name: "AquaPura Elite X-1",
+    name: "LetsPure Elite X-1",
     type: "RO Systems",
     subCat: "",
     desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier.",
@@ -1721,7 +1721,7 @@ const ALL_PRODUCTS = [
   {
     id: 8,
     img: "/assets/8.png",
-    name: "AquaPura Element Pro",
+    name: "LetsPure Element Pro",
     type: "RO Systems",
     subCat: "",
     desc: "12-Stage compact filtration for modern kitchens.",
@@ -1745,7 +1745,7 @@ const ALL_PRODUCTS = [
   {
     id: 11,
     img: "/assets/11.png",
-    name: "AquaPura Lite 7-Stage",
+    name: "LetsPure Lite 7-Stage",
     type: "RO Systems",
     subCat: "",
     desc: "Compact 7-stage RO for budget-friendly pure water.",
@@ -1753,7 +1753,7 @@ const ALL_PRODUCTS = [
   {
     id: 12,
     img: "/assets/12.png",
-    name: "AquaPura Mini Countertop",
+    name: "LetsPure Mini Countertop",
     type: "RO Systems",
     subCat: "",
     desc: "Portable countertop RO — no installation needed.",
@@ -1943,7 +1943,7 @@ function HeroVisual() {
         <img
           ref={imgRef}
           src="/assets/RO.png"
-          alt="AquaPura RO System"
+          alt="LetsPure RO System"
           style={{
             maxHeight: "700px",
             maxWidth: "600px",
@@ -1989,7 +1989,7 @@ function HomeProductShowcase({ navigate }) {
           </h2>
           <p className="section-sub">
             Three iconic finishes. One obsession with purity. Choose the
-            AquaPura that belongs in your home.
+            LetsPure that belongs in your home.
           </p>
         </div>
         <div className="home-products-tabs reveal">
@@ -2230,6 +2230,16 @@ function SparePartsSection({ navigate }) {
 
   return (
     <section className="spare-parts-section" ref={sectionRef}>
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0, 0, 0, 0.92)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
+
       <div className="sp-bg-orb sp-orb-1" />
       <div className="sp-bg-orb sp-orb-2" />
 
@@ -2255,7 +2265,7 @@ function SparePartsSection({ navigate }) {
             to last a lifetime.
           </h2>
           <p className="sp-sub">
-            Original AquaPura components — precision-manufactured and certified.
+            Original LetsPure components — precision-manufactured and certified.
             Keep your system performing at peak purity, always.
           </p>
         </div>
@@ -2929,7 +2939,7 @@ function Footer() {
           <div className="footer-logo-big">
             <img
               src="/assets/whiteLogo.png"
-              alt="AquaPura"
+              alt="LetsPure"
               style={{ height: "100px", width: "200px", objectFit: "contain" }}
             />
           </div>
@@ -2960,7 +2970,7 @@ function Footer() {
       </div>
       <div className="footer-bottom">
         <div className="footer-bottom-inner">
-          <span>© 2026 AquaPura Systems Pvt. Ltd. · Bengaluru, India</span>
+          <span>© 2026 LetsPure Systems Pvt. Ltd. · Bengaluru, India</span>
           <div className="footer-cert">
             <span className="cert-badge">WHO Certified</span>
             <span className="cert-badge">BIS Approved</span>
@@ -3547,7 +3557,7 @@ function HomePage({ navigate, tds }) {
       <section className="features-section">
         <div className="features-inner">
           <div className="section-header reveal">
-            <div className="page-eyebrow">Why AquaPura</div>
+            <div className="page-eyebrow">Why LetsPure</div>
             <h2 className="section-h">
               Not just filtered — <em>perfected</em>.
             </h2>
@@ -3594,7 +3604,7 @@ function AboutPage() {
           Pure Means.
         </h1>
         <p className="page-sub">
-          Founded in 2018 in Bangalore, AquaPura was born from a single
+          Founded in 2018 in Bangalore, LetsPure was born from a single
           obsession: what if water could be genuinely perfect?
         </p>
       </div>
@@ -3720,7 +3730,7 @@ function ProductsPage({ navigate }) {
           Engineering.
         </h1>
         <p className="page-sub">
-          Four models. One obsession. Choose the AquaPura that fits your life —
+          Four models. One obsession. Choose the LetsPure that fits your life —
           all redefine what pure water means.
         </p>
 
@@ -3994,11 +4004,11 @@ function ContactPage() {
           </p>
           <div className="contact-info">
             {[
-              { icon: "📞", label: "Expert Helpline", val: "+91 800-AQUAPURA" },
+              { icon: "📞", label: "Expert Helpline", val: "+91 800-LetsPure" },
               {
                 icon: "✉️",
                 label: "Email Support",
-                val: "consult@aquapura.in",
+                val: "consult@LetsPure.in",
               },
               {
                 icon: "📍",
@@ -4052,8 +4062,8 @@ function ContactPage() {
                 <label>Model of Interest</label>
                 <select>
                   <option value="">Select a model...</option>
-                  <option>AquaPura Elite X-1 — ₹89,999</option>
-                  <option>AquaPura Element Pro — ₹64,999</option>
+                  <option>LetsPure Elite X-1 — ₹89,999</option>
+                  <option>LetsPure Element Pro — ₹64,999</option>
                   <option>HydroCore S — ₹49,999</option>
                   <option>Obsidian One — ₹1,49,999</option>
                   <option>Not sure yet</option>
@@ -4100,7 +4110,7 @@ function ContactPage() {
                 fontSize: ".9rem",
               }}
             >
-              AquaPura Experience Centre, Whitefield, Bengaluru
+              LetsPure Experience Centre, Whitefield, Bengaluru
             </p>
             <button
               className="btn-primary"
@@ -4386,7 +4396,7 @@ function PercentCounter({ onDone }) {
 }
 
 /* ─── APP ────────────────────────────────────────────────── */
-export default function AquaPura() {
+export default function LetsPure() {
   const [page, setPage] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -4455,7 +4465,7 @@ export default function AquaPura() {
         >
           <img
             src="/assets/black logo.png"
-            alt="AquaPura"
+            alt="LetsPure"
             style={{ height: "100px", width: "200px", objectFit: "contain" }}
           />
         </button>
