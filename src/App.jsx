@@ -1652,7 +1652,7 @@ const ALL_PRODUCTS = [
 const HERO_IMAGES = [
   "/assets/RO.png",
   "/assets/whitero.png",
-  "/assets/blackro.png",
+  // "/assets/blackro.png",
   "/assets/bluero.png",
 ];
 
