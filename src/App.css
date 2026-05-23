@@ -1,3 +1,5 @@
+@import url("https://fonts.cdnfonts.com/css/etna");
+@import url("https://fonts.cdnfonts.com/css/etna");
 @font-face {
   font-family: "Etna";
   src: url("https://fonts.cdnfonts.com/s/15009/Etna-SansSerif.woff")
@@ -72,11 +74,42 @@ html {
   overflow-x: hidden;
 }
 body {
-  font-family: var(--font-body);
+  font-family: "Etna", sans-serif !important;
+  font-weight: 300;
   background: var(--white);
   color: var(--dark);
   overflow-x: hidden;
   font-weight: 300; /* ← reduced base weight */
+}
+
+*,
+*::before,
+*::after {
+  font-family: "Etna", sans-serif !important;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.section-h,
+.page-h1,
+.hero-h1,
+.prod-name,
+.pillar-h,
+.hps-center-name,
+.hps-card-name,
+.sp-title,
+.sp-modal-name,
+.cta-h,
+.ripple-h,
+.contact-left h1,
+.footer-logo-big,
+.tl-content h4,
+.sp-cta-text h3,
+.contact-form h3 {
+  font-family: "Etna", sans-serif !important;
 }
 
 button {
@@ -1439,8 +1472,8 @@ nav.scrolled {
 /* ── UNIFORM BENTO GRID — 3 columns, equal height ── */
 .sp-bento {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 480px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 680px;
   gap: 24px;
 }
 
@@ -1557,14 +1590,14 @@ nav.scrolled {
 }
 
 .sp-img-wrap img {
-  max-width: 90%;
-  max-height: 320px; /* ↑ increased from 110px */
+  max-width: 85%;
+  max-height: 360px; /* was 110px or 320px */
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: brightness(0.88) contrast(1.05)
-    drop-shadow(0 8px 20px rgba(0, 0, 0, 0.55));
-  opacity: 0.7; /* slightly dim at rest */
+  filter: brightness(0.9) contrast(1.05)
+    drop-shadow(0 10px 24px rgba(0, 0, 0, 0.5));
+  opacity: 0.75;
   transition:
     transform 0.5s cubic-bezier(0.2, 0.75, 0.2, 1),
     filter 0.5s ease,
@@ -1666,7 +1699,7 @@ nav.scrolled {
   align-items: center;
   justify-content: space-between;
   padding: 2rem 2.5rem;
-  background:#081226;
+  background: #081226;
   border: 1px solid #081226;
   border-radius: 24px;
   flex-wrap: wrap;
@@ -1889,6 +1922,23 @@ nav.scrolled {
   position: relative;
   overflow: hidden;
 }
+
+/* ─── ABOUT RESPONSIVE ───────────────────────── */
+@media (max-width: 900px) {
+  .about-story-grid {
+    grid-template-columns: 1fr !important;
+    gap: 3rem !important;
+  }
+  .about-stats-strip {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+@media (max-width: 520px) {
+  .about-stats-strip {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
 
 /* ─── RIPPLE ZONE ────────────────────────────── */
 .ripple-zone {
@@ -2967,6 +3017,20 @@ nav.scrolled {
   color: rgba(255, 255, 255, 0.35);
   opacity: 0;
   animation: fadeSlideUp 0.6s 1.8s ease forwards;
+}
+
+@media (max-width: 768px) {
+  .sp-bento {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 420px;
+  }
+}
+@media (max-width: 520px) {
+  .sp-bento {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 380px;
+    gap: 16px;
+  }
 }
 
 /* ─── RESPONSIVE ─────────────────────────────── */

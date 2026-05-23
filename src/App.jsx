@@ -2,9 +2,13 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── GLOBAL STYLES ──────────────────────────────────────── */
 const STYLES = `
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&display=swap');
-
+@font-face {
+  font-family: 'Etna';
+  src: url('https://fonts.cdnfonts.com/s/15009/Etna-SansSerif.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+};
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
@@ -21,13 +25,13 @@ const STYLES = `
   --blue-mid:   #696969;
   --ink:        #1e2840;
   --text-color: #696969;    
-  --font-display: 'Etna', 'DM Sans', sans-serif;
-  --font-body:    'Etna', 'DM Sans', sans-serif;
+  --font-display: 'Etna', 'Cormorant Garamond', serif;
+--font-body:    'Etna', 'DM Sans', sans-serif;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-  font-family: var(--font-body);
+  font-family: 'Etna', 'DM Sans', sans-serif !important;
   background: var(--white);
   color: var(--dark);
   overflow-x: hidden;
@@ -767,9 +771,9 @@ nav.scrolled {
 /* Masonry-style bento grid */
 .sp-bento {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: 180px;
-  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 680px;
+  gap: 24px;
 }
 
 .sp-part-card {
@@ -841,19 +845,20 @@ nav.scrolled {
 .sp-part-card:hover::after  { opacity: 1; }
 
 /* size variants */
-.sp-part-card.sz-tall   { grid-row: span 2; }
-.sp-part-card.sz-wide   { grid-column: span 2; }
-.sp-part-card.sz-big    { grid-column: span 2; grid-row: span 2; }
+.sp-part-card.sz-tall,
+.sp-part-card.sz-wide,
+.sp-part-card.sz-big {
+  grid-row: unset !important;
+  grid-column: unset !important;
+}
 
 .sp-img-wrap {
   flex: 1;
   min-height: 0;
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background: rgba(0,0,0,0.3);
+  padding: 3rem;
   position: relative;
   overflow: hidden;
   z-index: 2;
@@ -869,19 +874,21 @@ nav.scrolled {
 .sp-part-card:hover .sp-img-wrap::before { opacity: 1; }
 
 .sp-img-wrap img {
-  max-width: 80%;
-  max-height: 110px;
+  max-width: 85%;
+  max-height: 480px;
   width: auto;
   height: auto;
   object-fit: contain;
-  filter: brightness(0.95) contrast(1.05) drop-shadow(0 6px 14px rgba(0,0,0,0.5));
-  transition: transform 0.5s cubic-bezier(.2,.75,.2,1), filter 0.5s ease;
+  filter: brightness(0.9) contrast(1.05) drop-shadow(0 10px 24px rgba(0,0,0,0.5));
+  opacity: 0.75;
+  transition: transform 0.5s cubic-bezier(.2,.75,.2,1), filter 0.5s ease, opacity 0.5s ease;
   position: relative;
   z-index: 1;
 }
 .sp-part-card:hover .sp-img-wrap img {
-  transform: scale(1.12) translateY(-6px);
-  filter: brightness(1.08) contrast(1.1) drop-shadow(0 14px 28px rgba(255,98,0,0.35));
+  transform: scale(1.1) translateY(-8px);
+  filter: brightness(1.05) contrast(1.08) drop-shadow(0 18px 36px rgba(0,0,0,0.4));
+  opacity: 1;
 }
 
 /* tall/big cards show more image */
@@ -984,6 +991,28 @@ nav.scrolled {
   box-shadow: 0 8px 28px rgba(255,98,0,0.35);
   transition: transform 0.2s, box-shadow 0.2s;
   position: relative; overflow: hidden;
+}
+
+@media (max-width: 1100px) {
+  .sp-bento {
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-auto-rows: 560px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .sp-bento {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 520px !important;
+  }
+}
+
+@media (max-width: 520px) {
+  .sp-bento {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: 440px !important;
+    gap: 14px !important;
+  }
 }
 .sp-btn-primary::before {
   content: ''; position: absolute; inset: 0;
@@ -1219,7 +1248,7 @@ nav.scrolled {
 .footer-drop-theatre { position: relative; height: 220px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.04); }
 .footer-drop-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .footer-content { padding: 4rem 4vw; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 2rem; max-width: 1400px; margin: auto; position: relative; z-index: 1; }
-.footer-logo-big { display: flex; align-items: center; gap: 8px; color: #fff; font-size: 2rem; font-family: var(--font-display); font-weight: 700; }
+.footer-logo-big { display: flex; align-items: flex-start; gap: 8px;  justify-content: flex-start;  color: #fff; font-size: 2rem; font-family: var(--font-display); font-weight: 700; }
 .footer-logo-big span { color: var(--blue-light); }
 .footer-tagline { margin-top: 1rem; color: rgba(255,255,255,.6); line-height: 1.6; }
 .footer-socials { display: flex; gap: 1rem; margin-top: 2rem; }
@@ -1530,9 +1559,7 @@ const MARQUEE_ITEMS = [
 ];
 const COUNTER_STATS = [
   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
-  { end: 99.9, suffix: "%", label: "Purity Rate", prefix: "" },
-  { end: 14, suffix: "", label: "Filter Stages", prefix: "" },
-  { end: 1, suffix: ":1", label: "Waste Ratio", prefix: "" },
+
 ];
 const TESTIMONIALS = [
   {
@@ -1643,54 +1670,14 @@ const SPARE_PARTS_CATEGORIES = [
 //    so no card gets sz-big / sz-tall / sz-wide classes:
 
 const SPARE_PARTS = [
-  {
-    id: 1,
-    img: "/assets/1.png",
-    name: "Pre-Sediment Filter",
-    cat: "Filters",
-    desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.",
-    size: "", // ← was "sz-big"
-  },
-  {
-    id: 2,
-    img: "/assets/2.png",
-    name: "RO Membrane 75 GPD",
-    cat: "Membranes",
-    desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.",
-    size: "", // ← was "sz-tall"
-  },
-  {
-    id: 3,
-    img: "/assets/3.png",
-    name: "Activated Carbon Block",
-    cat: "Filters",
-    desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.",
-    size: "",
-  },
-  {
-    id: 4,
-    img: "/assets/4.png",
-    name: "UV-C Lamp 11W",
-    cat: "UV & Sterilization",
-    desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.",
-    size: "",
-  },
-  {
-    id: 5,
-    img: "/assets/5.png",
-    name: "Post Carbon Filter",
-    cat: "Filters",
-    desc: "Inline post-carbon polishing filter for superior taste and clarity.",
-    size: "",
-  },
-  {
-    id: 6,
-    img: "/assets/6.png",
-    name: "Mineral Cartridge",
-    cat: "Accessories",
-    desc: "Bio-ceramic mineral infusion cartridge for calcium, magnesium and alkaline restoration.",
-    size: "",
-  },
+  { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters",
+    desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
+  { id: 2, img: "/assets/2.png", name: "RO Membrane 75 GPD", cat: "Membranes",
+    desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "" },
+  { id: 3, img: "/assets/3.png", name: "Activated Carbon Block", cat: "Filters",
+    desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
+  { id: 4, img: "/assets/4.png", name: "UV-C Lamp 11W", cat: "UV & Sterilization",
+    desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
 // NOTE: No other JSX logic changes needed — the CSS does the rest.
@@ -3040,7 +3027,7 @@ function ModelElite() {
         x="80"
         y="183"
         textAnchor="middle"
-        fontFamily="Georgia"
+        fontFamily="Etna, sans-serif"
         fontSize="22"
         fontWeight="700"
         fill="#0057FF"
@@ -3051,7 +3038,7 @@ function ModelElite() {
         x="80"
         y="196"
         textAnchor="middle"
-        fontFamily="Arial"
+        fontFamily="Etna, sans-serif"
         fontSize="7"
         fill="rgba(0,87,255,0.7)"
         letterSpacing="1"
@@ -3181,7 +3168,7 @@ function ModelElement() {
         x="70"
         y="151"
         textAnchor="middle"
-        fontFamily="Georgia"
+        fontFamily="Etna, sans-serif"
         fontSize="20"
         fontWeight="700"
         fill="#60a0ff"
@@ -3192,7 +3179,7 @@ function ModelElement() {
         x="70"
         y="163"
         textAnchor="middle"
-        fontFamily="Arial"
+        fontFamily="Etna, sans-serif"
         fontSize="6"
         fill="rgba(100,160,255,0.7)"
         letterSpacing="1"
@@ -3294,7 +3281,7 @@ function ModelHydro() {
         x="135"
         y="103"
         textAnchor="middle"
-        fontFamily="Georgia"
+        fontFamily="Etna, sans-serif"
         fontSize="18"
         fontWeight="700"
         fill="#0057FF"
@@ -3305,7 +3292,7 @@ function ModelHydro() {
         x="135"
         y="115"
         textAnchor="middle"
-        fontFamily="Arial"
+        fontFamily="Etna, sans-serif"
         fontSize="6"
         fill="rgba(0,87,255,0.6)"
         letterSpacing="1"
@@ -3403,7 +3390,7 @@ function ModelObsidian() {
         x="65"
         y="162"
         textAnchor="middle"
-        fontFamily="Georgia"
+        fontFamily="Etna, sans-serif"
         fontSize="18"
         fontWeight="700"
         fill="#7aafff"
@@ -3414,7 +3401,7 @@ function ModelObsidian() {
         x="65"
         y="176"
         textAnchor="middle"
-        fontFamily="Arial"
+        fontFamily="Etna, sans-serif"
         fontSize="5.5"
         fill="rgba(120,160,255,0.6)"
         letterSpacing="1"
@@ -3502,20 +3489,7 @@ function HomePage({ navigate, tds }) {
                 Our Technology
               </button>
             </div>
-            <div className="hero-stats">
-              <div>
-                <div className="stat-num">99.9%</div>
-                <div className="stat-lbl">Purity Rate</div>
-              </div>
-              <div>
-                <div className="stat-num">14</div>
-                <div className="stat-lbl">Filter Stages</div>
-              </div>
-              <div>
-                <div className="stat-num">1:1</div>
-                <div className="stat-lbl">Waste Ratio</div>
-              </div>
-            </div>
+            
           </div>
           <HeroVisual />
         </div>
@@ -3562,7 +3536,6 @@ function HomePage({ navigate, tds }) {
 
       <HomeProductShowcase navigate={navigate} />
       <SparePartsSection navigate={navigate} />
-      <StatsSection />
       <TestimonialsSection />
       <CTABanner navigate={navigate} />
       <Footer />
@@ -3572,56 +3545,183 @@ function HomePage({ navigate, tds }) {
 
 function AboutPage() {
   useReveal(["about"]);
+
+  const values = [
+    {
+      icon: "🛡️",
+      title: "Bio-Defense RO+",
+      desc: "14 stages of precision molecular ultrafiltration — stripping microplastics, heavy metals, fluoride, chloramines and every known pathogen through membranes thinner than a human hair.",
+    },
+    {
+      icon: "💧",
+      title: "Natural Mineralization",
+      desc: "We don't just strip — we replenish. Bio-ceramic mineral stones return vital magnesium, calcium and potassium so every glass tastes like mountain spring water.",
+    },
+    {
+      icon: "🌿",
+      title: "Eco Carbon Architecture",
+      desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
+    },
+  ];
+
+  const aboutStats = [
+    { num: "1M+", label: "Units Shipped" },
+    { num: "14", label: "Filtration Stages" },
+    { num: "99.9%", label: "Purity Rate" },
+    { num: "1:1", label: "Zero-Waste Ratio" },
+  ];
+
+  const team = [
+    { initials: "AK", name: "Arjun Kumar", role: "CEO & Co-Founder", bio: "Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
+    { initials: "SR", name: "Sneha Rao", role: "Chief Technology Officer", bio: "IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
+    { initials: "VN", name: "Vikram Nair", role: "Head of Design", bio: "Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
+  ];
+
   return (
     <div>
-      <div className="about-hero">
-        <div className="page-eyebrow">Our Story</div>
-        <h1 className="page-h1">
-          Redefining What
-          <br />
-          Pure Means.
-        </h1>
-        <p className="page-sub">
-          Founded in 2018 in Bangalore, LetsPure was born from a single
-          obsession: what if water could be genuinely perfect?
-        </p>
-      </div>
-      <div className="pillars">
-        {PILLARS.map((p, i) => (
-          <div
-            key={i}
-            className="pillar-card reveal"
-            style={{ transitionDelay: `${i * 0.15}s` }}
-          >
-            <div className="pillar-icon">{p.icon}</div>
-            <h3 className="pillar-h">{p.title}</h3>
-            <p className="pillar-p">{p.desc}</p>
-          </div>
-        ))}
-      </div>
-      <RippleZone />
-      <div className="timeline-section">
-        <div className="section-header">
-          <div className="page-eyebrow">Our Journey</div>
-          <h2 className="section-h">Built milestone by milestone.</h2>
+
+      {/* ── HERO ── */}
+      <div style={{
+        minHeight: "92vh",
+        background: "linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        padding: "140px 4vw 80px",
+        position: "relative",
+        overflow: "hidden",
+      }}>
+        {/* Glow orbs */}
+        <div style={{ position:"absolute", top:"10%", left:"15%", width:"500px", height:"500px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.12) 0%, transparent 70%)", pointerEvents:"none" }} />
+        <div style={{ position:"absolute", bottom:"5%", right:"10%", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents:"none" }} />
+
+        <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", padding:"0.4rem 1.2rem", borderRadius:"100px", marginBottom:"2rem" }}>
+          <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#696969" }} />
+          <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
         </div>
-        <div className="timeline">
-          {TIMELINE.map((t, i) => (
-            <div
-              key={i}
-              className="tl-item"
-              style={{ transitionDelay: `${i * 0.1}s` }}
-            >
-              <div className="tl-dot">{t.dot}</div>
-              <div className="tl-content">
-                <div className="tl-year">{t.year}</div>
-                <h4>{t.title}</h4>
-                <p>{t.desc}</p>
-              </div>
+
+        <h1 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
+          Redefining What{" "}
+          <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em>{" "}Means.
+        </h1>
+
+        <p style={{ fontSize:"1.05rem", color:"rgba(255,255,255,0.55)", lineHeight:1.8, maxWidth:"540px", fontWeight:300, marginBottom:"3rem" }}>
+          Founded in 2018 in Bangalore by three ISRO engineers obsessed with one question —
+          what if water could be genuinely, measurably, scientifically perfect?
+        </p>
+
+        <div style={{ display:"flex", gap:"1px", alignItems:"center" }}>
+          <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
+          <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"rgba(255,255,255,0.3)", margin:"0 10px" }} />
+          <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
+        </div>
+      </div>
+
+      {/* ── STATS STRIP ── */}
+      <div style={{ background:"#696969", padding:"3.5rem 4vw" }}>
+        <div style={{ maxWidth:"1000px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1rem", textAlign:"center" }}>
+          {aboutStats.map((s, i) => (
+            <div key={i} style={{ padding:"1rem" }}>
+              <div style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
+              <div style={{ fontSize:"0.75rem", color:"rgba(255,255,255,0.65)", letterSpacing:"0.1em", textTransform:"uppercase" }}>{s.label}</div>
             </div>
           ))}
         </div>
       </div>
+
+      {/* ── MISSION STATEMENT ── */}
+      <div style={{ background:"#fff", padding:"120px 4vw", textAlign:"center" }}>
+        <div style={{ maxWidth:"860px", margin:"0 auto" }}>
+          <div className="page-eyebrow">Our Mission</div>
+          <h2 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
+            Water is life's most fundamental input.{" "}
+            <em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
+          </h2>
+          <p style={{ fontSize:"1.05rem", color:"#808080", lineHeight:1.9, fontWeight:300, maxWidth:"660px", margin:"0 auto" }}>
+            At LetsPure, we believe true purity isn't a marketing claim — it's an engineering
+            commitment. Every product we build must pass the same standard: would we give this
+            water to our own children? If the answer isn't an emphatic yes, it doesn't ship.
+          </p>
+        </div>
+      </div>
+
+      {/* ── VALUES / PILLARS ── */}
+      <div style={{ background:"#f7f8fc", padding:"100px 4vw" }}>
+        <div style={{ maxWidth:"1200px", margin:"0 auto" }}>
+          <div style={{ textAlign:"center", marginBottom:"4rem" }}>
+            <div className="page-eyebrow">What We Stand For</div>
+            <h2 className="section-h" style={{ marginTop:"1rem" }}>Engineering meets <em>principle.</em></h2>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
+            {values.map((v, i) => (
+              <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.12}s`, background:"#fff", borderRadius:"28px", padding:"3rem", border:"1px solid #e5e7eb" }}>
+                <div style={{ width:"60px", height:"60px", borderRadius:"18px", background:"rgba(105,105,105,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.6rem", marginBottom:"1.5rem" }}>{v.icon}</div>
+                <h3 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
+                <p style={{ fontSize:"0.92rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── STORY SPLIT SECTION ── */}
+      <div style={{ background:"#040810", padding:"120px 4vw", position:"relative", overflow:"hidden" }}>
+        <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"600px", height:"600px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.1) 0%, transparent 70%)", pointerEvents:"none" }} />
+        <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:"6rem", alignItems:"center", position:"relative", zIndex:1 }}>
+          <div>
+            <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
+              <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
+            </div>
+            <h2 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>
+              Three engineers.<br />One obsession.
+            </h2>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>
+              In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization:
+              the water purifiers available in India — even the expensive ones — were failing basic
+              molecular purity benchmarks that aerospace filtration had solved decades ago.
+            </p>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>
+              They set out to build something different. Not just another purifier,
+              but a filtration system that could stand next to laboratory-grade equipment
+              — and win. That obsession became LetsPure.
+            </p>
+          </div>
+          <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
+            {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.", "2020 — Patent granted for 14-stage molecular membrane architecture.", "2022 — First company globally to achieve 1:1 zero-waste filtration at consumer scale.", "2024 — Smart TDS display + companion app. 1 million units shipped.", "2026 — The X-Series. Our most advanced engineering, launched to the world."].map((item, i) => (
+              <div key={i} className="reveal" style={{ display:"flex", gap:"1.2rem", alignItems:"flex-start", transitionDelay:`${i*0.1}s` }}>
+                <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{2018 + i*2 - 2018 + String(i+1).padStart(2,"0")}</div>
+                <p style={{ fontSize:"0.88rem", color:"rgba(255,255,255,0.55)", lineHeight:1.65, fontWeight:300, paddingTop:"4px" }}>{item}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── TEAM ── */}
+      <div style={{ background:"#fff", padding:"120px 4vw" }}>
+        <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
+          <div style={{ textAlign:"center", marginBottom:"5rem" }}>
+            <div className="page-eyebrow">The Founders</div>
+            <h2 className="section-h" style={{ marginTop:"1rem" }}>Meet the <em>minds behind</em> the purity.</h2>
+          </div>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
+            {team.map((m, i) => (
+              <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.15}s`, textAlign:"center", padding:"3rem 2rem", borderRadius:"28px", border:"1px solid #e5e7eb" }}>
+                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"\"Etna\", sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
+                <div style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
+                <div style={{ fontSize:"0.75rem", color:"#696969", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"1.2rem" }}>{m.role}</div>
+                <p style={{ fontSize:"0.88rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{m.bio}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── RIPPLE / CTA ZONE ── */}
+      <RippleZone />
+
       <Footer />
     </div>
   );
@@ -4231,8 +4331,8 @@ function Preloader({ onDone }) {
           src="/assets/black logo.png"
           alt="LetsPure"
           style={{
-            maxHeight: "120px",
-            maxWidth: "320px",
+            maxHeight: "220px",
+            maxWidth: "500px",
             objectFit: "contain",
             filter: "brightness(0) invert(1)",
           }}
@@ -4262,7 +4362,7 @@ function Preloader({ onDone }) {
             color: "rgba(255,255,255,0.45)",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
-            fontFamily: "Arial, sans-serif",
+            fontFamily: "\"Etna\", sans-serif",
             whiteSpace: "nowrap",
           }}
         >
@@ -4310,7 +4410,7 @@ function PercentCounter({ onDone }) {
     <div style={{ textAlign: "center" }}>
       <div
         style={{
-          fontFamily: "Georgia, serif",
+          fontFamily: "\"Etna\", sans-serif",
           fontSize: "0.78rem",
           color: "rgba(255,255,255,0.5)",
           letterSpacing: "0.1em",
@@ -4358,7 +4458,7 @@ function PercentCounter({ onDone }) {
           color: "rgba(255,255,255,0.25)",
           letterSpacing: "0.15em",
           textTransform: "uppercase",
-          fontFamily: "Arial, sans-serif",
+          fontFamily: "\"Etna\", sans-serif",
         }}
       >
         {pct < 30
