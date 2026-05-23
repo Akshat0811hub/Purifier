@@ -1606,14 +1606,7 @@ const HOME_SHOWCASE = [
 ];
 
 /* ─── SPARE PARTS DATA ───── */
-const SPARE_PARTS_CATEGORIES = [
-  "All",
-  "Filters",
-  "Membranes",
-  "UV & Sterilization",
-  "Housings",
-  "Accessories",
-];
+
 
 const SPARE_PARTS = [
   { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters",
@@ -1626,15 +1619,7 @@ const SPARE_PARTS = [
     desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
-const ALL_PRODUCTS_CATEGORIES = ["All", "RO Systems", "Spare Parts"];
-const SPARE_PARTS_SUB_CATEGORIES = [
-  "All Parts",
-  "Filters",
-  "Membranes",
-  "UV & Sterilization",
-  "Housings",
-  "Accessories",
-];
+
 
 const ALL_PRODUCTS = [
   { id: 7, img: "/assets/7.png", name: "LetsPure Elite X-1", type: "RO Systems", subCat: "", desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
@@ -2124,59 +2109,7 @@ function SparePartsSection({ navigate }) {
 }
 
 /* ─── AMBIENT DROPS ──────────────────────────────────────── */
-function AmbientDrops({ count = 20, color = "0,87,255" }) {
-  const canvasRef = useRef(null);
-  const particlesRef = useRef([]);
-  const rafRef = useRef(null);
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
-      particlesRef.current = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vy: 0.2 + Math.random() * 0.5,
-        vx: (Math.random() - 0.5) * 0.3,
-        r: 2 + Math.random() * 6,
-        a: 0.15 + Math.random() * 0.35,
-        wobble: Math.random() * Math.PI * 2,
-        wobbleSpeed: 0.01 + Math.random() * 0.02,
-      }));
-    };
-    resize();
-    window.addEventListener("resize", resize);
-    const anim = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particlesRef.current.forEach((p) => {
-        p.wobble += p.wobbleSpeed;
-        p.x += p.vx + Math.sin(p.wobble) * 0.3;
-        p.y += p.vy;
-        if (p.y > canvas.height + 20) {
-          p.y = -20;
-          p.x = Math.random() * canvas.width;
-        }
-        ctx.beginPath();
-        ctx.ellipse(p.x, p.y, p.r * 0.55, p.r, 0, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${color},${p.a})`;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.arc(p.x - p.r * 0.2, p.y - p.r * 0.3, p.r * 0.2, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${p.a * 0.8})`;
-        ctx.fill();
-      });
-      rafRef.current = requestAnimationFrame(anim);
-    };
-    anim();
-    return () => {
-      cancelAnimationFrame(rafRef.current);
-      window.removeEventListener("resize", resize);
-    };
-  }, [count, color]);
-  return <canvas ref={canvasRef} className="ambient-drops-canvas" />;
-}
+
 
 /* ─── RIPPLE ZONE ────────────────────────────────────────── */
 function RippleZone() {
