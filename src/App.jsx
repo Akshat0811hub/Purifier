@@ -1636,6 +1636,12 @@ const SPARE_PARTS_CATEGORIES = [
   "Accessories",
 ];
 
+// ─── ONLY THE CHANGED SECTIONS ARE LISTED BELOW ───────────────────────────
+// Apply these diffs to your full App.jsx
+
+// 1. In SPARE_PARTS data array — remove the "size" field from all entries
+//    so no card gets sz-big / sz-tall / sz-wide classes:
+
 const SPARE_PARTS = [
   {
     id: 1,
@@ -1643,7 +1649,7 @@ const SPARE_PARTS = [
     name: "Pre-Sediment Filter",
     cat: "Filters",
     desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.",
-    size: "sz-big",
+    size: "",   // ← was "sz-big"
   },
   {
     id: 2,
@@ -1651,7 +1657,7 @@ const SPARE_PARTS = [
     name: "RO Membrane 75 GPD",
     cat: "Membranes",
     desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.",
-    size: "sz-tall",
+    size: "",   // ← was "sz-tall"
   },
   {
     id: 3,
@@ -1687,6 +1693,7 @@ const SPARE_PARTS = [
   },
 ];
 
+// NOTE: No other JSX logic changes needed — the CSS does the rest.
 /* ─── ALL PRODUCTS DATA (OUR PRODUCTS PAGE - 7.png–30.png) ───── */
 // eslint-disable-next-line no-unused-vars
 const ALL_PRODUCTS_CATEGORIES = ["All", "RO Systems", "Spare Parts"];
