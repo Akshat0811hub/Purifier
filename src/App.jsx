@@ -1557,10 +1557,10 @@ const MARQUEE_ITEMS = [
   "Zero Waste Architecture",
   "UV-C Sterilization",
 ];
-const COUNTER_STATS = [
-  { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
+// const COUNTER_STATS = [
+//   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
 
-];
+// ];
 const TESTIMONIALS = [
   {
     name: "Priya Raghavan",
@@ -2478,48 +2478,48 @@ function RippleZone() {
 }
 
 /* ─── ANIMATED COUNTER ───────────────────────────────────── */
-function AnimCounter({ end, suffix, prefix, duration = 2000 }) {
-  const [val, setVal] = useState(0);
-  const ref = useRef(null);
-  const started = useRef(false);
-  useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !started.current) {
-          started.current = true;
-          const startTime = performance.now();
-          const tick = (now) => {
-            const elapsed = now - startTime;
-            const progress = Math.min(elapsed / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            setVal(
-              end < 100 ? +(end * eased).toFixed(1) : Math.round(end * eased),
-            );
-            if (progress < 1) requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
-          obs.disconnect();
-        }
-      },
-      { threshold: 0.5 },
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, [end, duration]);
-  const display =
-    end >= 1000000
-      ? val >= 1000000
-        ? (val / 1000000).toFixed(1) + "M"
-        : (val / 1000).toFixed(0) + "K"
-      : val;
-  return (
-    <span ref={ref}>
-      {prefix}
-      {display}
-      {suffix}
-    </span>
-  );
-}
+// function AnimCounter({ end, suffix, prefix, duration = 2000 }) {
+//   const [val, setVal] = useState(0);
+//   const ref = useRef(null);
+//   const started = useRef(false);
+//   useEffect(() => {
+//     const obs = new IntersectionObserver(
+//       ([entry]) => {
+//         if (entry.isIntersecting && !started.current) {
+//           started.current = true;
+//           const startTime = performance.now();
+//           const tick = (now) => {
+//             const elapsed = now - startTime;
+//             const progress = Math.min(elapsed / duration, 1);
+//             const eased = 1 - Math.pow(1 - progress, 3);
+//             setVal(
+//               end < 100 ? +(end * eased).toFixed(1) : Math.round(end * eased),
+//             );
+//             if (progress < 1) requestAnimationFrame(tick);
+//           };
+//           requestAnimationFrame(tick);
+//           obs.disconnect();
+//         }
+//       },
+//       { threshold: 0.5 },
+//     );
+//     if (ref.current) obs.observe(ref.current);
+//     return () => obs.disconnect();
+//   }, [end, duration]);
+//   const display =
+//     end >= 1000000
+//       ? val >= 1000000
+//         ? (val / 1000000).toFixed(1) + "M"
+//         : (val / 1000).toFixed(0) + "K"
+//       : val;
+//   return (
+//     <span ref={ref}>
+//       {prefix}
+//       {display}
+//       {suffix}
+//     </span>
+//   );
+// }
 
 /* ─── SCROLL REVEAL ──────────────────────────────────────── */
 function useReveal(deps = []) {
