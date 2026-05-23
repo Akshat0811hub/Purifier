@@ -129,8 +129,16 @@ nav.scrolled {
 
 @media (max-width: 768px) { .nav-links { display: none; } .hamburger { display: flex; } nav { height: 68px; padding: 0 1.25rem; } }
 
-.page-wrap { animation: pageFadeIn 0.5s ease both; isolation: isolate; }
-@keyframes pageFadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+/* CHANGE 2: Enhanced page transition with blur */
+.page-wrap {
+  animation: pageFadeIn 0.5s ease both;
+  isolation: isolate;
+  will-change: opacity, transform;
+}
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);   filter: blur(0px); }
+}
 
 .hero {
   min-height: 100vh; display: flex; align-items: center;
@@ -284,6 +292,7 @@ nav.scrolled {
   flex-direction: column;
   gap: 1.2rem;
   cursor: pointer;
+  /* CHANGE 3: removed scale() from transition */
   transition: transform 0.35s cubic-bezier(.2,.75,.2,1), box-shadow 0.35s ease, border-color 0.35s ease, opacity 0.35s ease;
   opacity: 0.72;
   position: relative;
@@ -298,6 +307,7 @@ nav.scrolled {
   opacity: 0;
   transition: opacity 0.35s ease;
 }
+/* CHANGE 3: translateY only, no scale */
 .hps-side-card:hover,
 .hps-side-card.active {
   transform: translateY(-10px);
@@ -443,12 +453,14 @@ nav.scrolled {
   object-fit: contain;
   filter: drop-shadow(0 40px 80px rgba(0,87,255,0.2)) drop-shadow(0 0 0px rgba(0,0,0,0.1));
   transition: transform 0.6s cubic-bezier(.2,.75,.2,1), filter 0.6s ease;
+  /* CHANGE 4: no rotate in heroFloat */
   animation: heroFloat 5s ease-in-out infinite;
   will-change: transform;
 }
+/* CHANGE 4: translateY only, no rotate */
 @keyframes heroFloat {
-  0%,100% { transform: translateY(0px) rotate(-1deg); }
-  50% { transform: translateY(-18px) rotate(1deg); }
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-18px); }
 }
 .hps-center-img-wrap img:hover {
   animation-play-state: paused;
@@ -787,7 +799,6 @@ nav.scrolled {
               background 0.35s ease;
   display: flex;
   flex-direction: column;
-  /* REMOVED: backdrop-filter (was causing major lag) */
   box-shadow:
     0 4px 24px rgba(0,0,0,0.5),
     0 1px 0 rgba(255,255,255,0.06) inset,
@@ -823,7 +834,7 @@ nav.scrolled {
   transform: translateY(0);
 }
 
-/* PERFORMANCE FIX: removed scale() to avoid layout recalc */
+/* CHANGE 3: translateY only, no scale */
 .sp-part-card:hover {
   transform: translateY(-6px);
   box-shadow:
@@ -931,7 +942,6 @@ nav.scrolled {
   display: flex; align-items: center; justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  /* REMOVED: backdrop-filter (was causing lag) */
   z-index: 5;
   border-radius: 20px;
 }
@@ -1027,7 +1037,6 @@ nav.scrolled {
   display: flex; align-items: center; justify-content: center;
   padding: 2rem;
   animation: modalIn 0.25s ease;
-  /* REMOVED: backdrop-filter (performance fix) */
 }
 @keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
 .sp-modal {
@@ -1114,6 +1123,7 @@ nav.scrolled {
 .products-hero { padding: 140px 4vw 60px; text-align: center; background: linear-gradient(160deg, var(--blue-pale) 0%, var(--white) 60%); }
 .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; max-width: 1200px; margin: 0 auto; padding: 60px 4vw 100px; }
 .prod-card { border: 1px solid var(--light-gray); border-radius: 28px; overflow: hidden; background: var(--white); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+/* CHANGE 3: translateY only, no scale */
 .prod-card:hover { transform: translateY(-12px); box-shadow: 0 18px 40px rgba(0,87,255,.10); border-color: rgba(0,87,255,0.3); }
 .prod-image-area { height: 300px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .blue-bg { background: linear-gradient(135deg, #e8f0ff 0%, #c8d8ff 100%); }
@@ -1367,106 +1377,16 @@ nav.scrolled {
 /* ─── DATA ─────────────────────────────────────────────── */
 const NAV_LINKS = ["home", "about", "products", "contact"];
 const FEATURES = [
-  {
-    icon: "🧬",
-    title: "Molecular Filtration",
-    desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen.",
-  },
-  {
-    icon: "💎",
-    title: "Mineral Restoration",
-    desc: "Adds back calcium, magnesium & alkaline compounds your body craves.",
-  },
-  {
-    icon: "📱",
-    title: "Smart Monitoring",
-    desc: "Live TDS, pH, and flow-rate data on the integrated display and app.",
-  },
-  {
-    icon: "♻️",
-    title: "Zero-Waste Design",
-    desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule.",
-  },
+  { icon: "🧬", title: "Molecular Filtration", desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen." },
+  { icon: "💎", title: "Mineral Restoration", desc: "Adds back calcium, magnesium & alkaline compounds your body craves." },
+  { icon: "📱", title: "Smart Monitoring", desc: "Live TDS, pH, and flow-rate data on the integrated display and app." },
+  { icon: "♻️", title: "Zero-Waste Design", desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule." },
 ];
 const PRODUCTS = [
-  {
-    id: "elite",
-    badge: "Flagship",
-    badgeDark: false,
-    bgClass: "blue-bg",
-    dark: false,
-    name: "Elite X-1",
-    tagline: "The pinnacle of home water purification.",
-    specs: [
-      "14-Stage RO + UV + UF + Mineraliser",
-      "Intelligent TDS & pH Live Display",
-      "Alkaline Balancer (pH 8.2–9.0)",
-      "Smart Filter Change Alert (App)",
-      "1:1 Zero Waste Recovery Ratio",
-    ],
-    price: "₹89,999",
-    btnLight: false,
-    btnLabel: "Pre-Order",
-    img: "/assets/whitero.png",
-  },
-  {
-    id: "element",
-    badge: "Pro Series",
-    badgeDark: true,
-    bgClass: "dark-bg",
-    dark: true,
-    name: "Element Pro",
-    tagline: "Compact brilliance for modern kitchens.",
-    specs: [
-      "12-Stage Compact Filtration",
-      "UV-C Chamber Sterilization",
-      "Sleek Countertop Glass Profile",
-      "Auto Flush & Self-Clean Cycle",
-      "Fits under standard sink cabinet",
-    ],
-    price: "₹64,999",
-    btnLight: true,
-    btnLabel: "Pre-Order",
-    img: "/assets/eliteblackro.png",
-  },
-  {
-    id: "hydro",
-    badge: "Under Sink",
-    badgeDark: false,
-    bgClass: "slate-bg",
-    dark: false,
-    name: "HydroCore S",
-    tagline: "Hidden genius — designed to disappear under your sink.",
-    specs: [
-      "10-Stage RO Under-Sink Module",
-      "Separate Dedicated Pure Water Tap",
-      "12L Storage Tank Included",
-      "Wi-Fi TDS Reporting to App",
-    ],
-    price: "₹49,999",
-    btnLight: false,
-    btnLabel: "Pre-Order",
-    img: "/assets/bluero.png",
-  },
-  {
-    id: "obsidian",
-    badge: "Luxury",
-    badgeDark: true,
-    bgClass: "ink-bg",
-    dark: true,
-    name: "Obsidian One",
-    tagline: "For those who demand the extraordinary.",
-    specs: [
-      "16-Stage Luxury Filtration",
-      "Platinum-grade Membrane",
-      "Bespoke Installation Service",
-      "5-Year White Glove Warranty",
-    ],
-    price: "₹1,49,999",
-    btnLight: true,
-    btnLabel: "Enquire",
-    img: "/assets/blackro.png",
-  },
+  { id: "elite", badge: "Flagship", badgeDark: false, bgClass: "blue-bg", dark: false, name: "Elite X-1", tagline: "The pinnacle of home water purification.", specs: ["14-Stage RO + UV + UF + Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert (App)","1:1 Zero Waste Recovery Ratio"], price: "₹89,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/whitero.png" },
+  { id: "element", badge: "Pro Series", badgeDark: true, bgClass: "dark-bg", dark: true, name: "Element Pro", tagline: "Compact brilliance for modern kitchens.", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle","Fits under standard sink cabinet"], price: "₹64,999", btnLight: true, btnLabel: "Pre-Order", img: "/assets/eliteblackro.png" },
+  { id: "hydro", badge: "Under Sink", badgeDark: false, bgClass: "slate-bg", dark: false, name: "HydroCore S", tagline: "Hidden genius — designed to disappear under your sink.", specs: ["10-Stage RO Under-Sink Module","Separate Dedicated Pure Water Tap","12L Storage Tank Included","Wi-Fi TDS Reporting to App"], price: "₹49,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/bluero.png" },
+  { id: "obsidian", badge: "Luxury", badgeDark: true, bgClass: "ink-bg", dark: true, name: "Obsidian One", tagline: "For those who demand the extraordinary.", specs: ["16-Stage Luxury Filtration","Platinum-grade Membrane","Bespoke Installation Service","5-Year White Glove Warranty"], price: "₹1,49,999", btnLight: true, btnLabel: "Enquire", img: "/assets/blackro.png" },
 ];
 const COMP_ROWS = [
   { label: "Filter Stages", vals: ["14", "12", "10"] },
@@ -1482,21 +1402,9 @@ const MARQUEE_ITEMS = [
   "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
 ];
 const TESTIMONIALS = [
-  {
-    name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5,
-    quote: "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.",
-    model: "Elite X-1",
-  },
-  {
-    name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5,
-    quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.",
-    model: "HydroCore S",
-  },
-  {
-    name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5,
-    quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.",
-    model: "Obsidian One",
-  },
+  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
+  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
+  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
 ];
 const FOOTER_LINKS = {
   Products: ["Elite X-1", "Element Pro", "HydroCore S", "Obsidian One"],
@@ -1507,99 +1415,65 @@ const FOOTER_LINKS = {
 
 /* ─── HOME PRODUCT SHOWCASE DATA ────────────────────────── */
 const HOME_SHOWCASE = [
-  {
-    id: "black", img: "/assets/blackro.png", tag: "Midnight Edition",
-    name: "Elite X-1\nObsidian", tagline: "Dark engineering. Pure precision.",
-    price: "₹89,999", specs: ["14-Stage Filtration","UV-C Sterilization","Smart TDS Display"],
-    chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"],
-    floatLabels: [
-      { text: "Smart TDS Monitor", cls: "hps-fl-1" },
-      { text: "Alkaline pH 8.5", cls: "hps-fl-2" },
-      { text: "14-Stage RO+UV", cls: "hps-fl-3" },
-    ],
-    accentColor: "#111827",
-    lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)",
-  },
-  {
-    id: "white", img: "/assets/whitero.png", tag: "Signature White",
-    name: "Element Pro\nPearl", tagline: "Pure white. Pure water. Pure life.",
-    price: "₹64,999", specs: ["12-Stage Compact","Auto Self-Clean","App Monitoring"],
-    chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"],
-    floatLabels: [
-      { text: "Auto Self-Clean", cls: "hps-fl-1" },
-      { text: "Wi-Fi Monitoring", cls: "hps-fl-2" },
-      { text: "12-Stage Filtration", cls: "hps-fl-3" },
-    ],
-    accentColor: "#ffffff",
-    lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)",
-  },
-  {
-    id: "blue", img: "/assets/bluero.png", tag: "Ocean Series",
-    name: "HydroCore S\nAzure", tagline: "Born from the ocean. Built for your home.",
-    price: "₹49,999", specs: ["10-Stage Under-Sink","12L Tank Included","Dedicated Pure Tap"],
-    chips: ["10-Stage RO","Under-Sink","12L Tank","Pure Tap"],
-    floatLabels: [
-      { text: "12L Storage Tank", cls: "hps-fl-1" },
-      { text: "Dedicated Pure Tap", cls: "hps-fl-2" },
-      { text: "10-Stage Filtration", cls: "hps-fl-3" },
-    ],
-    accentColor: "#ff6200",
-    lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)",
-  },
+  { id: "black", img: "/assets/blackro.png", tag: "Midnight Edition", name: "Elite X-1\nObsidian", tagline: "Dark engineering. Pure precision.", price: "₹89,999", specs: ["14-Stage Filtration","UV-C Sterilization","Smart TDS Display"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+  { id: "white", img: "/assets/whitero.png", tag: "Signature White", name: "Element Pro\nPearl", tagline: "Pure white. Pure water. Pure life.", price: "₹64,999", specs: ["12-Stage Compact","Auto Self-Clean","App Monitoring"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" },
+  { id: "blue", img: "/assets/bluero.png", tag: "Ocean Series", name: "HydroCore S\nAzure", tagline: "Born from the ocean. Built for your home.", price: "₹49,999", specs: ["10-Stage Under-Sink","12L Tank Included","Dedicated Pure Tap"], chips: ["10-Stage RO","Under-Sink","12L Tank","Pure Tap"], floatLabels: [{ text: "12L Storage Tank", cls: "hps-fl-1" },{ text: "Dedicated Pure Tap", cls: "hps-fl-2" },{ text: "10-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
 ];
 
 /* ─── SPARE PARTS DATA ───── */
 const SPARE_PARTS = [
-  { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters",
-    desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
-  { id: 2, img: "/assets/2.png", name: "RO Membrane 75 GPD", cat: "Membranes",
-    desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "" },
-  { id: 3, img: "/assets/3.png", name: "Activated Carbon Block", cat: "Filters",
-    desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
-  { id: 4, img: "/assets/4.png", name: "UV-C Lamp 11W", cat: "UV & Sterilization",
-    desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
+  { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters", desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
+  { id: 2, img: "/assets/2.png", name: "RO Membrane 75 GPD", cat: "Membranes", desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "" },
+  { id: 3, img: "/assets/3.png", name: "Activated Carbon Block", cat: "Filters", desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
+  { id: 4, img: "/assets/4.png", name: "UV-C Lamp 11W", cat: "UV & Sterilization", desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
 const ALL_PRODUCTS = [
-  { id: 7,  img: "/assets/7.png",  name: "LetsPure Elite X-1",        type: "RO Systems",  subCat: "",                  desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
-  { id: 8,  img: "/assets/8.png",  name: "LetsPure Element Pro",       type: "RO Systems",  subCat: "",                  desc: "12-Stage compact filtration for modern kitchens." },
-  { id: 9,  img: "/assets/9.png",  name: "HydroCore S Azure",          type: "RO Systems",  subCat: "",                  desc: "10-Stage Under-Sink module with dedicated pure tap." },
-  { id: 10, img: "/assets/10.png", name: "Obsidian One Luxury",        type: "RO Systems",  subCat: "",                  desc: "16-Stage luxury filtration with platinum-grade membrane." },
-  { id: 11, img: "/assets/11.png", name: "LetsPure Lite 7-Stage",      type: "RO Systems",  subCat: "",                  desc: "Compact 7-stage RO for budget-friendly pure water." },
-  { id: 12, img: "/assets/12.png", name: "LetsPure Mini Countertop",   type: "RO Systems",  subCat: "",                  desc: "Portable countertop RO — no installation needed." },
-  { id: 13, img: "/assets/13.png", name: "Pre-Sediment Filter 5µm",    type: "Spare Parts", subCat: "Filters",           desc: "5-micron spun polypropylene sediment filter." },
-  { id: 14, img: "/assets/14.png", name: "RO Membrane 75 GPD",         type: "Spare Parts", subCat: "Membranes",         desc: "High-rejection thin-film composite membrane." },
-  { id: 15, img: "/assets/15.png", name: "Activated Carbon Block",     type: "Spare Parts", subCat: "Filters",           desc: "NSF-certified carbon block for chlorine & VOC removal." },
-  { id: 16, img: "/assets/16.png", name: "UV-C Lamp 11W",              type: "Spare Parts", subCat: "UV & Sterilization", desc: "254nm germicidal UV lamp for sterilization." },
-  { id: 17, img: "/assets/17.png", name: "Post Carbon Filter",         type: "Spare Parts", subCat: "Filters",           desc: "Inline post-carbon polishing filter for taste & clarity." },
-  { id: 18, img: "/assets/18.png", name: "Mineral Cartridge",          type: "Spare Parts", subCat: "Accessories",       desc: "Bio-ceramic mineral infusion cartridge." },
-  { id: 19, img: "/assets/19.png", name: "Filter Housing Kit",         type: "Spare Parts", subCat: "Housings",          desc: "Heavy-duty 10-inch filter housing with bracket." },
-  { id: 20, img: "/assets/20.png", name: "Membrane Housing",           type: "Spare Parts", subCat: "Housings",          desc: "Pressure-rated RO membrane vessel." },
-  { id: 21, img: "/assets/21.png", name: "Flow Restrictor 400cc",      type: "Spare Parts", subCat: "Accessories",       desc: "Calibrated capillary flow restrictor." },
-  { id: 22, img: "/assets/22.png", name: "Feed Water Solenoid",        type: "Spare Parts", subCat: "Accessories",       desc: "24V DC normally-closed solenoid valve." },
-  { id: 23, img: "/assets/23.png", name: "Storage Tank 12L",           type: "Spare Parts", subCat: "Housings",          desc: "Bladder-type pressurised storage tank." },
-  { id: 24, img: "/assets/24.png", name: "Booster Pump 50GPD",         type: "Spare Parts", subCat: "Accessories",       desc: "High-efficiency DC booster pump." },
-  { id: 25, img: "/assets/25.png", name: "TDS Inline Meter",           type: "Spare Parts", subCat: "Accessories",       desc: "Dual-display inline TDS monitor." },
-  { id: 26, img: "/assets/26.png", name: "Alkaline Filter pH+",        type: "Spare Parts", subCat: "Filters",           desc: "Raises pH to 8.0–9.5 with mineral balls." },
-  { id: 27, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm",     type: "Spare Parts", subCat: "Membranes",         desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
-  { id: 28, img: "/assets/28.png", name: "UV Quartz Sleeve",           type: "Spare Parts", subCat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber." },
-  { id: 29, img: "/assets/29.png", name: "Quick-Connect Fittings",     type: "Spare Parts", subCat: "Accessories",       desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
-  { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter",         type: "Spare Parts", subCat: "Accessories",       desc: "24V/3A switching power supply for pump systems." },
+  { id: 7,  img: "/assets/7.png",  name: "LetsPure Elite X-1",        type: "RO Systems",  subCat: "",                   desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
+  { id: 8,  img: "/assets/8.png",  name: "LetsPure Element Pro",       type: "RO Systems",  subCat: "",                   desc: "12-Stage compact filtration for modern kitchens." },
+  { id: 9,  img: "/assets/9.png",  name: "HydroCore S Azure",          type: "RO Systems",  subCat: "",                   desc: "10-Stage Under-Sink module with dedicated pure tap." },
+  { id: 10, img: "/assets/10.png", name: "Obsidian One Luxury",        type: "RO Systems",  subCat: "",                   desc: "16-Stage luxury filtration with platinum-grade membrane." },
+  { id: 11, img: "/assets/11.png", name: "LetsPure Lite 7-Stage",      type: "RO Systems",  subCat: "",                   desc: "Compact 7-stage RO for budget-friendly pure water." },
+  { id: 12, img: "/assets/12.png", name: "LetsPure Mini Countertop",   type: "RO Systems",  subCat: "",                   desc: "Portable countertop RO — no installation needed." },
+  { id: 13, img: "/assets/13.png", name: "Pre-Sediment Filter 5µm",    type: "Spare Parts", subCat: "Filters",            desc: "5-micron spun polypropylene sediment filter." },
+  { id: 14, img: "/assets/14.png", name: "RO Membrane 75 GPD",         type: "Spare Parts", subCat: "Membranes",          desc: "High-rejection thin-film composite membrane." },
+  { id: 15, img: "/assets/15.png", name: "Activated Carbon Block",     type: "Spare Parts", subCat: "Filters",            desc: "NSF-certified carbon block for chlorine & VOC removal." },
+  { id: 16, img: "/assets/16.png", name: "UV-C Lamp 11W",              type: "Spare Parts", subCat: "UV & Sterilization",  desc: "254nm germicidal UV lamp for sterilization." },
+  { id: 17, img: "/assets/17.png", name: "Post Carbon Filter",         type: "Spare Parts", subCat: "Filters",            desc: "Inline post-carbon polishing filter for taste & clarity." },
+  { id: 18, img: "/assets/18.png", name: "Mineral Cartridge",          type: "Spare Parts", subCat: "Accessories",        desc: "Bio-ceramic mineral infusion cartridge." },
+  { id: 19, img: "/assets/19.png", name: "Filter Housing Kit",         type: "Spare Parts", subCat: "Housings",           desc: "Heavy-duty 10-inch filter housing with bracket." },
+  { id: 20, img: "/assets/20.png", name: "Membrane Housing",           type: "Spare Parts", subCat: "Housings",           desc: "Pressure-rated RO membrane vessel." },
+  { id: 21, img: "/assets/21.png", name: "Flow Restrictor 400cc",      type: "Spare Parts", subCat: "Accessories",        desc: "Calibrated capillary flow restrictor." },
+  { id: 22, img: "/assets/22.png", name: "Feed Water Solenoid",        type: "Spare Parts", subCat: "Accessories",        desc: "24V DC normally-closed solenoid valve." },
+  { id: 23, img: "/assets/23.png", name: "Storage Tank 12L",           type: "Spare Parts", subCat: "Housings",           desc: "Bladder-type pressurised storage tank." },
+  { id: 24, img: "/assets/24.png", name: "Booster Pump 50GPD",         type: "Spare Parts", subCat: "Accessories",        desc: "High-efficiency DC booster pump." },
+  { id: 25, img: "/assets/25.png", name: "TDS Inline Meter",           type: "Spare Parts", subCat: "Accessories",        desc: "Dual-display inline TDS monitor." },
+  { id: 26, img: "/assets/26.png", name: "Alkaline Filter pH+",        type: "Spare Parts", subCat: "Filters",            desc: "Raises pH to 8.0–9.5 with mineral balls." },
+  { id: 27, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm",     type: "Spare Parts", subCat: "Membranes",          desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
+  { id: 28, img: "/assets/28.png", name: "UV Quartz Sleeve",           type: "Spare Parts", subCat: "UV & Sterilization",  desc: "Borosilicate quartz sleeve for UV-C chamber." },
+  { id: 29, img: "/assets/29.png", name: "Quick-Connect Fittings",     type: "Spare Parts", subCat: "Accessories",        desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
+  { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter",         type: "Spare Parts", subCat: "Accessories",        desc: "24V/3A switching power supply for pump systems." },
 ];
 
-/* ─── HERO VISUAL ────────────────────────────────────────── */
+/* ─── HERO IMAGES ────────────────────────────────────────── */
 const HERO_IMAGES = [
   "/assets/RO.png",
   "/assets/whitero.png",
   "/assets/bluero.png",
 ];
 
+/* ─── CHANGE 1: Hero Visual with crossfade ───────────────── */
 function HeroVisual() {
   const [current, setCurrent] = useState(0);
+  const [fading, setFading] = useState(false);
 
   useEffect(() => {
     const iv = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % HERO_IMAGES.length);
+      setFading(true);
+      setTimeout(() => {
+        setCurrent((c) => (c + 1) % HERO_IMAGES.length);
+        setFading(false);
+      }, 400);
     }, 3000);
     return () => clearInterval(iv);
   }, []);
@@ -1612,14 +1486,20 @@ function HeroVisual() {
         width: "100%", height: "100%", paddingLeft: "50px", marginLeft: "100px",
       }}
     >
-      <img
-        src={HERO_IMAGES[current]}
-        alt="LetsPure RO"
-        style={{
-          height: "620px", maxWidth: "100%", objectFit: "contain",
-          filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
-        }}
-      />
+      <div style={{ position: "relative", height: "620px", display: "flex", alignItems: "center" }}>
+        <img
+          src={HERO_IMAGES[current]}
+          alt="LetsPure RO"
+          style={{
+            height: "620px",
+            maxWidth: "100%",
+            objectFit: "contain",
+            filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
+            opacity: fading ? 0 : 1,
+            transition: "opacity 0.4s ease",
+          }}
+        />
+      </div>
     </div>
   );
 }
@@ -1637,9 +1517,7 @@ function HomeProductShowcase({ navigate }) {
         <div className="section-header reveal">
           <div className="page-eyebrow">Our Collection</div>
           <h2 className="section-h">Engineered to <em>impress</em>.</h2>
-          <p className="section-sub">
-            Three iconic finishes. One obsession with purity. Choose the LetsPure that belongs in your home.
-          </p>
+          <p className="section-sub">Three iconic finishes. One obsession with purity. Choose the LetsPure that belongs in your home.</p>
         </div>
         <div className="home-products-tabs reveal">
           {HOME_SHOWCASE.map((p, i) => (
@@ -1655,7 +1533,7 @@ function HomeProductShowcase({ navigate }) {
             style={{ background: leftProduct.lightBg }}
           >
             <div className="hps-card-tag">{leftProduct.tag}</div>
-            <div className="hps-card-img"><img src={leftProduct.img} alt={leftProduct.name} /></div>
+            <div className="hps-card-img"><img src={leftProduct.img} alt={leftProduct.name} loading="lazy" /></div>
             <div className="hps-card-name">{leftProduct.name.replace("\n", " ")}</div>
             <div className="hps-card-price"><small>Starting at</small>{leftProduct.price}</div>
             {leftProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
@@ -1673,7 +1551,7 @@ function HomeProductShowcase({ navigate }) {
                 </div>
               ))}
               <div className="hps-center-img-wrap">
-                <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} />
+                <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} loading="lazy" />
               </div>
             </div>
             <div className="hps-center-shadow" />
@@ -1704,7 +1582,7 @@ function HomeProductShowcase({ navigate }) {
             style={{ background: rightProduct.lightBg }}
           >
             <div className="hps-card-tag">{rightProduct.tag}</div>
-            <div className="hps-card-img"><img src={rightProduct.img} alt={rightProduct.name} /></div>
+            <div className="hps-card-img"><img src={rightProduct.img} alt={rightProduct.name} loading="lazy" /></div>
             <div className="hps-card-name">{rightProduct.name.replace("\n", " ")}</div>
             <div className="hps-card-price"><small>Starting at</small>{rightProduct.price}</div>
             {rightProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
@@ -1715,7 +1593,7 @@ function HomeProductShowcase({ navigate }) {
           {HOME_SHOWCASE.map((p, i) => (
             <div key={p.id} className="hps-strip-item" onClick={() => setActive(i)}
               style={{ borderColor: active === i ? "rgba(255,98,0,0.4)" : undefined, boxShadow: active === i ? "0 8px 30px rgba(255,98,0,0.12)" : undefined }}>
-              <div className="hps-strip-thumb"><img src={p.img} alt={p.name} /></div>
+              <div className="hps-strip-thumb"><img src={p.img} alt={p.name} loading="lazy" /></div>
               <div>
                 <div className="hps-strip-name">{p.name.replace("\n", " ")}</div>
                 <div className="hps-strip-price">{p.price}</div>
@@ -1759,16 +1637,17 @@ function SparePartsSection({ navigate }) {
             Genuine Spare Parts
           </div>
           <h2 className="sp-title">Every part. <em>Engineered</em><br />to last a lifetime.</h2>
-          <p className="sp-sub">
-            Original LetsPure components — precision-manufactured and certified. Keep your system performing at peak purity, always.
-          </p>
+          <p className="sp-sub">Original LetsPure components — precision-manufactured and certified. Keep your system performing at peak purity, always.</p>
         </div>
 
         <div className="sp-bento">
           {SPARE_PARTS.map((part, i) => (
             <div key={part.id} className={`sp-part-card ${part.size || ""}`}
               style={{ animationDelay:`${i * 0.04}s` }} onClick={() => setModalPart(part)}>
-              <div className="sp-img-wrap"><img src={part.img} alt={part.name} loading="lazy" /></div>
+              <div className="sp-img-wrap">
+                {/* CHANGE 5: lazy load spare parts images */}
+                <img src={part.img} alt={part.name} loading="lazy" />
+              </div>
               <div className="sp-card-info">
                 <span className="sp-part-name">{part.name}</span>
                 <span className="sp-part-cat">{part.cat}</span>
@@ -1822,10 +1701,10 @@ function SparePartsSection({ navigate }) {
 
 /* ─── RIPPLE ZONE ────────────────────────────────────────── */
 function RippleZone() {
-  const canvasRef = useRef(null);
-  const zoneRef   = useRef(null);
+  const canvasRef  = useRef(null);
+  const zoneRef    = useRef(null);
   const ripplesRef = useRef([]);
-  const rafRef    = useRef(null);
+  const rafRef     = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -1847,7 +1726,6 @@ function RippleZone() {
       });
       rafRef.current = requestAnimationFrame(anim);
     };
-    /* PERFORMANCE FIX: throttle mousemove to ~30fps */
     let lastMove = 0;
     const onMove = (e) => {
       const now = Date.now();
@@ -1896,12 +1774,8 @@ function TestimonialsSection() {
     <section className="testi-section">
       <div className="testi-inner">
         <div className="section-header reveal">
-          <div className="page-eyebrow" style={{ background:"rgba(255,255,255,0.15)", color:"#fff", borderColor:"rgba(255,255,255,0.3)" }}>
-            Testimonials
-          </div>
-          <h2 className="section-h" style={{ color:"#fff" }}>
-            Trusted by those who<br /><em style={{ color:"rgba(180,210,255,1)" }}>demand more.</em>
-          </h2>
+          <div className="page-eyebrow" style={{ background:"rgba(255,255,255,0.15)", color:"#fff", borderColor:"rgba(255,255,255,0.3)" }}>Testimonials</div>
+          <h2 className="section-h" style={{ color:"#fff" }}>Trusted by those who<br /><em style={{ color:"rgba(180,210,255,1)" }}>demand more.</em></h2>
         </div>
         <div className="testi-grid">
           {TESTIMONIALS.map((t, i) => (
@@ -1931,9 +1805,7 @@ function CTABanner({ navigate }) {
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
         <h2 className="cta-h">Your water will never<br />be the same again.</h2>
-        <p className="cta-sub">
-          Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.
-        </p>
+        <p className="cta-sub">Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.</p>
         <div className="cta-actions">
           <button className="btn-primary" onClick={() => navigate("products")}>
             View All Models
@@ -1948,10 +1820,10 @@ function CTABanner({ navigate }) {
 
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer() {
-  const canvasRef    = useRef(null);
-  const containerRef = useRef(null);
-  const stateRef     = useRef({ drops:[], splashes:[], rings:[], poolLevel:0, maxPool:0, nextId:0 });
-  const rafRef       = useRef(null);
+  const canvasRef     = useRef(null);
+  const containerRef  = useRef(null);
+  const stateRef      = useRef({ drops:[], splashes:[], rings:[], poolLevel:0, maxPool:0, nextId:0 });
+  const rafRef        = useRef(null);
   const spawnTimerRef = useRef(null);
 
   useEffect(() => {
@@ -1974,18 +1846,11 @@ function Footer() {
       const W = canvas.width;
       const count = 1 + Math.floor(Math.random() * 3);
       for (let i = 0; i < count; i++) {
-        S.drops.push({
-          id: S.nextId++, x: 40 + Math.random() * (W - 80), y: -(10 + Math.random() * 60),
-          vy: 1.8 + Math.random() * 2.2, r: 3 + Math.random() * 5,
-          alpha: 0.75 + Math.random() * 0.25, wobble: Math.random() * Math.PI * 2,
-          wobbleAmp: 0.3 + Math.random() * 0.4, wobbleSpeed: 0.025 + Math.random() * 0.03, hit: false,
-        });
+        S.drops.push({ id: S.nextId++, x: 40 + Math.random() * (W - 80), y: -(10 + Math.random() * 60), vy: 1.8 + Math.random() * 2.2, r: 3 + Math.random() * 5, alpha: 0.75 + Math.random() * 0.25, wobble: Math.random() * Math.PI * 2, wobbleAmp: 0.3 + Math.random() * 0.4, wobbleSpeed: 0.025 + Math.random() * 0.03, hit: false });
       }
     };
 
-    /* PERFORMANCE FIX: reduced initial batches from 6 → 3 */
     for (let b = 0; b < 3; b++) spawnBatch();
-    /* PERFORMANCE FIX: slower spawn interval 600ms → 1000ms */
     spawnTimerRef.current = setInterval(spawnBatch, 1000 + Math.random() * 600);
 
     const getPoolSurface = () => canvas.height - S.poolLevel - 2;
@@ -1996,16 +1861,13 @@ function Footer() {
       if (S.poolLevel < S.maxPool) S.poolLevel = Math.min(S.poolLevel + 0.08, S.maxPool);
       const poolY = getPoolSurface();
       const poolGrad = ctx.createLinearGradient(0, poolY, 0, H);
-      poolGrad.addColorStop(0, "rgba(0,87,255,0.32)"); poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)");
-      poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)"); poolGrad.addColorStop(1, "rgba(0,10,60,0.12)");
+      poolGrad.addColorStop(0, "rgba(0,87,255,0.32)"); poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)"); poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)"); poolGrad.addColorStop(1, "rgba(0,10,60,0.12)");
       ctx.fillStyle = poolGrad; ctx.fillRect(0, poolY, W, H - poolY);
 
       const shimmerTime = performance.now() * 0.001;
       const shimmerX = ((shimmerTime * 0.3) % 2) * W - W * 0.5;
       const shimmerGrad = ctx.createLinearGradient(shimmerX, poolY, shimmerX + W, poolY);
-      shimmerGrad.addColorStop(0, "rgba(100,190,255,0)"); shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
-      shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)"); shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)");
-      shimmerGrad.addColorStop(1, "rgba(100,190,255,0)");
+      shimmerGrad.addColorStop(0, "rgba(100,190,255,0)"); shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)"); shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)"); shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)"); shimmerGrad.addColorStop(1, "rgba(100,190,255,0)");
       ctx.strokeStyle = shimmerGrad; ctx.lineWidth = 1.8;
       ctx.beginPath(); ctx.moveTo(0, poolY); ctx.lineTo(W, poolY); ctx.stroke();
       ctx.strokeStyle = `rgba(100,180,255,${0.18 + 0.1 * Math.sin(shimmerTime * 1.7)})`; ctx.lineWidth = 1;
@@ -2035,8 +1897,8 @@ function Footer() {
         ctx.save(); ctx.translate(d.x, d.y);
         ctx.beginPath(); ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
         const dg = ctx.createRadialGradient(-d.r*0.2, -d.r*0.3, 0, 0, 0, d.r);
-        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`); dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha*0.9})`);
-        dg.addColorStop(1, `rgba(30,100,220,${d.alpha*0.7})`); ctx.fillStyle = dg; ctx.fill();
+        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`); dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha*0.9})`); dg.addColorStop(1, `rgba(30,100,220,${d.alpha*0.7})`);
+        ctx.fillStyle = dg; ctx.fill();
         ctx.beginPath(); ctx.ellipse(-d.r*0.22, -d.r*0.32, d.r*0.22, d.r*0.14, -0.4, 0, Math.PI*2);
         ctx.fillStyle = `rgba(255,255,255,${d.alpha*0.75})`; ctx.fill(); ctx.restore();
       }
@@ -2047,8 +1909,8 @@ function Footer() {
         if (sp.life <= 0) continue;
         ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
         const spg = ctx.createRadialGradient(sp.x-sp.r*0.2, sp.y-sp.r*0.2, 0, sp.x, sp.y, sp.r);
-        spg.addColorStop(0, `rgba(220,240,255,${sp.life*0.85})`); spg.addColorStop(0.6, `rgba(100,180,255,${sp.life*0.6})`);
-        spg.addColorStop(1, "rgba(50,120,220,0)"); ctx.fillStyle = spg; ctx.fill();
+        spg.addColorStop(0, `rgba(220,240,255,${sp.life*0.85})`); spg.addColorStop(0.6, `rgba(100,180,255,${sp.life*0.6})`); spg.addColorStop(1, "rgba(50,120,220,0)");
+        ctx.fillStyle = spg; ctx.fill();
         if (sp.y > poolY) sp.life -= 0.08;
         nextSplashes.push(sp);
       }
@@ -2129,9 +1991,7 @@ function HomePage({ navigate, tds }) {
           <div className="hero-text">
             <div className="hero-badge"><span className="badge-dot" />2026 Collection Now Live</div>
             <h1 className="hero-h1">Water,<br /><em>Perfected</em><br />at the Atom.</h1>
-            <p className="hero-sub">
-              LetsPure multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.
-            </p>
+            <p className="hero-sub">LetsPure multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.</p>
             <div className="hero-actions">
               <button className="btn-primary" onClick={() => navigate("products")}>
                 Explore Models
@@ -2195,9 +2055,9 @@ function AboutPage() {
   ];
 
   const team = [
-    { initials:"AK", name:"Arjun Kumar",    role:"CEO & Co-Founder",    bio:"Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
-    { initials:"SR", name:"Sneha Rao",       role:"Chief Technology Officer", bio:"IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
-    { initials:"VN", name:"Vikram Nair",     role:"Head of Design",      bio:"Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
+    { initials:"AK", name:"Arjun Kumar",   role:"CEO & Co-Founder",       bio:"Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
+    { initials:"SR", name:"Sneha Rao",      role:"Chief Technology Officer", bio:"IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
+    { initials:"VN", name:"Vikram Nair",    role:"Head of Design",          bio:"Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
   ];
 
   return (
@@ -2271,12 +2131,8 @@ function AboutPage() {
               <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
             </div>
             <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Three engineers.<br />One obsession.</h2>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>
-              In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization: the water purifiers available in India — even the expensive ones — were failing basic molecular purity benchmarks that aerospace filtration had solved decades ago.
-            </p>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>
-              They set out to build something different. Not just another purifier, but a filtration system that could stand next to laboratory-grade equipment — and win. That obsession became LetsPure.
-            </p>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization: the water purifiers available in India — even the expensive ones — were failing basic molecular purity benchmarks that aerospace filtration had solved decades ago.</p>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>They set out to build something different. Not just another purifier, but a filtration system that could stand next to laboratory-grade equipment — and win. That obsession became LetsPure.</p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
             {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.",
@@ -2318,12 +2174,14 @@ function AboutPage() {
   );
 }
 
+/* ─── PRODUCT CARD ───────────────────────────────────────── */
 function ProductCard({ p, navigate }) {
   return (
     <div className={`prod-card reveal ${p.dark ? "dark-card" : ""}`}>
       <div className={`prod-image-area ${p.bgClass}`}>
         <div className={`prod-badge ${p.badgeDark ? "dark" : ""}`}>{p.badge}</div>
-        <img src={p.img} alt={p.name} style={{ maxHeight:"240px", maxWidth:"80%", objectFit:"contain", filter:"drop-shadow(0 20px 40px rgba(0,0,0,0.25))", transition:"transform 0.4s ease" }} />
+        {/* CHANGE 5: lazy load product card images */}
+        <img src={p.img} alt={p.name} loading="lazy" style={{ maxHeight:"240px", maxWidth:"80%", objectFit:"contain", filter:"drop-shadow(0 20px 40px rgba(0,0,0,0.25))", transition:"transform 0.4s ease" }} />
       </div>
       <div className="prod-body">
         <div className="prod-name">{p.name}</div>
@@ -2336,9 +2194,7 @@ function ProductCard({ p, navigate }) {
             <small style={p.dark ? { color:"rgba(255,255,255,0.5)" } : {}}>Starting at</small>
             {p.price}
           </div>
-          <button className={`btn-order ${p.btnLight ? "light" : ""}`} onClick={() => navigate("contact")}>
-            {p.btnLabel}
-          </button>
+          <button className={`btn-order ${p.btnLight ? "light" : ""}`} onClick={() => navigate("contact")}>{p.btnLabel}</button>
         </div>
       </div>
     </div>
@@ -2422,7 +2278,8 @@ function ProductsPage({ navigate }) {
                 onClick={() => navigate("contact")}
               >
                 <div style={{ height:"180px", background:"#f7f8fc", display:"flex", alignItems:"center", justifyContent:"center", padding:"1.5rem" }}>
-                  <img src={part.img} alt={part.name} style={{ maxHeight:"140px", maxWidth:"100%", objectFit:"contain", filter:"drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }} />
+                  {/* CHANGE 5: lazy load spare parts grid images */}
+                  <img src={part.img} alt={part.name} loading="lazy" style={{ maxHeight:"140px", maxWidth:"100%", objectFit:"contain", filter:"drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }} />
                 </div>
                 <div style={{ padding:"1.2rem" }}>
                   <div style={{ fontSize:"0.68rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"#696969", background:"rgba(105,105,105,0.08)", border:"1px solid rgba(105,105,105,0.2)", padding:"0.2rem 0.6rem", borderRadius:"100px", display:"inline-block", marginBottom:"0.6rem" }}>{part.subCat || "RO System"}</div>
@@ -2524,6 +2381,7 @@ function ContactPage() {
   );
 }
 
+/* ─── PRELOADER ──────────────────────────────────────────── */
 function Preloader({ onDone }) {
   const [step, setStep] = useState(0);
   useEffect(() => {
@@ -2606,6 +2464,13 @@ export default function LetsPure() {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  /* CHANGE 6: Escape key closes mobile menu */
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") setMobileOpen(false); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   useEffect(() => {
