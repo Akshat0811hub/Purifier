@@ -31,8 +31,8 @@ h1, h2, h3, h4, h5, h6, li, td, th, label {
   --blue-mid:   #696969;
   --ink:        #1e2840;
   --text-color: #696969;    
- --font-display: "etna", sans-serif;
---font-body:    "etna", sans-serif;
+  --font-display: "etna", sans-serif;
+  --font-body:    "etna", sans-serif;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
@@ -42,8 +42,6 @@ body {
   color: var(--dark);
   overflow-x: hidden;
 }
-
-
 
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -66,7 +64,7 @@ nav.scrolled {
   box-shadow: 0 2px 30px rgba(0,87,255,0.06);
 }
 .nav-logo {
-  font-family: var(--font-display); font-size: 1.6rem; font-weight: 700;
+  font-family: var(--font-display); font-size: 1.6rem; font-weight: 400;
   color: var(--darkest); letter-spacing: -0.5px; cursor: pointer;
   display: flex; align-items: center; gap: 8px;
   border: 0; background: transparent; padding: .45rem .2rem;
@@ -79,7 +77,7 @@ nav.scrolled {
 .nav-links { margin-left: auto; display: flex; gap: 2.5rem; align-items: center; }
 .nav-links button:not(.nav-cta) {
   position: relative; border: 0; background: transparent; color: var(--ink); cursor: pointer;
-  font-size: .88rem; font-weight: 600; letter-spacing: .03em; padding: .65rem .05rem;
+  font-size: .88rem; font-weight: 400; letter-spacing: .03em; padding: .65rem .05rem;
   opacity: .72; transition: color .25s ease, opacity .25s ease, transform .25s ease;
 }
 .nav-links button:not(.nav-cta)::after {
@@ -95,7 +93,7 @@ nav.scrolled {
 .nav-cta {
   background: var(--blue); color: #fff; border: none;
   padding: 0.6rem 1.5rem; border-radius: 100px;
-  font-family: var(--font-body); font-size: 0.85rem; font-weight: 600;
+  font-family: var(--font-body); font-size: 0.85rem; font-weight: 400;
   cursor: pointer; margin-left: 1rem; overflow: hidden; position: relative;
   box-shadow: 0 4px 20px rgba(0,87,255,0.25);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -118,7 +116,7 @@ nav.scrolled {
 .hamburger span { width: 24px; height: 2px; background: var(--dark); border-radius: 2px; }
 .mobile-menu {
   display: none; position: fixed; top: 72px; left: 0; right: 0;
-  background: rgba(255,255,255,.96); backdrop-filter: blur(18px);
+  background: rgba(255,255,255,.96);
   padding: 2rem; z-index: 999;
   border-bottom: 1px solid var(--light-gray);
   flex-direction: column; gap: 1.5rem;
@@ -172,7 +170,7 @@ nav.scrolled {
   display: inline-flex; align-items: center; gap: 8px;
   background: var(--blue-pale); color: var(--blue);
   border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem;
-  border-radius: 100px; font-size: 0.78rem; font-weight: 600;
+  border-radius: 100px; font-size: 0.78rem; font-weight: 400;
   letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.8rem;
   animation: fadeSlideUp 0.6s ease both;
 }
@@ -181,7 +179,7 @@ nav.scrolled {
 .hero-h1 {
   font-family: var(--font-display);
   font-size: clamp(3.2rem, 5.5vw, 6rem);
-  font-weight: 700; line-height: 1.02; letter-spacing: -2px;
+  font-weight: 400; line-height: 1.02; letter-spacing: -2px;
   color: var(--off-white); margin-bottom: 1.5rem;
   animation: fadeSlideUp 0.7s 0.1s ease both;
 }
@@ -189,17 +187,17 @@ nav.scrolled {
 .hero-sub { color: var(--off-white); font-size: 1.08rem; line-height: 1.7; max-width: 430px; margin-bottom: 2.5rem; animation: fadeSlideUp 0.7s 0.2s ease both; }
 .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeSlideUp 0.7s 0.3s ease both; }
 .hero-stats { display: flex; gap: 2.5rem; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--light-gray); animation: fadeSlideUp 0.7s 0.4s ease both; }
-.stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 700; color: var(--blue); line-height: 1; }
+.stat-num { font-family: var(--font-display); font-size: 2.4rem; font-weight: 400; color: var(--blue); line-height: 1; }
 .stat-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
 @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
 .hero-visual { display: flex; justify-content: flex-end; align-items: center; position: relative; height: 540px; animation: fadeSlideUp 0.9s 0.2s ease both; }
 .ro-stage-wrapper { position: relative; width: 340px; height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 14px 40px var(--white); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 14px 40px var(--white); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
 .btn-primary::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
 .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--white); }
 .btn-primary:hover::before { transform: translateX(120%); }
-.btn-ghost { background: transparent; color: var(--white); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
+.btn-ghost { background: transparent; color: var(--white); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
 .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
 
 .features-section { padding: 80px 4vw; background: var(--white); }
@@ -209,16 +207,16 @@ nav.scrolled {
 .pillar-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 24px; padding: 2.5rem; transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
 .pillar-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,87,255,0.08); border-color: rgba(0,87,255,0.3); }
 .pillar-icon { width: 56px; height: 56px; border-radius: 16px; background: var(--blue-pale); display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
-.pillar-h { font-family: var(--font-display); font-size: 1.5rem; font-weight: 600; margin-bottom: 0.8rem; color: var(--darkest); }
+.pillar-h { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 0.8rem; color: var(--darkest); }
 .pillar-h.small { font-size: 1.15rem; }
 .pillar-p { color: var(--muted); font-size: 0.92rem; line-height: 1.6; }
 
 .section-header { text-align: center; margin-bottom: 4rem; }
-.section-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: var(--darkest); letter-spacing: -1.5px; margin-bottom: 0.8rem; }
+.section-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; color: var(--darkest); letter-spacing: -1.5px; margin-bottom: 0.8rem; }
 .section-h em { font-style: italic; color: var(--text-color); }
 .section-sub { color: var(--muted); font-size: 1rem; max-width: 500px; margin: 0 auto; }
-.page-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-pale); border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
-.page-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 5.5rem); font-weight: 700; line-height: 1.05; color: var(--darkest); letter-spacing: -2px; max-width: 700px; margin: 0 auto 1.5rem; }
+.page-eyebrow { display: inline-block; font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); background: var(--blue-pale); border: 1px solid rgba(0,87,255,0.2); padding: 0.4rem 1rem; border-radius: 100px; margin-bottom: 1.5rem; }
+.page-h1 { font-family: var(--font-display); font-size: clamp(2.8rem, 5vw, 5.5rem); font-weight: 400; line-height: 1.05; color: var(--darkest); letter-spacing: -2px; max-width: 700px; margin: 0 auto 1.5rem; }
 .page-sub { color: var(--muted); font-size: 1.1rem; line-height: 1.7; max-width: 520px; margin: 0 auto 3rem; }
 
 /* ─── HOME PRODUCT SHOWCASE ────────────────────────────── */
@@ -258,7 +256,7 @@ nav.scrolled {
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.85rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--mid-gray);
   cursor: pointer;
   transition: all 0.25s ease;
@@ -277,7 +275,6 @@ nav.scrolled {
   min-height: 620px;
 }
 
-/* Side product cards */
 .hps-side-card {
   background: var(--white);
   border: 1px solid var(--light-gray);
@@ -291,6 +288,7 @@ nav.scrolled {
   opacity: 0.72;
   position: relative;
   overflow: hidden;
+  will-change: transform;
 }
 .hps-side-card::before {
   content: '';
@@ -302,7 +300,7 @@ nav.scrolled {
 }
 .hps-side-card:hover,
 .hps-side-card.active {
-  transform: translateY(-10px) scale(1.02);
+  transform: translateY(-10px);
   box-shadow: 0 24px 60px rgba(255,98,0,0.12);
   border-color: rgba(255,98,0,0.35);
   opacity: 1;
@@ -327,14 +325,14 @@ nav.scrolled {
 }
 .hps-side-card:hover .hps-card-img img,
 .hps-side-card.active .hps-card-img img {
-  transform: translateY(-10px) scale(1.06);
+  transform: translateY(-10px);
   filter: drop-shadow(0 30px 60px rgba(0,87,255,0.25));
 }
 
 .hps-card-tag {
   display: inline-block;
   font-size: 0.7rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--blue);
@@ -346,14 +344,14 @@ nav.scrolled {
 .hps-card-name {
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--darkest);
   line-height: 1.1;
 }
 .hps-card-price {
   font-family: var(--font-display);
   font-size: 1.8rem;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--blue);
 }
 .hps-card-price small {
@@ -379,7 +377,6 @@ nav.scrolled {
   flex-shrink: 0;
 }
 
-/* Center hero product */
 .hps-center {
   display: flex;
   flex-direction: column;
@@ -447,6 +444,7 @@ nav.scrolled {
   filter: drop-shadow(0 40px 80px rgba(0,87,255,0.2)) drop-shadow(0 0 0px rgba(0,0,0,0.1));
   transition: transform 0.6s cubic-bezier(.2,.75,.2,1), filter 0.6s ease;
   animation: heroFloat 5s ease-in-out infinite;
+  will-change: transform;
 }
 @keyframes heroFloat {
   0%,100% { transform: translateY(0px) rotate(-1deg); }
@@ -488,7 +486,7 @@ nav.scrolled {
   padding: 0.4rem 1rem;
   border-radius: 100px;
   font-size: 0.75rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin-bottom: 1rem;
@@ -496,7 +494,7 @@ nav.scrolled {
 .hps-center-name {
   font-family: var(--font-display);
   font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 700;
+  font-weight: 400;
   color: var(--darkest);
   letter-spacing: -1px;
   margin-bottom: 0.5rem;
@@ -523,7 +521,7 @@ nav.scrolled {
   border-radius: 100px;
   padding: 0.4rem 1rem;
   font-size: 0.78rem;
-  font-weight: 500;
+  font-weight: 400;
   border: 1px solid var(--light-gray);
   transition: background 0.2s, border-color 0.2s;
 }
@@ -546,7 +544,7 @@ nav.scrolled {
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   position: relative;
   overflow: hidden;
@@ -571,13 +569,12 @@ nav.scrolled {
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.9rem;
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
 .hps-btn-details:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
 
-/* floating spec labels */
 .hps-float-label {
   position: absolute;
   background: var(--white);
@@ -585,7 +582,7 @@ nav.scrolled {
   border-radius: 14px;
   padding: 0.6rem 1rem;
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--dark);
   white-space: nowrap;
   box-shadow: 0 8px 30px rgba(0,87,255,0.1);
@@ -607,7 +604,6 @@ nav.scrolled {
 @keyframes floatLabel1 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 @keyframes floatLabel2 { 0%,100%{transform:translateY(0)} 50%{transform:translateY(10px)} }
 
-/* bottom product strip */
 .hps-bottom-strip {
   display: flex;
   gap: 1.5rem;
@@ -654,15 +650,15 @@ nav.scrolled {
   transition: transform 0.3s ease;
 }
 .hps-strip-item:hover .hps-strip-thumb img { transform: scale(1.1) translateY(-3px); }
-.hps-strip-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--darkest); }
-.hps-strip-price { font-size: 0.88rem; color: var(--blue); font-weight: 600; margin-top: 2px; }
+.hps-strip-name { font-family: var(--font-display); font-size: 1.1rem; font-weight: 400; color: var(--darkest); }
+.hps-strip-price { font-size: 0.88rem; color: var(--blue); font-weight: 400; margin-top: 2px; }
 
 /* ─── SPARE PARTS SECTION ────────────────────────────── */
 .spare-parts-section {
   padding: 120px 4vw;
   background-color: rgba(4,8,16,0.88);
   background-image: url('/assets/bg.png');
-  background-attachment: fixed;
+  background-attachment: scroll;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -684,7 +680,6 @@ nav.scrolled {
   background: linear-gradient(90deg, transparent, rgba(0,87,255,0.3), transparent);
 }
 
-/* Dark overlay so content stays readable over bg.png */
 .spare-parts-section .spare-parts-inner {
   position: relative;
   z-index: 2;
@@ -720,7 +715,7 @@ nav.scrolled {
 .sp-header { text-align: center; margin-bottom: 3.5rem; }
 .sp-eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  font-size: 0.78rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  font-size: 0.78rem; font-weight: 400; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--blue);
   background: rgba(0,87,255,0.1);
   border: 1px solid rgba(0,87,255,0.25);
@@ -730,7 +725,7 @@ nav.scrolled {
 .sp-title {
   font-family: var(--font-display);
   font-size: clamp(2.2rem, 4vw, 3.8rem);
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
   letter-spacing: -1.5px;
   line-height: 1.05;
@@ -739,24 +734,21 @@ nav.scrolled {
 .sp-title em { font-style: italic; color: var(--blue); }
 .sp-sub { color: rgba(255,255,255,0.5); font-size: 1rem; max-width: 480px; margin: 0 auto 2.5rem; line-height: 1.7; }
 
-/* Filter pills */
 .sp-filters {
   display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
   margin-bottom: 3.5rem;
-}.sp-filter-btn {
-  color: "rgba(255,255,255,0.6)",
+}
+.sp-filter-btn {
   background: rgba(0, 0, 0, 0.65);
   color: #ffffff;
   padding: 0.5rem 1.2rem;
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.04em;
   cursor: pointer;
   transition: all 0.25s ease;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   text-shadow: 0 1px 4px rgba(0,0,0,0.8);
   box-shadow: 0 2px 12px rgba(0,0,0,0.5);
 }
@@ -770,11 +762,11 @@ nav.scrolled {
   background: var(--blue);
   border-color: var(--blue);
   color: #fff;
-  font-weight: 700;
+  font-weight: 400;
   box-shadow: 0 4px 24px rgba(0,87,255,0.6);
   text-shadow: none;
 }
-/* Masonry-style bento grid */
+
 .sp-bento {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -795,15 +787,14 @@ nav.scrolled {
               background 0.35s ease;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* REMOVED: backdrop-filter (was causing major lag) */
   box-shadow:
     0 4px 24px rgba(0,0,0,0.5),
     0 1px 0 rgba(255,255,255,0.06) inset,
     0 0 0 1px rgba(255,255,255,0.04) inset;
+  will-change: transform;
 }
 
-/* top orange accent line — appears on hover */
 .sp-part-card::before {
   content: '';
   position: absolute;
@@ -815,7 +806,6 @@ nav.scrolled {
   z-index: 4;
 }
 
-/* inner warm glow sweep — appears on hover */
 .sp-part-card::after {
   content: '';
   position: absolute;
@@ -832,12 +822,10 @@ nav.scrolled {
   opacity: 1;
   transform: translateY(0);
 }
-@keyframes spCardIn {
-  to { opacity: 1; transform: translateY(0); }
-}
 
+/* PERFORMANCE FIX: removed scale() to avoid layout recalc */
 .sp-part-card:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-6px);
   box-shadow:
     0 20px 60px rgba(0,87,255,0.22),
     0 8px 24px rgba(0,0,0,0.55),
@@ -850,7 +838,6 @@ nav.scrolled {
 .sp-part-card:hover::before { opacity: 1; }
 .sp-part-card:hover::after  { opacity: 1; }
 
-/* size variants */
 .sp-part-card.sz-tall,
 .sp-part-card.sz-wide,
 .sp-part-card.sz-big {
@@ -897,7 +884,6 @@ nav.scrolled {
   opacity: 1;
 }
 
-/* tall/big cards show more image */
 .sp-part-card.sz-tall .sp-img-wrap,
 .sp-part-card.sz-big .sp-img-wrap { padding: 2rem; }
 
@@ -905,7 +891,6 @@ nav.scrolled {
   padding: 0.85rem 1rem 0.9rem;
   border-top: 1px solid rgba(255,255,255,0.08);
   background: linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.65) 100%);
-  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -917,7 +902,7 @@ nav.scrolled {
 .sp-part-name {
   font-family: var(--font-display);
   font-size: 0.95rem;
-  font-weight: 700;
+  font-weight: 400;
   color: rgba(255,255,255,0.95);
   line-height: 1.2;
   white-space: nowrap;
@@ -929,7 +914,7 @@ nav.scrolled {
 
 .sp-part-cat {
   font-size: 0.68rem;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--blue);
@@ -940,14 +925,13 @@ nav.scrolled {
   border-radius: 100px;
 }
 
-/* hover overlay with "View" */
 .sp-hover-overlay {
   position: absolute; inset: 0;
   background: rgba(0,0,0,0.55);
   display: flex; align-items: center; justify-content: center;
   opacity: 0;
   transition: opacity 0.3s ease;
-  backdrop-filter: blur(3px);
+  /* REMOVED: backdrop-filter (was causing lag) */
   z-index: 5;
   border-radius: 20px;
 }
@@ -961,7 +945,7 @@ nav.scrolled {
   border-radius: 100px;
   font-family: var(--font-body);
   font-size: 0.82rem;
-  font-weight: 700;
+  font-weight: 400;
   cursor: pointer;
   display: flex; align-items: center; gap: 6px;
   box-shadow: 0 8px 28px rgba(255,98,0,0.5);
@@ -969,7 +953,6 @@ nav.scrolled {
 }
 .sp-view-btn:hover { transform: scale(1.05); box-shadow: 0 12px 36px rgba(0,87,255,0.6); }
 
-/* bottom CTA strip */
 .sp-bottom-cta {
   margin-top: 3.5rem;
   display: flex; align-items: center; justify-content: space-between;
@@ -983,7 +966,7 @@ nav.scrolled {
 .sp-cta-text h3 {
   font-family: var(--font-display);
   font-size: 1.6rem;
-  font-weight: 700;
+  font-weight: 400;
   color: #fff;
   margin-bottom: 0.3rem;
 }
@@ -992,7 +975,7 @@ nav.scrolled {
 .sp-btn-primary {
   background: var(--blue); color: #fff; border: none;
   padding: 0.85rem 2rem; border-radius: 100px;
-  font-family: var(--font-body); font-size: 0.88rem; font-weight: 600;
+  font-family: var(--font-body); font-size: 0.88rem; font-weight: 400;
   cursor: pointer; display: flex; align-items: center; gap: 8px;
   box-shadow: 0 8px 28px rgba(255,98,0,0.35);
   transition: transform 0.2s, box-shadow 0.2s;
@@ -1031,7 +1014,7 @@ nav.scrolled {
   background: transparent; color: rgba(255,255,255,0.75);
   border: 1.5px solid rgba(255,255,255,0.18);
   padding: 0.85rem 2rem; border-radius: 100px;
-  font-family: var(--font-body); font-size: 0.88rem; font-weight: 500;
+  font-family: var(--font-body); font-size: 0.88rem; font-weight: 400;
   cursor: pointer;
   transition: border-color 0.2s, color 0.2s, transform 0.2s;
 }
@@ -1044,7 +1027,7 @@ nav.scrolled {
   display: flex; align-items: center; justify-content: center;
   padding: 2rem;
   animation: modalIn 0.25s ease;
-  backdrop-filter: blur(12px);
+  /* REMOVED: backdrop-filter (performance fix) */
 }
 @keyframes modalIn { from { opacity: 0; } to { opacity: 1; } }
 .sp-modal {
@@ -1077,7 +1060,7 @@ nav.scrolled {
 }
 .sp-modal-img img { max-height: 220px; max-width: 90%; object-fit: contain; filter: drop-shadow(0 20px 40px rgba(0,87,255,0.2)); }
 .sp-modal-tag {
-  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+  font-size: 0.72rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
   color: var(--blue); background: rgba(255,98,0,0.12);
   border: 1px solid rgba(0,87,255,0.25);
   padding: 0.3rem 0.8rem; border-radius: 100px;
@@ -1085,7 +1068,7 @@ nav.scrolled {
 }
 .sp-modal-name {
   font-family: var(--font-display);
-  font-size: 2rem; font-weight: 700; color: #fff;
+  font-size: 2rem; font-weight: 400; color: #fff;
   margin-bottom: 0.5rem; line-height: 1.1;
 }
 .sp-modal-desc { color: rgba(255,255,255,0.55); font-size: 0.9rem; line-height: 1.6; margin-bottom: 1.5rem; }
@@ -1099,10 +1082,6 @@ nav.scrolled {
   .sp-bento { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 150px; }
   .sp-part-card.sz-big { grid-column: span 2; }
   .sp-bottom-cta { flex-direction: column; }
-  /* On mobile, fixed background attachment can be problematic — fallback to scroll */
-  .spare-parts-section {
-    background-attachment: scroll;
-  }
 }
 @media (max-width: 520px) {
   .sp-bento { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 10px; }
@@ -1112,14 +1091,14 @@ nav.scrolled {
 
 .marquee-strip { background: var(--blue); color: #fff; padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
 .marquee-inner { display: inline-flex; align-items: center; animation: marqueeScroll 30s linear infinite; }
-.marquee-inner span { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 1.5rem; opacity: 0.9; }
+.marquee-inner span { font-size: 0.78rem; font-weight: 400; letter-spacing: 0.12em; text-transform: uppercase; margin: 0 1.5rem; opacity: 0.9; }
 .sep { opacity: 0.4 !important; }
 @keyframes marqueeScroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
 
 .about-hero { padding: 140px 4vw 80px; background: linear-gradient(160deg, var(--white) 60%, var(--blue-pale) 100%); text-align: center; position: relative; overflow: hidden; }
 .ripple-zone { background: var(--blue); padding: 80px 4vw; position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 360px; cursor: crosshair; }
 .ripple-canvas { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.ripple-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 700; color: #fff; text-align: center; position: relative; z-index: 2; }
+.ripple-h { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 400; color: #fff; text-align: center; position: relative; z-index: 2; }
 .ripple-p { color: rgba(255,255,255,0.7); margin-top: 1rem; z-index: 2; position: relative; }
 
 .timeline-section { background: var(--off-white); padding: 80px 4vw; }
@@ -1127,15 +1106,15 @@ nav.scrolled {
 .timeline::before { content:''; position: absolute; left: 24px; top: 0; bottom: 0; width: 1.5px; background: linear-gradient(180deg, var(--blue) 0%, var(--mid-gray) 100%); }
 .tl-item { display: flex; gap: 2rem; margin-bottom: 3rem; opacity: 0; transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
 .tl-item.visible { opacity: 1; transform: translateX(0); }
-.tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(0,87,255,0.3); }
-.tl-content h4 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.3rem; }
+.tl-dot { width: 48px; height: 48px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; color: #fff; font-size: 0.8rem; font-weight: 400; flex-shrink: 0; position: relative; z-index: 1; box-shadow: 0 4px 16px rgba(0,87,255,0.3); }
+.tl-content h4 { font-size: 1.05rem; font-weight: 400; margin-bottom: 0.3rem; }
 .tl-content p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
-.tl-year { color: var(--blue); font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
+.tl-year { color: var(--blue); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.05em; margin-bottom: 0.3rem; }
 
 .products-hero { padding: 140px 4vw 60px; text-align: center; background: linear-gradient(160deg, var(--blue-pale) 0%, var(--white) 60%); }
 .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2.5rem; max-width: 1200px; margin: 0 auto; padding: 60px 4vw 100px; }
 .prod-card { border: 1px solid var(--light-gray); border-radius: 28px; overflow: hidden; background: var(--white); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
-.prod-card:hover { transform: translateY(-12px) scale(1.01); box-shadow: 0 18px 40px rgba(0,87,255,.10); border-color: rgba(0,87,255,0.3); }
+.prod-card:hover { transform: translateY(-12px); box-shadow: 0 18px 40px rgba(0,87,255,.10); border-color: rgba(0,87,255,0.3); }
 .prod-image-area { height: 300px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .blue-bg { background: linear-gradient(135deg, #e8f0ff 0%, #c8d8ff 100%); }
 .dark-bg { background: linear-gradient(135deg, #111827 0%, #1e2840 100%); }
@@ -1143,16 +1122,16 @@ nav.scrolled {
 .ink-bg { background: linear-gradient(135deg, #040810 0%, #0b1329 100%); }
 .ro-model-svg { filter: drop-shadow(0 20px 40px rgba(0,87,255,0.2)); transition: transform 0.4s ease; }
 .prod-card:hover .ro-model-svg { transform: translateY(-8px) rotate(-2deg); }
-.prod-badge { position: absolute; top: 16px; left: 16px; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; }
+.prod-badge { position: absolute; top: 16px; left: 16px; background: var(--blue); color: #fff; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.3rem 0.7rem; border-radius: 100px; }
 .prod-badge.dark { background: var(--darkest); }
 .prod-body { padding: 2rem 2rem 2.5rem; }
-.prod-name { font-family: var(--font-display); font-size: 1.8rem; font-weight: 700; color: var(--darkest); margin-bottom: 0.5rem; }
+.prod-name { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: var(--darkest); margin-bottom: 0.5rem; }
 .prod-tagline { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
 .prod-specs { display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
 .spec-row { display: flex; align-items: center; gap: 0.7rem; font-size: 0.88rem; color: var(--ink); }
 .check { color: var(--blue); font-size: 1rem; }
 .prod-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--light-gray); padding-top: 1.5rem; }
-.prod-price { font-family: var(--font-display); font-size: 2.2rem; font-weight: 700; color: var(--darkest); }
+.prod-price { font-family: var(--font-display); font-size: 2.2rem; font-weight: 400; color: var(--darkest); }
 .prod-price small { font-size: 0.75rem; color: var(--muted); font-family: var(--font-body); display: block; margin-bottom: 2px; }
 .prod-price.white { color: #fff; }
 .dark-card { border-color: rgba(255,255,255,0.06) !important; }
@@ -1161,7 +1140,7 @@ nav.scrolled {
 .dark-card .prod-tagline { color: rgba(255,255,255,0.5); }
 .dark-card .spec-row { color: rgba(255,255,255,0.8); }
 .dark-card .prod-footer { border-color: rgba(255,255,255,0.08); }
-.btn-order { background: var(--blue); color: #fff; border: none; padding: 0.75rem 1.6rem; border-radius: 100px; font-family: var(--font-body); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(0,87,255,0.25); position: relative; overflow: hidden; }
+.btn-order { background: var(--blue); color: #fff; border: none; padding: 0.75rem 1.6rem; border-radius: 100px; font-family: var(--font-body); font-weight: 400; font-size: 0.85rem; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(0,87,255,0.25); position: relative; overflow: hidden; }
 .btn-order::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
 .btn-order:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,87,255,0.4); }
 .btn-order:hover::before { transform: translateX(120%); }
@@ -1173,12 +1152,12 @@ nav.scrolled {
 .comp-row:last-child { border-bottom: none; }
 .comp-cell { padding: 1rem 1.5rem; font-size: 0.88rem; color: var(--ink); display: flex; align-items: center; }
 .comp-cell:not(:first-child) { justify-content: center; }
-.comp-head { background: var(--blue-pale); font-weight: 700; color: var(--blue); font-size: 0.8rem; letter-spacing: 0.05em; }
+.comp-head { background: var(--blue-pale); font-weight: 400; color: var(--blue); font-size: 0.8rem; letter-spacing: 0.05em; }
 .comp-check { color: var(--blue); font-size: 1.1rem; }
 .comp-dash { color: var(--mid-gray); }
 
 .contact-wrap { max-width: 1200px; margin: 0 auto; padding: 140px 4vw 100px; display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: start; }
-.contact-left h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 4.5rem); font-weight: 700; color: var(--darkest); letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.2rem; }
+.contact-left h1 { font-family: var(--font-display); font-size: clamp(2.5rem, 4vw, 4.5rem); font-weight: 400; color: var(--darkest); letter-spacing: -2px; line-height: 1.05; margin-bottom: 1.2rem; }
 .contact-left p { color: var(--muted); font-size: 1.05rem; line-height: 1.7; margin-bottom: 3rem; }
 .contact-info { display: flex; flex-direction: column; gap: 1.5rem; margin-bottom: 3rem; }
 .contact-info-row { display: flex; align-items: center; gap: 1rem; }
@@ -1187,14 +1166,14 @@ nav.scrolled {
 .contact-info-text strong { font-size: 0.95rem; color: var(--dark); }
 .form-card { background: var(--white); border: 1px solid var(--light-gray); border-radius: 28px; padding: 3rem; box-shadow: 0 10px 30px rgba(0,87,255,.05); }
 .contact-form { display: flex; flex-direction: column; gap: 0; }
-.contact-form h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--darkest); }
+.contact-form h3 { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 0.3rem; color: var(--darkest); }
 .form-sub { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.8rem; }
 .form-row { margin-bottom: 1.5rem; }
-.form-row label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.03em; }
+.form-row label { display: block; font-size: 0.8rem; font-weight: 400; color: var(--ink); margin-bottom: 0.5rem; letter-spacing: 0.03em; }
 .form-row input, .form-row select, .form-row textarea { width: 100%; padding: 0.9rem 1.1rem; border: 1.5px solid var(--light-gray); border-radius: 14px; background: var(--off-white); color: var(--dark); font-family: var(--font-body); font-size: 0.9rem; outline: none; transition: border-color 0.2s, box-shadow 0.2s; resize: none; }
 .form-row input:focus, .form-row select:focus, .form-row textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,87,255,0.1); }
 .form-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.submit-btn { width: 100%; background: var(--blue); color: #fff; border: none; padding: 1rem; border-radius: 14px; font-size: 0.95rem; font-weight: 600; font-family: var(--font-body); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 24px rgba(0,87,255,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 0.5rem; position: relative; overflow: hidden; }
+.submit-btn { width: 100%; background: var(--blue); color: #fff; border: none; padding: 1rem; border-radius: 14px; font-size: 0.95rem; font-weight: 400; font-family: var(--font-body); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 6px 24px rgba(0,87,255,0.3); display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 0.5rem; position: relative; overflow: hidden; }
 .submit-btn::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
 .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(0,87,255,0.4); }
 .submit-btn:hover::before { transform: translateX(120%); }
@@ -1216,19 +1195,19 @@ nav.scrolled {
 .stats-section { background:var(--blue); padding:100px 4vw; }
 .stats-inner { max-width:1100px; margin:auto; display:grid; grid-template-columns:repeat(4,1fr); gap:2rem; }
 .stat-block { text-align:center; }
-.stat-big { font-family:var(--font-display); font-size:4rem; color:white; font-weight:700; }
+.stat-big { font-family:var(--font-display); font-size:4rem; color:white; font-weight:400; }
 .stat-label { color:rgba(255,255,255,.7); margin-top:.6rem; letter-spacing:.05em; }
 
 .testi-section { position:relative; overflow:hidden; background:linear-gradient(135deg,var(--darkest),#09162e); padding:120px 4vw; }
 .testi-inner { position:relative; z-index:2; max-width:1200px; margin:auto; }
 .testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
-.testi-card { background:rgba(255,255,255,.04); backdrop-filter:blur(20px); border:1px solid rgba(255,255,255,.08); border-radius:30px; padding:2rem; transition: transform 0.25s ease, border-color 0.25s ease; }
+.testi-card { background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); border-radius:30px; padding:2rem; transition: transform 0.25s ease, border-color 0.25s ease; }
 .testi-card:hover { transform:translateY(-8px); border-color:rgba(100,170,255,.4); }
 .testi-stars { color:#FFD700; margin-bottom:1rem; }
 .testi-quote { color:rgba(255,255,255,.85); line-height:1.8; font-size:.95rem; }
 .testi-meta { margin-top:2rem; display:flex; align-items:center; gap:1rem; }
-.testi-avatar { width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-light)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; }
-.testi-name { color:#fff; font-weight:600; }
+.testi-avatar { width:50px; height:50px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--blue-light)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:400; }
+.testi-name { color:#fff; font-weight:400; }
 .testi-role { color:rgba(255,255,255,.5); font-size:.8rem; }
 .testi-model { margin-left:auto; color:var(--blue-light); font-size:.8rem; }
 
@@ -1254,13 +1233,13 @@ nav.scrolled {
 .footer-drop-theatre { position: relative; height: 220px; overflow: hidden; border-bottom: 1px solid rgba(255,255,255,.04); }
 .footer-drop-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
 .footer-content { padding: 4rem 4vw; display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 2rem; max-width: 1400px; margin: auto; position: relative; z-index: 1; }
-.footer-logo-big { display: flex; align-items: flex-start; gap: 8px;  justify-content: flex-start;  color: #fff; font-size: 2rem; font-family: var(--font-display); font-weight: 700; }
+.footer-logo-big { display: flex; align-items: flex-start; gap: 8px; justify-content: flex-start; color: #fff; font-size: 2rem; font-family: var(--font-display); font-weight: 400; }
 .footer-logo-big span { color: var(--blue-light); }
 .footer-tagline { margin-top: 1rem; color: rgba(255,255,255,.6); line-height: 1.6; }
 .footer-socials { display: flex; gap: 1rem; margin-top: 2rem; }
 .social-dot { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.08); color: #fff; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease; }
 .social-dot:hover { transform: translateY(-4px); background: rgba(59,130,246,.22); border-color: rgba(100,170,255,.45); box-shadow: 0 12px 28px rgba(0,87,255,.22); }
-.footer-col-head { color: #fff; margin-bottom: 1rem; font-weight: 600; }
+.footer-col-head { color: #fff; margin-bottom: 1rem; font-weight: 400; }
 .footer-link { display: block; color: rgba(255,255,255,.5); margin-bottom: .7rem; text-decoration: none; font-size: .9rem; width: fit-content; border: 0; background: transparent; font-family: var(--font-body); text-align: left; cursor: pointer; padding: .1rem 0; position: relative; transition: color .24s ease, transform .24s ease; }
 .footer-link::after { content: ""; position: absolute; left: 0; bottom: -.15rem; width: 100%; height: 1px; background: var(--blue-light); transform: scaleX(0); transform-origin: right; transition: transform .25s ease; }
 .footer-link:hover { color: #fff; transform: translateX(4px); }
@@ -1352,12 +1331,10 @@ nav.scrolled {
   display: flex; align-items: flex-end; gap: 0.15em;
   font-family: 'etna', sans-serif;
   font-size: clamp(3rem, 10vw, 7rem);
-  font-weight: 700; letter-spacing: -2px;
+  font-weight: 400; letter-spacing: -2px;
   perspective: 600px;
 }
-.preloader-word {
-  display: flex;
-}
+.preloader-word { display: flex; }
 .preloader-space { width: 0.4em; }
 .pl-letter {
   display: inline-block;
@@ -1379,7 +1356,7 @@ nav.scrolled {
 }
 .preloader-tagline {
   font-family: 'etna', sans-serif;
-  font-size: 0.75rem; font-weight: 600;
+  font-size: 0.75rem; font-weight: 400;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: rgba(255,255,255,0.35);
   opacity: 0;
@@ -1499,47 +1476,25 @@ const COMP_ROWS = [
   { label: "1:1 Zero Waste", vals: [true, true, false] },
 ];
 const MARQUEE_ITEMS = [
-  "Molecular Filtration",
-  "14-Stage Purification",
-  "99.9% Purity",
-  "Smart TDS Monitor",
-  "Alkaline Infused",
-  "Zero Waste Architecture",
-  "UV-C Sterilization",
-  "Molecular Filtration",
-  "14-Stage Purification",
-  "99.9% Purity",
-  "Smart TDS Monitor",
-  "Alkaline Infused",
-  "Zero Waste Architecture",
-  "UV-C Sterilization",
+  "Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor",
+  "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
+  "Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor",
+  "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
 ];
 const TESTIMONIALS = [
   {
-    name: "Priya Raghavan",
-    role: "Architect · Mumbai",
-    avatar: "PR",
-    rating: 5,
-    quote:
-      "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.",
+    name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5,
+    quote: "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.",
     model: "Elite X-1",
   },
   {
-    name: "Arjun Mehta",
-    role: "Cardiologist · Delhi",
-    avatar: "AM",
-    rating: 5,
-    quote:
-      "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.",
+    name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5,
+    quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.",
     model: "HydroCore S",
   },
   {
-    name: "Sonal & Vivek Iyer",
-    role: "Home Owners · Bengaluru",
-    avatar: "SI",
-    rating: 5,
-    quote:
-      "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.",
+    name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5,
+    quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.",
     model: "Obsidian One",
   },
 ];
@@ -1553,14 +1508,10 @@ const FOOTER_LINKS = {
 /* ─── HOME PRODUCT SHOWCASE DATA ────────────────────────── */
 const HOME_SHOWCASE = [
   {
-    id: "black",
-    img: "/assets/blackro.png",
-    tag: "Midnight Edition",
-    name: "Elite X-1\nObsidian",
-    tagline: "Dark engineering. Pure precision.",
-    price: "₹89,999",
-    specs: ["14-Stage Filtration", "UV-C Sterilization", "Smart TDS Display"],
-    chips: ["14-Stage RO", "UV-C", "pH 8.5", "Zero Waste"],
+    id: "black", img: "/assets/blackro.png", tag: "Midnight Edition",
+    name: "Elite X-1\nObsidian", tagline: "Dark engineering. Pure precision.",
+    price: "₹89,999", specs: ["14-Stage Filtration","UV-C Sterilization","Smart TDS Display"],
+    chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"],
     floatLabels: [
       { text: "Smart TDS Monitor", cls: "hps-fl-1" },
       { text: "Alkaline pH 8.5", cls: "hps-fl-2" },
@@ -1570,14 +1521,10 @@ const HOME_SHOWCASE = [
     lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)",
   },
   {
-    id: "white",
-    img: "/assets/whitero.png",
-    tag: "Signature White",
-    name: "Element Pro\nPearl",
-    tagline: "Pure white. Pure water. Pure life.",
-    price: "₹64,999",
-    specs: ["12-Stage Compact", "Auto Self-Clean", "App Monitoring"],
-    chips: ["12-Stage RO", "Self-Clean", "Wi-Fi", "Eco Design"],
+    id: "white", img: "/assets/whitero.png", tag: "Signature White",
+    name: "Element Pro\nPearl", tagline: "Pure white. Pure water. Pure life.",
+    price: "₹64,999", specs: ["12-Stage Compact","Auto Self-Clean","App Monitoring"],
+    chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"],
     floatLabels: [
       { text: "Auto Self-Clean", cls: "hps-fl-1" },
       { text: "Wi-Fi Monitoring", cls: "hps-fl-2" },
@@ -1587,14 +1534,10 @@ const HOME_SHOWCASE = [
     lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)",
   },
   {
-    id: "blue",
-    img: "/assets/bluero.png",
-    tag: "Ocean Series",
-    name: "HydroCore S\nAzure",
-    tagline: "Born from the ocean. Built for your home.",
-    price: "₹49,999",
-    specs: ["10-Stage Under-Sink", "12L Tank Included", "Dedicated Pure Tap"],
-    chips: ["10-Stage RO", "Under-Sink", "12L Tank", "Pure Tap"],
+    id: "blue", img: "/assets/bluero.png", tag: "Ocean Series",
+    name: "HydroCore S\nAzure", tagline: "Born from the ocean. Built for your home.",
+    price: "₹49,999", specs: ["10-Stage Under-Sink","12L Tank Included","Dedicated Pure Tap"],
+    chips: ["10-Stage RO","Under-Sink","12L Tank","Pure Tap"],
     floatLabels: [
       { text: "12L Storage Tank", cls: "hps-fl-1" },
       { text: "Dedicated Pure Tap", cls: "hps-fl-2" },
@@ -1606,8 +1549,6 @@ const HOME_SHOWCASE = [
 ];
 
 /* ─── SPARE PARTS DATA ───── */
-
-
 const SPARE_PARTS = [
   { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters",
     desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
@@ -1619,40 +1560,37 @@ const SPARE_PARTS = [
     desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
-
-
 const ALL_PRODUCTS = [
-  { id: 7, img: "/assets/7.png", name: "LetsPure Elite X-1", type: "RO Systems", subCat: "", desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
-  { id: 8, img: "/assets/8.png", name: "LetsPure Element Pro", type: "RO Systems", subCat: "", desc: "12-Stage compact filtration for modern kitchens." },
-  { id: 9, img: "/assets/9.png", name: "HydroCore S Azure", type: "RO Systems", subCat: "", desc: "10-Stage Under-Sink module with dedicated pure tap." },
-  { id: 10, img: "/assets/10.png", name: "Obsidian One Luxury", type: "RO Systems", subCat: "", desc: "16-Stage luxury filtration with platinum-grade membrane." },
-  { id: 11, img: "/assets/11.png", name: "LetsPure Lite 7-Stage", type: "RO Systems", subCat: "", desc: "Compact 7-stage RO for budget-friendly pure water." },
-  { id: 12, img: "/assets/12.png", name: "LetsPure Mini Countertop", type: "RO Systems", subCat: "", desc: "Portable countertop RO — no installation needed." },
-  { id: 13, img: "/assets/13.png", name: "Pre-Sediment Filter 5µm", type: "Spare Parts", subCat: "Filters", desc: "5-micron spun polypropylene sediment filter." },
-  { id: 14, img: "/assets/14.png", name: "RO Membrane 75 GPD", type: "Spare Parts", subCat: "Membranes", desc: "High-rejection thin-film composite membrane." },
-  { id: 15, img: "/assets/15.png", name: "Activated Carbon Block", type: "Spare Parts", subCat: "Filters", desc: "NSF-certified carbon block for chlorine & VOC removal." },
-  { id: 16, img: "/assets/16.png", name: "UV-C Lamp 11W", type: "Spare Parts", subCat: "UV & Sterilization", desc: "254nm germicidal UV lamp for sterilization." },
-  { id: 17, img: "/assets/17.png", name: "Post Carbon Filter", type: "Spare Parts", subCat: "Filters", desc: "Inline post-carbon polishing filter for taste & clarity." },
-  { id: 18, img: "/assets/18.png", name: "Mineral Cartridge", type: "Spare Parts", subCat: "Accessories", desc: "Bio-ceramic mineral infusion cartridge." },
-  { id: 19, img: "/assets/19.png", name: "Filter Housing Kit", type: "Spare Parts", subCat: "Housings", desc: "Heavy-duty 10-inch filter housing with bracket." },
-  { id: 20, img: "/assets/20.png", name: "Membrane Housing", type: "Spare Parts", subCat: "Housings", desc: "Pressure-rated RO membrane vessel." },
-  { id: 21, img: "/assets/21.png", name: "Flow Restrictor 400cc", type: "Spare Parts", subCat: "Accessories", desc: "Calibrated capillary flow restrictor." },
-  { id: 22, img: "/assets/22.png", name: "Feed Water Solenoid", type: "Spare Parts", subCat: "Accessories", desc: "24V DC normally-closed solenoid valve." },
-  { id: 23, img: "/assets/23.png", name: "Storage Tank 12L", type: "Spare Parts", subCat: "Housings", desc: "Bladder-type pressurised storage tank." },
-  { id: 24, img: "/assets/24.png", name: "Booster Pump 50GPD", type: "Spare Parts", subCat: "Accessories", desc: "High-efficiency DC booster pump." },
-  { id: 25, img: "/assets/25.png", name: "TDS Inline Meter", type: "Spare Parts", subCat: "Accessories", desc: "Dual-display inline TDS monitor." },
-  { id: 26, img: "/assets/26.png", name: "Alkaline Filter pH+", type: "Spare Parts", subCat: "Filters", desc: "Raises pH to 8.0–9.5 with mineral balls." },
-  { id: 27, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm", type: "Spare Parts", subCat: "Membranes", desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
-  { id: 28, img: "/assets/28.png", name: "UV Quartz Sleeve", type: "Spare Parts", subCat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber." },
-  { id: 29, img: "/assets/29.png", name: "Quick-Connect Fittings", type: "Spare Parts", subCat: "Accessories", desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
-  { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter", type: "Spare Parts", subCat: "Accessories", desc: "24V/3A switching power supply for pump systems." },
+  { id: 7,  img: "/assets/7.png",  name: "LetsPure Elite X-1",        type: "RO Systems",  subCat: "",                  desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
+  { id: 8,  img: "/assets/8.png",  name: "LetsPure Element Pro",       type: "RO Systems",  subCat: "",                  desc: "12-Stage compact filtration for modern kitchens." },
+  { id: 9,  img: "/assets/9.png",  name: "HydroCore S Azure",          type: "RO Systems",  subCat: "",                  desc: "10-Stage Under-Sink module with dedicated pure tap." },
+  { id: 10, img: "/assets/10.png", name: "Obsidian One Luxury",        type: "RO Systems",  subCat: "",                  desc: "16-Stage luxury filtration with platinum-grade membrane." },
+  { id: 11, img: "/assets/11.png", name: "LetsPure Lite 7-Stage",      type: "RO Systems",  subCat: "",                  desc: "Compact 7-stage RO for budget-friendly pure water." },
+  { id: 12, img: "/assets/12.png", name: "LetsPure Mini Countertop",   type: "RO Systems",  subCat: "",                  desc: "Portable countertop RO — no installation needed." },
+  { id: 13, img: "/assets/13.png", name: "Pre-Sediment Filter 5µm",    type: "Spare Parts", subCat: "Filters",           desc: "5-micron spun polypropylene sediment filter." },
+  { id: 14, img: "/assets/14.png", name: "RO Membrane 75 GPD",         type: "Spare Parts", subCat: "Membranes",         desc: "High-rejection thin-film composite membrane." },
+  { id: 15, img: "/assets/15.png", name: "Activated Carbon Block",     type: "Spare Parts", subCat: "Filters",           desc: "NSF-certified carbon block for chlorine & VOC removal." },
+  { id: 16, img: "/assets/16.png", name: "UV-C Lamp 11W",              type: "Spare Parts", subCat: "UV & Sterilization", desc: "254nm germicidal UV lamp for sterilization." },
+  { id: 17, img: "/assets/17.png", name: "Post Carbon Filter",         type: "Spare Parts", subCat: "Filters",           desc: "Inline post-carbon polishing filter for taste & clarity." },
+  { id: 18, img: "/assets/18.png", name: "Mineral Cartridge",          type: "Spare Parts", subCat: "Accessories",       desc: "Bio-ceramic mineral infusion cartridge." },
+  { id: 19, img: "/assets/19.png", name: "Filter Housing Kit",         type: "Spare Parts", subCat: "Housings",          desc: "Heavy-duty 10-inch filter housing with bracket." },
+  { id: 20, img: "/assets/20.png", name: "Membrane Housing",           type: "Spare Parts", subCat: "Housings",          desc: "Pressure-rated RO membrane vessel." },
+  { id: 21, img: "/assets/21.png", name: "Flow Restrictor 400cc",      type: "Spare Parts", subCat: "Accessories",       desc: "Calibrated capillary flow restrictor." },
+  { id: 22, img: "/assets/22.png", name: "Feed Water Solenoid",        type: "Spare Parts", subCat: "Accessories",       desc: "24V DC normally-closed solenoid valve." },
+  { id: 23, img: "/assets/23.png", name: "Storage Tank 12L",           type: "Spare Parts", subCat: "Housings",          desc: "Bladder-type pressurised storage tank." },
+  { id: 24, img: "/assets/24.png", name: "Booster Pump 50GPD",         type: "Spare Parts", subCat: "Accessories",       desc: "High-efficiency DC booster pump." },
+  { id: 25, img: "/assets/25.png", name: "TDS Inline Meter",           type: "Spare Parts", subCat: "Accessories",       desc: "Dual-display inline TDS monitor." },
+  { id: 26, img: "/assets/26.png", name: "Alkaline Filter pH+",        type: "Spare Parts", subCat: "Filters",           desc: "Raises pH to 8.0–9.5 with mineral balls." },
+  { id: 27, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm",     type: "Spare Parts", subCat: "Membranes",         desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
+  { id: 28, img: "/assets/28.png", name: "UV Quartz Sleeve",           type: "Spare Parts", subCat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber." },
+  { id: 29, img: "/assets/29.png", name: "Quick-Connect Fittings",     type: "Spare Parts", subCat: "Accessories",       desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
+  { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter",         type: "Spare Parts", subCat: "Accessories",       desc: "24V/3A switching power supply for pump systems." },
 ];
 
 /* ─── HERO VISUAL ────────────────────────────────────────── */
 const HERO_IMAGES = [
   "/assets/RO.png",
   "/assets/whitero.png",
-  // "/assets/blackro.png",
   "/assets/bluero.png",
 ];
 
@@ -1670,22 +1608,15 @@ function HeroVisual() {
     <div
       className="hero-visual"
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "flex-end",
-        width: "100%",
-        height: "100%",
-        paddingLeft: "50px",
-        marginLeft: "100px",
+        display: "flex", alignItems: "center", justifyContent: "flex-end",
+        width: "100%", height: "100%", paddingLeft: "50px", marginLeft: "100px",
       }}
     >
       <img
         src={HERO_IMAGES[current]}
         alt="LetsPure RO"
         style={{
-          height: "620px",
-          maxWidth: "100%",
-          objectFit: "contain",
+          height: "620px", maxWidth: "100%", objectFit: "contain",
           filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
         }}
       />
@@ -1697,29 +1628,22 @@ function HeroVisual() {
 function HomeProductShowcase({ navigate }) {
   const [active, setActive] = useState(1);
   const centerProduct = HOME_SHOWCASE[active];
-  const leftProduct = HOME_SHOWCASE[(active + 2) % 3];
-  const rightProduct = HOME_SHOWCASE[(active + 1) % 3];
+  const leftProduct   = HOME_SHOWCASE[(active + 2) % 3];
+  const rightProduct  = HOME_SHOWCASE[(active + 1) % 3];
 
   return (
     <section className="home-products-section">
       <div className="home-products-inner">
         <div className="section-header reveal">
           <div className="page-eyebrow">Our Collection</div>
-          <h2 className="section-h">
-            Engineered to <em>impress</em>.
-          </h2>
+          <h2 className="section-h">Engineered to <em>impress</em>.</h2>
           <p className="section-sub">
-            Three iconic finishes. One obsession with purity. Choose the
-            LetsPure that belongs in your home.
+            Three iconic finishes. One obsession with purity. Choose the LetsPure that belongs in your home.
           </p>
         </div>
         <div className="home-products-tabs reveal">
           {HOME_SHOWCASE.map((p, i) => (
-            <button
-              key={p.id}
-              className={`home-products-tab${active === i ? " active" : ""}`}
-              onClick={() => setActive(i)}
-            >
+            <button key={p.id} className={`home-products-tab${active === i ? " active" : ""}`} onClick={() => setActive(i)}>
               {p.tag}
             </button>
           ))}
@@ -1731,211 +1655,84 @@ function HomeProductShowcase({ navigate }) {
             style={{ background: leftProduct.lightBg }}
           >
             <div className="hps-card-tag">{leftProduct.tag}</div>
-            <div className="hps-card-img">
-              <img src={leftProduct.img} alt={leftProduct.name} />
-            </div>
-            <div className="hps-card-name">
-              {leftProduct.name.replace("\n", " ")}
-            </div>
-            <div className="hps-card-price">
-              <small>Starting at</small>
-              {leftProduct.price}
-            </div>
-            {leftProduct.specs.map((s, i) => (
-              <div key={i} className="hps-card-spec">
-                {s}
-              </div>
-            ))}
+            <div className="hps-card-img"><img src={leftProduct.img} alt={leftProduct.name} /></div>
+            <div className="hps-card-name">{leftProduct.name.replace("\n", " ")}</div>
+            <div className="hps-card-price"><small>Starting at</small>{leftProduct.price}</div>
+            {leftProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
           </div>
+
           <div className="hps-center">
             <div className="hps-center-glow" />
             <div className="hps-center-rings">
-              <div className="hps-ring" />
-              <div className="hps-ring" />
-              <div className="hps-ring" />
+              <div className="hps-ring" /><div className="hps-ring" /><div className="hps-ring" />
             </div>
-            <div
-              style={{
-                position: "relative",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
+            <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
               {centerProduct.floatLabels.map((fl, i) => (
                 <div key={i} className={`hps-float-label ${fl.cls}`}>
-                  <span className="fl-dot" />
-                  {fl.text}
+                  <span className="fl-dot" />{fl.text}
                 </div>
               ))}
               <div className="hps-center-img-wrap">
-                <img
-                  key={centerProduct.id}
-                  src={centerProduct.img}
-                  alt={centerProduct.name}
-                />
+                <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} />
               </div>
             </div>
             <div className="hps-center-shadow" />
             <div className="hps-center-info">
               <div className="hps-center-badge">
-                <span
-                  style={{
-                    width: 6,
-                    height: 6,
-                    background: "var(--blue)",
-                    borderRadius: "50%",
-                    display: "inline-block",
-                    animation: "pulse 2s infinite",
-                  }}
-                />
+                <span style={{ width:6, height:6, background:"var(--blue)", borderRadius:"50%", display:"inline-block", animation:"pulse 2s infinite" }} />
                 {centerProduct.tag}
               </div>
-              <div className="hps-center-name">
-                {centerProduct.name.replace("\n", " ")}
-              </div>
+              <div className="hps-center-name">{centerProduct.name.replace("\n", " ")}</div>
               <div className="hps-center-tagline">{centerProduct.tagline}</div>
               <div className="hps-center-chips">
-                {centerProduct.chips.map((c, i) => (
-                  <span key={i} className="hps-chip">
-                    {c}
-                  </span>
-                ))}
+                {centerProduct.chips.map((c, i) => <span key={i} className="hps-chip">{c}</span>)}
               </div>
-              <div
-                style={{
-                  fontFamily: "'etna', sans-serif",
-                  fontSize: "2.5rem",
-                  fontWeight: 600,
-                  color: "var(--darkest)",
-                  marginBottom: "1.5rem",
-                }}
-              >
-                <span
-                  style={{
-                    fontSize: "0.85rem",
-                    color: "var(--mid-gray)",
-                    fontFamily: "'etna', sans-serif",
-                    fontWeight: 400,
-                    display: "block",
-                    marginBottom: 4,
-                  }}
-                >
-                  Starting at
-                </span>
+              <div style={{ fontFamily:"'etna', sans-serif", fontSize:"2.5rem", fontWeight:400, color:"var(--darkest)", marginBottom:"1.5rem" }}>
+                <span style={{ fontSize:"0.85rem", color:"var(--mid-gray)", fontFamily:"'etna', sans-serif", fontWeight:400, display:"block", marginBottom:4 }}>Starting at</span>
                 {centerProduct.price}
               </div>
               <div className="hps-center-actions">
-                <button
-                  className="hps-btn-order"
-                  onClick={() => navigate("contact")}
-                >
-                  Pre-Order Now
-                </button>
-                <button
-                  className="hps-btn-details"
-                  onClick={() => navigate("products")}
-                >
-                  View Details
-                </button>
+                <button className="hps-btn-order" onClick={() => navigate("contact")}>Pre-Order Now</button>
+                <button className="hps-btn-details" onClick={() => navigate("products")}>View Details</button>
               </div>
             </div>
           </div>
+
           <div
             className={`hps-side-card${active === (active + 1) % 3 ? " active" : ""}`}
             onClick={() => setActive((active + 1) % 3)}
             style={{ background: rightProduct.lightBg }}
           >
             <div className="hps-card-tag">{rightProduct.tag}</div>
-            <div className="hps-card-img">
-              <img src={rightProduct.img} alt={rightProduct.name} />
-            </div>
-            <div className="hps-card-name">
-              {rightProduct.name.replace("\n", " ")}
-            </div>
-            <div className="hps-card-price">
-              <small>Starting at</small>
-              {rightProduct.price}
-            </div>
-            {rightProduct.specs.map((s, i) => (
-              <div key={i} className="hps-card-spec">
-                {s}
-              </div>
-            ))}
+            <div className="hps-card-img"><img src={rightProduct.img} alt={rightProduct.name} /></div>
+            <div className="hps-card-name">{rightProduct.name.replace("\n", " ")}</div>
+            <div className="hps-card-price"><small>Starting at</small>{rightProduct.price}</div>
+            {rightProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
           </div>
         </div>
+
         <div className="hps-bottom-strip reveal">
           {HOME_SHOWCASE.map((p, i) => (
-            <div
-              key={p.id}
-              className="hps-strip-item"
-              onClick={() => setActive(i)}
-              style={{
-                borderColor: active === i ? "rgba(255,98,0,0.4)" : undefined,
-                boxShadow:
-                  active === i ? "0 8px 30px rgba(255,98,0,0.12)" : undefined,
-              }}
-            >
-              <div className="hps-strip-thumb">
-                <img src={p.img} alt={p.name} />
-              </div>
+            <div key={p.id} className="hps-strip-item" onClick={() => setActive(i)}
+              style={{ borderColor: active === i ? "rgba(255,98,0,0.4)" : undefined, boxShadow: active === i ? "0 8px 30px rgba(255,98,0,0.12)" : undefined }}>
+              <div className="hps-strip-thumb"><img src={p.img} alt={p.name} /></div>
               <div>
-                <div className="hps-strip-name">
-                  {p.name.replace("\n", " ")}
-                </div>
+                <div className="hps-strip-name">{p.name.replace("\n", " ")}</div>
                 <div className="hps-strip-price">{p.price}</div>
               </div>
             </div>
           ))}
           {[{ name: "Obsidian One", price: "₹1,49,999" }].map((p, i) => (
-            <div
-              key={i}
-              className="hps-strip-item"
-              onClick={() => navigate("products")}
-            >
-              <div
-                className="hps-strip-thumb"
-                style={{ background: "#111827" }}
-              >
-                <span style={{ fontSize: "1.5rem" }}>💧</span>
-              </div>
-              <div>
-                <div className="hps-strip-name">{p.name}</div>
-                <div className="hps-strip-price">{p.price}</div>
-              </div>
+            <div key={i} className="hps-strip-item" onClick={() => navigate("products")}>
+              <div className="hps-strip-thumb" style={{ background:"#111827" }}><span style={{ fontSize:"1.5rem" }}>💧</span></div>
+              <div><div className="hps-strip-name">{p.name}</div><div className="hps-strip-price">{p.price}</div></div>
             </div>
           ))}
-          <div
-            className="hps-strip-item"
-            onClick={() => navigate("products")}
-            style={{
-              background: "var(--blue)",
-              borderColor: "transparent",
-              justifyContent: "center",
-              minWidth: 160,
-            }}
-          >
-            <div
-              style={{
-                color: "#fff",
-                fontWeight: 600,
-                fontSize: "0.9rem",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-              }}
-            >
+          <div className="hps-strip-item" onClick={() => navigate("products")}
+            style={{ background:"var(--blue)", borderColor:"transparent", justifyContent:"center", minWidth:160 }}>
+            <div style={{ color:"#fff", fontWeight:400, fontSize:"0.9rem", display:"flex", alignItems:"center", gap:8 }}>
               View All
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </div>
           </div>
         </div>
@@ -1944,63 +1741,34 @@ function HomeProductShowcase({ navigate }) {
   );
 }
 
-/* ─── SPARE PARTS SECTION (HOME - shows 6 products) ──────── */
+/* ─── SPARE PARTS SECTION ──────── */
 function SparePartsSection({ navigate }) {
   const [modalPart, setModalPart] = useState(null);
   const sectionRef = useRef(null);
 
   return (
     <section className="spare-parts-section" ref={sectionRef}>
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0, 0, 0, 0.92)",
-          zIndex: 1,
-          pointerEvents: "none",
-        }}
-      />
-
+      <div style={{ position:"absolute", inset:0, background:"rgba(0, 0, 0, 0.92)", zIndex:1, pointerEvents:"none" }} />
       <div className="sp-bg-orb sp-orb-1" />
       <div className="sp-bg-orb sp-orb-2" />
 
       <div className="spare-parts-inner">
         <div className="sp-header reveal">
           <div className="sp-eyebrow">
-            <span
-              style={{
-                width: 6,
-                height: 6,
-                background: "var(--blue)",
-                borderRadius: "50%",
-                display: "inline-block",
-                animation: "pulse 2s infinite",
-              }}
-            />
+            <span style={{ width:6, height:6, background:"var(--blue)", borderRadius:"50%", display:"inline-block", animation:"pulse 2s infinite" }} />
             Genuine Spare Parts
           </div>
-          <h2 className="sp-title">
-            Every part. <em>Engineered</em>
-            <br />
-            to last a lifetime.
-          </h2>
+          <h2 className="sp-title">Every part. <em>Engineered</em><br />to last a lifetime.</h2>
           <p className="sp-sub">
-            Original LetsPure components — precision-manufactured and certified.
-            Keep your system performing at peak purity, always.
+            Original LetsPure components — precision-manufactured and certified. Keep your system performing at peak purity, always.
           </p>
         </div>
 
         <div className="sp-bento">
           {SPARE_PARTS.map((part, i) => (
-            <div
-              key={part.id}
-              className={`sp-part-card ${part.size || ""}`}
-              style={{ animationDelay: `${i * 0.04}s` }}
-              onClick={() => setModalPart(part)}
-            >
-              <div className="sp-img-wrap">
-                <img src={part.img} alt={part.name} loading="lazy" />
-              </div>
+            <div key={part.id} className={`sp-part-card ${part.size || ""}`}
+              style={{ animationDelay:`${i * 0.04}s` }} onClick={() => setModalPart(part)}>
+              <div className="sp-img-wrap"><img src={part.img} alt={part.name} loading="lazy" /></div>
               <div className="sp-card-info">
                 <span className="sp-part-name">{part.name}</span>
                 <span className="sp-part-cat">{part.cat}</span>
@@ -2008,16 +1776,7 @@ function SparePartsSection({ navigate }) {
               <div className="sp-hover-overlay">
                 <button className="sp-view-btn">
                   View Details
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
                 </button>
               </div>
             </div>
@@ -2027,34 +1786,14 @@ function SparePartsSection({ navigate }) {
         <div className="sp-bottom-cta reveal">
           <div className="sp-cta-text">
             <h3>Browse our full catalogue</h3>
-            <p>
-              Explore all our RO systems, spare parts and accessories — with
-              advanced filters to find exactly what you need.
-            </p>
+            <p>Explore all our RO systems, spare parts and accessories — with advanced filters to find exactly what you need.</p>
           </div>
           <div className="sp-cta-actions">
-            <button
-              className="sp-btn-primary"
-              onClick={() => navigate("products")}
-            >
+            <button className="sp-btn-primary" onClick={() => navigate("products")}>
               View All Products
-              <svg
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-              >
-                <path d="M5 12h14M12 5l7 7-7 7" />
-              </svg>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </button>
-            <button
-              className="sp-btn-ghost"
-              onClick={() => navigate("contact")}
-            >
-              Talk to a Technician
-            </button>
+            <button className="sp-btn-ghost" onClick={() => navigate("contact")}>Talk to a Technician</button>
           </div>
         </div>
       </div>
@@ -2062,44 +1801,17 @@ function SparePartsSection({ navigate }) {
       {modalPart && (
         <div className="sp-modal-backdrop" onClick={() => setModalPart(null)}>
           <div className="sp-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              className="sp-modal-close"
-              onClick={() => setModalPart(null)}
-            >
-              ✕
-            </button>
-            <div className="sp-modal-img">
-              <img src={modalPart.img} alt={modalPart.name} />
-            </div>
+            <button className="sp-modal-close" onClick={() => setModalPart(null)}>✕</button>
+            <div className="sp-modal-img"><img src={modalPart.img} alt={modalPart.name} /></div>
             <div className="sp-modal-tag">{modalPart.cat}</div>
             <div className="sp-modal-name">{modalPart.name}</div>
             <p className="sp-modal-desc">{modalPart.desc}</p>
             <div className="sp-modal-actions">
-              <button
-                className="sp-btn-primary"
-                onClick={() => {
-                  setModalPart(null);
-                  navigate("contact");
-                }}
-              >
+              <button className="sp-btn-primary" onClick={() => { setModalPart(null); navigate("contact"); }}>
                 Enquire Now
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
-              <button
-                className="sp-btn-ghost"
-                onClick={() => setModalPart(null)}
-              >
-                Close
-              </button>
+              <button className="sp-btn-ghost" onClick={() => setModalPart(null)}>Close</button>
             </div>
           </div>
         </div>
@@ -2108,57 +1820,42 @@ function SparePartsSection({ navigate }) {
   );
 }
 
-/* ─── AMBIENT DROPS ──────────────────────────────────────── */
-
-
 /* ─── RIPPLE ZONE ────────────────────────────────────────── */
 function RippleZone() {
   const canvasRef = useRef(null);
-  const zoneRef = useRef(null);
+  const zoneRef   = useRef(null);
   const ripplesRef = useRef([]);
-  const rafRef = useRef(null);
+  const rafRef    = useRef(null);
+
   useEffect(() => {
     const canvas = canvasRef.current;
-    const zone = zoneRef.current;
+    const zone   = zoneRef.current;
     if (!canvas || !zone) return;
     const ctx = canvas.getContext("2d");
-    const resize = () => {
-      canvas.width = zone.offsetWidth;
-      canvas.height = zone.offsetHeight;
-    };
+    const resize = () => { canvas.width = zone.offsetWidth; canvas.height = zone.offsetHeight; };
     resize();
     window.addEventListener("resize", resize);
     let isRunning = false;
     const anim = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ripplesRef.current = ripplesRef.current.filter((rp) => rp.a > 0.01);
-      if (ripplesRef.current.length === 0) {
-        isRunning = false;
-        return;
-      }
+      if (ripplesRef.current.length === 0) { isRunning = false; return; }
       ripplesRef.current.forEach((rp) => {
-        rp.r += 2.5;
-        rp.a *= 0.96;
-        ctx.beginPath();
-        ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255,255,255,${rp.a})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        rp.r += 2.5; rp.a *= 0.96;
+        ctx.beginPath(); ctx.arc(rp.x, rp.y, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255,255,255,${rp.a})`; ctx.lineWidth = 1.5; ctx.stroke();
       });
       rafRef.current = requestAnimationFrame(anim);
     };
+    /* PERFORMANCE FIX: throttle mousemove to ~30fps */
+    let lastMove = 0;
     const onMove = (e) => {
+      const now = Date.now();
+      if (now - lastMove < 32) return;
+      lastMove = now;
       const r = zone.getBoundingClientRect();
-      ripplesRef.current.push({
-        x: e.clientX - r.left,
-        y: e.clientY - r.top,
-        r: 0,
-        a: 0.6,
-      });
-      if (!isRunning) {
-        isRunning = true;
-        rafRef.current = requestAnimationFrame(anim);
-      }
+      ripplesRef.current.push({ x: e.clientX - r.left, y: e.clientY - r.top, r: 0, a: 0.6 });
+      if (!isRunning) { isRunning = true; rafRef.current = requestAnimationFrame(anim); }
     };
     zone.addEventListener("mousemove", onMove);
     return () => {
@@ -2167,6 +1864,7 @@ function RippleZone() {
       window.removeEventListener("resize", resize);
     };
   }, []);
+
   return (
     <div className="ripple-zone" ref={zoneRef}>
       <canvas ref={canvasRef} className="ripple-canvas" />
@@ -2181,19 +1879,10 @@ function useReveal(deps = []) {
   useEffect(() => {
     const timer = setTimeout(() => {
       const obs = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((e) => {
-            if (e.isIntersecting) {
-              e.target.classList.add("visible");
-              obs.unobserve(e.target);
-            }
-          });
-        },
-        { threshold: 0.12 },
+        (entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("visible"); obs.unobserve(e.target); } }); },
+        { threshold: 0.12 }
       );
-      document
-        .querySelectorAll(".reveal,.reveal-left,.tl-item")
-        .forEach((el) => obs.observe(el));
+      document.querySelectorAll(".reveal,.reveal-left,.tl-item").forEach((el) => obs.observe(el));
       return () => obs.disconnect();
     }, 100);
     return () => clearTimeout(timer);
@@ -2207,37 +1896,21 @@ function TestimonialsSection() {
     <section className="testi-section">
       <div className="testi-inner">
         <div className="section-header reveal">
-          <div
-            className="page-eyebrow"
-            style={{
-              background: "rgba(255,255,255,0.15)",
-              color: "#fff",
-              borderColor: "rgba(255,255,255,0.3)",
-            }}
-          >
+          <div className="page-eyebrow" style={{ background:"rgba(255,255,255,0.15)", color:"#fff", borderColor:"rgba(255,255,255,0.3)" }}>
             Testimonials
           </div>
-          <h2 className="section-h" style={{ color: "#fff" }}>
-            Trusted by those who
-            <br />
-            <em style={{ color: "rgba(180,210,255,1)" }}>demand more.</em>
+          <h2 className="section-h" style={{ color:"#fff" }}>
+            Trusted by those who<br /><em style={{ color:"rgba(180,210,255,1)" }}>demand more.</em>
           </h2>
         </div>
         <div className="testi-grid">
           {TESTIMONIALS.map((t, i) => (
-            <div
-              key={i}
-              className="testi-card reveal"
-              style={{ transitionDelay: `${i * 0.15}s` }}
-            >
+            <div key={i} className="testi-card reveal" style={{ transitionDelay:`${i * 0.15}s` }}>
               <div className="testi-stars">{"★".repeat(t.rating)}</div>
               <p className="testi-quote">"{t.quote}"</p>
               <div className="testi-meta">
                 <div className="testi-avatar">{t.avatar}</div>
-                <div>
-                  <div className="testi-name">{t.name}</div>
-                  <div className="testi-role">{t.role}</div>
-                </div>
+                <div><div className="testi-name">{t.name}</div><div className="testi-role">{t.role}</div></div>
                 <div className="testi-model">{t.model}</div>
               </div>
             </div>
@@ -2253,41 +1926,20 @@ function CTABanner({ navigate }) {
   return (
     <section className="cta-banner">
       <div className="cta-bg-rings">
-        {[1, 2, 3].map((i) => (
-          <div key={i} className={`cta-ring cta-ring-${i}`} />
-        ))}
+        {[1,2,3].map((i) => <div key={i} className={`cta-ring cta-ring-${i}`} />)}
       </div>
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
-        <h2 className="cta-h">
-          Your water will never
-          <br />
-          be the same again.
-        </h2>
+        <h2 className="cta-h">Your water will never<br />be the same again.</h2>
         <p className="cta-sub">
-          Pre-order the X-Series now. Free installation across 18 Indian cities.
-          Free water quality assessment included.
+          Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.
         </p>
         <div className="cta-actions">
           <button className="btn-primary" onClick={() => navigate("products")}>
             View All Models
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
-          <button
-            className="btn-ghost cta-ghost"
-            onClick={() => navigate("contact")}
-          >
-            Book Free Assessment
-          </button>
+          <button className="btn-ghost cta-ghost" onClick={() => navigate("contact")}>Book Free Assessment</button>
         </div>
       </div>
     </section>
@@ -2296,175 +1948,130 @@ function CTABanner({ navigate }) {
 
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer() {
-  const canvasRef = useRef(null);
+  const canvasRef    = useRef(null);
   const containerRef = useRef(null);
-  const stateRef = useRef({
-    drops: [],
-    splashes: [],
-    rings: [],
-    poolLevel: 0,
-    maxPool: 0,
-    nextId: 0,
-  });
-  const rafRef = useRef(null);
+  const stateRef     = useRef({ drops:[], splashes:[], rings:[], poolLevel:0, maxPool:0, nextId:0 });
+  const rafRef       = useRef(null);
   const spawnTimerRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas    = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = canvas.getContext("2d");
-    const S = stateRef.current;
+    const S   = stateRef.current;
     const resize = () => {
-      canvas.width = container.offsetWidth;
+      canvas.width  = container.offsetWidth;
       canvas.height = container.offsetHeight;
       S.maxPool = Math.floor(canvas.height * 0.36);
       if (S.poolLevel > S.maxPool) S.poolLevel = S.maxPool;
     };
     resize();
     window.addEventListener("resize", resize);
+
     const spawnBatch = () => {
       const W = canvas.width;
       const count = 1 + Math.floor(Math.random() * 3);
       for (let i = 0; i < count; i++) {
         S.drops.push({
-          id: S.nextId++,
-          x: 40 + Math.random() * (W - 80),
-          y: -(10 + Math.random() * 60),
-          vy: 1.8 + Math.random() * 2.2,
-          r: 3 + Math.random() * 5,
-          alpha: 0.75 + Math.random() * 0.25,
-          wobble: Math.random() * Math.PI * 2,
-          wobbleAmp: 0.3 + Math.random() * 0.4,
-          wobbleSpeed: 0.025 + Math.random() * 0.03,
-          hit: false,
+          id: S.nextId++, x: 40 + Math.random() * (W - 80), y: -(10 + Math.random() * 60),
+          vy: 1.8 + Math.random() * 2.2, r: 3 + Math.random() * 5,
+          alpha: 0.75 + Math.random() * 0.25, wobble: Math.random() * Math.PI * 2,
+          wobbleAmp: 0.3 + Math.random() * 0.4, wobbleSpeed: 0.025 + Math.random() * 0.03, hit: false,
         });
       }
     };
-    for (let b = 0; b < 6; b++) spawnBatch();
-    spawnTimerRef.current = setInterval(spawnBatch, 600 + Math.random() * 400);
+
+    /* PERFORMANCE FIX: reduced initial batches from 6 → 3 */
+    for (let b = 0; b < 3; b++) spawnBatch();
+    /* PERFORMANCE FIX: slower spawn interval 600ms → 1000ms */
+    spawnTimerRef.current = setInterval(spawnBatch, 1000 + Math.random() * 600);
+
     const getPoolSurface = () => canvas.height - S.poolLevel - 2;
+
     const render = () => {
-      const W = canvas.width;
-      const H = canvas.height;
+      const W = canvas.width, H = canvas.height;
       ctx.clearRect(0, 0, W, H);
-      if (S.poolLevel < S.maxPool)
-        S.poolLevel = Math.min(S.poolLevel + 0.08, S.maxPool);
+      if (S.poolLevel < S.maxPool) S.poolLevel = Math.min(S.poolLevel + 0.08, S.maxPool);
       const poolY = getPoolSurface();
       const poolGrad = ctx.createLinearGradient(0, poolY, 0, H);
-      poolGrad.addColorStop(0, "rgba(0,87,255,0.32)");
-      poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)");
-      poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)");
-      poolGrad.addColorStop(1, "rgba(0,10,60,0.12)");
-      ctx.fillStyle = poolGrad;
-      ctx.fillRect(0, poolY, W, H - poolY);
+      poolGrad.addColorStop(0, "rgba(0,87,255,0.32)"); poolGrad.addColorStop(0.3, "rgba(0,55,200,0.24)");
+      poolGrad.addColorStop(0.7, "rgba(0,30,120,0.18)"); poolGrad.addColorStop(1, "rgba(0,10,60,0.12)");
+      ctx.fillStyle = poolGrad; ctx.fillRect(0, poolY, W, H - poolY);
+
       const shimmerTime = performance.now() * 0.001;
       const shimmerX = ((shimmerTime * 0.3) % 2) * W - W * 0.5;
       const shimmerGrad = ctx.createLinearGradient(shimmerX, poolY, shimmerX + W, poolY);
-      shimmerGrad.addColorStop(0, "rgba(100,190,255,0)");
-      shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
-      shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)");
-      shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)");
+      shimmerGrad.addColorStop(0, "rgba(100,190,255,0)"); shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
+      shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)"); shimmerGrad.addColorStop(0.75, "rgba(160,220,255,0.55)");
       shimmerGrad.addColorStop(1, "rgba(100,190,255,0)");
-      ctx.strokeStyle = shimmerGrad;
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      ctx.moveTo(0, poolY);
-      ctx.lineTo(W, poolY);
-      ctx.stroke();
-      ctx.strokeStyle = `rgba(100,180,255,${0.18 + 0.1 * Math.sin(shimmerTime * 1.7)})`;
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, poolY + 10);
-      ctx.lineTo(W, poolY + 10);
-      ctx.stroke();
+      ctx.strokeStyle = shimmerGrad; ctx.lineWidth = 1.8;
+      ctx.beginPath(); ctx.moveTo(0, poolY); ctx.lineTo(W, poolY); ctx.stroke();
+      ctx.strokeStyle = `rgba(100,180,255,${0.18 + 0.1 * Math.sin(shimmerTime * 1.7)})`; ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(0, poolY + 10); ctx.lineTo(W, poolY + 10); ctx.stroke();
+
       const nextDrops = [];
       for (const d of S.drops) {
         if (d.hit) continue;
-        d.vy += 0.18;
-        d.y += d.vy;
-        d.wobble += d.wobbleSpeed;
-        d.x += Math.sin(d.wobble) * d.wobbleAmp;
+        d.vy += 0.18; d.y += d.vy; d.wobble += d.wobbleSpeed; d.x += Math.sin(d.wobble) * d.wobbleAmp;
         if (d.y + d.r >= poolY) {
           d.hit = true;
-          S.rings.push({ x: d.x, y: poolY, r: d.r * 0.5, maxR: 28 + d.r * 3.5 + Math.random() * 20, a: 0.55 + d.alpha * 0.2, speed: 0.9 + Math.random() * 0.8, scaleY: 0.28 + Math.random() * 0.08 });
-          S.rings.push({ x: d.x, y: poolY, r: 1, maxR: 14 + d.r * 1.5, a: 0.35, speed: 1.4 + Math.random() * 0.6, scaleY: 0.22 });
+          S.rings.push({ x:d.x, y:poolY, r:d.r*0.5, maxR:28+d.r*3.5+Math.random()*20, a:0.55+d.alpha*0.2, speed:0.9+Math.random()*0.8, scaleY:0.28+Math.random()*0.08 });
+          S.rings.push({ x:d.x, y:poolY, r:1, maxR:14+d.r*1.5, a:0.35, speed:1.4+Math.random()*0.6, scaleY:0.22 });
           const splashCount = 4 + Math.floor(d.r * 1.2);
           for (let i = 0; i < splashCount; i++) {
-            const ang = -Math.PI + Math.random() * Math.PI;
-            const spd = 1.5 + Math.random() * 3.5;
-            S.splashes.push({ x: d.x + (Math.random() - 0.5) * d.r, y: poolY, vx: Math.cos(ang) * spd, vy: -(1.8 + Math.random() * 3.8), r: 1 + Math.random() * (d.r * 0.5), life: 1.0, decay: 0.028 + Math.random() * 0.022 });
+            const ang = -Math.PI + Math.random() * Math.PI, spd = 1.5 + Math.random() * 3.5;
+            S.splashes.push({ x:d.x+(Math.random()-0.5)*d.r, y:poolY, vx:Math.cos(ang)*spd, vy:-(1.8+Math.random()*3.8), r:1+Math.random()*(d.r*0.5), life:1.0, decay:0.028+Math.random()*0.022 });
           }
           continue;
         }
         if (d.y < H + 40) nextDrops.push(d);
       }
       S.drops = nextDrops;
+
       for (const d of S.drops) {
         const stretch = 1 + d.vy / 20;
-        ctx.save();
-        ctx.translate(d.x, d.y);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
-        const dg = ctx.createRadialGradient(-d.r * 0.2, -d.r * 0.3, 0, 0, 0, d.r);
-        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`);
-        dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha * 0.9})`);
-        dg.addColorStop(1, `rgba(30,100,220,${d.alpha * 0.7})`);
-        ctx.fillStyle = dg;
-        ctx.fill();
-        ctx.beginPath();
-        ctx.ellipse(-d.r * 0.22, -d.r * 0.32, d.r * 0.22, d.r * 0.14, -0.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.75})`;
-        ctx.fill();
-        ctx.restore();
+        ctx.save(); ctx.translate(d.x, d.y);
+        ctx.beginPath(); ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
+        const dg = ctx.createRadialGradient(-d.r*0.2, -d.r*0.3, 0, 0, 0, d.r);
+        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`); dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha*0.9})`);
+        dg.addColorStop(1, `rgba(30,100,220,${d.alpha*0.7})`); ctx.fillStyle = dg; ctx.fill();
+        ctx.beginPath(); ctx.ellipse(-d.r*0.22, -d.r*0.32, d.r*0.22, d.r*0.14, -0.4, 0, Math.PI*2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha*0.75})`; ctx.fill(); ctx.restore();
       }
+
       const nextSplashes = [];
       for (const sp of S.splashes) {
-        sp.vy += 0.22;
-        sp.x += sp.vx;
-        sp.y += sp.vy;
-        sp.life -= sp.decay;
+        sp.vy += 0.22; sp.x += sp.vx; sp.y += sp.vy; sp.life -= sp.decay;
         if (sp.life <= 0) continue;
-        ctx.beginPath();
-        ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
-        const spg = ctx.createRadialGradient(sp.x - sp.r * 0.2, sp.y - sp.r * 0.2, 0, sp.x, sp.y, sp.r);
-        spg.addColorStop(0, `rgba(220,240,255,${sp.life * 0.85})`);
-        spg.addColorStop(0.6, `rgba(100,180,255,${sp.life * 0.6})`);
-        spg.addColorStop(1, `rgba(50,120,220,0)`);
-        ctx.fillStyle = spg;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
+        const spg = ctx.createRadialGradient(sp.x-sp.r*0.2, sp.y-sp.r*0.2, 0, sp.x, sp.y, sp.r);
+        spg.addColorStop(0, `rgba(220,240,255,${sp.life*0.85})`); spg.addColorStop(0.6, `rgba(100,180,255,${sp.life*0.6})`);
+        spg.addColorStop(1, "rgba(50,120,220,0)"); ctx.fillStyle = spg; ctx.fill();
         if (sp.y > poolY) sp.life -= 0.08;
         nextSplashes.push(sp);
       }
       S.splashes = nextSplashes;
+
       const nextRings = [];
       for (const rp of S.rings) {
-        rp.r += rp.speed;
-        rp.a *= 0.962;
+        rp.r += rp.speed; rp.a *= 0.962;
         if (rp.a < 0.008 || rp.r > rp.maxR) continue;
-        ctx.save();
-        ctx.translate(rp.x, rp.y);
-        ctx.scale(1, rp.scaleY);
-        ctx.beginPath();
-        ctx.arc(0, 0, rp.r, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(140,210,255,${rp.a})`;
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
+        ctx.save(); ctx.translate(rp.x, rp.y); ctx.scale(1, rp.scaleY);
+        ctx.beginPath(); ctx.arc(0, 0, rp.r, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(140,210,255,${rp.a})`; ctx.lineWidth = 1.5; ctx.stroke();
         if (rp.r > 6) {
-          ctx.beginPath();
-          ctx.arc(0, 0, rp.r * 0.65, Math.PI * 1.1, Math.PI * 1.9);
-          ctx.strokeStyle = `rgba(255,255,255,${rp.a * 0.55})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
+          ctx.beginPath(); ctx.arc(0, 0, rp.r*0.65, Math.PI*1.1, Math.PI*1.9);
+          ctx.strokeStyle = `rgba(255,255,255,${rp.a*0.55})`; ctx.lineWidth = 0.8; ctx.stroke();
         }
-        ctx.restore();
-        nextRings.push(rp);
+        ctx.restore(); nextRings.push(rp);
       }
       S.rings = nextRings;
       rafRef.current = requestAnimationFrame(render);
     };
     render();
+
     return () => {
       cancelAnimationFrame(rafRef.current);
       clearInterval(spawnTimerRef.current);
@@ -2480,34 +2087,17 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo-big">
-            <img
-              src="/assets/whiteLogo.png"
-              alt="LetsPure"
-              style={{ height: "100px", width: "200px", objectFit: "contain" }}
-            />
+            <img src="/assets/whiteLogo.png" alt="LetsPure" style={{ height:"100px", width:"200px", objectFit:"contain" }} />
           </div>
-          <p className="footer-tagline">
-            Molecular purity.
-            <br />
-            Engineered for life.
-          </p>
+          <p className="footer-tagline">Molecular purity.<br />Engineered for life.</p>
           <div className="footer-socials">
-            {["𝕏", "in", "f", "▶"].map((s, i) => (
-              <div key={i} className="social-dot">
-                {s}
-              </div>
-            ))}
+            {["𝕏","in","f","▶"].map((s, i) => <div key={i} className="social-dot">{s}</div>)}
           </div>
         </div>
-
         {Object.entries(FOOTER_LINKS).map(([cat, links]) => (
           <div key={cat} className="footer-col">
             <div className="footer-col-head">{cat}</div>
-            {links.map((l) => (
-              <button type="button" key={l} className="footer-link">
-                {l}
-              </button>
-            ))}
+            {links.map((l) => <button type="button" key={l} className="footer-link">{l}</button>)}
           </div>
         ))}
       </div>
@@ -2537,42 +2127,17 @@ function HomePage({ navigate, tds }) {
         <div className="hero-glow2" />
         <div className="hero-inner">
           <div className="hero-text">
-            <div className="hero-badge">
-              <span className="badge-dot" />
-              2026 Collection Now Live
-            </div>
-            <h1 className="hero-h1">
-              Water,
-              <br />
-              <em>Perfected</em>
-              <br />
-              at the Atom.
-            </h1>
+            <div className="hero-badge"><span className="badge-dot" />2026 Collection Now Live</div>
+            <h1 className="hero-h1">Water,<br /><em>Perfected</em><br />at the Atom.</h1>
             <p className="hero-sub">
-              LetsPure multi-stage molecular filtration system removes 99.9% of
-              contaminants while restoring essential minerals — intelligently,
-              beautifully.
+              LetsPure multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.
             </p>
             <div className="hero-actions">
-              <button
-                className="btn-primary"
-                onClick={() => navigate("products")}
-              >
+              <button className="btn-primary" onClick={() => navigate("products")}>
                 Explore Models
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
-              <button className="btn-ghost" onClick={() => navigate("about")}>
-                Our Technology
-              </button>
+              <button className="btn-ghost" onClick={() => navigate("about")}>Our Technology</button>
             </div>
           </div>
           <HeroVisual />
@@ -2582,10 +2147,7 @@ function HomePage({ navigate, tds }) {
       <div className="marquee-strip">
         <div className="marquee-inner">
           {MARQUEE_ITEMS.map((item, i) => (
-            <span key={i}>
-              {item}
-              {i < MARQUEE_ITEMS.length - 1 && <span className="sep"> ◆ </span>}
-            </span>
+            <span key={i}>{item}{i < MARQUEE_ITEMS.length - 1 && <span className="sep"> ◆ </span>}</span>
           ))}
         </div>
       </div>
@@ -2594,21 +2156,12 @@ function HomePage({ navigate, tds }) {
         <div className="features-inner">
           <div className="section-header reveal">
             <div className="page-eyebrow">Why LetsPure</div>
-            <h2 className="section-h">
-              Not just filtered — <em>perfected</em>.
-            </h2>
-            <p className="section-sub">
-              Every drop engineered to exceed WHO purity standards, while
-              restoring what your body truly needs.
-            </p>
+            <h2 className="section-h">Not just filtered — <em>perfected</em>.</h2>
+            <p className="section-sub">Every drop engineered to exceed WHO purity standards, while restoring what your body truly needs.</p>
           </div>
           <div className="features-grid">
             {FEATURES.map((f, i) => (
-              <div
-                key={i}
-                className="pillar-card reveal"
-                style={{ transitionDelay: `${i * 0.1}s` }}
-              >
+              <div key={i} className="pillar-card reveal" style={{ transitionDelay:`${i * 0.1}s` }}>
                 <div className="pillar-icon">{f.icon}</div>
                 <div className="pillar-h small">{f.title}</div>
                 <p className="pillar-p">{f.desc}</p>
@@ -2631,68 +2184,37 @@ function AboutPage() {
   useReveal(["about"]);
 
   const values = [
-    {
-      icon: "🛡️",
-      title: "Bio-Defense RO+",
-      desc: "14 stages of precision molecular ultrafiltration — stripping microplastics, heavy metals, fluoride, chloramines and every known pathogen through membranes thinner than a human hair.",
-    },
-    {
-      icon: "💧",
-      title: "Natural Mineralization",
-      desc: "We don't just strip — we replenish. Bio-ceramic mineral stones return vital magnesium, calcium and potassium so every glass tastes like mountain spring water.",
-    },
-    {
-      icon: "🌿",
-      title: "Eco Carbon Architecture",
-      desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
-    },
+    { icon:"🛡️", title:"Bio-Defense RO+", desc:"14 stages of precision molecular ultrafiltration — stripping microplastics, heavy metals, fluoride, chloramines and every known pathogen through membranes thinner than a human hair." },
+    { icon:"💧", title:"Natural Mineralization", desc:"We don't just strip — we replenish. Bio-ceramic mineral stones return vital magnesium, calcium and potassium so every glass tastes like mountain spring water." },
+    { icon:"🌿", title:"Eco Carbon Architecture", desc:"Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently." },
   ];
 
   const aboutStats = [
-    { num: "1M+", label: "Units Shipped" },
-    { num: "14", label: "Filtration Stages" },
-    { num: "99.9%", label: "Purity Rate" },
-    { num: "1:1", label: "Zero-Waste Ratio" },
+    { num:"1M+", label:"Units Shipped" }, { num:"14", label:"Filtration Stages" },
+    { num:"99.9%", label:"Purity Rate" }, { num:"1:1", label:"Zero-Waste Ratio" },
   ];
 
   const team = [
-    { initials: "AK", name: "Arjun Kumar", role: "CEO & Co-Founder", bio: "Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
-    { initials: "SR", name: "Sneha Rao", role: "Chief Technology Officer", bio: "IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
-    { initials: "VN", name: "Vikram Nair", role: "Head of Design", bio: "Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
+    { initials:"AK", name:"Arjun Kumar",    role:"CEO & Co-Founder",    bio:"Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
+    { initials:"SR", name:"Sneha Rao",       role:"Chief Technology Officer", bio:"IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
+    { initials:"VN", name:"Vikram Nair",     role:"Head of Design",      bio:"Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
   ];
 
   return (
     <div>
-      <div style={{
-        minHeight: "92vh",
-        background: "linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        textAlign: "center",
-        padding: "140px 4vw 80px",
-        position: "relative",
-        overflow: "hidden",
-      }}>
+      <div style={{ minHeight:"92vh", background:"linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"140px 4vw 80px", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", top:"10%", left:"15%", width:"500px", height:"500px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.12) 0%, transparent 70%)", pointerEvents:"none" }} />
         <div style={{ position:"absolute", bottom:"5%", right:"10%", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents:"none" }} />
-
         <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", padding:"0.4rem 1.2rem", borderRadius:"100px", marginBottom:"2rem" }}>
           <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#696969" }} />
           <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
         </div>
-
         <h1 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
-          Redefining What{" "}
-          <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em>{" "}Means.
+          Redefining What <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em> Means.
         </h1>
-
         <p style={{ fontSize:"1.05rem", color:"rgba(255,255,255,0.55)", lineHeight:1.8, maxWidth:"540px", fontWeight:300, marginBottom:"3rem" }}>
-          Founded in 2018 in Bangalore by three ISRO engineers obsessed with one question —
-          what if water could be genuinely, measurably, scientifically perfect?
+          Founded in 2018 in Bangalore by three ISRO engineers obsessed with one question — what if water could be genuinely, measurably, scientifically perfect?
         </p>
-
         <div style={{ display:"flex", gap:"1px", alignItems:"center" }}>
           <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
           <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"rgba(255,255,255,0.3)", margin:"0 10px" }} />
@@ -2715,13 +2237,10 @@ function AboutPage() {
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <div className="page-eyebrow">Our Mission</div>
           <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
-            Water is life's most fundamental input.{" "}
-            <em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
+            Water is life's most fundamental input.{" "}<em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
           </h2>
           <p style={{ fontSize:"1.05rem", color:"#808080", lineHeight:1.9, fontWeight:300, maxWidth:"660px", margin:"0 auto" }}>
-            At LetsPure, we believe true purity isn't a marketing claim — it's an engineering
-            commitment. Every product we build must pass the same standard: would we give this
-            water to our own children? If the answer isn't an emphatic yes, it doesn't ship.
+            At LetsPure, we believe true purity isn't a marketing claim — it's an engineering commitment. Every product we build must pass the same standard: would we give this water to our own children? If the answer isn't an emphatic yes, it doesn't ship.
           </p>
         </div>
       </div>
@@ -2751,22 +2270,20 @@ function AboutPage() {
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
               <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
             </div>
-            <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>
-              Three engineers.<br />One obsession.
-            </h2>
+            <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Three engineers.<br />One obsession.</h2>
             <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>
-              In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization:
-              the water purifiers available in India — even the expensive ones — were failing basic
-              molecular purity benchmarks that aerospace filtration had solved decades ago.
+              In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization: the water purifiers available in India — even the expensive ones — were failing basic molecular purity benchmarks that aerospace filtration had solved decades ago.
             </p>
             <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>
-              They set out to build something different. Not just another purifier,
-              but a filtration system that could stand next to laboratory-grade equipment
-              — and win. That obsession became LetsPure.
+              They set out to build something different. Not just another purifier, but a filtration system that could stand next to laboratory-grade equipment — and win. That obsession became LetsPure.
             </p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
-            {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.", "2020 — Patent granted for 14-stage molecular membrane architecture.", "2022 — First company globally to achieve 1:1 zero-waste filtration at consumer scale.", "2024 — Smart TDS display + companion app. 1 million units shipped.", "2026 — The X-Series. Our most advanced engineering, launched to the world."].map((item, i) => (
+            {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.",
+              "2020 — Patent granted for 14-stage molecular membrane architecture.",
+              "2022 — First company globally to achieve 1:1 zero-waste filtration at consumer scale.",
+              "2024 — Smart TDS display + companion app. 1 million units shipped.",
+              "2026 — The X-Series. Our most advanced engineering, launched to the world."].map((item, i) => (
               <div key={i} className="reveal" style={{ display:"flex", gap:"1.2rem", alignItems:"flex-start", transitionDelay:`${i*0.1}s` }}>
                 <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{String(i+1).padStart(2,"0")}</div>
                 <p style={{ fontSize:"0.88rem", color:"rgba(255,255,255,0.55)", lineHeight:1.65, fontWeight:300, paddingTop:"4px" }}>{item}</p>
@@ -2805,42 +2322,21 @@ function ProductCard({ p, navigate }) {
   return (
     <div className={`prod-card reveal ${p.dark ? "dark-card" : ""}`}>
       <div className={`prod-image-area ${p.bgClass}`}>
-        <div className={`prod-badge ${p.badgeDark ? "dark" : ""}`}>
-          {p.badge}
-        </div>
-        <img
-          src={p.img}
-          alt={p.name}
-          style={{
-            maxHeight: "240px",
-            maxWidth: "80%",
-            objectFit: "contain",
-            filter: "drop-shadow(0 20px 40px rgba(0,0,0,0.25))",
-            transition: "transform 0.4s ease",
-          }}
-        />
+        <div className={`prod-badge ${p.badgeDark ? "dark" : ""}`}>{p.badge}</div>
+        <img src={p.img} alt={p.name} style={{ maxHeight:"240px", maxWidth:"80%", objectFit:"contain", filter:"drop-shadow(0 20px 40px rgba(0,0,0,0.25))", transition:"transform 0.4s ease" }} />
       </div>
       <div className="prod-body">
         <div className="prod-name">{p.name}</div>
         <div className="prod-tagline">{p.tagline}</div>
         <div className="prod-specs">
-          {p.specs.map((s, i) => (
-            <div key={i} className="spec-row">
-              <span className="check">✦</span> {s}
-            </div>
-          ))}
+          {p.specs.map((s, i) => <div key={i} className="spec-row"><span className="check">✦</span> {s}</div>)}
         </div>
         <div className="prod-footer">
           <div className={`prod-price ${p.dark ? "white" : ""}`}>
-            <small style={p.dark ? { color: "rgba(255,255,255,0.5)" } : {}}>
-              Starting at
-            </small>
+            <small style={p.dark ? { color:"rgba(255,255,255,0.5)" } : {}}>Starting at</small>
             {p.price}
           </div>
-          <button
-            className={`btn-order ${p.btnLight ? "light" : ""}`}
-            onClick={() => navigate("contact")}
-          >
+          <button className={`btn-order ${p.btnLight ? "light" : ""}`} onClick={() => navigate("contact")}>
             {p.btnLabel}
           </button>
         </div>
@@ -2851,73 +2347,25 @@ function ProductCard({ p, navigate }) {
 
 function ProductsPage({ navigate }) {
   useReveal(["products"]);
-
   const [activeTab, setActiveTab] = useState("RO Systems");
   const [activeSub, setActiveSub] = useState("All Parts");
 
   const mainTabs = ["RO Systems", "Spare Parts"];
-  const subCats = [
-    "All Parts",
-    "Filters",
-    "Membranes",
-    "UV & Sterilization",
-    "Housings",
-    "Accessories",
-  ];
+  const subCats  = ["All Parts","Filters","Membranes","UV & Sterilization","Housings","Accessories"];
 
-  const filteredParts =
-    activeSub === "All Parts"
-      ? ALL_PRODUCTS.filter((p) => p.type === "Spare Parts")
-      : ALL_PRODUCTS.filter(
-          (p) => p.type === "Spare Parts" && p.subCat === activeSub,
-        );
+  const filteredParts = activeSub === "All Parts"
+    ? ALL_PRODUCTS.filter((p) => p.type === "Spare Parts")
+    : ALL_PRODUCTS.filter((p) => p.type === "Spare Parts" && p.subCat === activeSub);
 
   return (
     <div>
       <div className="products-hero">
         <div className="page-eyebrow">Our Collection</div>
-        <h1 className="page-h1">
-          Masterpieces of
-          <br />
-          Engineering.
-        </h1>
-        <p className="page-sub">
-          Four models. One obsession. Choose the LetsPure that fits your life —
-          all redefine what pure water means.
-        </p>
-
-        <div
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            justifyContent: "center",
-            marginTop: "2rem",
-            background: "#f1f3f8",
-            borderRadius: "100px",
-            padding: "6px",
-            width: "fit-content",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
+        <h1 className="page-h1">Masterpieces of<br />Engineering.</h1>
+        <p className="page-sub">Four models. One obsession. Choose the LetsPure that fits your life — all redefine what pure water means.</p>
+        <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", marginTop:"2rem", background:"#f1f3f8", borderRadius:"100px", padding:"6px", width:"fit-content", marginLeft:"auto", marginRight:"auto" }}>
           {mainTabs.map((tab) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              style={{
-                border: "none",
-                background: activeTab === tab ? "#fff" : "transparent",
-                padding: "0.6rem 1.8rem",
-                borderRadius: "100px",
-                fontFamily: "'etna', sans-serif",
-                fontSize: "0.88rem",
-                fontWeight: 600,
-                color: activeTab === tab ? "#111827" : "#808080",
-                cursor: "pointer",
-                boxShadow: activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none",
-                transition: "all 0.25s ease",
-              }}
-            >
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ border:"none", background:activeTab===tab?"#fff":"transparent", padding:"0.6rem 1.8rem", borderRadius:"100px", fontFamily:"'etna', sans-serif", fontSize:"0.88rem", fontWeight:400, color:activeTab===tab?"#111827":"#808080", cursor:"pointer", boxShadow:activeTab===tab?"0 2px 16px rgba(0,0,0,0.1)":"none", transition:"all 0.25s ease" }}>
               {tab}
             </button>
           ))}
@@ -2927,9 +2375,7 @@ function ProductsPage({ navigate }) {
       {activeTab === "RO Systems" && (
         <>
           <div className="products-grid">
-            {PRODUCTS.map((p) => (
-              <ProductCard key={p.id} p={p} navigate={navigate} />
-            ))}
+            {PRODUCTS.map((p) => <ProductCard key={p.id} p={p} navigate={navigate} />)}
           </div>
           <div className="comparison-section">
             <div className="section-header">
@@ -2948,13 +2394,7 @@ function ProductsPage({ navigate }) {
                   <div className="comp-cell">{row.label}</div>
                   {row.vals.map((v, j) => (
                     <div key={j} className="comp-cell">
-                      {v === true ? (
-                        <span className="comp-check">✓</span>
-                      ) : v === false ? (
-                        <span className="comp-dash">—</span>
-                      ) : (
-                        v
-                      )}
+                      {v === true ? <span className="comp-check">✓</span> : v === false ? <span className="comp-dash">—</span> : v}
                     </div>
                   ))}
                 </div>
@@ -2965,74 +2405,31 @@ function ProductsPage({ navigate }) {
       )}
 
       {activeTab === "Spare Parts" && (
-        <div style={{ padding: "60px 4vw 100px", maxWidth: "1400px", margin: "0 auto" }}>
-          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "3rem" }}>
+        <div style={{ padding:"60px 4vw 100px", maxWidth:"1400px", margin:"0 auto" }}>
+          <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", flexWrap:"wrap", marginBottom:"3rem" }}>
             {subCats.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveSub(cat)}
-                style={{
-                  border: activeSub === cat ? "none" : "1.5px solid #D3D3D3",
-                  background: activeSub === cat ? "#696969" : "#fff",
-                  color: activeSub === cat ? "#fff" : "#111827",
-                  padding: "0.55rem 1.3rem",
-                  borderRadius: "100px",
-                  fontFamily: "'etna', sans-serif",
-                  fontSize: "0.82rem",
-                  fontWeight: 600,
-                  cursor: "pointer",
-                  transition: "all 0.25s ease",
-                  boxShadow: activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
-                }}
-              >
+              <button key={cat} onClick={() => setActiveSub(cat)} style={{ border:activeSub===cat?"none":"1.5px solid #D3D3D3", background:activeSub===cat?"#696969":"#fff", color:activeSub===cat?"#fff":"#111827", padding:"0.55rem 1.3rem", borderRadius:"100px", fontFamily:"'etna', sans-serif", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", transition:"all 0.25s ease", boxShadow:activeSub===cat?"0 4px 20px rgba(0,0,0,0.15)":"none" }}>
                 {cat}
               </button>
             ))}
           </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(220px, 1fr))", gap:"1.5rem" }}>
             {filteredParts.map((part) => (
-              <div
-                key={part.id}
-                style={{
-                  background: "#fff",
-                  border: "1px solid #D3D3D3",
-                  borderRadius: "20px",
-                  overflow: "hidden",
-                  cursor: "pointer",
-                  transition: "transform 0.25s ease, box-shadow 0.25s ease",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.1)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateY(0)";
-                  e.currentTarget.style.boxShadow = "none";
-                }}
+              <div key={part.id}
+                style={{ background:"#fff", border:"1px solid #D3D3D3", borderRadius:"20px", overflow:"hidden", cursor:"pointer", transition:"transform 0.25s ease, box-shadow 0.25s ease" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform="translateY(-6px)"; e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,0.1)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.boxShadow="none"; }}
                 onClick={() => navigate("contact")}
               >
-                <div style={{ height: "180px", background: "#f7f8fc", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
-                  <img
-                    src={part.img}
-                    alt={part.name}
-                    style={{ maxHeight: "140px", maxWidth: "100%", objectFit: "contain", filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }}
-                  />
+                <div style={{ height:"180px", background:"#f7f8fc", display:"flex", alignItems:"center", justifyContent:"center", padding:"1.5rem" }}>
+                  <img src={part.img} alt={part.name} style={{ maxHeight:"140px", maxWidth:"100%", objectFit:"contain", filter:"drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }} />
                 </div>
-                <div style={{ padding: "1.2rem" }}>
-                  <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#696969", background: "rgba(105,105,105,0.08)", border: "1px solid rgba(105,105,105,0.2)", padding: "0.2rem 0.6rem", borderRadius: "100px", display: "inline-block", marginBottom: "0.6rem" }}>
-                    {part.subCat || "RO System"}
-                  </div>
-                  <div style={{ fontFamily: "'etna', sans-serif", fontSize: "1rem", fontWeight: 600, color: "#040810", marginBottom: "0.4rem" }}>
-                    {part.name}
-                  </div>
-                  <div style={{ fontSize: "0.82rem", color: "#808080", lineHeight: 1.5 }}>
-                    {part.desc}
-                  </div>
-                  <button
-                    style={{ marginTop: "1rem", width: "100%", background: "#696969", color: "#fff", border: "none", padding: "0.65rem", borderRadius: "100px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", fontFamily: "'etna', sans-serif" }}
-                    onClick={(e) => { e.stopPropagation(); navigate("contact"); }}
-                  >
+                <div style={{ padding:"1.2rem" }}>
+                  <div style={{ fontSize:"0.68rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"#696969", background:"rgba(105,105,105,0.08)", border:"1px solid rgba(105,105,105,0.2)", padding:"0.2rem 0.6rem", borderRadius:"100px", display:"inline-block", marginBottom:"0.6rem" }}>{part.subCat || "RO System"}</div>
+                  <div style={{ fontFamily:"'etna', sans-serif", fontSize:"1rem", fontWeight:400, color:"#040810", marginBottom:"0.4rem" }}>{part.name}</div>
+                  <div style={{ fontSize:"0.82rem", color:"#808080", lineHeight:1.5 }}>{part.desc}</div>
+                  <button style={{ marginTop:"1rem", width:"100%", background:"#696969", color:"#fff", border:"none", padding:"0.65rem", borderRadius:"100px", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", fontFamily:"'etna', sans-serif" }}
+                    onClick={(e) => { e.stopPropagation(); navigate("contact"); }}>
                     Enquire Now
                   </button>
                 </div>
@@ -3041,7 +2438,6 @@ function ProductsPage({ navigate }) {
           </div>
         </div>
       )}
-
       <Footer />
     </div>
   );
@@ -3054,32 +2450,19 @@ function ContactPage() {
     <div>
       <div className="contact-wrap">
         <div className="contact-left reveal-left">
-          <div className="page-eyebrow" style={{ marginBottom: "1.5rem" }}>
-            Get In Touch
-          </div>
-          <h1>
-            Bring Purity
-            <br />
-            Home Today.
-          </h1>
-          <p>
-            Whether you need a bespoke installation, a water quality test, or
-            simply want to find your ideal model — our Hydration Consultants are
-            ready.
-          </p>
+          <div className="page-eyebrow" style={{ marginBottom:"1.5rem" }}>Get In Touch</div>
+          <h1>Bring Purity<br />Home Today.</h1>
+          <p>Whether you need a bespoke installation, a water quality test, or simply want to find your ideal model — our Hydration Consultants are ready.</p>
           <div className="contact-info">
             {[
-              { icon: "📞", label: "Expert Helpline", val: "+91 800-LetsPure" },
-              { icon: "✉️", label: "Email Support", val: "consult@LetsPure.in" },
-              { icon: "📍", label: "Headquarters", val: "Whitefield, Bengaluru 560066" },
-              { icon: "🕐", label: "Hours", val: "Mon – Sat, 9 AM – 7 PM IST" },
+              { icon:"📞", label:"Expert Helpline",  val:"+91 800-LetsPure" },
+              { icon:"✉️", label:"Email Support",    val:"consult@LetsPure.in" },
+              { icon:"📍", label:"Headquarters",     val:"Whitefield, Bengaluru 560066" },
+              { icon:"🕐", label:"Hours",            val:"Mon – Sat, 9 AM – 7 PM IST" },
             ].map((c, i) => (
               <div key={i} className="contact-info-row">
                 <div className="contact-info-icon">{c.icon}</div>
-                <div className="contact-info-text">
-                  <span>{c.label}</span>
-                  <strong>{c.val}</strong>
-                </div>
+                <div className="contact-info-text"><span>{c.label}</span><strong>{c.val}</strong></div>
               </div>
             ))}
           </div>
@@ -3087,7 +2470,7 @@ function ContactPage() {
         <div className="form-card reveal">
           {submitted ? (
             <div className="form-success">
-              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>💧</div>
+              <div style={{ fontSize:"3rem", marginBottom:"1rem" }}>💧</div>
               <h3>Request Received!</h3>
               <p>A Hydration Consultant will reach out within 24 hours.</p>
             </div>
@@ -3096,23 +2479,11 @@ function ContactPage() {
               <h3>Request a Consultation</h3>
               <p className="form-sub">Free water quality assessment included.</p>
               <div className="form-2col">
-                <div className="form-row">
-                  <label>First Name</label>
-                  <input type="text" placeholder="Rahul" />
-                </div>
-                <div className="form-row">
-                  <label>Last Name</label>
-                  <input type="text" placeholder="Sharma" />
-                </div>
+                <div className="form-row"><label>First Name</label><input type="text" placeholder="Rahul" /></div>
+                <div className="form-row"><label>Last Name</label><input type="text" placeholder="Sharma" /></div>
               </div>
-              <div className="form-row">
-                <label>Email Address</label>
-                <input type="email" placeholder="rahul@email.com" />
-              </div>
-              <div className="form-row">
-                <label>Phone Number</label>
-                <input type="tel" placeholder="+91 98765 43210" />
-              </div>
+              <div className="form-row"><label>Email Address</label><input type="email" placeholder="rahul@email.com" /></div>
+              <div className="form-row"><label>Phone Number</label><input type="tel" placeholder="+91 98765 43210" /></div>
               <div className="form-row">
                 <label>Model of Interest</label>
                 <select>
@@ -3124,39 +2495,25 @@ function ContactPage() {
                   <option>Not sure yet</option>
                 </select>
               </div>
-              <div className="form-row">
-                <label>Requirements / Message</label>
-                <textarea
-                  rows="3"
-                  placeholder="Tell us about your home, family size, or any water quality concerns..."
-                />
-              </div>
+              <div className="form-row"><label>Requirements / Message</label><textarea rows="3" placeholder="Tell us about your home, family size, or any water quality concerns..." /></div>
               <button className="submit-btn" onClick={() => setSubmitted(true)}>
                 Request Consultation
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
               </button>
             </div>
           )}
         </div>
       </div>
       <div className="map-section">
-        <div className="section-header" style={{ marginBottom: "2rem" }}>
+        <div className="section-header" style={{ marginBottom:"2rem" }}>
           <div className="page-eyebrow">Find Us</div>
-          <h2 className="section-h" style={{ fontSize: "2rem" }}>Visit our Experience Centre</h2>
+          <h2 className="section-h" style={{ fontSize:"2rem" }}>Visit our Experience Centre</h2>
         </div>
         <div className="map-inner">
-          <div style={{ textAlign: "center" }}>
+          <div style={{ textAlign:"center" }}>
             <div className="map-pin">📍</div>
-            <p style={{ marginTop: ".5rem", color: "var(--muted)", fontSize: ".9rem" }}>
-              LetsPure Experience Centre, Whitefield, Bengaluru
-            </p>
-            <button
-              className="btn-primary"
-              style={{ marginTop: "1.2rem", fontSize: ".82rem", padding: ".7rem 1.5rem" }}
-              onClick={() => window.open("https://maps.google.com", "_blank")}
-            >
+            <p style={{ marginTop:".5rem", color:"var(--muted)", fontSize:".9rem" }}>LetsPure Experience Centre, Whitefield, Bengaluru</p>
+            <button className="btn-primary" style={{ marginTop:"1.2rem", fontSize:".82rem", padding:".7rem 1.5rem" }} onClick={() => window.open("https://maps.google.com","_blank")}>
               Open in Maps
             </button>
           </div>
@@ -3169,7 +2526,6 @@ function ContactPage() {
 
 function Preloader({ onDone }) {
   const [step, setStep] = useState(0);
-
   useEffect(() => {
     const t1 = setTimeout(() => setStep(1), 100);
     const t2 = setTimeout(() => setStep(2), 400);
@@ -3179,32 +2535,25 @@ function Preloader({ onDone }) {
   }, []);
 
   return (
-    <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999, backgroundColor: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "28px", overflow: "hidden" }}>
+    <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, zIndex:99999, backgroundColor:"#000", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"28px", overflow:"hidden" }}>
       {[...Array(20)].map((_, i) => (
-        <div key={i} style={{ position: "absolute", left: `${(i * 5) % 95}%`, bottom: `${(i * 7) % 40}%`, width: "2px", height: "2px", borderRadius: "50%", background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`, transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`, transform: step >= 1 ? `translateY(-${60 + (i % 4) * 30}px)` : "translateY(0)", opacity: step >= 1 ? 0 : 0.6 }} />
+        <div key={i} style={{ position:"absolute", left:`${(i*5)%95}%`, bottom:`${(i*7)%40}%`, width:"2px", height:"2px", borderRadius:"50%", background:`rgba(255,255,255,${0.1+(i%5)*0.1})`, transition:`transform ${1.5+(i%3)}s ease, opacity ${1.5+(i%3)}s ease`, transform:step>=1?`translateY(-${60+(i%4)*30}px)`:"translateY(0)", opacity:step>=1?0:0.6 }} />
       ))}
-
-      <div style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", width: step >= 2 ? "500px" : "100px", height: step >= 2 ? "500px" : "100px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)", transition: "width 1.5s ease, height 1.5s ease", pointerEvents: "none" }} />
-
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(-10px)", transition: "all 0.6s ease" }}>
-        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
-        <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "rgba(255,255,255,0.4)" }} />
-        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+      <div style={{ position:"absolute", top:"40%", left:"50%", transform:"translate(-50%, -50%)", width:step>=2?"500px":"100px", height:step>=2?"500px":"100px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)", transition:"width 1.5s ease, height 1.5s ease", pointerEvents:"none" }} />
+      <div style={{ display:"flex", alignItems:"center", gap:"12px", opacity:step>=1?1:0, transform:step>=1?"translateY(0)":"translateY(-10px)", transition:"all 0.6s ease" }}>
+        <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
+        <div style={{ width:"4px", height:"4px", borderRadius:"50%", background:"rgba(255,255,255,0.4)" }} />
+        <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
       </div>
-
-      <div style={{ opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s" }}>
-        <img src="/assets/black logo.png" alt="LetsPure" style={{ maxHeight: "220px", maxWidth: "500px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
+      <div style={{ opacity:step>=1?1:0, transform:step>=1?"translateY(0)":"translateY(30px)", transition:"all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s" }}>
+        <img src="/assets/black logo.png" alt="LetsPure" style={{ maxHeight:"220px", maxWidth:"500px", objectFit:"contain", filter:"brightness(0) invert(1)" }} />
       </div>
-
-      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 3 ? 1 : 0, transition: "all 0.6s ease" }}>
-        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
-        <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "'etna', sans-serif", whiteSpace: "nowrap" }}>
-          Molecular Purity · Engineered for Life
-        </div>
-        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+      <div style={{ display:"flex", alignItems:"center", gap:"12px", opacity:step>=3?1:0, transition:"all 0.6s ease" }}>
+        <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
+        <div style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.25em", textTransform:"uppercase", fontFamily:"'etna', sans-serif", whiteSpace:"nowrap" }}>Molecular Purity · Engineered for Life</div>
+        <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
       </div>
-
-      <div style={{ opacity: step >= 3 ? 1 : 0, transition: "opacity 0.6s ease" }}>
+      <div style={{ opacity:step>=3?1:0, transition:"opacity 0.6s ease" }}>
         <PercentCounter onDone={onDone} />
       </div>
     </div>
@@ -3213,31 +2562,24 @@ function Preloader({ onDone }) {
 
 function PercentCounter({ onDone }) {
   const [pct, setPct] = useState(0);
-
   useEffect(() => {
     let w = 0;
     const iv = setInterval(() => {
-      w += 1;
-      setPct(Math.min(w, 100));
-      if (w >= 100) {
-        clearInterval(iv);
-        setTimeout(onDone, 600);
-      }
+      w += 1; setPct(Math.min(w, 100));
+      if (w >= 100) { clearInterval(iv); setTimeout(onDone, 600); }
     }, 22);
     return () => clearInterval(iv);
   }, [onDone]);
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <div style={{ fontFamily: "'etna', sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.1em", marginBottom: "10px" }}>
-        {String(pct).padStart(3, "0")}
-      </div>
-      <div style={{ width: "260px", height: "1px", background: "rgba(255,255,255,0.1)", position: "relative" }}>
-        <div style={{ height: "1px", width: `${pct}%`, background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position: "relative", transition: "width 0.022s linear" }}>
-          <div style={{ position: "absolute", right: "-1px", top: "50%", transform: "translateY(-50%)", width: "4px", height: "4px", borderRadius: "50%", background: "#fff", boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)" }} />
+    <div style={{ textAlign:"center" }}>
+      <div style={{ fontFamily:"'etna', sans-serif", fontSize:"0.78rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.1em", marginBottom:"10px" }}>{String(pct).padStart(3,"0")}</div>
+      <div style={{ width:"260px", height:"1px", background:"rgba(255,255,255,0.1)", position:"relative" }}>
+        <div style={{ height:"1px", width:`${pct}%`, background:"linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position:"relative", transition:"width 0.022s linear" }}>
+          <div style={{ position:"absolute", right:"-1px", top:"50%", transform:"translateY(-50%)", width:"4px", height:"4px", borderRadius:"50%", background:"#fff", boxShadow:"0 0 8px 3px rgba(255,255,255,0.6)" }} />
         </div>
       </div>
-      <div style={{ marginTop: "10px", fontSize: "0.62rem", color: "rgba(255,255,255,0.25)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "'etna', sans-serif" }}>
+      <div style={{ marginTop:"10px", fontSize:"0.62rem", color:"rgba(255,255,255,0.25)", letterSpacing:"0.15em", textTransform:"uppercase", fontFamily:"'etna', sans-serif" }}>
         {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
       </div>
     </div>
@@ -3246,10 +2588,10 @@ function PercentCounter({ onDone }) {
 
 /* ─── APP ────────────────────────────────────────────────── */
 export default function LetsPure() {
-  const [page, setPage] = useState("home");
-  const [scrolled, setScrolled] = useState(false);
+  const [page, setPage]             = useState("home");
+  const [scrolled, setScrolled]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [tds, setTds] = useState(280);
+  const [tds, setTds]               = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
 
   useEffect(() => {
@@ -3257,10 +2599,7 @@ export default function LetsPure() {
     el.textContent = STYLES;
     document.head.appendChild(el);
     const fallback = setTimeout(() => setPreloaderDone(true), 2800);
-    return () => {
-      document.head.removeChild(el);
-      clearTimeout(fallback);
-    };
+    return () => { document.head.removeChild(el); clearTimeout(fallback); };
   }, []);
 
   useEffect(() => {
@@ -3281,27 +2620,24 @@ export default function LetsPure() {
   }, []);
 
   const navigate = useCallback((p) => {
-    setPage(p);
-    setMobileOpen(false);
+    setPage(p); setMobileOpen(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const pages = {
-    home: <HomePage navigate={navigate} tds={tds} />,
-    about: <AboutPage />,
+    home:     <HomePage navigate={navigate} tds={tds} />,
+    about:    <AboutPage />,
     products: <ProductsPage navigate={navigate} />,
-    contact: <ContactPage />,
+    contact:  <ContactPage />,
   };
 
-  if (!preloaderDone) {
-    return <Preloader onDone={() => setPreloaderDone(true)} />;
-  }
+  if (!preloaderDone) return <Preloader onDone={() => setPreloaderDone(true)} />;
 
   return (
     <>
       <nav className={scrolled ? "scrolled" : ""}>
         <button type="button" className="nav-logo" onClick={() => navigate("home")}>
-          <img src="/assets/black logo.png" alt="LetsPure" style={{ height: "100px", width: "200px", objectFit: "contain" }} />
+          <img src="/assets/black logo.png" alt="LetsPure" style={{ height:"100px", width:"200px", objectFit:"contain" }} />
         </button>
         <div className="nav-links">
           {NAV_LINKS.map((p) => (
@@ -3309,30 +2645,22 @@ export default function LetsPure() {
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
           ))}
-          <button className="nav-cta" onClick={() => window.open("https://wa.me/919599026401", "_blank")}>
-            Get a Quote
-          </button>
+          <button className="nav-cta" onClick={() => window.open("https://wa.me/919599026401","_blank")}>Get a Quote</button>
         </div>
         <button className="hamburger" onClick={() => setMobileOpen((v) => !v)}>
-          <span />
-          <span />
-          <span />
+          <span /><span /><span />
         </button>
       </nav>
 
       {mobileOpen && (
         <div className="mobile-menu open">
           {NAV_LINKS.map((p) => (
-            <button type="button" key={p} onClick={() => navigate(p)}>
-              {p.charAt(0).toUpperCase() + p.slice(1)}
-            </button>
+            <button type="button" key={p} onClick={() => navigate(p)}>{p.charAt(0).toUpperCase() + p.slice(1)}</button>
           ))}
         </div>
       )}
 
-      <main className="page-wrap" key={page}>
-        {pages[page]}
-      </main>
+      <main className="page-wrap" key={page}>{pages[page]}</main>
     </>
   );
 }
