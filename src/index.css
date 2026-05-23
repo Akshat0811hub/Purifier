@@ -1,13 +1,23 @@
-body {
+/* ─── GLOBAL FONT ENFORCEMENT ─────────────────── */
+/* Force etna Sans Serif on ALL elements across ALL devices */
+*,
+*::before,
+*::after {
+  font-family: "etna", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+}
+
+html, body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  font-family: "etna", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Override any browser UA stylesheet fonts */
+input, button, textarea, select, a, span, p, h1, h2, h3, h4, h5, h6, li, td, th, label, code, pre {
+  font-family: "etna", sans-serif !important;
 }

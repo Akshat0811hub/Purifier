@@ -2,15 +2,21 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 /* ─── GLOBAL STYLES ──────────────────────────────────────── */
 const STYLES = `
-@font-face {
-  font-family: 'Etna';
-  src: url('https://fonts.cdnfonts.com/s/15009/Etna-SansSerif.woff') format('woff');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-};
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'etna', sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+}
+html, body {
+  font-family: 'etna', sans-serif !important;
+}
+button, input, select, textarea, a, span, p,
+h1, h2, h3, h4, h5, h6, li, td, th, label {
+  font-family: 'etna', sans-serif !important;
+}
 :root {
   --white:      #ffffff;
   --off-white:  #f7f8fc;
@@ -25,19 +31,19 @@ const STYLES = `
   --blue-mid:   #696969;
   --ink:        #1e2840;
   --text-color: #696969;    
-  --font-display: 'Etna', 'Cormorant Garamond', serif;
---font-body:    'Etna', 'DM Sans', sans-serif;
+ --font-display: "etna", sans-serif;
+--font-body:    "etna", sans-serif;
 }
 
 html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
-  font-family: 'Etna', 'DM Sans', sans-serif !important;
+  font-family: 'etna', sans-serif !important;
   background: var(--white);
   color: var(--dark);
   overflow-x: hidden;
 }
 
-button { font: inherit; }
+
 
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
@@ -1344,7 +1350,7 @@ nav.scrolled {
 }
 .preloader-letters {
   display: flex; align-items: flex-end; gap: 0.15em;
-  font-family: 'Cormorant Garamond', serif;
+  font-family: 'etna', sans-serif;
   font-size: clamp(3rem, 10vw, 7rem);
   font-weight: 700; letter-spacing: -2px;
   perspective: 600px;
@@ -1372,7 +1378,7 @@ nav.scrolled {
   animation: preloaderBarFill 2.2s cubic-bezier(.4,0,.2,1) forwards;
 }
 .preloader-tagline {
-  font-family: 'DM Sans', sans-serif;
+  font-family: 'etna', sans-serif;
   font-size: 0.75rem; font-weight: 600;
   letter-spacing: 0.25em; text-transform: uppercase;
   color: rgba(255,255,255,0.35);
@@ -1405,55 +1411,6 @@ const FEATURES = [
     desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule.",
   },
 ];
-// const PILLARS = [
-//   {
-//     icon: "🛡️",
-//     title: "Bio-Defense RO+",
-//     desc: "14 stages of precision molecular ultrafiltration — stripping away microplastics, heavy metals, fluoride, chloramines and every known pathogen. Your water passes through membranes thinner than a human hair.",
-//   },
-//   {
-//     icon: "💧",
-//     title: "Natural Mineralization",
-//     desc: "We don't just strip — we replenish. Our bio-ceramic mineral stones return vital magnesium, calcium, potassium, and essential alkaline elements so every glass tastes like mountain spring water.",
-//   },
-//   {
-//     icon: "🌿",
-//     title: "Eco Carbon Architecture",
-//     desc: "Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently.",
-//   },
-// ];
-// const TIMELINE = [
-//   {
-//     year: "2018",
-//     dot: "18",
-//     title: "Founded in Bangalore",
-//     desc: "Three engineers leave ISRO to build India's first molecular-grade consumer RO system.",
-//   },
-//   {
-//     year: "2020",
-//     dot: "20",
-//     title: "14-Stage Breakthrough",
-//     desc: "Patent granted for sequential molecular membrane architecture. Industry takes notice.",
-//   },
-//   {
-//     year: "2022",
-//     dot: "22",
-//     title: "1:1 Waste Ratio Achieved",
-//     desc: "First company in the world to hit true zero-waste filtration at consumer scale.",
-//   },
-//   {
-//     year: "2024",
-//     dot: "24",
-//     title: "Smart Display Launch",
-//     desc: "Integrated TDS + pH real-time display and companion app. Over 1M units shipped.",
-//   },
-//   {
-//     year: "2026",
-//     dot: "26",
-//     title: "The X-Series",
-//     desc: "Our most advanced purification engineering ever. Launching to the world now.",
-//   },
-// ];
 const PRODUCTS = [
   {
     id: "elite",
@@ -1557,10 +1514,6 @@ const MARQUEE_ITEMS = [
   "Zero Waste Architecture",
   "UV-C Sterilization",
 ];
-// const COUNTER_STATS = [
-//   { end: 1200000, suffix: "+", label: "Units Shipped", prefix: "" },
-
-// ];
 const TESTIMONIALS = [
   {
     name: "Priya Raghavan",
@@ -1652,8 +1605,7 @@ const HOME_SHOWCASE = [
   },
 ];
 
-/* ─── SPARE PARTS DATA (HOME - 6 items with 1.png–6.png) ───── */
-// eslint-disable-next-line no-unused-vars
+/* ─── SPARE PARTS DATA ───── */
 const SPARE_PARTS_CATEGORIES = [
   "All",
   "Filters",
@@ -1662,12 +1614,6 @@ const SPARE_PARTS_CATEGORIES = [
   "Housings",
   "Accessories",
 ];
-
-// ─── ONLY THE CHANGED SECTIONS ARE LISTED BELOW ───────────────────────────
-// Apply these diffs to your full App.jsx
-
-// 1. In SPARE_PARTS data array — remove the "size" field from all entries
-//    so no card gets sz-big / sz-tall / sz-wide classes:
 
 const SPARE_PARTS = [
   { id: 1, img: "/assets/1.png", name: "Pre-Sediment Filter", cat: "Filters",
@@ -1680,11 +1626,7 @@ const SPARE_PARTS = [
     desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
-// NOTE: No other JSX logic changes needed — the CSS does the rest.
-/* ─── ALL PRODUCTS DATA (OUR PRODUCTS PAGE - 7.png–30.png) ───── */
-// eslint-disable-next-line no-unused-vars
 const ALL_PRODUCTS_CATEGORIES = ["All", "RO Systems", "Spare Parts"];
-// eslint-disable-next-line no-unused-vars
 const SPARE_PARTS_SUB_CATEGORIES = [
   "All Parts",
   "Filters",
@@ -1694,202 +1636,31 @@ const SPARE_PARTS_SUB_CATEGORIES = [
   "Accessories",
 ];
 
-// eslint-disable-next-line no-unused-vars
 const ALL_PRODUCTS = [
-  /* RO Systems (7–21) */
-  {
-    id: 7,
-    img: "/assets/7.png",
-    name: "LetsPure Elite X-1",
-    type: "RO Systems",
-    subCat: "",
-    desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier.",
-  },
-  {
-    id: 8,
-    img: "/assets/8.png",
-    name: "LetsPure Element Pro",
-    type: "RO Systems",
-    subCat: "",
-    desc: "12-Stage compact filtration for modern kitchens.",
-  },
-  {
-    id: 9,
-    img: "/assets/9.png",
-    name: "HydroCore S Azure",
-    type: "RO Systems",
-    subCat: "",
-    desc: "10-Stage Under-Sink module with dedicated pure tap.",
-  },
-  {
-    id: 10,
-    img: "/assets/10.png",
-    name: "Obsidian One Luxury",
-    type: "RO Systems",
-    subCat: "",
-    desc: "16-Stage luxury filtration with platinum-grade membrane.",
-  },
-  {
-    id: 11,
-    img: "/assets/11.png",
-    name: "LetsPure Lite 7-Stage",
-    type: "RO Systems",
-    subCat: "",
-    desc: "Compact 7-stage RO for budget-friendly pure water.",
-  },
-  {
-    id: 12,
-    img: "/assets/12.png",
-    name: "LetsPure Mini Countertop",
-    type: "RO Systems",
-    subCat: "",
-    desc: "Portable countertop RO — no installation needed.",
-  },
-  /* Spare Parts (13–30) */
-  {
-    id: 13,
-    img: "/assets/13.png",
-    name: "Pre-Sediment Filter 5µm",
-    type: "Spare Parts",
-    subCat: "Filters",
-    desc: "5-micron spun polypropylene sediment filter.",
-  },
-  {
-    id: 14,
-    img: "/assets/14.png",
-    name: "RO Membrane 75 GPD",
-    type: "Spare Parts",
-    subCat: "Membranes",
-    desc: "High-rejection thin-film composite membrane.",
-  },
-  {
-    id: 15,
-    img: "/assets/15.png",
-    name: "Activated Carbon Block",
-    type: "Spare Parts",
-    subCat: "Filters",
-    desc: "NSF-certified carbon block for chlorine & VOC removal.",
-  },
-  {
-    id: 16,
-    img: "/assets/16.png",
-    name: "UV-C Lamp 11W",
-    type: "Spare Parts",
-    subCat: "UV & Sterilization",
-    desc: "254nm germicidal UV lamp for sterilization.",
-  },
-  {
-    id: 17,
-    img: "/assets/17.png",
-    name: "Post Carbon Filter",
-    type: "Spare Parts",
-    subCat: "Filters",
-    desc: "Inline post-carbon polishing filter for taste & clarity.",
-  },
-  {
-    id: 18,
-    img: "/assets/18.png",
-    name: "Mineral Cartridge",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "Bio-ceramic mineral infusion cartridge.",
-  },
-  {
-    id: 19,
-    img: "/assets/19.png",
-    name: "Filter Housing Kit",
-    type: "Spare Parts",
-    subCat: "Housings",
-    desc: "Heavy-duty 10-inch filter housing with bracket.",
-  },
-  {
-    id: 20,
-    img: "/assets/20.png",
-    name: "Membrane Housing",
-    type: "Spare Parts",
-    subCat: "Housings",
-    desc: "Pressure-rated RO membrane vessel.",
-  },
-  {
-    id: 21,
-    img: "/assets/21.png",
-    name: "Flow Restrictor 400cc",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "Calibrated capillary flow restrictor.",
-  },
-  {
-    id: 22,
-    img: "/assets/22.png",
-    name: "Feed Water Solenoid",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "24V DC normally-closed solenoid valve.",
-  },
-  {
-    id: 23,
-    img: "/assets/23.png",
-    name: "Storage Tank 12L",
-    type: "Spare Parts",
-    subCat: "Housings",
-    desc: "Bladder-type pressurised storage tank.",
-  },
-  {
-    id: 24,
-    img: "/assets/24.png",
-    name: "Booster Pump 50GPD",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "High-efficiency DC booster pump.",
-  },
-  {
-    id: 25,
-    img: "/assets/25.png",
-    name: "TDS Inline Meter",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "Dual-display inline TDS monitor.",
-  },
-  {
-    id: 26,
-    img: "/assets/26.png",
-    name: "Alkaline Filter pH+",
-    type: "Spare Parts",
-    subCat: "Filters",
-    desc: "Raises pH to 8.0–9.5 with mineral balls.",
-  },
-  {
-    id: 27,
-    img: "/assets/27.png",
-    name: "UF Hollow Fiber 0.01µm",
-    type: "Spare Parts",
-    subCat: "Membranes",
-    desc: "Ultra-fine hollow-fiber ultrafiltration membrane.",
-  },
-  {
-    id: 28,
-    img: "/assets/28.png",
-    name: "UV Quartz Sleeve",
-    type: "Spare Parts",
-    subCat: "UV & Sterilization",
-    desc: "Borosilicate quartz sleeve for UV-C chamber.",
-  },
-  {
-    id: 29,
-    img: "/assets/29.png",
-    name: "Quick-Connect Fittings",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.',
-  },
-  {
-    id: 30,
-    img: "/assets/30.png",
-    name: "SMPS Power Adapter",
-    type: "Spare Parts",
-    subCat: "Accessories",
-    desc: "24V/3A switching power supply for pump systems.",
-  },
+  { id: 7, img: "/assets/7.png", name: "LetsPure Elite X-1", type: "RO Systems", subCat: "", desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
+  { id: 8, img: "/assets/8.png", name: "LetsPure Element Pro", type: "RO Systems", subCat: "", desc: "12-Stage compact filtration for modern kitchens." },
+  { id: 9, img: "/assets/9.png", name: "HydroCore S Azure", type: "RO Systems", subCat: "", desc: "10-Stage Under-Sink module with dedicated pure tap." },
+  { id: 10, img: "/assets/10.png", name: "Obsidian One Luxury", type: "RO Systems", subCat: "", desc: "16-Stage luxury filtration with platinum-grade membrane." },
+  { id: 11, img: "/assets/11.png", name: "LetsPure Lite 7-Stage", type: "RO Systems", subCat: "", desc: "Compact 7-stage RO for budget-friendly pure water." },
+  { id: 12, img: "/assets/12.png", name: "LetsPure Mini Countertop", type: "RO Systems", subCat: "", desc: "Portable countertop RO — no installation needed." },
+  { id: 13, img: "/assets/13.png", name: "Pre-Sediment Filter 5µm", type: "Spare Parts", subCat: "Filters", desc: "5-micron spun polypropylene sediment filter." },
+  { id: 14, img: "/assets/14.png", name: "RO Membrane 75 GPD", type: "Spare Parts", subCat: "Membranes", desc: "High-rejection thin-film composite membrane." },
+  { id: 15, img: "/assets/15.png", name: "Activated Carbon Block", type: "Spare Parts", subCat: "Filters", desc: "NSF-certified carbon block for chlorine & VOC removal." },
+  { id: 16, img: "/assets/16.png", name: "UV-C Lamp 11W", type: "Spare Parts", subCat: "UV & Sterilization", desc: "254nm germicidal UV lamp for sterilization." },
+  { id: 17, img: "/assets/17.png", name: "Post Carbon Filter", type: "Spare Parts", subCat: "Filters", desc: "Inline post-carbon polishing filter for taste & clarity." },
+  { id: 18, img: "/assets/18.png", name: "Mineral Cartridge", type: "Spare Parts", subCat: "Accessories", desc: "Bio-ceramic mineral infusion cartridge." },
+  { id: 19, img: "/assets/19.png", name: "Filter Housing Kit", type: "Spare Parts", subCat: "Housings", desc: "Heavy-duty 10-inch filter housing with bracket." },
+  { id: 20, img: "/assets/20.png", name: "Membrane Housing", type: "Spare Parts", subCat: "Housings", desc: "Pressure-rated RO membrane vessel." },
+  { id: 21, img: "/assets/21.png", name: "Flow Restrictor 400cc", type: "Spare Parts", subCat: "Accessories", desc: "Calibrated capillary flow restrictor." },
+  { id: 22, img: "/assets/22.png", name: "Feed Water Solenoid", type: "Spare Parts", subCat: "Accessories", desc: "24V DC normally-closed solenoid valve." },
+  { id: 23, img: "/assets/23.png", name: "Storage Tank 12L", type: "Spare Parts", subCat: "Housings", desc: "Bladder-type pressurised storage tank." },
+  { id: 24, img: "/assets/24.png", name: "Booster Pump 50GPD", type: "Spare Parts", subCat: "Accessories", desc: "High-efficiency DC booster pump." },
+  { id: 25, img: "/assets/25.png", name: "TDS Inline Meter", type: "Spare Parts", subCat: "Accessories", desc: "Dual-display inline TDS monitor." },
+  { id: 26, img: "/assets/26.png", name: "Alkaline Filter pH+", type: "Spare Parts", subCat: "Filters", desc: "Raises pH to 8.0–9.5 with mineral balls." },
+  { id: 27, img: "/assets/27.png", name: "UF Hollow Fiber 0.01µm", type: "Spare Parts", subCat: "Membranes", desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
+  { id: 28, img: "/assets/28.png", name: "UV Quartz Sleeve", type: "Spare Parts", subCat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber." },
+  { id: 29, img: "/assets/29.png", name: "Quick-Connect Fittings", type: "Spare Parts", subCat: "Accessories", desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
+  { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter", type: "Spare Parts", subCat: "Accessories", desc: "24V/3A switching power supply for pump systems." },
 ];
 
 /* ─── HERO VISUAL ────────────────────────────────────────── */
@@ -2209,7 +1980,6 @@ function SparePartsSection({ navigate }) {
       <div className="sp-bg-orb sp-orb-2" />
 
       <div className="spare-parts-inner">
-        {/* Header */}
         <div className="sp-header reveal">
           <div className="sp-eyebrow">
             <span
@@ -2235,7 +2005,6 @@ function SparePartsSection({ navigate }) {
           </p>
         </div>
 
-        {/* Bento Grid - always show all 6 */}
         <div className="sp-bento">
           {SPARE_PARTS.map((part, i) => (
             <div
@@ -2270,7 +2039,6 @@ function SparePartsSection({ navigate }) {
           ))}
         </div>
 
-        {/* Bottom CTA */}
         <div className="sp-bottom-cta reveal">
           <div className="sp-cta-text">
             <h3>Browse our full catalogue</h3>
@@ -2306,7 +2074,6 @@ function SparePartsSection({ navigate }) {
         </div>
       </div>
 
-      {/* Lightbox Modal */}
       {modalPart && (
         <div className="sp-modal-backdrop" onClick={() => setModalPart(null)}>
           <div className="sp-modal" onClick={(e) => e.stopPropagation()}>
@@ -2357,7 +2124,6 @@ function SparePartsSection({ navigate }) {
 }
 
 /* ─── AMBIENT DROPS ──────────────────────────────────────── */
-// eslint-disable-next-line no-unused-vars
 function AmbientDrops({ count = 20, color = "0,87,255" }) {
   const canvasRef = useRef(null);
   const particlesRef = useRef([]);
@@ -2477,50 +2243,6 @@ function RippleZone() {
   );
 }
 
-/* ─── ANIMATED COUNTER ───────────────────────────────────── */
-// function AnimCounter({ end, suffix, prefix, duration = 2000 }) {
-//   const [val, setVal] = useState(0);
-//   const ref = useRef(null);
-//   const started = useRef(false);
-//   useEffect(() => {
-//     const obs = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting && !started.current) {
-//           started.current = true;
-//           const startTime = performance.now();
-//           const tick = (now) => {
-//             const elapsed = now - startTime;
-//             const progress = Math.min(elapsed / duration, 1);
-//             const eased = 1 - Math.pow(1 - progress, 3);
-//             setVal(
-//               end < 100 ? +(end * eased).toFixed(1) : Math.round(end * eased),
-//             );
-//             if (progress < 1) requestAnimationFrame(tick);
-//           };
-//           requestAnimationFrame(tick);
-//           obs.disconnect();
-//         }
-//       },
-//       { threshold: 0.5 },
-//     );
-//     if (ref.current) obs.observe(ref.current);
-//     return () => obs.disconnect();
-//   }, [end, duration]);
-//   const display =
-//     end >= 1000000
-//       ? val >= 1000000
-//         ? (val / 1000000).toFixed(1) + "M"
-//         : (val / 1000).toFixed(0) + "K"
-//       : val;
-//   return (
-//     <span ref={ref}>
-//       {prefix}
-//       {display}
-//       {suffix}
-//     </span>
-//   );
-// }
-
 /* ─── SCROLL REVEAL ──────────────────────────────────────── */
 function useReveal(deps = []) {
   useEffect(() => {
@@ -2545,28 +2267,6 @@ function useReveal(deps = []) {
     // eslint-disable-next-line
   }, deps);
 }
-
-/* ─── STATS ──────────────────────────────────────────────── */
-// function StatsSection() {
-//   return (
-//     <section className="stats-section">
-//       <div className="stats-inner">
-//         {COUNTER_STATS.map((s, i) => (
-//           <div
-//             key={i}
-//             className="stat-block reveal"
-//             style={{ transitionDelay: `${i * 0.1}s` }}
-//           >
-//             <div className="stat-big">
-//               <AnimCounter end={s.end} suffix={s.suffix} prefix={s.prefix} />
-//             </div>
-//             <div className="stat-label">{s.label}</div>
-//           </div>
-//         ))}
-//       </div>
-//     </section>
-//   );
-// }
 
 /* ─── TESTIMONIALS ───────────────────────────────────────── */
 function TestimonialsSection() {
@@ -2728,12 +2428,7 @@ function Footer() {
       ctx.fillRect(0, poolY, W, H - poolY);
       const shimmerTime = performance.now() * 0.001;
       const shimmerX = ((shimmerTime * 0.3) % 2) * W - W * 0.5;
-      const shimmerGrad = ctx.createLinearGradient(
-        shimmerX,
-        poolY,
-        shimmerX + W,
-        poolY,
-      );
+      const shimmerGrad = ctx.createLinearGradient(shimmerX, poolY, shimmerX + W, poolY);
       shimmerGrad.addColorStop(0, "rgba(100,190,255,0)");
       shimmerGrad.addColorStop(0.25, "rgba(160,220,255,0.55)");
       shimmerGrad.addColorStop(0.5, "rgba(255,255,255,0.85)");
@@ -2760,37 +2455,13 @@ function Footer() {
         d.x += Math.sin(d.wobble) * d.wobbleAmp;
         if (d.y + d.r >= poolY) {
           d.hit = true;
-          S.rings.push({
-            x: d.x,
-            y: poolY,
-            r: d.r * 0.5,
-            maxR: 28 + d.r * 3.5 + Math.random() * 20,
-            a: 0.55 + d.alpha * 0.2,
-            speed: 0.9 + Math.random() * 0.8,
-            scaleY: 0.28 + Math.random() * 0.08,
-          });
-          S.rings.push({
-            x: d.x,
-            y: poolY,
-            r: 1,
-            maxR: 14 + d.r * 1.5,
-            a: 0.35,
-            speed: 1.4 + Math.random() * 0.6,
-            scaleY: 0.22,
-          });
+          S.rings.push({ x: d.x, y: poolY, r: d.r * 0.5, maxR: 28 + d.r * 3.5 + Math.random() * 20, a: 0.55 + d.alpha * 0.2, speed: 0.9 + Math.random() * 0.8, scaleY: 0.28 + Math.random() * 0.08 });
+          S.rings.push({ x: d.x, y: poolY, r: 1, maxR: 14 + d.r * 1.5, a: 0.35, speed: 1.4 + Math.random() * 0.6, scaleY: 0.22 });
           const splashCount = 4 + Math.floor(d.r * 1.2);
           for (let i = 0; i < splashCount; i++) {
             const ang = -Math.PI + Math.random() * Math.PI;
             const spd = 1.5 + Math.random() * 3.5;
-            S.splashes.push({
-              x: d.x + (Math.random() - 0.5) * d.r,
-              y: poolY,
-              vx: Math.cos(ang) * spd,
-              vy: -(1.8 + Math.random() * 3.8),
-              r: 1 + Math.random() * (d.r * 0.5),
-              life: 1.0,
-              decay: 0.028 + Math.random() * 0.022,
-            });
+            S.splashes.push({ x: d.x + (Math.random() - 0.5) * d.r, y: poolY, vx: Math.cos(ang) * spd, vy: -(1.8 + Math.random() * 3.8), r: 1 + Math.random() * (d.r * 0.5), life: 1.0, decay: 0.028 + Math.random() * 0.022 });
           }
           continue;
         }
@@ -2803,29 +2474,14 @@ function Footer() {
         ctx.translate(d.x, d.y);
         ctx.beginPath();
         ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
-        const dg = ctx.createRadialGradient(
-          -d.r * 0.2,
-          -d.r * 0.3,
-          0,
-          0,
-          0,
-          d.r,
-        );
+        const dg = ctx.createRadialGradient(-d.r * 0.2, -d.r * 0.3, 0, 0, 0, d.r);
         dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`);
         dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha * 0.9})`);
         dg.addColorStop(1, `rgba(30,100,220,${d.alpha * 0.7})`);
         ctx.fillStyle = dg;
         ctx.fill();
         ctx.beginPath();
-        ctx.ellipse(
-          -d.r * 0.22,
-          -d.r * 0.32,
-          d.r * 0.22,
-          d.r * 0.14,
-          -0.4,
-          0,
-          Math.PI * 2,
-        );
+        ctx.ellipse(-d.r * 0.22, -d.r * 0.32, d.r * 0.22, d.r * 0.14, -0.4, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.75})`;
         ctx.fill();
         ctx.restore();
@@ -2839,14 +2495,7 @@ function Footer() {
         if (sp.life <= 0) continue;
         ctx.beginPath();
         ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
-        const spg = ctx.createRadialGradient(
-          sp.x - sp.r * 0.2,
-          sp.y - sp.r * 0.2,
-          0,
-          sp.x,
-          sp.y,
-          sp.r,
-        );
+        const spg = ctx.createRadialGradient(sp.x - sp.r * 0.2, sp.y - sp.r * 0.2, 0, sp.x, sp.y, sp.r);
         spg.addColorStop(0, `rgba(220,240,255,${sp.life * 0.85})`);
         spg.addColorStop(0.6, `rgba(100,180,255,${sp.life * 0.6})`);
         spg.addColorStop(1, `rgba(50,120,220,0)`);
@@ -2892,11 +2541,7 @@ function Footer() {
 
   return (
     <footer className="footer-new">
-      <div
-        className="footer-drop-theatre"
-        ref={containerRef}
-        aria-hidden="true"
-      >
+      <div className="footer-drop-theatre" ref={containerRef} aria-hidden="true">
         <canvas ref={canvasRef} className="footer-drop-canvas" />
       </div>
       <div className="footer-content">
@@ -2948,499 +2593,6 @@ function Footer() {
   );
 }
 
-/* ─── SVG MODELS ─────────────────────────────────────────── */
-// eslint-disable-next-line no-unused-vars
-function ModelElite() {
-  return (
-    <svg
-      className="ro-model-svg"
-      width="160"
-      height="260"
-      viewBox="0 0 160 260"
-      fill="none"
-    >
-      <defs>
-        <linearGradient
-          id="grad1"
-          x1="30"
-          y1="40"
-          x2="130"
-          y2="220"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#ddeeff" />
-          <stop offset="100%" stopColor="#a8c8ff" />
-        </linearGradient>
-        <linearGradient
-          id="grad2"
-          x1="45"
-          y1="28"
-          x2="115"
-          y2="44"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#b8d0ff" />
-          <stop offset="100%" stopColor="#7aaaff" />
-        </linearGradient>
-        <linearGradient
-          id="grad3"
-          x1="68"
-          y1="220"
-          x2="92"
-          y2="250"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#a0c0ff" />
-          <stop offset="100%" stopColor="#6090ff" />
-        </linearGradient>
-      </defs>
-      <rect x="30" y="40" width="100" height="180" rx="22" fill="url(#grad1)" />
-      <rect
-        x="30"
-        y="40"
-        width="100"
-        height="180"
-        rx="22"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="48"
-        y="40"
-        width="20"
-        height="180"
-        rx="10"
-        fill="rgba(255,255,255,0.25)"
-      />
-      <rect x="45" y="28" width="70" height="16" rx="8" fill="url(#grad2)" />
-      <rect
-        x="45"
-        y="150"
-        width="70"
-        height="50"
-        rx="12"
-        fill="rgba(255,255,255,0.15)"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1"
-      />
-      <text
-        x="80"
-        y="183"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="22"
-        fontWeight="700"
-        fill="#0057FF"
-      >
-        002
-      </text>
-      <text
-        x="80"
-        y="196"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="7"
-        fill="rgba(0,87,255,0.7)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      {[80, 96, 112, 128].map((y, i) => (
-        <line
-          key={i}
-          x1="50"
-          y1={y}
-          x2="110"
-          y2={y}
-          stroke={`rgba(0,87,255,${0.4 - i * 0.08})`}
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
-      ))}
-      <circle cx="100" cy="58" r="5" fill="#0057FF" />
-      <circle cx="100" cy="58" r="8" fill="rgba(0,87,255,0.2)" />
-      <rect x="68" y="220" width="24" height="30" rx="6" fill="url(#grad3)" />
-      <ellipse cx="80" cy="258" rx="5" ry="7" fill="rgba(0,87,255,0.5)" />
-    </svg>
-  );
-}
-// eslint-disable-next-line no-unused-vars
-function ModelElement() {
-  return (
-    <svg
-      className="ro-model-svg"
-      width="140"
-      height="240"
-      viewBox="0 0 140 240"
-      fill="none"
-    >
-      <defs>
-        <linearGradient
-          id="darkgrad1"
-          x1="20"
-          y1="30"
-          x2="120"
-          y2="200"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1a2030" />
-          <stop offset="100%" stopColor="#0b1020" />
-        </linearGradient>
-        <linearGradient
-          id="darkgrad2"
-          x1="38"
-          y1="20"
-          x2="102"
-          y2="34"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1e3060" />
-          <stop offset="100%" stopColor="#0a1830" />
-        </linearGradient>
-        <linearGradient
-          id="darkgrad3"
-          x1="55"
-          y1="200"
-          x2="85"
-          y2="228"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#1e3060" />
-          <stop offset="100%" stopColor="#0a1830" />
-        </linearGradient>
-      </defs>
-      <rect
-        x="20"
-        y="30"
-        width="100"
-        height="170"
-        rx="18"
-        fill="url(#darkgrad1)"
-      />
-      <rect
-        x="20"
-        y="30"
-        width="100"
-        height="170"
-        rx="18"
-        stroke="rgba(100,150,255,0.2)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="36"
-        y="30"
-        width="16"
-        height="170"
-        rx="8"
-        fill="rgba(255,255,255,0.05)"
-      />
-      <rect
-        x="38"
-        y="20"
-        width="64"
-        height="14"
-        rx="7"
-        fill="url(#darkgrad2)"
-      />
-      {[65, 80, 95].map((y, i) => (
-        <line
-          key={i}
-          x1="35"
-          y1={y}
-          x2="105"
-          y2={y}
-          stroke={`rgba(100,160,255,${0.3 - i * 0.07})`}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      ))}
-      <rect
-        x="38"
-        y="125"
-        width="64"
-        height="42"
-        rx="10"
-        fill="rgba(0,87,255,0.12)"
-        stroke="rgba(100,160,255,0.3)"
-        strokeWidth="1"
-      />
-      <text
-        x="70"
-        y="151"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="20"
-        fontWeight="700"
-        fill="#60a0ff"
-      >
-        004
-      </text>
-      <text
-        x="70"
-        y="163"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="6"
-        fill="rgba(100,160,255,0.7)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      <circle cx="95" cy="45" r="4" fill="#3b82f6" />
-      <rect
-        x="55"
-        y="200"
-        width="30"
-        height="28"
-        rx="7"
-        fill="url(#darkgrad3)"
-      />
-      <ellipse cx="70" cy="233" rx="5" ry="6" fill="rgba(100,160,255,0.4)" />
-    </svg>
-  );
-}
-// eslint-disable-next-line no-unused-vars
-function ModelHydro() {
-  return (
-    <svg
-      className="ro-model-svg"
-      width="200"
-      height="200"
-      viewBox="0 0 200 200"
-      fill="none"
-    >
-      <defs>
-        <linearGradient
-          id="slategrad"
-          x1="10"
-          y1="60"
-          x2="190"
-          y2="140"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#e8f0ff" />
-          <stop offset="100%" stopColor="#c8daff" />
-        </linearGradient>
-        <linearGradient
-          id="cylgrad1"
-          x1="18"
-          y1="78"
-          x2="62"
-          y2="122"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#c0d8ff" />
-          <stop offset="100%" stopColor="#8ab0ff" />
-        </linearGradient>
-      </defs>
-      <rect
-        x="10"
-        y="60"
-        width="180"
-        height="80"
-        rx="18"
-        fill="url(#slategrad)"
-      />
-      <rect
-        x="10"
-        y="60"
-        width="180"
-        height="80"
-        rx="18"
-        stroke="rgba(0,87,255,0.2)"
-        strokeWidth="1.5"
-      />
-      <rect
-        x="10"
-        y="60"
-        width="60"
-        height="80"
-        rx="18"
-        fill="rgba(0,87,255,0.08)"
-      />
-      <circle
-        cx="40"
-        cy="100"
-        r="22"
-        fill="url(#cylgrad1)"
-        stroke="rgba(0,87,255,0.3)"
-        strokeWidth="1"
-      />
-      <circle cx="40" cy="100" r="14" fill="rgba(255,255,255,0.5)" />
-      <circle cx="40" cy="100" r="6" fill="#0057FF" opacity="0.4" />
-      <rect
-        x="100"
-        y="75"
-        width="70"
-        height="50"
-        rx="10"
-        fill="rgba(255,255,255,0.5)"
-        stroke="rgba(0,87,255,0.15)"
-      />
-      <text
-        x="135"
-        y="103"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="18"
-        fontWeight="700"
-        fill="#0057FF"
-      >
-        001
-      </text>
-      <text
-        x="135"
-        y="115"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="6"
-        fill="rgba(0,87,255,0.6)"
-        letterSpacing="1"
-      >
-        TDS PPM
-      </text>
-      <line
-        x1="10"
-        y1="85"
-        x2="0"
-        y2="85"
-        stroke="rgba(0,87,255,0.5)"
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-      <line
-        x1="190"
-        y1="115"
-        x2="200"
-        y2="115"
-        stroke="rgba(0,87,255,0.5)"
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-// eslint-disable-next-line no-unused-vars
-function ModelObsidian() {
-  return (
-    <svg
-      className="ro-model-svg"
-      width="130"
-      height="260"
-      viewBox="0 0 130 260"
-      fill="none"
-    >
-      <defs>
-        <linearGradient
-          id="luxgrad"
-          x1="35"
-          y1="20"
-          x2="95"
-          y2="220"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop offset="0%" stopColor="#141c30" />
-          <stop offset="100%" stopColor="#060a14" />
-        </linearGradient>
-      </defs>
-      <rect
-        x="35"
-        y="20"
-        width="60"
-        height="200"
-        rx="30"
-        fill="url(#luxgrad)"
-      />
-      <rect
-        x="35"
-        y="20"
-        width="60"
-        height="200"
-        rx="30"
-        stroke="rgba(200,220,255,0.1)"
-        strokeWidth="1.5"
-      />
-      <ellipse
-        cx="65"
-        cy="50"
-        rx="22"
-        ry="6"
-        fill="none"
-        stroke="rgba(200,180,100,0.5)"
-        strokeWidth="2"
-      />
-      <rect
-        x="43"
-        y="20"
-        width="12"
-        height="200"
-        rx="6"
-        fill="rgba(255,255,255,0.04)"
-      />
-      <rect
-        x="43"
-        y="130"
-        width="44"
-        height="55"
-        rx="12"
-        fill="rgba(0,40,120,0.3)"
-        stroke="rgba(100,140,255,0.2)"
-      />
-      <text
-        x="65"
-        y="162"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="18"
-        fontWeight="700"
-        fill="#7aafff"
-      >
-        001
-      </text>
-      <text
-        x="65"
-        y="176"
-        textAnchor="middle"
-        fontFamily="Etna, sans-serif"
-        fontSize="5.5"
-        fill="rgba(120,160,255,0.6)"
-        letterSpacing="1"
-      >
-        PURE TDS
-      </text>
-      {[78, 94, 110].map((y, i) => (
-        <line
-          key={i}
-          x1="43"
-          y1={y}
-          x2="87"
-          y2={y}
-          stroke={`rgba(100,140,255,${0.15 - i * 0.03})`}
-          strokeWidth="1.5"
-          strokeLinecap="round"
-        />
-      ))}
-      <circle cx="75" cy="38" r="3.5" fill="#3b7aff" />
-      <rect
-        x="52"
-        y="220"
-        width="26"
-        height="30"
-        rx="6"
-        fill="rgba(30,50,100,0.8)"
-      />
-      <ellipse cx="65" cy="254" rx="4" ry="5.5" fill="rgba(100,150,255,0.3)" />
-    </svg>
-  );
-}
-// // eslint-disable-next-line no-unused-vars
-// const MODEL_SVG = {
-//   elite: ModelElite,
-//   element: ModelElement,
-//   hydro: ModelHydro,
-//   obsidian: ModelObsidian,
-// };
-
 /* ─── PAGES ──────────────────────────────────────────────── */
 function HomePage({ navigate, tds }) {
   useReveal(["home"]);
@@ -3489,7 +2641,6 @@ function HomePage({ navigate, tds }) {
                 Our Technology
               </button>
             </div>
-            
           </div>
           <HeroVisual />
         </div>
@@ -3579,8 +2730,6 @@ function AboutPage() {
 
   return (
     <div>
-
-      {/* ── HERO ── */}
       <div style={{
         minHeight: "92vh",
         background: "linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)",
@@ -3593,7 +2742,6 @@ function AboutPage() {
         position: "relative",
         overflow: "hidden",
       }}>
-        {/* Glow orbs */}
         <div style={{ position:"absolute", top:"10%", left:"15%", width:"500px", height:"500px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.12) 0%, transparent 70%)", pointerEvents:"none" }} />
         <div style={{ position:"absolute", bottom:"5%", right:"10%", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents:"none" }} />
 
@@ -3602,7 +2750,7 @@ function AboutPage() {
           <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
         </div>
 
-        <h1 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
+        <h1 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
           Redefining What{" "}
           <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em>{" "}Means.
         </h1>
@@ -3619,23 +2767,21 @@ function AboutPage() {
         </div>
       </div>
 
-      {/* ── STATS STRIP ── */}
       <div style={{ background:"#696969", padding:"3.5rem 4vw" }}>
         <div style={{ maxWidth:"1000px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1rem", textAlign:"center" }}>
           {aboutStats.map((s, i) => (
             <div key={i} style={{ padding:"1rem" }}>
-              <div style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
+              <div style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
               <div style={{ fontSize:"0.75rem", color:"rgba(255,255,255,0.65)", letterSpacing:"0.1em", textTransform:"uppercase" }}>{s.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* ── MISSION STATEMENT ── */}
       <div style={{ background:"#fff", padding:"120px 4vw", textAlign:"center" }}>
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <div className="page-eyebrow">Our Mission</div>
-          <h2 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
+          <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
             Water is life's most fundamental input.{" "}
             <em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
           </h2>
@@ -3647,7 +2793,6 @@ function AboutPage() {
         </div>
       </div>
 
-      {/* ── VALUES / PILLARS ── */}
       <div style={{ background:"#f7f8fc", padding:"100px 4vw" }}>
         <div style={{ maxWidth:"1200px", margin:"0 auto" }}>
           <div style={{ textAlign:"center", marginBottom:"4rem" }}>
@@ -3658,7 +2803,7 @@ function AboutPage() {
             {values.map((v, i) => (
               <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.12}s`, background:"#fff", borderRadius:"28px", padding:"3rem", border:"1px solid #e5e7eb" }}>
                 <div style={{ width:"60px", height:"60px", borderRadius:"18px", background:"rgba(105,105,105,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.6rem", marginBottom:"1.5rem" }}>{v.icon}</div>
-                <h3 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
+                <h3 style={{ fontFamily:"'etna', sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
                 <p style={{ fontSize:"0.92rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{v.desc}</p>
               </div>
             ))}
@@ -3666,7 +2811,6 @@ function AboutPage() {
         </div>
       </div>
 
-      {/* ── STORY SPLIT SECTION ── */}
       <div style={{ background:"#040810", padding:"120px 4vw", position:"relative", overflow:"hidden" }}>
         <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"600px", height:"600px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.1) 0%, transparent 70%)", pointerEvents:"none" }} />
         <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:"6rem", alignItems:"center", position:"relative", zIndex:1 }}>
@@ -3674,7 +2818,7 @@ function AboutPage() {
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
               <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
             </div>
-            <h2 style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>
+            <h2 style={{ fontFamily:"'etna', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>
               Three engineers.<br />One obsession.
             </h2>
             <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>
@@ -3691,7 +2835,7 @@ function AboutPage() {
           <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
             {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.", "2020 — Patent granted for 14-stage molecular membrane architecture.", "2022 — First company globally to achieve 1:1 zero-waste filtration at consumer scale.", "2024 — Smart TDS display + companion app. 1 million units shipped.", "2026 — The X-Series. Our most advanced engineering, launched to the world."].map((item, i) => (
               <div key={i} className="reveal" style={{ display:"flex", gap:"1.2rem", alignItems:"flex-start", transitionDelay:`${i*0.1}s` }}>
-                <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{2018 + i*2 - 2018 + String(i+1).padStart(2,"0")}</div>
+                <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{String(i+1).padStart(2,"0")}</div>
                 <p style={{ fontSize:"0.88rem", color:"rgba(255,255,255,0.55)", lineHeight:1.65, fontWeight:300, paddingTop:"4px" }}>{item}</p>
               </div>
             ))}
@@ -3699,7 +2843,6 @@ function AboutPage() {
         </div>
       </div>
 
-      {/* ── TEAM ── */}
       <div style={{ background:"#fff", padding:"120px 4vw" }}>
         <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
           <div style={{ textAlign:"center", marginBottom:"5rem" }}>
@@ -3709,8 +2852,8 @@ function AboutPage() {
           <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
             {team.map((m, i) => (
               <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.15}s`, textAlign:"center", padding:"3rem 2rem", borderRadius:"28px", border:"1px solid #e5e7eb" }}>
-                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"\"Etna\", sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
-                <div style={{ fontFamily:"\"Etna\", sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
+                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"'etna', sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
+                <div style={{ fontFamily:"'etna', sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
                 <div style={{ fontSize:"0.75rem", color:"#696969", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"1.2rem" }}>{m.role}</div>
                 <p style={{ fontSize:"0.88rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{m.bio}</p>
               </div>
@@ -3719,9 +2862,7 @@ function AboutPage() {
         </div>
       </div>
 
-      {/* ── RIPPLE / CTA ZONE ── */}
       <RippleZone />
-
       <Footer />
     </div>
   );
@@ -3812,7 +2953,6 @@ function ProductsPage({ navigate }) {
           all redefine what pure water means.
         </p>
 
-        {/* Main Tabs */}
         <div
           style={{
             display: "flex",
@@ -3841,8 +2981,7 @@ function ProductsPage({ navigate }) {
                 fontWeight: 600,
                 color: activeTab === tab ? "#111827" : "#808080",
                 cursor: "pointer",
-                boxShadow:
-                  activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none",
+                boxShadow: activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none",
                 transition: "all 0.25s ease",
               }}
             >
@@ -3852,7 +2991,6 @@ function ProductsPage({ navigate }) {
         </div>
       </div>
 
-      {/* RO Systems Tab */}
       {activeTab === "RO Systems" && (
         <>
           <div className="products-grid">
@@ -3893,25 +3031,9 @@ function ProductsPage({ navigate }) {
         </>
       )}
 
-      {/* Spare Parts Tab */}
       {activeTab === "Spare Parts" && (
-        <div
-          style={{
-            padding: "60px 4vw 100px",
-            maxWidth: "1400px",
-            margin: "0 auto",
-          }}
-        >
-          {/* Sub category filters */}
-          <div
-            style={{
-              display: "flex",
-              gap: "0.5rem",
-              justifyContent: "center",
-              flexWrap: "wrap",
-              marginBottom: "3rem",
-            }}
-          >
+        <div style={{ padding: "60px 4vw 100px", maxWidth: "1400px", margin: "0 auto" }}>
+          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "3rem" }}>
             {subCats.map((cat) => (
               <button
                 key={cat}
@@ -3927,8 +3049,7 @@ function ProductsPage({ navigate }) {
                   fontWeight: 600,
                   cursor: "pointer",
                   transition: "all 0.25s ease",
-                  boxShadow:
-                    activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
+                  boxShadow: activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none",
                 }}
               >
                 {cat}
@@ -3936,14 +3057,7 @@ function ProductsPage({ navigate }) {
             ))}
           </div>
 
-          {/* Parts Grid */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-              gap: "1.5rem",
-            }}
-          >
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
             {filteredParts.map((part) => (
               <div
                 key={part.id}
@@ -3957,8 +3071,7 @@ function ProductsPage({ navigate }) {
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.transform = "translateY(-6px)";
-                  e.currentTarget.style.boxShadow =
-                    "0 16px 40px rgba(0,0,0,0.1)";
+                  e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.1)";
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.transform = "translateY(0)";
@@ -3966,85 +3079,26 @@ function ProductsPage({ navigate }) {
                 }}
                 onClick={() => navigate("contact")}
               >
-                {/* Image */}
-                <div
-                  style={{
-                    height: "180px",
-                    background: "#f7f8fc",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "1.5rem",
-                  }}
-                >
+                <div style={{ height: "180px", background: "#f7f8fc", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
                   <img
                     src={part.img}
                     alt={part.name}
-                    style={{
-                      maxHeight: "140px",
-                      maxWidth: "100%",
-                      objectFit: "contain",
-                      filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.12))",
-                    }}
+                    style={{ maxHeight: "140px", maxWidth: "100%", objectFit: "contain", filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }}
                   />
                 </div>
-                {/* Info */}
                 <div style={{ padding: "1.2rem" }}>
-                  <div
-                    style={{
-                      fontSize: "0.68rem",
-                      fontWeight: 600,
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: "#696969",
-                      background: "rgba(105,105,105,0.08)",
-                      border: "1px solid rgba(105,105,105,0.2)",
-                      padding: "0.2rem 0.6rem",
-                      borderRadius: "100px",
-                      display: "inline-block",
-                      marginBottom: "0.6rem",
-                    }}
-                  >
+                  <div style={{ fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", color: "#696969", background: "rgba(105,105,105,0.08)", border: "1px solid rgba(105,105,105,0.2)", padding: "0.2rem 0.6rem", borderRadius: "100px", display: "inline-block", marginBottom: "0.6rem" }}>
                     {part.subCat || "RO System"}
                   </div>
-                  <div
-                    style={{
-                      fontFamily: "var(--font-display)",
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      color: "#040810",
-                      marginBottom: "0.4rem",
-                    }}
-                  >
+                  <div style={{ fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: 600, color: "#040810", marginBottom: "0.4rem" }}>
                     {part.name}
                   </div>
-                  <div
-                    style={{
-                      fontSize: "0.82rem",
-                      color: "#808080",
-                      lineHeight: 1.5,
-                    }}
-                  >
+                  <div style={{ fontSize: "0.82rem", color: "#808080", lineHeight: 1.5 }}>
                     {part.desc}
                   </div>
                   <button
-                    style={{
-                      marginTop: "1rem",
-                      width: "100%",
-                      background: "#696969",
-                      color: "#fff",
-                      border: "none",
-                      padding: "0.65rem",
-                      borderRadius: "100px",
-                      fontSize: "0.82rem",
-                      fontWeight: 600,
-                      cursor: "pointer",
-                      fontFamily: "var(--font-body)",
-                    }}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      navigate("contact");
-                    }}
+                    style={{ marginTop: "1rem", width: "100%", background: "#696969", color: "#fff", border: "none", padding: "0.65rem", borderRadius: "100px", fontSize: "0.82rem", fontWeight: 600, cursor: "pointer", fontFamily: "var(--font-body)" }}
+                    onClick={(e) => { e.stopPropagation(); navigate("contact"); }}
                   >
                     Enquire Now
                   </button>
@@ -4083,16 +3137,8 @@ function ContactPage() {
           <div className="contact-info">
             {[
               { icon: "📞", label: "Expert Helpline", val: "+91 800-LetsPure" },
-              {
-                icon: "✉️",
-                label: "Email Support",
-                val: "consult@LetsPure.in",
-              },
-              {
-                icon: "📍",
-                label: "Headquarters",
-                val: "Whitefield, Bengaluru 560066",
-              },
+              { icon: "✉️", label: "Email Support", val: "consult@LetsPure.in" },
+              { icon: "📍", label: "Headquarters", val: "Whitefield, Bengaluru 560066" },
               { icon: "🕐", label: "Hours", val: "Mon – Sat, 9 AM – 7 PM IST" },
             ].map((c, i) => (
               <div key={i} className="contact-info-row">
@@ -4115,9 +3161,7 @@ function ContactPage() {
           ) : (
             <div className="contact-form">
               <h3>Request a Consultation</h3>
-              <p className="form-sub">
-                Free water quality assessment included.
-              </p>
+              <p className="form-sub">Free water quality assessment included.</p>
               <div className="form-2col">
                 <div className="form-row">
                   <label>First Name</label>
@@ -4156,14 +3200,7 @@ function ContactPage() {
               </div>
               <button className="submit-btn" onClick={() => setSubmitted(true)}>
                 Request Consultation
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M5 12h14M12 5l7 7-7 7" />
                 </svg>
               </button>
@@ -4174,29 +3211,17 @@ function ContactPage() {
       <div className="map-section">
         <div className="section-header" style={{ marginBottom: "2rem" }}>
           <div className="page-eyebrow">Find Us</div>
-          <h2 className="section-h" style={{ fontSize: "2rem" }}>
-            Visit our Experience Centre
-          </h2>
+          <h2 className="section-h" style={{ fontSize: "2rem" }}>Visit our Experience Centre</h2>
         </div>
         <div className="map-inner">
           <div style={{ textAlign: "center" }}>
             <div className="map-pin">📍</div>
-            <p
-              style={{
-                marginTop: ".5rem",
-                color: "var(--muted)",
-                fontSize: ".9rem",
-              }}
-            >
+            <p style={{ marginTop: ".5rem", color: "var(--muted)", fontSize: ".9rem" }}>
               LetsPure Experience Centre, Whitefield, Bengaluru
             </p>
             <button
               className="btn-primary"
-              style={{
-                marginTop: "1.2rem",
-                fontSize: ".82rem",
-                padding: ".7rem 1.5rem",
-              }}
+              style={{ marginTop: "1.2rem", fontSize: ".82rem", padding: ".7rem 1.5rem" }}
               onClick={() => window.open("https://maps.google.com", "_blank")}
             >
               Open in Maps
@@ -4217,173 +3242,36 @@ function Preloader({ onDone }) {
     const t2 = setTimeout(() => setStep(2), 400);
     const t3 = setTimeout(() => setStep(3), 700);
     const t4 = setTimeout(() => setStep(4), 1000);
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-      clearTimeout(t4);
-    };
+    return () => { clearTimeout(t1); clearTimeout(t2); clearTimeout(t3); clearTimeout(t4); };
   }, []);
 
   return (
-    <div
-      style={{
-        position: "fixed",
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        zIndex: 99999,
-        backgroundColor: "#000",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        gap: "28px",
-        overflow: "hidden",
-      }}
-    >
-      {/* Particles */}
+    <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999, backgroundColor: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "28px", overflow: "hidden" }}>
       {[...Array(20)].map((_, i) => (
-        <div
-          key={i}
-          style={{
-            position: "absolute",
-            left: `${(i * 5) % 95}%`,
-            bottom: `${(i * 7) % 40}%`,
-            width: "2px",
-            height: "2px",
-            borderRadius: "50%",
-            background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`,
-            transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`,
-            transform:
-              step >= 1
-                ? `translateY(-${60 + (i % 4) * 30}px)`
-                : "translateY(0)",
-            opacity: step >= 1 ? 0 : 0.6,
-            animationDelay: `${i * 0.1}s`,
-          }}
-        />
+        <div key={i} style={{ position: "absolute", left: `${(i * 5) % 95}%`, bottom: `${(i * 7) % 40}%`, width: "2px", height: "2px", borderRadius: "50%", background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`, transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`, transform: step >= 1 ? `translateY(-${60 + (i % 4) * 30}px)` : "translateY(0)", opacity: step >= 1 ? 0 : 0.6 }} />
       ))}
 
-      {/* Glow */}
-      <div
-        style={{
-          position: "absolute",
-          top: "40%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          width: step >= 2 ? "500px" : "100px",
-          height: step >= 2 ? "500px" : "100px",
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)",
-          transition: "width 1.5s ease, height 1.5s ease",
-          pointerEvents: "none",
-        }}
-      />
+      <div style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", width: step >= 2 ? "500px" : "100px", height: step >= 2 ? "500px" : "100px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)", transition: "width 1.5s ease, height 1.5s ease", pointerEvents: "none" }} />
 
-      {/* Top decoration */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
-          opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(-10px)",
-          transition: "all 0.6s ease",
-        }}
-      >
-        <div
-          style={{
-            width: "40px",
-            height: "1px",
-            background: "rgba(255,255,255,0.2)",
-          }}
-        />
-        <div
-          style={{
-            width: "4px",
-            height: "4px",
-            borderRadius: "50%",
-            background: "rgba(255,255,255,0.4)",
-          }}
-        />
-        <div
-          style={{
-            width: "40px",
-            height: "1px",
-            background: "rgba(255,255,255,0.2)",
-          }}
-        />
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(-10px)", transition: "all 0.6s ease" }}>
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+        <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "rgba(255,255,255,0.4)" }} />
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
       </div>
 
-      {/* MAIN TEXT */}
-      {/* LOGO */}
-      <div
-        style={{
-          opacity: step >= 1 ? 1 : 0,
-          transform: step >= 1 ? "translateY(0)" : "translateY(30px)",
-          transition: "all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s",
-        }}
-      >
-        <img
-          src="/assets/black logo.png"
-          alt="LetsPure"
-          style={{
-            maxHeight: "220px",
-            maxWidth: "500px",
-            objectFit: "contain",
-            filter: "brightness(0) invert(1)",
-          }}
-        />
+      <div style={{ opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s" }}>
+        <img src="/assets/black logo.png" alt="LetsPure" style={{ maxHeight: "220px", maxWidth: "500px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
       </div>
 
-      {/* Bottom decoration */}
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: "12px",
-          opacity: step >= 3 ? 1 : 0,
-          transition: "all 0.6s ease",
-        }}
-      >
-        <div
-          style={{
-            width: "60px",
-            height: "1px",
-            background: "rgba(255,255,255,0.15)",
-          }}
-        />
-        <div
-          style={{
-            fontSize: "0.68rem",
-            color: "rgba(255,255,255,0.45)",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            fontFamily: "\"Etna\", sans-serif",
-            whiteSpace: "nowrap",
-          }}
-        >
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 3 ? 1 : 0, transition: "all 0.6s ease" }}>
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+        <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "'etna', sans-serif", whiteSpace: "nowrap" }}>
           Molecular Purity · Engineered for Life
         </div>
-        <div
-          style={{
-            width: "60px",
-            height: "1px",
-            background: "rgba(255,255,255,0.15)",
-          }}
-        />
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
       </div>
 
-      {/* Progress */}
-      <div
-        style={{
-          opacity: step >= 3 ? 1 : 0,
-          transition: "opacity 0.6s ease",
-        }}
-      >
+      <div style={{ opacity: step >= 3 ? 1 : 0, transition: "opacity 0.6s ease" }}>
         <PercentCounter onDone={onDone} />
       </div>
     </div>
@@ -4408,66 +3296,16 @@ function PercentCounter({ onDone }) {
 
   return (
     <div style={{ textAlign: "center" }}>
-      <div
-        style={{
-          fontFamily: "\"Etna\", sans-serif",
-          fontSize: "0.78rem",
-          color: "rgba(255,255,255,0.5)",
-          letterSpacing: "0.1em",
-          marginBottom: "10px",
-        }}
-      >
+      <div style={{ fontFamily: "'etna', sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.1em", marginBottom: "10px" }}>
         {String(pct).padStart(3, "0")}
       </div>
-      <div
-        style={{
-          width: "260px",
-          height: "1px",
-          background: "rgba(255,255,255,0.1)",
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            height: "1px",
-            width: `${pct}%`,
-            background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)",
-            position: "relative",
-            transition: "width 0.022s linear",
-          }}
-        >
-          <div
-            style={{
-              position: "absolute",
-              right: "-1px",
-              top: "50%",
-              transform: "translateY(-50%)",
-              width: "4px",
-              height: "4px",
-              borderRadius: "50%",
-              background: "#fff",
-              boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)",
-            }}
-          />
+      <div style={{ width: "260px", height: "1px", background: "rgba(255,255,255,0.1)", position: "relative" }}>
+        <div style={{ height: "1px", width: `${pct}%`, background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position: "relative", transition: "width 0.022s linear" }}>
+          <div style={{ position: "absolute", right: "-1px", top: "50%", transform: "translateY(-50%)", width: "4px", height: "4px", borderRadius: "50%", background: "#fff", boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)" }} />
         </div>
       </div>
-      <div
-        style={{
-          marginTop: "10px",
-          fontSize: "0.62rem",
-          color: "rgba(255,255,255,0.25)",
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
-          fontFamily: "\"Etna\", sans-serif",
-        }}
-      >
-        {pct < 30
-          ? "Initializing"
-          : pct < 60
-            ? "Loading Assets"
-            : pct < 90
-              ? "Preparing"
-              : "Ready"}
+      <div style={{ marginTop: "10px", fontSize: "0.62rem", color: "rgba(255,255,255,0.25)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "'etna', sans-serif" }}>
+        {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
       </div>
     </div>
   );
@@ -4478,17 +3316,13 @@ export default function LetsPure() {
   const [page, setPage] = useState("home");
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [tds, setTds] = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
-  // eslint-disable-next-line no-unused-vars
-  // const [barDone, setBarDone] = useState(false);
 
   useEffect(() => {
     const el = document.createElement("style");
     el.textContent = STYLES;
     document.head.appendChild(el);
-    // Force exit preloader after 3.5s fallback
     const fallback = setTimeout(() => setPreloaderDone(true), 2800);
     return () => {
       document.head.removeChild(el);
@@ -4510,10 +3344,7 @@ export default function LetsPure() {
       if (val <= 2) clearInterval(iv);
     }, 180);
     const t = setTimeout(() => clearInterval(iv), 30000);
-    return () => {
-      clearInterval(iv);
-      clearTimeout(t);
-    };
+    return () => { clearInterval(iv); clearTimeout(t); };
   }, []);
 
   const navigate = useCallback((p) => {
@@ -4536,32 +3367,16 @@ export default function LetsPure() {
   return (
     <>
       <nav className={scrolled ? "scrolled" : ""}>
-        <button
-          type="button"
-          className="nav-logo"
-          onClick={() => navigate("home")}
-        >
-          <img
-            src="/assets/black logo.png"
-            alt="LetsPure"
-            style={{ height: "100px", width: "200px", objectFit: "contain" }}
-          />
+        <button type="button" className="nav-logo" onClick={() => navigate("home")}>
+          <img src="/assets/black logo.png" alt="LetsPure" style={{ height: "100px", width: "200px", objectFit: "contain" }} />
         </button>
         <div className="nav-links">
           {NAV_LINKS.map((p) => (
-            <button
-              type="button"
-              key={p}
-              onClick={() => navigate(p)}
-              className={page === p ? "active" : ""}
-            >
+            <button type="button" key={p} onClick={() => navigate(p)} className={page === p ? "active" : ""}>
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
           ))}
-          <button
-            className="nav-cta"
-            onClick={() => window.open("https://wa.me/919599026401", "_blank")}
-          >
+          <button className="nav-cta" onClick={() => window.open("https://wa.me/919599026401", "_blank")}>
             Get a Quote
           </button>
         </div>
