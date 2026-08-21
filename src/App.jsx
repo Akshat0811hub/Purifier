@@ -1502,12 +1502,12 @@ const ALL_PRODUCTS = [
 ];
 
 const HERO_IMAGES = [
-  "/assets/RO.png",
-  "/assets/whitero.png",
-  "/assets/bluero.png",
-  "/assets/royal/royal black.png",
-  "/assets/royal/royal grey.png",
-  "/assets/elite/elite black.png",
+  { src: "/assets/RO.png", scale: 1.0 },
+  { src: "/assets/whitero.png", scale: 1.0 },
+  { src: "/assets/bluero.png", scale: 1.0 },
+  { src: "/assets/royal/royal black.png", scale: 0.8 },
+  { src: "/assets/royal/royal grey.png", scale: 0.8 },
+  { src: "/assets/elite/elite black.png", scale: 0.8 },
 ];
 
 /* ─── CHANGE 1: Hero Visual with crossfade ───────────────── */
@@ -1516,9 +1516,9 @@ function HeroVisual() {
 
   // Preload all slideshow images on mount to ensure zero-latency switching
   useEffect(() => {
-    HERO_IMAGES.forEach((src) => {
+    HERO_IMAGES.forEach((item) => {
       const img = new Image();
-      img.src = src;
+      img.src = item.src;
     });
   }, []);
 
@@ -1538,10 +1538,10 @@ function HeroVisual() {
       }}
     >
       <div style={{ position: "relative", height: "680px", width: "490px", maxWidth: "100%" }}>
-        {HERO_IMAGES.map((imgSrc, idx) => (
+        {HERO_IMAGES.map((item, idx) => (
           <img
             key={idx}
-            src={imgSrc}
+            src={item.src}
             alt={`LetsPure RO ${idx + 1}`}
             style={{
               position: "absolute",
@@ -1552,6 +1552,7 @@ function HeroVisual() {
               objectFit: "contain",
               filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
               opacity: current === idx ? 1 : 0,
+              transform: `scale(${item.scale})`,
               transition: "opacity 0.4s ease-in-out",
               pointerEvents: current === idx ? "auto" : "none",
             }}
