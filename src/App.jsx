@@ -302,6 +302,18 @@ nav.scrolled {
   align-items: end;
   min-height: 620px;
 }
+.home-products-stage.layout-2col {
+  grid-template-columns: 1fr 1fr;
+  max-width: 900px;
+  margin: 0 auto;
+  align-items: stretch;
+}
+.home-products-stage.layout-3col-flat {
+  grid-template-columns: 1fr 1fr 1fr;
+  max-width: 1200px;
+  margin: 0 auto;
+  align-items: stretch;
+}
 
 .hps-side-card {
   background: var(--white);
@@ -1281,8 +1293,11 @@ nav.scrolled {
 .cert-badge:hover { background: rgba(59,130,246,.12); border-color: rgba(100,170,255,.35); transform: translateY(-2px); }
 
 @media(max-width:1100px){
-  .home-products-stage { grid-template-columns: 1fr; gap: 3rem; }
+  .home-products-stage,
+  .home-products-stage.layout-2col,
+  .home-products-stage.layout-3col-flat { grid-template-columns: 1fr !important; gap: 3rem; }
   .hps-side-card { opacity: 1; }
+  .hps-side-card-placeholder { display: none !important; }
   .hps-float-label { display: none; }
   .hps-center-img-wrap img { max-height: 340px; }
 }
@@ -1434,11 +1449,22 @@ const FOOTER_LINKS = {
 };
 
 /* ─── HOME PRODUCT SHOWCASE DATA ────────────────────────── */
-const HOME_SHOWCASE = [
-  { id: "black", img: "/assets/blackro.png", tag: "Midnight Edition", name: "Elite X-1\nObsidian", tagline: "Dark engineering. Pure precision.", price: "₹89,999", specs: ["14-Stage Filtration","UV-C Sterilization","Smart TDS Display"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-  { id: "white", img: "/assets/whitero.png", tag: "Signature White", name: "Element Pro\nPearl", tagline: "Pure white. Pure water. Pure life.", price: "₹64,999", specs: ["12-Stage Compact","Auto Self-Clean","App Monitoring"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" },
-  { id: "blue", img: "/assets/bluero.png", tag: "Ocean Series", name: "HydroCore S\nAzure", tagline: "Born from the ocean. Built for your home.", price: "₹49,999", specs: ["10-Stage Under-Sink","12L Tank Included","Dedicated Pure Tap"], chips: ["10-Stage RO","Under-Sink","12L Tank","Pure Tap"], floatLabels: [{ text: "12L Storage Tank", cls: "hps-fl-1" },{ text: "Dedicated Pure Tap", cls: "hps-fl-2" },{ text: "10-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
-];
+const COLLECTIONS = {
+  royal: [
+    { id: "royal-black", img: "/assets/royal/royal black.png", tag: "Royal Black", name: "Royal\nObsidian", tagline: "Regal elegance. Untouched purity.", price: "₹99,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Copper + Zinc Infusion", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "royal-grey", img: "/assets/royal/royal grey.png", tag: "Royal Grey", name: "Royal\nSlate", tagline: "Modern majesty. Pure perfection.", price: "₹94,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Premium Matte Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#808080", lightBg: "linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%)" }
+  ],
+  elite: [
+    { id: "elite-black", img: "/assets/elite/elite black.png", tag: "Elite Black", name: "Elite\nObsidian", tagline: "The peak of performance. Dark finish.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "elite-white", img: "/assets/elite/elite white.png", tag: "Elite White", name: "Elite\nPearl", tagline: "The peak of performance. Pearl white.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Pearl White Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+  ],
+  freedom: [
+    { id: "freedom-black", img: "/assets/freedom-ro/black.png", tag: "Freedom Black", name: "Freedom\nObsidian", tagline: "Absolute freedom from impurities.", price: "₹59,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "freedom-blue", img: "/assets/freedom-ro/blue.png", tag: "Freedom Blue", name: "Freedom\nAzure", tagline: "Azure depths. Purest flow.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Azure Blue","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
+    { id: "freedom-white", img: "/assets/freedom-ro/white.png", tag: "Freedom White", name: "Freedom\nPearl", tagline: "Minimalist purity. Seamless design.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Pearl White","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+  ]
+};
+
 
 /* ─── SPARE PARTS DATA ───── */
 const SPARE_PARTS = [
@@ -1475,25 +1501,30 @@ const ALL_PRODUCTS = [
   { id: 30, img: "/assets/30.png", name: "SMPS Power Adapter",         type: "Spare Parts", subCat: "Accessories",        desc: "24V/3A switching power supply for pump systems." },
 ];
 
-/* ─── HERO IMAGES ────────────────────────────────────────── */
 const HERO_IMAGES = [
   "/assets/RO.png",
   "/assets/whitero.png",
   "/assets/bluero.png",
+  "/assets/royal/royal black.png",
+  "/assets/royal/royal grey.png",
+  "/assets/elite/elite black.png",
 ];
 
 /* ─── CHANGE 1: Hero Visual with crossfade ───────────────── */
 function HeroVisual() {
   const [current, setCurrent] = useState(0);
-  const [fading, setFading] = useState(false);
+
+  // Preload all slideshow images on mount to ensure zero-latency switching
+  useEffect(() => {
+    HERO_IMAGES.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
 
   useEffect(() => {
     const iv = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setCurrent((c) => (c + 1) % HERO_IMAGES.length);
-        setFading(false);
-      }, 400);
+      setCurrent((c) => (c + 1) % HERO_IMAGES.length);
     }, 3000);
     return () => clearInterval(iv);
   }, []);
@@ -1503,22 +1534,29 @@ function HeroVisual() {
       className="hero-visual"
       style={{
         display: "flex", alignItems: "center", justifyContent: "flex-end",
-        width: "100%", height: "100%", paddingLeft: "50px", marginLeft: "100px",
+        width: "100%", height: "100%", paddingLeft: "30px", marginLeft: "40px",
       }}
     >
-      <div style={{ position: "relative", height: "620px", display: "flex", alignItems: "center" }}>
-        <img
-          src={HERO_IMAGES[current]}
-          alt="LetsPure RO"
-          style={{
-            height: "620px",
-            maxWidth: "100%",
-            objectFit: "contain",
-            filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
-            opacity: fading ? 0 : 1,
-            transition: "opacity 0.4s ease",
-          }}
-        />
+      <div style={{ position: "relative", height: "680px", width: "490px", maxWidth: "100%" }}>
+        {HERO_IMAGES.map((imgSrc, idx) => (
+          <img
+            key={idx}
+            src={imgSrc}
+            alt={`LetsPure RO ${idx + 1}`}
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
+              opacity: current === idx ? 1 : 0,
+              transition: "opacity 0.4s ease-in-out",
+              pointerEvents: current === idx ? "auto" : "none",
+            }}
+          />
+        ))}
       </div>
     </div>
   );
@@ -1526,10 +1564,29 @@ function HeroVisual() {
 
 /* ─── HOME PRODUCT SHOWCASE ──────────────────────────────── */
 function HomeProductShowcase({ navigate }) {
-  const [active, setActive] = useState(1);
-  const centerProduct = HOME_SHOWCASE[active];
-  const leftProduct   = HOME_SHOWCASE[(active + 2) % 3];
-  const rightProduct  = HOME_SHOWCASE[(active + 1) % 3];
+  const [collection, setCollection] = useState("royal");
+  const [selectedRo, setSelectedRo] = useState(null);
+
+  const currentProducts = COLLECTIONS[collection] || [];
+
+  // Determine left, center, right products when selectedRo is NOT null
+  const centerProduct = selectedRo;
+  const activeIdx = centerProduct ? currentProducts.findIndex(p => p.id === centerProduct.id) : -1;
+
+  let leftProduct = null;
+  let rightProduct = null;
+
+  if (centerProduct && activeIdx !== -1) {
+    if (currentProducts.length === 3) {
+      leftProduct = currentProducts[(activeIdx + 2) % 3];
+      rightProduct = currentProducts[(activeIdx + 1) % 3];
+    } else if (currentProducts.length === 2) {
+      rightProduct = currentProducts[(activeIdx + 1) % 2];
+      leftProduct = null;
+    }
+  }
+
+  const collectionsList = ["royal", "elite", "freedom"];
 
   return (
     <section className="home-products-section">
@@ -1537,100 +1594,203 @@ function HomeProductShowcase({ navigate }) {
         <div className="section-header reveal">
           <div className="page-eyebrow">Our Collection</div>
           <h2 className="section-h">Engineered to <em>impress</em>.</h2>
-          <p className="section-sub">Three iconic finishes. One obsession with purity. Choose the LetsPure that belongs in your home.</p>
+          <p className="section-sub">Choose a series to browse our iconic designs. Click any model to view its features.</p>
         </div>
         <div className="home-products-tabs reveal">
-          {HOME_SHOWCASE.map((p, i) => (
-            <button key={p.id} className={`home-products-tab${active === i ? " active" : ""}`} onClick={() => setActive(i)}>
-              {p.tag}
+          {collectionsList.map((c) => (
+            <button
+              key={c}
+              className={`home-products-tab${collection === c ? " active" : ""}`}
+              onClick={() => {
+                if (collection === c) {
+                  setSelectedRo(null);
+                } else {
+                  setCollection(c);
+                  setSelectedRo(null);
+                }
+              }}
+            >
+              {c.charAt(0).toUpperCase() + c.slice(1)}
             </button>
           ))}
         </div>
-        <div className="home-products-stage reveal">
-          <div
-            className={`hps-side-card${active === (active + 2) % 3 ? " active" : ""}`}
-            onClick={() => setActive((active + 2) % 3)}
-            style={{ background: leftProduct.lightBg }}
-          >
-            <div className="hps-card-tag">{leftProduct.tag}</div>
-            <div className="hps-card-img"><img src={leftProduct.img} alt={leftProduct.name} loading="lazy" /></div>
-            <div className="hps-card-name">{leftProduct.name.replace("\n", " ")}</div>
-            <div className="hps-card-price"><small>Starting at</small>{leftProduct.price}</div>
-            {leftProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
-          </div>
 
-          <div className="hps-center">
-            <div className="hps-center-glow" />
-            <div className="hps-center-rings">
-              <div className="hps-ring" /><div className="hps-ring" /><div className="hps-ring" />
-            </div>
-            <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
-              {centerProduct.floatLabels.map((fl, i) => (
-                <div key={i} className={`hps-float-label ${fl.cls}`}>
-                  <span className="fl-dot" />{fl.text}
+        {selectedRo === null ? (
+          /* Side-by-side View: when no RO is clicked/centered */
+          <div className={`home-products-stage reveal ${currentProducts.length === 2 ? "layout-2col" : "layout-3col-flat"}`}>
+            {currentProducts.map((p) => (
+              <div
+                key={p.id}
+                className="hps-side-card active"
+                onClick={() => setSelectedRo(p)}
+                style={{
+                  background: p.lightBg,
+                  opacity: 1,
+                  cursor: "pointer",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between"
+                }}
+              >
+                <div>
+                  <div className="hps-card-tag">{p.tag}</div>
+                  <div className="hps-card-img">
+                    <img src={p.img} alt={p.name} loading="lazy" />
+                  </div>
+                  <div className="hps-card-name" style={{ marginTop: "1rem" }}>
+                    {p.name.replace("\n", " ")}
+                  </div>
+                  <div className="hps-card-price" style={{ margin: "0.5rem 0" }}>
+                    <small>Starting at</small>{p.price}
+                  </div>
                 </div>
-              ))}
-              <div className="hps-center-img-wrap">
-                <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} loading="lazy" />
+                <div style={{ marginTop: "1rem" }}>
+                  {p.specs.map((s, idx) => (
+                    <div key={idx} className="hps-card-spec">{s}</div>
+                  ))}
+                  <button className="btn-primary" style={{
+                    width: "100%",
+                    marginTop: "1.5rem",
+                    justifyContent: "center",
+                    padding: "0.6rem 1.2rem",
+                    fontSize: "0.8rem"
+                  }}>
+                    View Features
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          /* Center Showcase View: when a specific RO is clicked */
+          <div className="home-products-stage reveal">
+            {/* Left Card */}
+            {leftProduct ? (
+              <div
+                className="hps-side-card"
+                onClick={() => setSelectedRo(leftProduct)}
+                style={{ background: leftProduct.lightBg }}
+              >
+                <div className="hps-card-tag">{leftProduct.tag}</div>
+                <div className="hps-card-img">
+                  <img src={leftProduct.img} alt={leftProduct.name} loading="lazy" />
+                </div>
+                <div className="hps-card-name">{leftProduct.name.replace("\n", " ")}</div>
+                <div className="hps-card-price"><small>Starting at</small>{leftProduct.price}</div>
+                {leftProduct.specs.map((s, i) => (
+                  <div key={i} className="hps-card-spec">{s}</div>
+                ))}
+              </div>
+            ) : (
+              <div className="hps-side-card-placeholder" style={{ opacity: 0, pointerEvents: "none" }} />
+            )}
+
+            {/* Center Showcase */}
+            <div className="hps-center">
+              <div className="hps-center-glow" />
+              <div className="hps-center-rings">
+                <div className="hps-ring" /><div className="hps-ring" /><div className="hps-ring" />
+              </div>
+              <div style={{ position: "relative", width: "100%", display: "flex", justifyContent: "center" }}>
+                {centerProduct.floatLabels.map((fl, i) => (
+                  <div key={i} className={`hps-float-label ${fl.cls}`}>
+                    <span className="fl-dot" />{fl.text}
+                  </div>
+                ))}
+                <div className="hps-center-img-wrap">
+                  <img key={centerProduct.id} src={centerProduct.img} alt={centerProduct.name} loading="lazy" />
+                </div>
+              </div>
+              <div className="hps-center-shadow" />
+              <div className="hps-center-info">
+                <div className="hps-center-badge">
+                  <span style={{ width: 6, height: 6, background: "var(--blue)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }} />
+                  {centerProduct.tag}
+                </div>
+                <div className="hps-center-name">{centerProduct.name.replace("\n", " ")}</div>
+                <div className="hps-center-tagline">{centerProduct.tagline}</div>
+                <div className="hps-center-chips">
+                  {centerProduct.chips.map((c, i) => (
+                    <span key={i} className="hps-chip">{c}</span>
+                  ))}
+                </div>
+                <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "2.5rem", fontWeight: 400, color: "var(--darkest)", marginBottom: "1.5rem" }}>
+                  <span style={{ fontSize: "0.85rem", color: "var(--mid-gray)", fontFamily: "'Poppins', sans-serif", fontWeight: 400, display: "block", marginBottom: 4 }}>Starting at</span>
+                  {centerProduct.price}
+                </div>
+                <div className="hps-center-actions">
+                  <button className="hps-btn-order" onClick={() => navigate("contact")}>Pre-Order Now</button>
+                  <button className="hps-btn-details" onClick={() => setSelectedRo(null)}>Show All Models</button>
+                </div>
               </div>
             </div>
-            <div className="hps-center-shadow" />
-            <div className="hps-center-info">
-              <div className="hps-center-badge">
-                <span style={{ width:6, height:6, background:"var(--blue)", borderRadius:"50%", display:"inline-block", animation:"pulse 2s infinite" }} />
-                {centerProduct.tag}
-              </div>
-              <div className="hps-center-name">{centerProduct.name.replace("\n", " ")}</div>
-              <div className="hps-center-tagline">{centerProduct.tagline}</div>
-              <div className="hps-center-chips">
-                {centerProduct.chips.map((c, i) => <span key={i} className="hps-chip">{c}</span>)}
-              </div>
-              <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"2.5rem", fontWeight:400, color:"var(--darkest)", marginBottom:"1.5rem" }}>
-                <span style={{ fontSize:"0.85rem", color:"var(--mid-gray)", fontFamily:"'Poppins', sans-serif", fontWeight:400, display:"block", marginBottom:4 }}>Starting at</span>
-                {centerProduct.price}
-              </div>
-              <div className="hps-center-actions">
-                <button className="hps-btn-order" onClick={() => navigate("contact")}>Pre-Order Now</button>
-                <button className="hps-btn-details" onClick={() => navigate("products")}>View Details</button>
-              </div>
-            </div>
-          </div>
 
-          <div
-            className={`hps-side-card${active === (active + 1) % 3 ? " active" : ""}`}
-            onClick={() => setActive((active + 1) % 3)}
-            style={{ background: rightProduct.lightBg }}
-          >
-            <div className="hps-card-tag">{rightProduct.tag}</div>
-            <div className="hps-card-img"><img src={rightProduct.img} alt={rightProduct.name} loading="lazy" /></div>
-            <div className="hps-card-name">{rightProduct.name.replace("\n", " ")}</div>
-            <div className="hps-card-price"><small>Starting at</small>{rightProduct.price}</div>
-            {rightProduct.specs.map((s, i) => <div key={i} className="hps-card-spec">{s}</div>)}
+            {/* Right Card */}
+            {rightProduct ? (
+              <div
+                className="hps-side-card"
+                onClick={() => setSelectedRo(rightProduct)}
+                style={{ background: rightProduct.lightBg }}
+              >
+                <div className="hps-card-tag">{rightProduct.tag}</div>
+                <div className="hps-card-img">
+                  <img src={rightProduct.img} alt={rightProduct.name} loading="lazy" />
+                </div>
+                <div className="hps-card-name">{rightProduct.name.replace("\n", " ")}</div>
+                <div className="hps-card-price"><small>Starting at</small>{rightProduct.price}</div>
+                {rightProduct.specs.map((s, i) => (
+                  <div key={i} className="hps-card-spec">{s}</div>
+                ))}
+              </div>
+            ) : (
+              <div className="hps-side-card-placeholder" style={{ opacity: 0, pointerEvents: "none" }} />
+            )}
           </div>
-        </div>
+        )}
 
+        {/* Bottom Strip: show active collection items */}
         <div className="hps-bottom-strip reveal">
-          {HOME_SHOWCASE.map((p, i) => (
-            <div key={p.id} className="hps-strip-item" onClick={() => setActive(i)}
-              style={{ borderColor: active === i ? "rgba(255,98,0,0.4)" : undefined, boxShadow: active === i ? "0 8px 30px rgba(255,98,0,0.12)" : undefined }}>
-              <div className="hps-strip-thumb"><img src={p.img} alt={p.name} loading="lazy" /></div>
+          {currentProducts.map((p) => (
+            <div
+              key={p.id}
+              className="hps-strip-item"
+              onClick={() => setSelectedRo(p)}
+              style={{
+                borderColor: selectedRo && selectedRo.id === p.id ? "rgba(255,98,0,0.4)" : undefined,
+                boxShadow: selectedRo && selectedRo.id === p.id ? "0 8px 30px rgba(255,98,0,0.12)" : undefined
+              }}
+            >
+              <div className="hps-strip-thumb">
+                <img src={p.img} alt={p.name} loading="lazy" />
+              </div>
               <div>
                 <div className="hps-strip-name">{p.name.replace("\n", " ")}</div>
                 <div className="hps-strip-price">{p.price}</div>
               </div>
             </div>
           ))}
+          {/* Obsidian One luxury */}
           {[{ name: "Obsidian One", price: "₹1,49,999" }].map((p, i) => (
             <div key={i} className="hps-strip-item" onClick={() => navigate("products")}>
-              <div className="hps-strip-thumb" style={{ background:"#111827" }}><span style={{ fontSize:"1.5rem" }}>💧</span></div>
-              <div><div className="hps-strip-name">{p.name}</div><div className="hps-strip-price">{p.price}</div></div>
+              <div className="hps-strip-thumb" style={{ background: "#111827" }}>
+                <span style={{ fontSize: "1.5rem" }}>💧</span>
+              </div>
+              <div>
+                <div className="hps-strip-name">{p.name}</div>
+                <div className="hps-strip-price">{p.price}</div>
+              </div>
             </div>
           ))}
-          <div className="hps-strip-item" onClick={() => navigate("products")}
-            style={{ background:"var(--blue)", borderColor:"transparent", justifyContent:"center", minWidth:160 }}>
-            <div style={{ color:"#fff", fontWeight:400, fontSize:"0.9rem", display:"flex", alignItems:"center", gap:8 }}>
+          <div
+            className="hps-strip-item"
+            onClick={() => navigate("products")}
+            style={{ background: "var(--blue)", borderColor: "transparent", justifyContent: "center", minWidth: 160 }}
+          >
+            <div style={{ color: "#fff", fontWeight: 400, fontSize: "0.9rem", display: "flex", alignItems: "center", gap: 8 }}>
               View All
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </div>
           </div>
         </div>
