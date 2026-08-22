@@ -1412,16 +1412,16 @@ nav.scrolled {
 /* ─── DATA ─────────────────────────────────────────────── */
 const NAV_LINKS = ["home", "about", "products", "contact"];
 const FEATURES = [
-  { icon: "🧬", title: "Molecular Filtration", desc: "Removes particles as small as 0.0001 microns — smaller than any known pathogen." },
-  { icon: "💎", title: "Mineral Restoration", desc: "Adds back calcium, magnesium & alkaline compounds your body craves." },
-  { icon: "📱", title: "Smart Monitoring", desc: "Live TDS, pH, and flow-rate data on the integrated display and app." },
-  { icon: "♻️", title: "Zero-Waste Design", desc: "Industry-first 1:1 pure-to-waste ratio. Eco-conscious from molecule to molecule." },
+  { icon: "🧬", title: "Molecular Filtration", desc: "Filters down to 0.0001 microns, removing microscopic contaminants, heavy metals, and microplastics." },
+  { icon: "💎", title: "Mineral Restoration", desc: "Restores natural minerals like calcium and magnesium for balanced, clean-tasting alkaline water." },
+  { icon: "📱", title: "Smart Monitoring", desc: "Track your water's TDS, pH levels, and filter life anytime on the built-in display or our app." },
+  { icon: "♻️", title: "Zero-Waste Design", desc: "Cuts water waste down to a 1:1 ratio—saving water without compromising on purity." },
 ];
 const PRODUCTS = [
-  { id: "elite", badge: "Flagship", badgeDark: false, bgClass: "blue-bg", dark: false, name: "Elite X-1", tagline: "The pinnacle of home water purification.", specs: ["14-Stage RO + UV + UF + Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert (App)","1:1 Zero Waste Recovery Ratio"], price: "₹89,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/whitero.png" },
-  { id: "element", badge: "Pro Series", badgeDark: true, bgClass: "dark-bg", dark: true, name: "Element Pro", tagline: "Compact brilliance for modern kitchens.", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle","Fits under standard sink cabinet"], price: "₹64,999", btnLight: true, btnLabel: "Pre-Order", img: "/assets/eliteblackro.png" },
-  { id: "hydro", badge: "Under Sink", badgeDark: false, bgClass: "slate-bg", dark: false, name: "HydroCore S", tagline: "Hidden genius — designed to disappear under your sink.", specs: ["10-Stage RO Under-Sink Module","Separate Dedicated Pure Water Tap","12L Storage Tank Included","Wi-Fi TDS Reporting to App"], price: "₹49,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/bluero.png" },
-  { id: "obsidian", badge: "Luxury", badgeDark: true, bgClass: "ink-bg", dark: true, name: "Obsidian One", tagline: "For those who demand the extraordinary.", specs: ["16-Stage Luxury Filtration","Platinum-grade Membrane","Bespoke Installation Service","5-Year White Glove Warranty"], price: "₹1,49,999", btnLight: true, btnLabel: "Enquire", img: "/assets/blackro.png" },
+  { id: "elite", badge: "Flagship", badgeDark: false, bgClass: "blue-bg", dark: false, name: "Elite X-1", tagline: "Our most advanced purifier, built for complete family wellness.", specs: ["14-Stage RO + UV + UF + Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert (App)","1:1 Zero Waste Recovery Ratio"], price: "₹89,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/whitero.png" },
+  { id: "element", badge: "Pro Series", badgeDark: true, bgClass: "dark-bg", dark: true, name: "Element Pro", tagline: "High-performance filtration designed to fit seamlessly on your countertop.", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle","Fits under standard sink cabinet"], price: "₹64,999", btnLight: true, btnLabel: "Pre-Order", img: "/assets/eliteblackro.png" },
+  { id: "hydro", badge: "Under Sink", badgeDark: false, bgClass: "slate-bg", dark: false, name: "HydroCore S", tagline: "Tucks neatly under your sink to keep your kitchen clean and uncluttered.", specs: ["10-Stage RO Under-Sink Module","Separate Dedicated Pure Water Tap","12L Storage Tank Included","Wi-Fi TDS Reporting to App"], price: "₹49,999", btnLight: false, btnLabel: "Pre-Order", img: "/assets/bluero.png" },
+  { id: "obsidian", badge: "Luxury", badgeDark: true, bgClass: "ink-bg", dark: true, name: "Obsidian One", tagline: "A statement of luxury and zero-compromise filtration for your home.", specs: ["16-Stage Luxury Filtration","Platinum-grade Membrane","Bespoke Installation Service","5-Year White Glove Warranty"], price: "₹1,49,999", btnLight: true, btnLabel: "Enquire", img: "/assets/blackro.png" },
 ];
 const COMP_ROWS = [
   { label: "Filter Stages", vals: ["14", "12", "10"] },
@@ -1437,9 +1437,9 @@ const MARQUEE_ITEMS = [
   "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
 ];
 const TESTIMONIALS = [
-  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "I've tried every premium water purifier on the market. LetsPure is in a different league entirely — the water tastes like it was born in a glacier.", model: "Elite X-1" },
-  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "As someone who studies what enters the bloodstream, I became obsessive about our water. The 14-stage process and live TDS monitoring gave my family real peace of mind.", model: "HydroCore S" },
-  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "The Obsidian One is a sculpture in our kitchen as much as it is a purifier. Every guest asks about it. Every sip validates the investment.", model: "Obsidian One" },
+  { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "Honestly, the difference in taste was immediate. The water is clean, crisp, and we no longer need bottled water.", model: "Elite X-1" },
+  { name: "Arjun Mehta", role: "Cardiologist · Delhi", avatar: "AM", rating: 5, quote: "With a busy household, I wanted to be absolutely sure about our water quality. The live TDS display gives us a quick, reassuring way to see it's safe.", model: "HydroCore S" },
+  { name: "Sonal & Vivek Iyer", role: "Home Owners · Bengaluru", avatar: "SI", rating: 5, quote: "We love the sleek look under the counter and how neat it keeps our kitchen. The water tastes fantastic.", model: "Obsidian One" },
 ];
 const FOOTER_LINKS = {
   Products: ["Elite X-1", "Element Pro", "HydroCore S", "Obsidian One"],
@@ -1451,17 +1451,17 @@ const FOOTER_LINKS = {
 /* ─── HOME PRODUCT SHOWCASE DATA ────────────────────────── */
 const COLLECTIONS = {
   royal: [
-    { id: "royal-black", img: "/assets/royal/royal black.png", tag: "Royal Black", name: "Royal\nObsidian", tagline: "Regal elegance. Untouched purity.", price: "₹99,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Copper + Zinc Infusion", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "royal-grey", img: "/assets/royal/royal grey.png", tag: "Royal Grey", name: "Royal\nSlate", tagline: "Modern majesty. Pure perfection.", price: "₹94,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Premium Matte Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#808080", lightBg: "linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%)" }
+    { id: "royal-black", img: "/assets/royal/royal black.png", tag: "Royal Black", name: "Royal\nObsidian", tagline: "Brings modern elegance and clean, refreshing water to your kitchen.", price: "₹99,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Copper + Zinc Infusion", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "royal-grey", img: "/assets/royal/royal grey.png", tag: "Royal Grey", name: "Royal\nSlate", tagline: "Sleek matte finish with multi-stage mineral restoration.", price: "₹94,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Premium Matte Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#808080", lightBg: "linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%)" }
   ],
   elite: [
-    { id: "elite-black", img: "/assets/elite/elite black.png", tag: "Elite Black", name: "Elite\nObsidian", tagline: "The peak of performance. Dark finish.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "elite-white", img: "/assets/elite/elite white.png", tag: "Elite White", name: "Elite\nPearl", tagline: "The peak of performance. Pearl white.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Pearl White Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+    { id: "elite-black", img: "/assets/elite/elite black.png", tag: "Elite Black", name: "Elite\nObsidian", tagline: "Uncompromising filtration in a bold, matte black design.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "elite-white", img: "/assets/elite/elite white.png", tag: "Elite White", name: "Elite\nPearl", tagline: "Clean, timeless style paired with advanced purification.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Pearl White Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
   ],
   freedom: [
-    { id: "freedom-black", img: "/assets/freedom-ro/black.png", tag: "Freedom Black", name: "Freedom\nObsidian", tagline: "Absolute freedom from impurities.", price: "₹59,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "freedom-blue", img: "/assets/freedom-ro/blue.png", tag: "Freedom Blue", name: "Freedom\nAzure", tagline: "Azure depths. Purest flow.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Azure Blue","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
-    { id: "freedom-white", img: "/assets/freedom-ro/white.png", tag: "Freedom White", name: "Freedom\nPearl", tagline: "Minimalist purity. Seamless design.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Pearl White","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+    { id: "freedom-black", img: "/assets/freedom-ro/black.png", tag: "Freedom Black", name: "Freedom\nObsidian", tagline: "Compact, smart filtration that automatically flushes and cleans itself.", price: "₹59,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "freedom-blue", img: "/assets/freedom-ro/blue.png", tag: "Freedom Blue", name: "Freedom\nAzure", tagline: "A pop of color with powerful multi-stage filtration.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Azure Blue","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
+    { id: "freedom-white", img: "/assets/freedom-ro/white.png", tag: "Freedom White", name: "Freedom\nPearl", tagline: "Sleek countertop profile that fits any modern kitchen.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Pearl White","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
   ]
 };
 
@@ -1537,7 +1537,7 @@ function HeroVisual() {
         width: "100%", height: "100%", paddingLeft: "30px", marginLeft: "40px",
       }}
     >
-      <div style={{ position: "relative", height: "680px", width: "490px", maxWidth: "100%" }}>
+      <div style={{ position: "relative", height: "680px", width: "490px", maxWidth: "100%", left: "25px" }}>
         {HERO_IMAGES.map((item, idx) => (
           <img
             key={idx}
@@ -1985,8 +1985,8 @@ function CTABanner({ navigate }) {
       </div>
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
-        <h2 className="cta-h">Your water will never<br />be the same again.</h2>
-        <p className="cta-sub">Pre-order the X-Series now. Free installation across 18 Indian cities. Free water quality assessment included.</p>
+        <h2 className="cta-h">Enjoy clean, healthy<br />water every day.</h2>
+        <p className="cta-sub">Pre-order your X-Series purifier today. We offer free delivery, professional installation, and a complimentary water test.</p>
         <div className="cta-actions">
           <button className="btn-primary" onClick={() => navigate("products")}>
             View All Models
@@ -2171,8 +2171,8 @@ function HomePage({ navigate, tds }) {
         <div className="hero-inner">
           <div className="hero-text">
             <div className="hero-badge"><span className="badge-dot" />2026 Collection Now Live</div>
-            <h1 className="hero-h1">Water,<br /><em>Perfected</em><br />at the Atom.</h1>
-            <p className="hero-sub">LetsPure multi-stage molecular filtration system removes 99.9% of contaminants while restoring essential minerals — intelligently, beautifully.</p>
+            <h1 className="hero-h1">Pure, refreshing<br />water,<br /><em>simplified</em>.</h1>
+            <p className="hero-sub">LetsPure filters out 99.9% of impurities, heavy metals, and bacteria while keeping the essential minerals your body needs.</p>
             <div className="hero-actions">
               <button className="btn-primary" onClick={() => navigate("products")}>
                 Explore Models
@@ -2197,8 +2197,8 @@ function HomePage({ navigate, tds }) {
         <div className="features-inner">
           <div className="section-header reveal">
             <div className="page-eyebrow">Why LetsPure</div>
-            <h2 className="section-h">Not just filtered — <em>perfected</em>.</h2>
-            <p className="section-sub">Every drop engineered to exceed WHO purity standards, while restoring what your body truly needs.</p>
+            <h2 className="section-h">Filtered thoroughly, <em>restored naturally</em>.</h2>
+            <p className="section-sub">Removing what's harmful, keeping what's healthy. Clean water made simple.</p>
           </div>
           <div className="features-grid">
             {FEATURES.map((f, i) => (
@@ -2225,9 +2225,9 @@ function AboutPage() {
   useReveal(["about"]);
 
   const values = [
-    { icon:"🛡️", title:"Bio-Defense RO+", desc:"14 stages of precision molecular ultrafiltration — stripping microplastics, heavy metals, fluoride, chloramines and every known pathogen through membranes thinner than a human hair." },
-    { icon:"💧", title:"Natural Mineralization", desc:"We don't just strip — we replenish. Bio-ceramic mineral stones return vital magnesium, calcium and potassium so every glass tastes like mountain spring water." },
-    { icon:"🌿", title:"Eco Carbon Architecture", desc:"Zero-waste dynamic recirculation — our 1:1 efficiency ratio means for every litre purified, only one litre is used. We broke the industry's 3:1 norm. Permanently." },
+    { icon:"🛡️", title:"Bio-Defense RO+", desc:"A thorough multi-stage filtration system that removes microplastics, heavy metals, chlorine, and bacteria, leaving nothing but clean water." },
+    { icon:"💧", title:"Natural Mineralization", desc:"We restore natural minerals like magnesium, calcium, and potassium, ensuring your water is balanced, healthy, and tastes great." },
+    { icon:"🌿", title:"Eco Carbon Architecture", desc:"Our purifiers use a 1:1 wastewater ratio—saving significantly more water compared to standard filters that waste up to 3 liters for every liter purified." },
   ];
 
   const aboutStats = [
@@ -2251,10 +2251,10 @@ function AboutPage() {
           <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
         </div>
         <h1 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
-          Redefining What <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Pure</em> Means.
+          Redefining What <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Clean Water</em> Means.
         </h1>
         <p style={{ fontSize:"1.05rem", color:"rgba(255,255,255,0.55)", lineHeight:1.8, maxWidth:"540px", fontWeight:300, marginBottom:"3rem" }}>
-          Founded in 2018 in Bangalore by three ISRO engineers obsessed with one question — what if water could be genuinely, measurably, scientifically perfect?
+          Founded in 2018 in Bangalore with a simple goal: build a reliable, high-performance water purifier that doesn't waste water or strip away healthy minerals.
         </p>
         <div style={{ display:"flex", gap:"1px", alignItems:"center" }}>
           <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
@@ -2278,10 +2278,10 @@ function AboutPage() {
         <div style={{ maxWidth:"860px", margin:"0 auto" }}>
           <div className="page-eyebrow">Our Mission</div>
           <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
-            Water is life's most fundamental input.{" "}<em style={{ fontStyle:"italic", color:"#696969" }}>We refuse to compromise on it.</em>
+            Clean water is essential for your family's health.{" "}<em style={{ fontStyle:"italic", color:"#696969" }}>We make sure you get nothing less.</em>
           </h2>
           <p style={{ fontSize:"1.05rem", color:"#808080", lineHeight:1.9, fontWeight:300, maxWidth:"660px", margin:"0 auto" }}>
-            At LetsPure, we believe true purity isn't a marketing claim — it's an engineering commitment. Every product we build must pass the same standard: would we give this water to our own children? If the answer isn't an emphatic yes, it doesn't ship.
+            For us, water quality isn't about marketing claims—it's about real testing and quality. We design our purifiers to the highest safety standards so you can have complete peace of mind.
           </p>
         </div>
       </div>
@@ -2311,16 +2311,16 @@ function AboutPage() {
             <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
               <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
             </div>
-            <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Three engineers.<br />One obsession.</h2>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>In 2018, Arjun, Sneha and Vikram left careers at ISRO after a sobering realization: the water purifiers available in India — even the expensive ones — were failing basic molecular purity benchmarks that aerospace filtration had solved decades ago.</p>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>They set out to build something different. Not just another purifier, but a filtration system that could stand next to laboratory-grade equipment — and win. That obsession became LetsPure.</p>
+            <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Engineered for<br />everyday health.</h2>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>In 2018, our founders set out to solve a common problem: most home water purifiers in India were either wasting too much water or stripping away essential minerals.</p>
+            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>Using their engineering backgrounds, they designed a system that balances thorough filtration with eco-friendly efficiency and mineral restoration. That's how LetsPure was born.</p>
           </div>
           <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
-            {["2018 — Left ISRO. Founded LetsPure in a 400 sq ft Bangalore lab.",
-              "2020 — Patent granted for 14-stage molecular membrane architecture.",
-              "2022 — First company globally to achieve 1:1 zero-waste filtration at consumer scale.",
-              "2024 — Smart TDS display + companion app. 1 million units shipped.",
-              "2026 — The X-Series. Our most advanced engineering, launched to the world."].map((item, i) => (
+            {["2018 — Founded LetsPure with a focus on water conservation and purity.",
+              "2020 — Developed our signature multi-stage filtration system.",
+              "2022 — Launched our 1:1 low-waste filtration technology.",
+              "2024 — Integrated live TDS tracking and served over 1 million homes.",
+              "2026 — Introduced our latest X-Series models with improved durability."].map((item, i) => (
               <div key={i} className="reveal" style={{ display:"flex", gap:"1.2rem", alignItems:"flex-start", transitionDelay:`${i*0.1}s` }}>
                 <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{String(i+1).padStart(2,"0")}</div>
                 <p style={{ fontSize:"0.88rem", color:"rgba(255,255,255,0.55)", lineHeight:1.65, fontWeight:300, paddingTop:"4px" }}>{item}</p>
@@ -2398,8 +2398,8 @@ function ProductsPage({ navigate }) {
     <div>
       <div className="products-hero">
         <div className="page-eyebrow">Our Collection</div>
-        <h1 className="page-h1">Masterpieces of<br />Engineering.</h1>
-        <p className="page-sub">Four models. One obsession. Choose the LetsPure that fits your life — all redefine what pure water means.</p>
+        <h1 className="page-h1">Designed for<br />Every Home.</h1>
+        <p className="page-sub">Explore our range of water purifiers, built with advanced filtration, smart mineral balancing, and water-saving technology.</p>
         <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", marginTop:"2rem", background:"#f1f3f8", borderRadius:"100px", padding:"6px", width:"fit-content", marginLeft:"auto", marginRight:"auto" }}>
           {mainTabs.map((tab) => (
             <button key={tab} onClick={() => setActiveTab(tab)} style={{ border:"none", background:activeTab===tab?"#fff":"transparent", padding:"0.6rem 1.8rem", borderRadius:"100px", fontFamily:"'Poppins', sans-serif", fontSize:"0.88rem", fontWeight:400, color:activeTab===tab?"#111827":"#808080", cursor:"pointer", boxShadow:activeTab===tab?"0 2px 16px rgba(0,0,0,0.1)":"none", transition:"all 0.25s ease" }}>
@@ -2489,11 +2489,11 @@ function ContactPage() {
       <div className="contact-wrap">
         <div className="contact-left reveal-left">
           <div className="page-eyebrow" style={{ marginBottom:"1.5rem" }}>Get In Touch</div>
-          <h1>Bring Purity<br />Home Today.</h1>
-          <p>Whether you need a bespoke installation, a water quality test, or simply want to find your ideal model — our Hydration Consultants are ready.</p>
+          <h1>Find the Right<br />Purifier for You.</h1>
+          <p>Need help picking a model or want to schedule a water quality test? Our team is here to help you get started.</p>
           <div className="contact-info">
             {[
-              { icon:"📞", label:"Expert Helpline",  val:"+91 800-LetsPure" },
+              { icon:"📞", label:"Customer Support",  val:"+91 800-LetsPure" },
               { icon:"✉️", label:"Email Support",    val:"consult@LetsPure.in" },
               { icon:"📍", label:"Headquarters",     val:"Whitefield, Bengaluru 560066" },
               { icon:"🕐", label:"Hours",            val:"Mon – Sat, 9 AM – 7 PM IST" },
@@ -2510,7 +2510,7 @@ function ContactPage() {
             <div className="form-success">
               <div style={{ fontSize:"3rem", marginBottom:"1rem" }}>💧</div>
               <h3>Request Received!</h3>
-              <p>A Hydration Consultant will reach out within 24 hours.</p>
+              <p>Our team will reach out to you within 24 hours.</p>
             </div>
           ) : (
             <div className="contact-form">
