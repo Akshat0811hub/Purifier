@@ -1702,7 +1702,7 @@ const PRODUCTS = [
         colorName: "Midnight Black",
         colorHex: "#111827",
         img: "/assets/freedom-ro/black.webp",
-        price: "₹59,999",
+        price: "₹20,990",
         bgClass: "ro-bg-white",
         dark: false
       },
