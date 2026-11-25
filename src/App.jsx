@@ -55,12 +55,17 @@ h1, h2, h3, h4, h5, h6, li, td, th, label {
   --font-body:    "Poppins", sans-serif;
 }
 
-html { scroll-behavior: smooth; overflow-x: hidden; }
+html, body {
+  scroll-behavior: smooth;
+  overflow-x: hidden !important;
+  width: 100%;
+  max-width: 100vw;
+  position: relative;
+}
 body {
   font-family: 'Poppins', sans-serif !important;
   background: var(--white);
   color: var(--dark);
-  overflow-x: hidden;
 }
 
 nav {
@@ -154,6 +159,9 @@ nav.scrolled {
   animation: pageFadeIn 0.5s ease both;
   isolation: isolate;
   will-change: opacity, transform;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 @keyframes pageFadeIn {
   from { opacity: 0; transform: translateY(24px); filter: blur(4px); }
@@ -219,11 +227,50 @@ nav.scrolled {
 .stat-lbl { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
 @keyframes fadeSlideUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
 
-.hero-visual { display: flex; justify-content: flex-end; align-items: center; position: relative; height: 540px; animation: fadeSlideUp 0.9s 0.2s ease both; }
+.hero-visual {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 540px;
+  padding-left: 30px;
+  margin-left: 40px;
+  animation: fadeSlideUp 0.9s 0.2s ease both;
+}
+.hero-ro-spotlight {
+  display: none;
+}
+.hero-visual-inner {
+  position: relative;
+  height: 680px;
+  width: 490px;
+  max-width: 100%;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-ro-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 40px 80px rgba(0,0,0,0.35));
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+  pointer-events: none;
+}
+.hero-ro-img.active {
+  opacity: 1;
+  pointer-events: auto;
+}
 .ro-stage-wrapper { position: relative; width: 340px; height: 480px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 14px 40px var(--white); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+.btn-primary { background: var(--blue); color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; cursor: pointer; display: flex; align-items: center; gap: 8px; box-shadow: 0 8px 30px rgba(0,87,255,0.25); transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
 .btn-primary::before { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 0%, rgba(255,255,255,.34) 45%, transparent 60%); transform: translateX(-120%); transition: transform .65s ease; }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px var(--white); }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(0,87,255,0.35); }
 .btn-primary:hover::before { transform: translateX(120%); }
 .btn-ghost { background: transparent; color: var(--white); border: 1.5px solid var(--mid-gray); padding: 0.9rem 2rem; border-radius: 100px; font-family: var(--font-body); font-size: 0.9rem; font-weight: 400; cursor: pointer; transition: border-color 0.2s, color 0.2s, transform 0.2s; }
 .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
@@ -1351,8 +1398,22 @@ nav.scrolled {
   .features-grid{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:960px){
-  .hero-inner{grid-template-columns:1fr;gap:3rem}
-  .hero-visual{height:380px}
+  .hero-inner{grid-template-columns:1fr;gap:2.5rem;text-align:center}
+  .hero-text{display:flex;flex-direction:column;align-items:center}
+  .hero-visual{
+    height: 440px;
+    margin-left: 0;
+    padding-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
+  .hero-visual-inner{
+    left: 0;
+    width: 100%;
+    max-width: 400px;
+    height: 420px;
+    margin: 0 auto;
+  }
   .pillars{grid-template-columns:1fr}
   .products-grid{grid-template-columns:1fr}
   .contact-wrap{grid-template-columns:1fr;gap:3rem;padding-top:120px}
@@ -1360,26 +1421,187 @@ nav.scrolled {
   .comp-table{overflow-x:auto}
 }
 @media(max-width:768px){
-  .cta-actions{flex-direction:column}
-  .footer-content{grid-template-columns:1fr}
-  .stats-inner{grid-template-columns:1fr}
-  .footer-bottom-inner{flex-direction:column;text-align:center}
-  .footer-cert{justify-content:center;flex-wrap:wrap}
-  .footer-drop-theatre{height:150px}
-  .hero-glow,.hero-glow2{display:none}
-  .home-products-tabs { width: 100%; }
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  nav{height:68px;padding:0 1.25rem}
+  .nav-logo img{max-width:145px !important;height:auto !important;max-height:46px !important}
+
+  /* ── Mobile Hero Banner: Clean modern backdrop without desktop image ── */
+  .hero {
+    background-image: none !important;
+    background: radial-gradient(circle at 50% 12%, #192744 0%, #0e172a 48%, #030712 100%) !important;
+    min-height: auto !important;
+    padding: 95px 5vw 45px !important;
+    overflow: hidden !important;
+    position: relative !important;
+  }
+  .hero-bg-grid {
+    opacity: 0.35 !important;
+    background-size: 32px 32px !important;
+  }
+  .hero-glow, .hero-glow2 { display: none !important; }
+
+  .hero-inner {
+    grid-template-columns: 1fr !important;
+    gap: 1.8rem !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-text {
+    width: 100% !important;
+    max-width: 100% !important;
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+
+  .hero-badge {
+    margin-bottom: 1.1rem !important;
+    font-size: 0.72rem !important;
+    padding: 0.32rem 0.85rem !important;
+    letter-spacing: 0.05em !important;
+  }
+
+  .hero-h1 {
+    font-size: clamp(2rem, 7.5vw, 2.75rem) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.5px !important;
+    margin-bottom: 1rem !important;
+    text-align: center !important;
+    max-width: 100% !important;
+    word-break: break-word !important;
+  }
+
+  .hero-sub {
+    font-size: 0.92rem !important;
+    line-height: 1.6 !important;
+    max-width: 380px !important;
+    margin: 0 auto 1.6rem auto !important;
+    text-align: center !important;
+    color: rgba(255, 255, 255, 0.85) !important;
+  }
+
+  /* ── Hero Buttons: 100% responsive, fits all screens without overflow ── */
+  .hero-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    max-width: 320px !important;
+    gap: 0.75rem !important;
+    margin: 0 auto !important;
+  }
+
+  .hero-actions .btn-primary,
+  .hero-actions .btn-ghost {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    justify-content: center !important;
+    text-align: center !important;
+    padding: 0.85rem 1.4rem !important;
+    font-size: 0.92rem !important;
+    border-radius: 100px !important;
+  }
+
+  .btn-primary {
+    box-shadow: 0 6px 20px rgba(0,87,255,0.35) !important;
+  }
+  .btn-ghost {
+    background: rgba(255,255,255,0.06) !important;
+    border: 1.5px solid rgba(255,255,255,0.28) !important;
+    color: #ffffff !important;
+  }
+
+  /* ── Mobile RO Showcase: Centered, lit by ambient glow pedestal ── */
+  .hero-visual {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 350px !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    position: relative !important;
+    margin-top: 0.4rem !important;
+  }
+
+  /* Ambient glowing pedestal spotlight behind RO purifier */
+  .hero-ro-spotlight {
+    display: block !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 270px !important;
+    height: 270px !important;
+    border-radius: 50% !important;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(37, 99, 235, 0.1) 48%, transparent 72%) !important;
+    pointer-events: none !important;
+    z-index: 0 !important;
+    filter: blur(10px) !important;
+  }
+
+  .hero-visual-inner {
+    position: relative !important;
+    height: 330px !important;
+    width: 100% !important;
+    max-width: 280px !important;
+    left: 0 !important;
+    margin: 0 auto !important;
+    z-index: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .hero-ro-img {
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.65)) drop-shadow(0 0 25px rgba(59,130,246,0.2)) !important;
+  }
+
+  .hero-stats {
+    gap: 1.2rem !important;
+    margin-top: 2rem !important;
+    padding-top: 1.8rem !important;
+    justify-content: center !important;
+    border-top: 1px solid rgba(255,255,255,0.1) !important;
+  }
+
+  /* Global responsive updates */
+  .cta-actions { flex-direction: column !important; width: 100% !important; max-width: 300px !important; margin: 1.8rem auto 0 !important; }
+  .cta-actions .btn-primary, .cta-actions .btn-ghost { width: 100% !important; justify-content: center !important; text-align: center !important; }
+  .footer-content { grid-template-columns: 1fr !important; gap: 2rem !important; }
+  .stats-inner { grid-template-columns: 1fr 1fr !important; gap: 1.5rem !important; }
+  .footer-bottom-inner { flex-direction: column !important; text-align: center !important; }
+  .footer-cert { justify-content: center !important; flex-wrap: wrap !important; }
+  .footer-drop-theatre { height: 150px !important; }
+  .home-products-tabs { width: 100% !important; max-width: 100% !important; flex-wrap: wrap !important; justify-content: center !important; }
+  .home-products-tab { flex: 1 1 auto !important; text-align: center !important; padding: 0.5rem 0.9rem !important; font-size: 0.8rem !important; }
+  .features-section { padding: 60px 5vw !important; }
+  .features-grid { grid-template-columns: 1fr !important; gap: 1.2rem !important; }
+  .pillar-card { padding: 1.6rem 1.4rem !important; }
 }
 @media(max-width:640px){
-  .hero-stats{gap:1.5rem;flex-wrap:wrap}
-  .hero-actions{flex-direction:column}
-  .btn-primary,.btn-ghost{width:100%;justify-content:center}
-  .features-grid{grid-template-columns:1fr}
-  .home-products-stage { grid-template-columns: 1fr; }
+  .features-grid{grid-template-columns:1fr !important}
+  .home-products-stage { grid-template-columns: 1fr !important; }
   .hps-bottom-strip { gap: 1rem; }
   .hps-strip-item { min-width: 180px; }
+  .hps-center-actions { flex-direction: column !important; width: 100% !important; max-width: 280px !important; margin: 0 auto !important; }
+  .hps-btn-order, .hps-btn-details { width: 100% !important; text-align: center !important; justify-content: center !important; }
 }
 @media(max-width:480px){
-  .prod-footer{flex-direction:column;gap:1rem;align-items:flex-start}
+  .hero { padding: 88px 4vw 35px !important; }
+  .hero-h1 { font-size: clamp(1.8rem, 7.5vw, 2.25rem) !important; }
+  .hero-visual { height: 300px !important; }
+  .hero-visual-inner { height: 280px !important; max-width: 240px !important; }
+  .hero-ro-spotlight { width: 220px !important; height: 220px !important; }
+  .hero-actions { width: 100% !important; max-width: 100% !important; }
+  .stats-inner { grid-template-columns: 1fr !important; }
+  .prod-footer { flex-direction: column !important; gap: 1rem !important; align-items: flex-start !important; }
+  .sp-modal { padding: 1.6rem 1.2rem !important; }
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -1466,7 +1688,7 @@ const PRODUCTS = [
     name: "Freedom Series",
     badge: "Compact & Modern",
     tagline: "Compact, smart countertop filtration with automated flush and self-clean cycle.",
-    price: "₹54,999",
+    price: "₹20,990",
     specs: [
       "12-Stage Compact Multi-Filtration",
       "UV-C Chamber In-Tank Sterilization",
@@ -1488,7 +1710,7 @@ const PRODUCTS = [
         colorName: "Azure Blue",
         colorHex: "#2563eb",
         img: "/assets/freedom-ro/blue.webp",
-        price: "₹54,999",
+        price: "₹20,990",
         bgClass: "ro-bg-white",
         dark: false
       },
@@ -1496,7 +1718,7 @@ const PRODUCTS = [
         colorName: "Pure White",
         colorHex: "#ffffff",
         img: "/assets/freedom-ro/white.webp",
-        price: "₹54,999",
+        price: "₹20,990",
         bgClass: "ro-bg-black",
         dark: true
       }
@@ -1507,7 +1729,7 @@ const PRODUCTS = [
     name: "Royal Series",
     badge: "Flagship Luxury",
     tagline: "Ultimate luxury filtration with active copper, zinc infusion & alkaline balancing.",
-    price: "₹94,999",
+    price: "₹24,490",
     specs: [
       "15-Stage RO + UV + UF + Alkaline Purification",
       "Intelligent TDS & pH Live Digital Display",
@@ -1529,7 +1751,7 @@ const PRODUCTS = [
         colorName: "Royal Grey",
         colorHex: "#71717a",
         img: "/assets/royal/royal grey.webp",
-        price: "₹94,999",
+        price: "₹24,490",
         bgClass: "ro-bg-light-grey",
         dark: false
       }
@@ -1540,7 +1762,7 @@ const PRODUCTS = [
     name: "Elite Series",
     badge: "Pro Series",
     tagline: "Engineered for pure family wellness with real-time TDS and mineral balancing.",
-    price: "₹79,999",
+    price: "₹22,490",
     specs: [
       "14-Stage RO + UV + UF + Mineraliser",
       "Intelligent TDS & pH Live Display",
@@ -1554,7 +1776,7 @@ const PRODUCTS = [
         colorName: "Obsidian Black",
         colorHex: "#111827",
         img: "/assets/elite/elite black.webp",
-        price: "₹79,999",
+        price: "₹22,490",
         bgClass: "ro-bg-white",
         dark: false
       },
@@ -1562,7 +1784,7 @@ const PRODUCTS = [
         colorName: "Pearl White",
         colorHex: "#ffffff",
         img: "/assets/elite/elite white.webp",
-        price: "₹79,999",
+        price: "₹22,490",
         bgClass: "ro-bg-black",
         dark: true
       }
@@ -1579,10 +1801,10 @@ const COMP_ROWS = [
   { label: "Comprehensive Warranty", vals: ["2 Years", "5 Years White Glove", "3 Years Complete"] },
 ];
 const MARQUEE_ITEMS = [
-  "Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor",
-  "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
-  "Molecular Filtration","14-Stage Purification","99.9% Purity","Smart TDS Monitor",
-  "Alkaline Infused","Zero Waste Architecture","UV-C Sterilization",
+  "Molecular Filtration", "14-Stage Purification", "99.9% Purity", "Smart TDS Monitor",
+  "Alkaline Infused", "Zero Waste Architecture", "UV-C Sterilization",
+  "Molecular Filtration", "14-Stage Purification", "99.9% Purity", "Smart TDS Monitor",
+  "Alkaline Infused", "Zero Waste Architecture", "UV-C Sterilization",
 ];
 const TESTIMONIALS = [
   { name: "Priya Raghavan", role: "Architect · Mumbai", avatar: "PR", rating: 5, quote: "Honestly, the difference in taste was immediate. The water is clean, crisp, and we no longer need bottled water.", model: "Elite X-1" },
@@ -1599,54 +1821,54 @@ const FOOTER_LINKS = {
 /* ─── HOME PRODUCT SHOWCASE DATA ────────────────────────── */
 const COLLECTIONS = {
   royal: [
-    { id: "royal-black", img: "/assets/royal/royal black.webp", tag: "Royal Black", name: "Royal\nBlack", tagline: "Brings modern elegance and clean, refreshing water to your kitchen.", price: "₹99,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Copper + Zinc Infusion", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "royal-grey", img: "/assets/royal/royal grey.webp", tag: "Royal Grey", name: "Royal\nGrey", tagline: "Sleek matte finish with multi-stage mineral restoration.", price: "₹94,999", specs: ["15-Stage RO+UV+UF+Alkaline","Intelligent TDS & pH Live Display","Copper & Zinc Infusion Cartridge","Zero Waste Recirculation"], chips: ["15-Stage RO","pH 8.8","Copper-Zinc","Zero Waste"], floatLabels: [{ text: "Premium Matte Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.8", cls: "hps-fl-2" },{ text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#808080", lightBg: "linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%)" }
+    { id: "royal-black", img: "/assets/royal/royal black.webp", tag: "Royal Black", name: "Royal\nBlack", tagline: "Brings modern elegance and clean, refreshing water to your kitchen.", price: "₹99,999", specs: ["15-Stage RO+UV+UF+Alkaline", "Intelligent TDS & pH Live Display", "Copper & Zinc Infusion Cartridge", "Zero Waste Recirculation"], chips: ["15-Stage RO", "pH 8.8", "Copper-Zinc", "Zero Waste"], floatLabels: [{ text: "Copper + Zinc Infusion", cls: "hps-fl-1" }, { text: "Alkaline pH 8.8", cls: "hps-fl-2" }, { text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "royal-grey", img: "/assets/royal/royal grey.webp", tag: "Royal Grey", name: "Royal\nGrey", tagline: "Sleek matte finish with multi-stage mineral restoration.", price: "₹24,490", specs: ["15-Stage RO+UV+UF+Alkaline", "Intelligent TDS & pH Live Display", "Copper & Zinc Infusion Cartridge", "Zero Waste Recirculation"], chips: ["15-Stage RO", "pH 8.8", "Copper-Zinc", "Zero Waste"], floatLabels: [{ text: "Premium Matte Finish", cls: "hps-fl-1" }, { text: "Alkaline pH 8.8", cls: "hps-fl-2" }, { text: "15-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#808080", lightBg: "linear-gradient(135deg,#f0f0f0 0%,#e0e0e0 100%)" }
   ],
   elite: [
-    { id: "elite-black", img: "/assets/elite/elite black.webp", tag: "Elite Black", name: "Elite\nObsidian", tagline: "Uncompromising filtration in a bold, matte black design.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "elite-white", img: "/assets/elite/elite white.webp", tag: "Elite White", name: "Elite\nPearl", tagline: "Clean, timeless style paired with advanced purification.", price: "₹79,999", specs: ["14-Stage RO+UV+UF+Mineraliser","Intelligent TDS & pH Live Display","Alkaline Balancer (pH 8.2–9.0)","Smart Filter Change Alert"], chips: ["14-Stage RO","UV-C","pH 8.5","Zero Waste"], floatLabels: [{ text: "Pearl White Finish", cls: "hps-fl-1" },{ text: "Alkaline pH 8.5", cls: "hps-fl-2" },{ text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+    { id: "elite-black", img: "/assets/elite/elite black.webp", tag: "Elite Black", name: "Elite\nObsidian", tagline: "Uncompromising filtration in a bold, matte black design.", price: "₹22,490", specs: ["14-Stage RO+UV+UF+Mineraliser", "Intelligent TDS & pH Live Display", "Alkaline Balancer (pH 8.2–9.0)", "Smart Filter Change Alert"], chips: ["14-Stage RO", "UV-C", "pH 8.5", "Zero Waste"], floatLabels: [{ text: "Smart TDS Monitor", cls: "hps-fl-1" }, { text: "Alkaline pH 8.5", cls: "hps-fl-2" }, { text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "elite-white", img: "/assets/elite/elite white.webp", tag: "Elite White", name: "Elite\nPearl", tagline: "Clean, timeless style paired with advanced purification.", price: "₹22,490", specs: ["14-Stage RO+UV+UF+Mineraliser", "Intelligent TDS & pH Live Display", "Alkaline Balancer (pH 8.2–9.0)", "Smart Filter Change Alert"], chips: ["14-Stage RO", "UV-C", "pH 8.5", "Zero Waste"], floatLabels: [{ text: "Pearl White Finish", cls: "hps-fl-1" }, { text: "Alkaline pH 8.5", cls: "hps-fl-2" }, { text: "14-Stage RO+UV", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
   ],
   freedom: [
-    { id: "freedom-black", img: "/assets/freedom-ro/black.webp", tag: "Freedom Black", name: "Freedom\nObsidian", tagline: "Compact, smart filtration that automatically flushes and cleans itself.", price: "₹59,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Self-Clean","Wi-Fi","Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" },{ text: "Wi-Fi Monitoring", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
-    { id: "freedom-blue", img: "/assets/freedom-ro/blue.webp", tag: "Freedom Blue", name: "Freedom\nAzure", tagline: "A pop of color with powerful multi-stage filtration.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Azure Blue","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
-    { id: "freedom-white", img: "/assets/freedom-ro/white.webp", tag: "Freedom White", name: "Freedom\nPearl", tagline: "Sleek countertop profile that fits any modern kitchen.", price: "₹54,999", specs: ["12-Stage Compact Filtration","UV-C Chamber Sterilization","Sleek Countertop Glass Profile","Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO","Pearl White","Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" },{ text: "UV-C Sterilization", cls: "hps-fl-2" },{ text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
+    { id: "freedom-black", img: "/assets/freedom-ro/black.webp", tag: "Freedom Black", name: "Freedom\nObsidian", tagline: "Compact, smart filtration that automatically flushes and cleans itself.", price: "₹59,999", specs: ["12-Stage Compact Filtration", "UV-C Chamber Sterilization", "Sleek Countertop Glass Profile", "Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO", "Self-Clean", "Wi-Fi", "Eco Design"], floatLabels: [{ text: "Auto Self-Clean", cls: "hps-fl-1" }, { text: "Wi-Fi Monitoring", cls: "hps-fl-2" }, { text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#111827", lightBg: "linear-gradient(135deg,#f8f8f8 0%,#e8e8e8 100%)" },
+    { id: "freedom-blue", img: "/assets/freedom-ro/blue.webp", tag: "Freedom Blue", name: "Freedom\nAzure", tagline: "A pop of color with powerful multi-stage filtration.", price: "₹20,990", specs: ["12-Stage Compact Filtration", "UV-C Chamber Sterilization", "Sleek Countertop Glass Profile", "Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO", "Azure Blue", "Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" }, { text: "UV-C Sterilization", cls: "hps-fl-2" }, { text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ff6200", lightBg: "linear-gradient(135deg,#fff5f0 0%,#ffe8d8 100%)" },
+    { id: "freedom-white", img: "/assets/freedom-ro/white.webp", tag: "Freedom White", name: "Freedom\nPearl", tagline: "Sleek countertop profile that fits any modern kitchen.", price: "₹20,990", specs: ["12-Stage Compact Filtration", "UV-C Chamber Sterilization", "Sleek Countertop Glass Profile", "Auto Flush & Self-Clean Cycle"], chips: ["12-Stage RO", "Pearl White", "Eco Design"], floatLabels: [{ text: "Compact Profile", cls: "hps-fl-1" }, { text: "UV-C Sterilization", cls: "hps-fl-2" }, { text: "12-Stage Filtration", cls: "hps-fl-3" }], accentColor: "#ffffff", lightBg: "linear-gradient(135deg,#f0f4ff 0%,#e0e8ff 100%)" }
   ]
 };
 
 
 /* ─── SPARE PARTS DATA ───── */
 const SPARE_PARTS = [
-  { id: 1, img: "/assets/1.webp", name: "Pre-Sediment Filter", cat: "Filters", desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
-  { id: 2, img: "/assets/2.webp", name: "RO Membrane 75 GPD", cat: "Membranes", desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "" },
-  { id: 3, img: "/assets/3.webp", name: "Activated Carbon Block", cat: "Filters", desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
+  { id: 1, img: "/assets/1.webp", name: "Royal Booster Pump", cat: "Filters", desc: "5-micron spun polypropylene sediment filter. First line of defense against dirt, rust, and large particles.", size: "" },
+  { id: 2, img: "/assets/2.webp", name: "Legacy Booster Pump", cat: "Membranes", desc: "High-rejection thin-film composite membrane. Removes 98%+ of dissolved solids, heavy metals, and microbes.", size: "" },
+  { id: 3, img: "/assets/3.webp", name: "Supreme Booster Pump", cat: "Filters", desc: "NSF-certified carbon block for chlorine, VOCs, and taste/odor removal.", size: "" },
   { id: 4, img: "/assets/4.webp", name: "UV-C Lamp 11W", cat: "UV & Sterilization", desc: "254nm germicidal UV lamp. 99.9999% sterilization of bacteria and viruses.", size: "" },
 ];
 
 const ALL_PRODUCTS = [
-  { id: 7,  img: "/assets/7.webp",  name: "LetsPure Elite X-1",        type: "RO Systems",  subCat: "",                   desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
-  { id: 8,  img: "/assets/8.webp",  name: "LetsPure Element Pro",       type: "RO Systems",  subCat: "",                   desc: "12-Stage compact filtration for modern kitchens." },
-  { id: 9,  img: "/assets/9.webp",  name: "HydroCore S Azure",          type: "RO Systems",  subCat: "",                   desc: "10-Stage Under-Sink module with dedicated pure tap." },
-  { id: 10, img: "/assets/10.webp", name: "Obsidian One Luxury",        type: "RO Systems",  subCat: "",                   desc: "16-Stage luxury filtration with platinum-grade membrane." },
-  { id: 11, img: "/assets/11.webp", name: "LetsPure Lite 7-Stage",      type: "RO Systems",  subCat: "",                   desc: "Compact 7-stage RO for budget-friendly pure water." },
-  { id: 12, img: "/assets/12.webp", name: "LetsPure Mini Countertop",   type: "RO Systems",  subCat: "",                   desc: "Portable countertop RO — no installation needed." },
-  { id: 13, img: "/assets/13.webp", name: "Pre-Sediment Filter 5µm",    type: "Spare Parts", subCat: "Filters",            desc: "5-micron spun polypropylene sediment filter." },
-  { id: 14, img: "/assets/14.webp", name: "RO Membrane 75 GPD",         type: "Spare Parts", subCat: "Membranes",          desc: "High-rejection thin-film composite membrane." },
-  { id: 15, img: "/assets/15.webp", name: "Activated Carbon Block",     type: "Spare Parts", subCat: "Filters",            desc: "NSF-certified carbon block for chlorine & VOC removal." },
-  { id: 16, img: "/assets/16.webp", name: "UV-C Lamp 11W",              type: "Spare Parts", subCat: "UV & Sterilization",  desc: "254nm germicidal UV lamp for sterilization." },
-  { id: 17, img: "/assets/17.webp", name: "Post Carbon Filter",         type: "Spare Parts", subCat: "Filters",            desc: "Inline post-carbon polishing filter for taste & clarity." },
-  { id: 18, img: "/assets/18.webp", name: "Mineral Cartridge",          type: "Spare Parts", subCat: "Accessories",        desc: "Bio-ceramic mineral infusion cartridge." },
-  { id: 19, img: "/assets/19.webp", name: "Filter Housing Kit",         type: "Spare Parts", subCat: "Housings",           desc: "Heavy-duty 10-inch filter housing with bracket." },
-  { id: 20, img: "/assets/20.webp", name: "Membrane Housing",           type: "Spare Parts", subCat: "Housings",           desc: "Pressure-rated RO membrane vessel." },
-  { id: 21, img: "/assets/21.webp", name: "Flow Restrictor 400cc",      type: "Spare Parts", subCat: "Accessories",        desc: "Calibrated capillary flow restrictor." },
-  { id: 22, img: "/assets/22.webp", name: "Feed Water Solenoid",        type: "Spare Parts", subCat: "Accessories",        desc: "24V DC normally-closed solenoid valve." },
-  { id: 23, img: "/assets/23.webp", name: "Storage Tank 12L",           type: "Spare Parts", subCat: "Housings",           desc: "Bladder-type pressurised storage tank." },
-  { id: 24, img: "/assets/24.webp", name: "Booster Pump 50GPD",         type: "Spare Parts", subCat: "Accessories",        desc: "High-efficiency DC booster pump." },
-  { id: 25, img: "/assets/25.webp", name: "TDS Inline Meter",           type: "Spare Parts", subCat: "Accessories",        desc: "Dual-display inline TDS monitor." },
-  { id: 26, img: "/assets/26.webp", name: "Alkaline Filter pH+",        type: "Spare Parts", subCat: "Filters",            desc: "Raises pH to 8.0–9.5 with mineral balls." },
-  { id: 27, img: "/assets/27.webp", name: "UF Hollow Fiber 0.01µm",     type: "Spare Parts", subCat: "Membranes",          desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
-  { id: 28, img: "/assets/28.webp", name: "UV Quartz Sleeve",           type: "Spare Parts", subCat: "UV & Sterilization",  desc: "Borosilicate quartz sleeve for UV-C chamber." },
-  { id: 29, img: "/assets/29.webp", name: "Quick-Connect Fittings",     type: "Spare Parts", subCat: "Accessories",        desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
-  { id: 30, img: "/assets/30.webp", name: "SMPS Power Adapter",         type: "Spare Parts", subCat: "Accessories",        desc: "24V/3A switching power supply for pump systems." },
+  { id: 7, img: "/assets/7.webp", name: "LetsPure Elite X-1", type: "RO Systems", subCat: "", desc: "14-Stage RO + UV + UF + Mineraliser — our flagship purifier." },
+  { id: 8, img: "/assets/8.webp", name: "LetsPure Element Pro", type: "RO Systems", subCat: "", desc: "12-Stage compact filtration for modern kitchens." },
+  { id: 9, img: "/assets/9.webp", name: "HydroCore S Azure", type: "RO Systems", subCat: "", desc: "10-Stage Under-Sink module with dedicated pure tap." },
+  { id: 10, img: "/assets/10.webp", name: "Obsidian One Luxury", type: "RO Systems", subCat: "", desc: "16-Stage luxury filtration with platinum-grade membrane." },
+  { id: 11, img: "/assets/11.webp", name: "LetsPure Lite 7-Stage", type: "RO Systems", subCat: "", desc: "Compact 7-stage RO for budget-friendly pure water." },
+  { id: 12, img: "/assets/12.webp", name: "LetsPure Mini Countertop", type: "RO Systems", subCat: "", desc: "Portable countertop RO — no installation needed." },
+  { id: 13, img: "/assets/13.webp", name: "Royal Booster Pump", type: "Spare Parts", subCat: "Filters", desc: "5-micron spun polypropylene sediment filter." },
+  { id: 14, img: "/assets/14.webp", name: "Legacy Booster Pump", type: "Spare Parts", subCat: "Membranes", desc: "High-rejection thin-film composite membrane." },
+  { id: 15, img: "/assets/15.webp", name: "Supreme Booster Pump", type: "Spare Parts", subCat: "Filters", desc: "NSF-certified carbon block for chlorine & VOC removal." },
+  { id: 16, img: "/assets/16.webp", name: "Elite Booster Pump", type: "Spare Parts", subCat: "UV & Sterilization", desc: "254nm germicidal UV lamp for sterilization." },
+  { id: 17, img: "/assets/17.webp", name: "Signature Booster Pump", type: "Spare Parts", subCat: "Filters", desc: "Inline post-carbon polishing filter for taste & clarity." },
+  { id: 18, img: "/assets/18.webp", name: "Freedom 100-GDP", type: "Spare Parts", subCat: "Accessories", desc: "Bio-ceramic mineral infusion cartridge." },
+  { id: 19, img: "/assets/19.webp", name: "Signature Booster Pump", type: "Spare Parts", subCat: "Housings", desc: "Heavy-duty 10-inch filter housing with bracket." },
+  { id: 20, img: "/assets/20.webp", name: "Membrane Housing", type: "Spare Parts", subCat: "Housings", desc: "Pressure-rated RO membrane vessel." },
+  { id: 21, img: "/assets/21.webp", name: "Flow Restrictor 400cc", type: "Spare Parts", subCat: "Accessories", desc: "Calibrated capillary flow restrictor." },
+  { id: 22, img: "/assets/22.webp", name: "Inline Filter (Set of 2)", type: "Spare Parts", subCat: "Accessories", desc: "24V DC normally-closed solenoid valve." },
+  { id: 23, img: "/assets/23.webp", name: "Inline Filter", type: "Spare Parts", subCat: "Housings", desc: "Bladder-type pressurised storage tank." },
+  { id: 24, img: "/assets/24.webp", name: "Inline Filter", type: "Spare Parts", subCat: "Accessories", desc: "High-efficiency DC booster pump." },
+  { id: 25, img: "/assets/25.webp", name: "Inline Filter", type: "Spare Parts", subCat: "Accessories", desc: "Dual-display inline TDS monitor." },
+  { id: 26, img: "/assets/26.webp", name: "Inline Filter", type: "Spare Parts", subCat: "Filters", desc: "Raises pH to 8.0–9.5 with mineral balls." },
+  { id: 27, img: "/assets/27.webp", name: "Booster Pump", type: "Spare Parts", subCat: "Membranes", desc: "Ultra-fine hollow-fiber ultrafiltration membrane." },
+  { id: 28, img: "/assets/28.webp", name: "Booster Pump", type: "Spare Parts", subCat: "UV & Sterilization", desc: "Borosilicate quartz sleeve for UV-C chamber." },
+  { id: 29, img: "/assets/29.webp", name: "Spun Filter", type: "Spare Parts", subCat: "Accessories", desc: 'Push-to-connect fittings for 1/4" & 3/8" tubing.' },
+  { id: 30, img: "/assets/30.webp", name: "Spun Filter", type: "Spare Parts", subCat: "Accessories", desc: "24V/3A switching power supply for pump systems." },
 ];
 
 const HERO_IMAGES = [
@@ -1678,14 +1900,9 @@ function HeroVisual() {
   }, []);
 
   return (
-    <div
-      className="hero-visual"
-      style={{
-        display: "flex", alignItems: "center", justifyContent: "flex-end",
-        width: "100%", height: "100%", paddingLeft: "30px", marginLeft: "40px",
-      }}
-    >
-      <div style={{ position: "relative", height: "680px", width: "490px", maxWidth: "100%", left: "25px" }}>
+    <div className="hero-visual">
+      <div className="hero-ro-spotlight" />
+      <div className="hero-visual-inner">
         {HERO_IMAGES.map((item, idx) => (
           <img
             key={idx}
@@ -1693,18 +1910,9 @@ function HeroVisual() {
             alt={`LetsPure RO ${idx + 1}`}
             fetchPriority={idx === 0 ? "high" : "auto"}
             decoding="async"
+            className={`hero-ro-img ${current === idx ? "active" : ""}`}
             style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.35))",
-              opacity: current === idx ? 1 : 0,
               transform: `scale(${item.scale})`,
-              transition: "opacity 0.4s ease-in-out",
-              pointerEvents: current === idx ? "auto" : "none",
             }}
           />
         ))}
@@ -1920,14 +2128,14 @@ function SparePartsSection({ navigate }) {
 
   return (
     <section className="spare-parts-section" ref={sectionRef}>
-      <div style={{ position:"absolute", inset:0, background:"rgba(0, 0, 0, 0.92)", zIndex:1, pointerEvents:"none" }} />
+      <div style={{ position: "absolute", inset: 0, background: "rgba(0, 0, 0, 0.92)", zIndex: 1, pointerEvents: "none" }} />
       <div className="sp-bg-orb sp-orb-1" />
       <div className="sp-bg-orb sp-orb-2" />
 
       <div className="spare-parts-inner">
         <div className="sp-header reveal">
           <div className="sp-eyebrow">
-            <span style={{ width:6, height:6, background:"var(--blue)", borderRadius:"50%", display:"inline-block", animation:"pulse 2s infinite" }} />
+            <span style={{ width: 6, height: 6, background: "var(--blue)", borderRadius: "50%", display: "inline-block", animation: "pulse 2s infinite" }} />
             Genuine Spare Parts
           </div>
           <h2 className="sp-title">Every part. <em>Engineered</em><br />to last a lifetime.</h2>
@@ -1937,7 +2145,7 @@ function SparePartsSection({ navigate }) {
         <div className="sp-bento">
           {SPARE_PARTS.map((part, i) => (
             <div key={part.id} className={`sp-part-card ${part.size || ""}`}
-              style={{ animationDelay:`${i * 0.04}s` }} onClick={() => setModalPart(part)}>
+              style={{ animationDelay: `${i * 0.04}s` }} onClick={() => setModalPart(part)}>
               <div className="sp-img-wrap">
                 <img src={part.img} alt={part.name} decoding="async" />
               </div>
@@ -1994,14 +2202,14 @@ function SparePartsSection({ navigate }) {
 
 /* ─── RIPPLE ZONE ────────────────────────────────────────── */
 function RippleZone() {
-  const canvasRef  = useRef(null);
-  const zoneRef    = useRef(null);
+  const canvasRef = useRef(null);
+  const zoneRef = useRef(null);
   const ripplesRef = useRef([]);
-  const rafRef     = useRef(null);
+  const rafRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
-    const zone   = zoneRef.current;
+    const zone = zoneRef.current;
     if (!canvas || !zone) return;
     const ctx = canvas.getContext("2d");
     const resize = () => { canvas.width = zone.offsetWidth; canvas.height = zone.offsetHeight; };
@@ -2089,12 +2297,12 @@ function TestimonialsSection() {
     <section className="testi-section">
       <div className="testi-inner">
         <div className="section-header reveal">
-          <div className="page-eyebrow" style={{ background:"rgba(255,255,255,0.15)", color:"#fff", borderColor:"rgba(255,255,255,0.3)" }}>Testimonials</div>
-          <h2 className="section-h" style={{ color:"#fff" }}>Trusted by those who<br /><em style={{ color:"rgba(180,210,255,1)" }}>demand more.</em></h2>
+          <div className="page-eyebrow" style={{ background: "rgba(255,255,255,0.15)", color: "#fff", borderColor: "rgba(255,255,255,0.3)" }}>Testimonials</div>
+          <h2 className="section-h" style={{ color: "#fff" }}>Trusted by those who<br /><em style={{ color: "rgba(180,210,255,1)" }}>demand more.</em></h2>
         </div>
         <div className="testi-grid">
           {TESTIMONIALS.map((t, i) => (
-            <div key={i} className="testi-card reveal" style={{ transitionDelay:`${i * 0.15}s` }}>
+            <div key={i} className="testi-card reveal" style={{ transitionDelay: `${i * 0.15}s` }}>
               <div className="testi-stars">{"★".repeat(t.rating)}</div>
               <p className="testi-quote">"{t.quote}"</p>
               <div className="testi-meta">
@@ -2115,7 +2323,7 @@ function CTABanner({ navigate }) {
   return (
     <section className="cta-banner">
       <div className="cta-bg-rings">
-        {[1,2,3].map((i) => <div key={i} className={`cta-ring cta-ring-${i}`} />)}
+        {[1, 2, 3].map((i) => <div key={i} className={`cta-ring cta-ring-${i}`} />)}
       </div>
       <div className="cta-inner reveal">
         <div className="page-eyebrow">Limited 2026 Launch</div>
@@ -2135,21 +2343,21 @@ function CTABanner({ navigate }) {
 
 /* ─── FOOTER ─────────────────────────────────────────────── */
 function Footer() {
-  const canvasRef     = useRef(null);
-  const containerRef  = useRef(null);
-  const stateRef      = useRef({ drops:[], splashes:[], rings:[], poolLevel:0, maxPool:0, nextId:0 });
-  const rafRef        = useRef(null);
+  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
+  const stateRef = useRef({ drops: [], splashes: [], rings: [], poolLevel: 0, maxPool: 0, nextId: 0 });
+  const rafRef = useRef(null);
   const spawnTimerRef = useRef(null);
 
   useEffect(() => {
-    const canvas    = canvasRef.current;
+    const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const ctx = canvas.getContext("2d");
-    const S   = stateRef.current;
+    const S = stateRef.current;
     const resize = () => {
-      canvas.width  = container.offsetWidth;
+      canvas.width = container.offsetWidth;
       canvas.height = container.offsetHeight;
       S.maxPool = Math.floor(canvas.height * 0.36);
       if (S.poolLevel > S.maxPool) S.poolLevel = S.maxPool;
@@ -2194,12 +2402,12 @@ function Footer() {
         d.vy += 0.18; d.y += d.vy; d.wobble += d.wobbleSpeed; d.x += Math.sin(d.wobble) * d.wobbleAmp;
         if (d.y + d.r >= poolY) {
           d.hit = true;
-          S.rings.push({ x:d.x, y:poolY, r:d.r*0.5, maxR:28+d.r*3.5+Math.random()*20, a:0.55+d.alpha*0.2, speed:0.9+Math.random()*0.8, scaleY:0.28+Math.random()*0.08 });
-          S.rings.push({ x:d.x, y:poolY, r:1, maxR:14+d.r*1.5, a:0.35, speed:1.4+Math.random()*0.6, scaleY:0.22 });
+          S.rings.push({ x: d.x, y: poolY, r: d.r * 0.5, maxR: 28 + d.r * 3.5 + Math.random() * 20, a: 0.55 + d.alpha * 0.2, speed: 0.9 + Math.random() * 0.8, scaleY: 0.28 + Math.random() * 0.08 });
+          S.rings.push({ x: d.x, y: poolY, r: 1, maxR: 14 + d.r * 1.5, a: 0.35, speed: 1.4 + Math.random() * 0.6, scaleY: 0.22 });
           const splashCount = 4 + Math.floor(d.r * 1.2);
           for (let i = 0; i < splashCount; i++) {
             const ang = -Math.PI + Math.random() * Math.PI, spd = 1.5 + Math.random() * 3.5;
-            S.splashes.push({ x:d.x+(Math.random()-0.5)*d.r, y:poolY, vx:Math.cos(ang)*spd, vy:-(1.8+Math.random()*3.8), r:1+Math.random()*(d.r*0.5), life:1.0, decay:0.028+Math.random()*0.022 });
+            S.splashes.push({ x: d.x + (Math.random() - 0.5) * d.r, y: poolY, vx: Math.cos(ang) * spd, vy: -(1.8 + Math.random() * 3.8), r: 1 + Math.random() * (d.r * 0.5), life: 1.0, decay: 0.028 + Math.random() * 0.022 });
           }
           continue;
         }
@@ -2211,11 +2419,11 @@ function Footer() {
         const stretch = 1 + d.vy / 20;
         ctx.save(); ctx.translate(d.x, d.y);
         ctx.beginPath(); ctx.ellipse(0, 0, d.r * 0.62, d.r * stretch, 0, 0, Math.PI * 2);
-        const dg = ctx.createRadialGradient(-d.r*0.2, -d.r*0.3, 0, 0, 0, d.r);
-        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`); dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha*0.9})`); dg.addColorStop(1, `rgba(30,100,220,${d.alpha*0.7})`);
+        const dg = ctx.createRadialGradient(-d.r * 0.2, -d.r * 0.3, 0, 0, 0, d.r);
+        dg.addColorStop(0, `rgba(180,220,255,${d.alpha})`); dg.addColorStop(0.5, `rgba(80,160,255,${d.alpha * 0.9})`); dg.addColorStop(1, `rgba(30,100,220,${d.alpha * 0.7})`);
         ctx.fillStyle = dg; ctx.fill();
-        ctx.beginPath(); ctx.ellipse(-d.r*0.22, -d.r*0.32, d.r*0.22, d.r*0.14, -0.4, 0, Math.PI*2);
-        ctx.fillStyle = `rgba(255,255,255,${d.alpha*0.75})`; ctx.fill(); ctx.restore();
+        ctx.beginPath(); ctx.ellipse(-d.r * 0.22, -d.r * 0.32, d.r * 0.22, d.r * 0.14, -0.4, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${d.alpha * 0.75})`; ctx.fill(); ctx.restore();
       }
 
       const nextSplashes = [];
@@ -2223,8 +2431,8 @@ function Footer() {
         sp.vy += 0.22; sp.x += sp.vx; sp.y += sp.vy; sp.life -= sp.decay;
         if (sp.life <= 0) continue;
         ctx.beginPath(); ctx.arc(sp.x, sp.y, sp.r * sp.life, 0, Math.PI * 2);
-        const spg = ctx.createRadialGradient(sp.x-sp.r*0.2, sp.y-sp.r*0.2, 0, sp.x, sp.y, sp.r);
-        spg.addColorStop(0, `rgba(220,240,255,${sp.life*0.85})`); spg.addColorStop(0.6, `rgba(100,180,255,${sp.life*0.6})`); spg.addColorStop(1, "rgba(50,120,220,0)");
+        const spg = ctx.createRadialGradient(sp.x - sp.r * 0.2, sp.y - sp.r * 0.2, 0, sp.x, sp.y, sp.r);
+        spg.addColorStop(0, `rgba(220,240,255,${sp.life * 0.85})`); spg.addColorStop(0.6, `rgba(100,180,255,${sp.life * 0.6})`); spg.addColorStop(1, "rgba(50,120,220,0)");
         ctx.fillStyle = spg; ctx.fill();
         if (sp.y > poolY) sp.life -= 0.08;
         nextSplashes.push(sp);
@@ -2239,8 +2447,8 @@ function Footer() {
         ctx.beginPath(); ctx.arc(0, 0, rp.r, 0, Math.PI * 2);
         ctx.strokeStyle = `rgba(140,210,255,${rp.a})`; ctx.lineWidth = 1.5; ctx.stroke();
         if (rp.r > 6) {
-          ctx.beginPath(); ctx.arc(0, 0, rp.r*0.65, Math.PI*1.1, Math.PI*1.9);
-          ctx.strokeStyle = `rgba(255,255,255,${rp.a*0.55})`; ctx.lineWidth = 0.8; ctx.stroke();
+          ctx.beginPath(); ctx.arc(0, 0, rp.r * 0.65, Math.PI * 1.1, Math.PI * 1.9);
+          ctx.strokeStyle = `rgba(255,255,255,${rp.a * 0.55})`; ctx.lineWidth = 0.8; ctx.stroke();
         }
         ctx.restore(); nextRings.push(rp);
       }
@@ -2264,11 +2472,11 @@ function Footer() {
       <div className="footer-content">
         <div className="footer-brand">
           <div className="footer-logo-big">
-            <img src="/assets/whiteLogo.webp" alt="LetsPure" decoding="async" style={{ height:"100px", width:"200px", objectFit:"contain" }} />
+            <img src="/assets/whiteLogo.webp" alt="LetsPure" decoding="async" style={{ height: "100px", width: "200px", objectFit: "contain" }} />
           </div>
           <p className="footer-tagline">Molecular purity.<br />Engineered for life.</p>
           <div className="footer-socials">
-            {["𝕏","in","f","▶"].map((s, i) => <div key={i} className="social-dot">{s}</div>)}
+            {["𝕏", "in", "f", "▶"].map((s, i) => <div key={i} className="social-dot">{s}</div>)}
           </div>
         </div>
         {Object.entries(FOOTER_LINKS).map(([cat, links]) => (
@@ -2345,7 +2553,7 @@ function HomePage({ navigate, tds }) {
           </div>
           <div className="features-grid">
             {FEATURES.map((f, i) => (
-              <div key={i} className="pillar-card reveal" style={{ transitionDelay:`${i * 0.1}s` }}>
+              <div key={i} className="pillar-card reveal" style={{ transitionDelay: `${i * 0.1}s` }}>
                 <div className="pillar-icon">{f.icon}</div>
                 <div className="pillar-h small">{f.title}</div>
                 <p className="pillar-p">{f.desc}</p>
@@ -2368,124 +2576,124 @@ function AboutPage() {
   useReveal(["about"]);
 
   const values = [
-    { icon:"🛡️", title:"Bio-Defense RO+", desc:"A thorough multi-stage filtration system that removes microplastics, heavy metals, chlorine, and bacteria, leaving nothing but clean water." },
-    { icon:"💧", title:"Natural Mineralization", desc:"We restore natural minerals like magnesium, calcium, and potassium, ensuring your water is balanced, healthy, and tastes great." },
-    { icon:"🌿", title:"Eco Carbon Architecture", desc:"Our purifiers use a 1:1 wastewater ratio—saving significantly more water compared to standard filters that waste up to 3 liters for every liter purified." },
+    { icon: "🛡️", title: "Bio-Defense RO+", desc: "A thorough multi-stage filtration system that removes microplastics, heavy metals, chlorine, and bacteria, leaving nothing but clean water." },
+    { icon: "💧", title: "Natural Mineralization", desc: "We restore natural minerals like magnesium, calcium, and potassium, ensuring your water is balanced, healthy, and tastes great." },
+    { icon: "🌿", title: "Eco Carbon Architecture", desc: "Our purifiers use a 1:1 wastewater ratio—saving significantly more water compared to standard filters that waste up to 3 liters for every liter purified." },
   ];
 
   const aboutStats = [
-    { num:"1M+", label:"Units Shipped" }, { num:"14", label:"Filtration Stages" },
-    { num:"99.9%", label:"Purity Rate" }, { num:"1:1", label:"Zero-Waste Ratio" },
+    { num: "1M+", label: "Units Shipped" }, { num: "14", label: "Filtration Stages" },
+    { num: "99.9%", label: "Purity Rate" }, { num: "1:1", label: "Zero-Waste Ratio" },
   ];
 
   const team = [
-    { initials:"AK", name:"Arjun Kumar",   role:"CEO & Co-Founder",       bio:"Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
-    { initials:"SR", name:"Sneha Rao",      role:"Chief Technology Officer", bio:"IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
-    { initials:"VN", name:"Vikram Nair",    role:"Head of Design",          bio:"Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
+    { initials: "AK", name: "Arjun Kumar", role: "CEO & Co-Founder", bio: "Former ISRO scientist with 12 years in molecular filtration research. Holds 7 patents in membrane technology." },
+    { initials: "SR", name: "Sneha Rao", role: "Chief Technology Officer", bio: "IIT Bombay alumna. Pioneered the 14-stage sequential membrane architecture that defines LetsPure." },
+    { initials: "VN", name: "Vikram Nair", role: "Head of Design", bio: "Ex-Apple Design team. Believes engineering beauty and functional purity are the same obsession." },
   ];
 
   return (
     <div>
-      <div style={{ minHeight:"92vh", background:"linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", textAlign:"center", padding:"140px 4vw 80px", position:"relative", overflow:"hidden" }}>
-        <div style={{ position:"absolute", top:"10%", left:"15%", width:"500px", height:"500px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.12) 0%, transparent 70%)", pointerEvents:"none" }} />
-        <div style={{ position:"absolute", bottom:"5%", right:"10%", width:"400px", height:"400px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents:"none" }} />
-        <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.12)", padding:"0.4rem 1.2rem", borderRadius:"100px", marginBottom:"2rem" }}>
-          <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"#696969" }} />
-          <span style={{ fontSize:"0.72rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.15em", textTransform:"uppercase" }}>Our Story</span>
+      <div style={{ minHeight: "92vh", background: "linear-gradient(135deg, #040810 0%, #0d1526 50%, #111827 100%)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "140px 4vw 80px", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "10%", left: "15%", width: "500px", height: "500px", borderRadius: "50%", background: "radial-gradient(circle, rgba(105,105,105,0.12) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ position: "absolute", bottom: "5%", right: "10%", width: "400px", height: "400px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)", padding: "0.4rem 1.2rem", borderRadius: "100px", marginBottom: "2rem" }}>
+          <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "#696969" }} />
+          <span style={{ fontSize: "0.72rem", color: "rgba(255,255,255,0.6)", letterSpacing: "0.15em", textTransform: "uppercase" }}>Our Story</span>
         </div>
-        <h1 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2.8rem, 6vw, 5.5rem)", fontWeight:400, color:"#fff", lineHeight:1.1, letterSpacing:"-2px", marginBottom:"1.8rem", maxWidth:"780px" }}>
-          Redefining What <em style={{ fontStyle:"italic", color:"rgba(160,160,160,0.9)" }}>Clean Water</em> Means.
+        <h1 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(2.8rem, 6vw, 5.5rem)", fontWeight: 400, color: "#fff", lineHeight: 1.1, letterSpacing: "-2px", marginBottom: "1.8rem", maxWidth: "780px" }}>
+          Redefining What <em style={{ fontStyle: "italic", color: "rgba(160,160,160,0.9)" }}>Clean Water</em> Means.
         </h1>
-        <p style={{ fontSize:"1.05rem", color:"rgba(255,255,255,0.55)", lineHeight:1.8, maxWidth:"540px", fontWeight:300, marginBottom:"3rem" }}>
+        <p style={{ fontSize: "1.05rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.8, maxWidth: "540px", fontWeight: 300, marginBottom: "3rem" }}>
           Founded in 2018 in Bangalore with a simple goal: build a reliable, high-performance water purifier that doesn't waste water or strip away healthy minerals.
         </p>
-        <div style={{ display:"flex", gap:"1px", alignItems:"center" }}>
-          <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
-          <div style={{ width:"6px", height:"6px", borderRadius:"50%", background:"rgba(255,255,255,0.3)", margin:"0 10px" }} />
-          <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
+        <div style={{ display: "flex", gap: "1px", alignItems: "center" }}>
+          <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+          <div style={{ width: "6px", height: "6px", borderRadius: "50%", background: "rgba(255,255,255,0.3)", margin: "0 10px" }} />
+          <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
         </div>
       </div>
 
-      <div style={{ background:"#696969", padding:"3.5rem 4vw" }}>
-        <div style={{ maxWidth:"1000px", margin:"0 auto", display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:"1rem", textAlign:"center" }}>
+      <div style={{ background: "#696969", padding: "3.5rem 4vw" }}>
+        <div style={{ maxWidth: "1000px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "1rem", textAlign: "center" }}>
           {aboutStats.map((s, i) => (
-            <div key={i} style={{ padding:"1rem" }}>
-              <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2rem,4vw,3.2rem)", fontWeight:400, color:"#fff", lineHeight:1, marginBottom:"0.5rem" }}>{s.num}</div>
-              <div style={{ fontSize:"0.75rem", color:"rgba(255,255,255,0.65)", letterSpacing:"0.1em", textTransform:"uppercase" }}>{s.label}</div>
+            <div key={i} style={{ padding: "1rem" }}>
+              <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(2rem,4vw,3.2rem)", fontWeight: 400, color: "#fff", lineHeight: 1, marginBottom: "0.5rem" }}>{s.num}</div>
+              <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.65)", letterSpacing: "0.1em", textTransform: "uppercase" }}>{s.label}</div>
             </div>
           ))}
         </div>
       </div>
 
-      <div style={{ background:"#fff", padding:"120px 4vw", textAlign:"center" }}>
-        <div style={{ maxWidth:"860px", margin:"0 auto" }}>
+      <div style={{ background: "#fff", padding: "120px 4vw", textAlign: "center" }}>
+        <div style={{ maxWidth: "860px", margin: "0 auto" }}>
           <div className="page-eyebrow">Our Mission</div>
-          <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(2rem,4vw,3.8rem)", fontWeight:400, color:"#040810", lineHeight:1.15, letterSpacing:"-1.5px", margin:"1.5rem 0 2rem" }}>
-            Clean water is essential for your family's health.{" "}<em style={{ fontStyle:"italic", color:"#696969" }}>We make sure you get nothing less.</em>
+          <h2 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(2rem,4vw,3.8rem)", fontWeight: 400, color: "#040810", lineHeight: 1.15, letterSpacing: "-1.5px", margin: "1.5rem 0 2rem" }}>
+            Clean water is essential for your family's health.{" "}<em style={{ fontStyle: "italic", color: "#696969" }}>We make sure you get nothing less.</em>
           </h2>
-          <p style={{ fontSize:"1.05rem", color:"#808080", lineHeight:1.9, fontWeight:300, maxWidth:"660px", margin:"0 auto" }}>
+          <p style={{ fontSize: "1.05rem", color: "#808080", lineHeight: 1.9, fontWeight: 300, maxWidth: "660px", margin: "0 auto" }}>
             For us, water quality isn't about marketing claims—it's about real testing and quality. We design our purifiers to the highest safety standards so you can have complete peace of mind.
           </p>
         </div>
       </div>
 
-      <div style={{ background:"#f7f8fc", padding:"100px 4vw" }}>
-        <div style={{ maxWidth:"1200px", margin:"0 auto" }}>
-          <div style={{ textAlign:"center", marginBottom:"4rem" }}>
+      <div style={{ background: "#f7f8fc", padding: "100px 4vw" }}>
+        <div style={{ maxWidth: "1200px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "4rem" }}>
             <div className="page-eyebrow">What We Stand For</div>
-            <h2 className="section-h" style={{ marginTop:"1rem" }}>Engineering meets <em>principle.</em></h2>
+            <h2 className="section-h" style={{ marginTop: "1rem" }}>Engineering meets <em>principle.</em></h2>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
             {values.map((v, i) => (
-              <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.12}s`, background:"#fff", borderRadius:"28px", padding:"3rem", border:"1px solid #e5e7eb" }}>
-                <div style={{ width:"60px", height:"60px", borderRadius:"18px", background:"rgba(105,105,105,0.08)", display:"flex", alignItems:"center", justifyContent:"center", fontSize:"1.6rem", marginBottom:"1.5rem" }}>{v.icon}</div>
-                <h3 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1.25rem", fontWeight:400, color:"#040810", marginBottom:"0.8rem" }}>{v.title}</h3>
-                <p style={{ fontSize:"0.92rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{v.desc}</p>
+              <div key={i} className="reveal pillar-card" style={{ transitionDelay: `${i * 0.12}s`, background: "#fff", borderRadius: "28px", padding: "3rem", border: "1px solid #e5e7eb" }}>
+                <div style={{ width: "60px", height: "60px", borderRadius: "18px", background: "rgba(105,105,105,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.6rem", marginBottom: "1.5rem" }}>{v.icon}</div>
+                <h3 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "1.25rem", fontWeight: 400, color: "#040810", marginBottom: "0.8rem" }}>{v.title}</h3>
+                <p style={{ fontSize: "0.92rem", color: "#808080", lineHeight: 1.7, fontWeight: 300 }}>{v.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <div style={{ background:"#040810", padding:"120px 4vw", position:"relative", overflow:"hidden" }}>
-        <div style={{ position:"absolute", top:"50%", left:"50%", transform:"translate(-50%,-50%)", width:"600px", height:"600px", borderRadius:"50%", background:"radial-gradient(circle, rgba(105,105,105,0.1) 0%, transparent 70%)", pointerEvents:"none" }} />
-        <div style={{ maxWidth:"1100px", margin:"0 auto", display:"grid", gridTemplateColumns:"1fr 1fr", gap:"6rem", alignItems:"center", position:"relative", zIndex:1 }}>
+      <div style={{ background: "#040810", padding: "120px 4vw", position: "relative", overflow: "hidden" }}>
+        <div style={{ position: "absolute", top: "50%", left: "50%", transform: "translate(-50%,-50%)", width: "600px", height: "600px", borderRadius: "50%", background: "radial-gradient(circle, rgba(105,105,105,0.1) 0%, transparent 70%)", pointerEvents: "none" }} />
+        <div style={{ maxWidth: "1100px", margin: "0 auto", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "6rem", alignItems: "center", position: "relative", zIndex: 1 }}>
           <div>
-            <div style={{ display:"inline-flex", alignItems:"center", gap:"8px", background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", padding:"0.35rem 1rem", borderRadius:"100px", marginBottom:"1.5rem" }}>
-              <span style={{ fontSize:"0.7rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.12em", textTransform:"uppercase" }}>The Beginning</span>
+            <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", padding: "0.35rem 1rem", borderRadius: "100px", marginBottom: "1.5rem" }}>
+              <span style={{ fontSize: "0.7rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.12em", textTransform: "uppercase" }}>The Beginning</span>
             </div>
-            <h2 style={{ fontFamily:"'Poppins', sans-serif", fontSize:"clamp(1.8rem,3vw,3rem)", fontWeight:400, color:"#fff", lineHeight:1.2, letterSpacing:"-1px", marginBottom:"1.5rem" }}>Engineered for<br />everyday health.</h2>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300, marginBottom:"1.5rem" }}>In 2018, our founders set out to solve a common problem: most home water purifiers in India were either wasting too much water or stripping away essential minerals.</p>
-            <p style={{ fontSize:"0.95rem", color:"rgba(255,255,255,0.5)", lineHeight:1.85, fontWeight:300 }}>Using their engineering backgrounds, they designed a system that balances thorough filtration with eco-friendly efficiency and mineral restoration. That's how LetsPure was born.</p>
+            <h2 style={{ fontFamily: "'Poppins', sans-serif", fontSize: "clamp(1.8rem,3vw,3rem)", fontWeight: 400, color: "#fff", lineHeight: 1.2, letterSpacing: "-1px", marginBottom: "1.5rem" }}>Engineered for<br />everyday health.</h2>
+            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.85, fontWeight: 300, marginBottom: "1.5rem" }}>In 2018, our founders set out to solve a common problem: most home water purifiers in India were either wasting too much water or stripping away essential minerals.</p>
+            <p style={{ fontSize: "0.95rem", color: "rgba(255,255,255,0.5)", lineHeight: 1.85, fontWeight: 300 }}>Using their engineering backgrounds, they designed a system that balances thorough filtration with eco-friendly efficiency and mineral restoration. That's how LetsPure was born.</p>
           </div>
-          <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {["2018 — Founded LetsPure with a focus on water conservation and purity.",
               "2020 — Developed our signature multi-stage filtration system.",
               "2022 — Launched our 1:1 low-waste filtration technology.",
               "2024 — Integrated live TDS tracking and served over 1 million homes.",
               "2026 — Introduced our latest X-Series models with improved durability."].map((item, i) => (
-              <div key={i} className="reveal" style={{ display:"flex", gap:"1.2rem", alignItems:"flex-start", transitionDelay:`${i*0.1}s` }}>
-                <div style={{ width:"32px", height:"32px", borderRadius:"50%", background:"rgba(105,105,105,0.3)", border:"1px solid rgba(105,105,105,0.5)", display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0, fontSize:"0.65rem", color:"rgba(255,255,255,0.6)", fontWeight:400 }}>{String(i+1).padStart(2,"0")}</div>
-                <p style={{ fontSize:"0.88rem", color:"rgba(255,255,255,0.55)", lineHeight:1.65, fontWeight:300, paddingTop:"4px" }}>{item}</p>
-              </div>
-            ))}
+                <div key={i} className="reveal" style={{ display: "flex", gap: "1.2rem", alignItems: "flex-start", transitionDelay: `${i * 0.1}s` }}>
+                  <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "rgba(105,105,105,0.3)", border: "1px solid rgba(105,105,105,0.5)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, fontSize: "0.65rem", color: "rgba(255,255,255,0.6)", fontWeight: 400 }}>{String(i + 1).padStart(2, "0")}</div>
+                  <p style={{ fontSize: "0.88rem", color: "rgba(255,255,255,0.55)", lineHeight: 1.65, fontWeight: 300, paddingTop: "4px" }}>{item}</p>
+                </div>
+              ))}
           </div>
         </div>
       </div>
 
-      <div style={{ background:"#fff", padding:"120px 4vw" }}>
-        <div style={{ maxWidth:"1100px", margin:"0 auto" }}>
-          <div style={{ textAlign:"center", marginBottom:"5rem" }}>
+      <div style={{ background: "#fff", padding: "120px 4vw" }}>
+        <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: "5rem" }}>
             <div className="page-eyebrow">The Founders</div>
-            <h2 className="section-h" style={{ marginTop:"1rem" }}>Meet the <em>minds behind</em> the purity.</h2>
+            <h2 className="section-h" style={{ marginTop: "1rem" }}>Meet the <em>minds behind</em> the purity.</h2>
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fit, minmax(300px, 1fr))", gap:"2rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "2rem" }}>
             {team.map((m, i) => (
-              <div key={i} className="reveal pillar-card" style={{ transitionDelay:`${i*0.15}s`, textAlign:"center", padding:"3rem 2rem", borderRadius:"28px", border:"1px solid #e5e7eb" }}>
-                <div style={{ width:"80px", height:"80px", borderRadius:"50%", background:"linear-gradient(135deg, #696969, #040810)", display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 1.5rem", fontSize:"1.3rem", fontWeight:400, color:"#fff", fontFamily:"'Poppins', sans-serif", letterSpacing:"1px" }}>{m.initials}</div>
-                <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1.1rem", fontWeight:400, color:"#040810", marginBottom:"0.3rem" }}>{m.name}</div>
-                <div style={{ fontSize:"0.75rem", color:"#696969", letterSpacing:"0.08em", textTransform:"uppercase", marginBottom:"1.2rem" }}>{m.role}</div>
-                <p style={{ fontSize:"0.88rem", color:"#808080", lineHeight:1.7, fontWeight:300 }}>{m.bio}</p>
+              <div key={i} className="reveal pillar-card" style={{ transitionDelay: `${i * 0.15}s`, textAlign: "center", padding: "3rem 2rem", borderRadius: "28px", border: "1px solid #e5e7eb" }}>
+                <div style={{ width: "80px", height: "80px", borderRadius: "50%", background: "linear-gradient(135deg, #696969, #040810)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 1.5rem", fontSize: "1.3rem", fontWeight: 400, color: "#fff", fontFamily: "'Poppins', sans-serif", letterSpacing: "1px" }}>{m.initials}</div>
+                <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "1.1rem", fontWeight: 400, color: "#040810", marginBottom: "0.3rem" }}>{m.name}</div>
+                <div style={{ fontSize: "0.75rem", color: "#696969", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "1.2rem" }}>{m.role}</div>
+                <p style={{ fontSize: "0.88rem", color: "#808080", lineHeight: 1.7, fontWeight: 300 }}>{m.bio}</p>
               </div>
             ))}
           </div>
@@ -2705,7 +2913,7 @@ function ProductsPage({ navigate }) {
   const [modalData, setModalData] = useState(null);
 
   const mainTabs = ["RO Systems", "Spare Parts"];
-  const subCats  = ["All Parts","Filters","Membranes","UV & Sterilization","Housings","Accessories"];
+  const subCats = ["All Parts", "Filters", "Membranes", "UV & Sterilization", "Housings", "Accessories"];
 
   const filteredParts = activeSub === "All Parts"
     ? ALL_PRODUCTS.filter((p) => p.type === "Spare Parts")
@@ -2717,9 +2925,9 @@ function ProductsPage({ navigate }) {
         <div className="page-eyebrow">Our Collection</div>
         <h1 className="page-h1">Designed for<br />Every Home.</h1>
         <p className="page-sub">Explore our range of water purifiers, built with advanced filtration, smart mineral balancing, and water-saving technology.</p>
-        <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", marginTop:"2rem", background:"#f1f3f8", borderRadius:"100px", padding:"6px", width:"fit-content", marginLeft:"auto", marginRight:"auto" }}>
+        <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", marginTop: "2rem", background: "#f1f3f8", borderRadius: "100px", padding: "6px", width: "fit-content", marginLeft: "auto", marginRight: "auto" }}>
           {mainTabs.map((tab) => (
-            <button key={tab} onClick={() => setActiveTab(tab)} style={{ border:"none", background:activeTab===tab?"#fff":"transparent", padding:"0.6rem 1.8rem", borderRadius:"100px", fontFamily:"'Poppins', sans-serif", fontSize:"0.88rem", fontWeight:400, color:activeTab===tab?"#111827":"#808080", cursor:"pointer", boxShadow:activeTab===tab?"0 2px 16px rgba(0,0,0,0.1)":"none", transition:"all 0.25s ease" }}>
+            <button key={tab} onClick={() => setActiveTab(tab)} style={{ border: "none", background: activeTab === tab ? "#fff" : "transparent", padding: "0.6rem 1.8rem", borderRadius: "100px", fontFamily: "'Poppins', sans-serif", fontSize: "0.88rem", fontWeight: 400, color: activeTab === tab ? "#111827" : "#808080", cursor: "pointer", boxShadow: activeTab === tab ? "0 2px 16px rgba(0,0,0,0.1)" : "none", transition: "all 0.25s ease" }}>
               {tab}
             </button>
           ))}
@@ -2774,31 +2982,31 @@ function ProductsPage({ navigate }) {
       )}
 
       {activeTab === "Spare Parts" && (
-        <div style={{ padding:"60px 4vw 100px", maxWidth:"1400px", margin:"0 auto" }}>
-          <div style={{ display:"flex", gap:"0.5rem", justifyContent:"center", flexWrap:"wrap", marginBottom:"3rem" }}>
+        <div style={{ padding: "60px 4vw 100px", maxWidth: "1400px", margin: "0 auto" }}>
+          <div style={{ display: "flex", gap: "0.5rem", justifyContent: "center", flexWrap: "wrap", marginBottom: "3rem" }}>
             {subCats.map((cat) => (
-              <button key={cat} onClick={() => setActiveSub(cat)} style={{ border:activeSub===cat?"none":"1.5px solid #D3D3D3", background:activeSub===cat?"#696969":"#fff", color:activeSub===cat?"#fff":"#111827", padding:"0.55rem 1.3rem", borderRadius:"100px", fontFamily:"'Poppins', sans-serif", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", transition:"all 0.25s ease", boxShadow:activeSub===cat?"0 4px 20px rgba(0,0,0,0.15)":"none" }}>
+              <button key={cat} onClick={() => setActiveSub(cat)} style={{ border: activeSub === cat ? "none" : "1.5px solid #D3D3D3", background: activeSub === cat ? "#696969" : "#fff", color: activeSub === cat ? "#fff" : "#111827", padding: "0.55rem 1.3rem", borderRadius: "100px", fontFamily: "'Poppins', sans-serif", fontSize: "0.82rem", fontWeight: 400, cursor: "pointer", transition: "all 0.25s ease", boxShadow: activeSub === cat ? "0 4px 20px rgba(0,0,0,0.15)" : "none" }}>
                 {cat}
               </button>
             ))}
           </div>
-          <div style={{ display:"grid", gridTemplateColumns:"repeat(auto-fill, minmax(220px, 1fr))", gap:"1.5rem" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: "1.5rem" }}>
             {filteredParts.map((part) => (
               <div key={part.id}
-                style={{ background:"#fff", border:"1px solid #D3D3D3", borderRadius:"20px", overflow:"hidden", cursor:"pointer", transition:"transform 0.25s ease, box-shadow 0.25s ease" }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform="translateY(-6px)"; e.currentTarget.style.boxShadow="0 16px 40px rgba(0,0,0,0.1)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform="translateY(0)"; e.currentTarget.style.boxShadow="none"; }}
+                style={{ background: "#fff", border: "1px solid #D3D3D3", borderRadius: "20px", overflow: "hidden", cursor: "pointer", transition: "transform 0.25s ease, box-shadow 0.25s ease" }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-6px)"; e.currentTarget.style.boxShadow = "0 16px 40px rgba(0,0,0,0.1)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
                 onClick={() => navigate("contact")}
               >
-                <div style={{ height:"180px", background:"#f7f8fc", display:"flex", alignItems:"center", justifyContent:"center", padding:"1.5rem" }}>
+                <div style={{ height: "180px", background: "#f7f8fc", display: "flex", alignItems: "center", justifyContent: "center", padding: "1.5rem" }}>
                   {/* CHANGE 5: lazy load spare parts grid images */}
-                  <img src={part.img} alt={part.name} loading="lazy" decoding="async" style={{ maxHeight:"140px", maxWidth:"100%", objectFit:"contain", filter:"drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }} />
+                  <img src={part.img} alt={part.name} loading="lazy" decoding="async" style={{ maxHeight: "140px", maxWidth: "100%", objectFit: "contain", filter: "drop-shadow(0 8px 16px rgba(0,0,0,0.12))" }} />
                 </div>
-                <div style={{ padding:"1.2rem" }}>
-                  <div style={{ fontSize:"0.68rem", fontWeight:400, letterSpacing:"0.08em", textTransform:"uppercase", color:"#696969", background:"rgba(105,105,105,0.08)", border:"1px solid rgba(105,105,105,0.2)", padding:"0.2rem 0.6rem", borderRadius:"100px", display:"inline-block", marginBottom:"0.6rem" }}>{part.subCat || "RO System"}</div>
-                  <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"1rem", fontWeight:400, color:"#040810", marginBottom:"0.4rem" }}>{part.name}</div>
-                  <div style={{ fontSize:"0.82rem", color:"#808080", lineHeight:1.5 }}>{part.desc}</div>
-                  <button style={{ marginTop:"1rem", width:"100%", background:"#696969", color:"#fff", border:"none", padding:"0.65rem", borderRadius:"100px", fontSize:"0.82rem", fontWeight:400, cursor:"pointer", fontFamily:"'Poppins', sans-serif" }}
+                <div style={{ padding: "1.2rem" }}>
+                  <div style={{ fontSize: "0.68rem", fontWeight: 400, letterSpacing: "0.08em", textTransform: "uppercase", color: "#696969", background: "rgba(105,105,105,0.08)", border: "1px solid rgba(105,105,105,0.2)", padding: "0.2rem 0.6rem", borderRadius: "100px", display: "inline-block", marginBottom: "0.6rem" }}>{part.subCat || "RO System"}</div>
+                  <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "1rem", fontWeight: 400, color: "#040810", marginBottom: "0.4rem" }}>{part.name}</div>
+                  <div style={{ fontSize: "0.82rem", color: "#808080", lineHeight: 1.5 }}>{part.desc}</div>
+                  <button style={{ marginTop: "1rem", width: "100%", background: "#696969", color: "#fff", border: "none", padding: "0.65rem", borderRadius: "100px", fontSize: "0.82rem", fontWeight: 400, cursor: "pointer", fontFamily: "'Poppins', sans-serif" }}
                     onClick={(e) => { e.stopPropagation(); navigate("contact"); }}>
                     Enquire Now
                   </button>
@@ -2820,15 +3028,15 @@ function ContactPage() {
     <div>
       <div className="contact-wrap">
         <div className="contact-left reveal-left">
-          <div className="page-eyebrow" style={{ marginBottom:"1.5rem" }}>Get In Touch</div>
+          <div className="page-eyebrow" style={{ marginBottom: "1.5rem" }}>Get In Touch</div>
           <h1>Find the Right<br />Purifier for You.</h1>
           <p>Need help picking a model or want to schedule a water quality test? Our team is here to help you get started.</p>
           <div className="contact-info">
             {[
-              { icon:"📞", label:"Customer Support",  val:"+91 800-LetsPure" },
-              { icon:"✉️", label:"Email Support",    val:"consult@LetsPure.in" },
-              { icon:"📍", label:"Headquarters",     val:"Whitefield, Bengaluru 560066" },
-              { icon:"🕐", label:"Hours",            val:"Mon – Sat, 9 AM – 7 PM IST" },
+              { icon: "📞", label: "Customer Support", val: "+91 800-LetsPure" },
+              { icon: "✉️", label: "Email Support", val: "consult@LetsPure.in" },
+              { icon: "📍", label: "Headquarters", val: "Whitefield, Bengaluru 560066" },
+              { icon: "🕐", label: "Hours", val: "Mon – Sat, 9 AM – 7 PM IST" },
             ].map((c, i) => (
               <div key={i} className="contact-info-row">
                 <div className="contact-info-icon">{c.icon}</div>
@@ -2840,7 +3048,7 @@ function ContactPage() {
         <div className="form-card reveal">
           {submitted ? (
             <div className="form-success">
-              <div style={{ fontSize:"3rem", marginBottom:"1rem" }}>💧</div>
+              <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>💧</div>
               <h3>Request Received!</h3>
               <p>Our team will reach out to you within 24 hours.</p>
             </div>
@@ -2875,15 +3083,15 @@ function ContactPage() {
         </div>
       </div>
       <div className="map-section">
-        <div className="section-header" style={{ marginBottom:"2rem" }}>
+        <div className="section-header" style={{ marginBottom: "2rem" }}>
           <div className="page-eyebrow">Find Us</div>
-          <h2 className="section-h" style={{ fontSize:"2rem" }}>Visit our Experience Centre</h2>
+          <h2 className="section-h" style={{ fontSize: "2rem" }}>Visit our Experience Centre</h2>
         </div>
         <div className="map-inner">
-          <div style={{ textAlign:"center" }}>
+          <div style={{ textAlign: "center" }}>
             <div className="map-pin">📍</div>
-            <p style={{ marginTop:".5rem", color:"var(--muted)", fontSize:".9rem" }}>LetsPure Experience Centre, Whitefield, Bengaluru</p>
-            <button className="btn-primary" style={{ marginTop:"1.2rem", fontSize:".82rem", padding:".7rem 1.5rem" }} onClick={() => window.open("https://maps.google.com","_blank")}>
+            <p style={{ marginTop: ".5rem", color: "var(--muted)", fontSize: ".9rem" }}>LetsPure Experience Centre, Whitefield, Bengaluru</p>
+            <button className="btn-primary" style={{ marginTop: "1.2rem", fontSize: ".82rem", padding: ".7rem 1.5rem" }} onClick={() => window.open("https://maps.google.com", "_blank")}>
               Open in Maps
             </button>
           </div>
@@ -2925,25 +3133,25 @@ function Preloader({ onDone }) {
   }, []);
 
   return (
-    <div style={{ position:"fixed", top:0, left:0, right:0, bottom:0, zIndex:99999, backgroundColor:"#000", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", gap:"28px", overflow:"hidden" }}>
+    <div style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, zIndex: 99999, backgroundColor: "#000", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "28px", overflow: "hidden" }}>
       {[...Array(20)].map((_, i) => (
-        <div key={i} style={{ position:"absolute", left:`${(i*5)%95}%`, bottom:`${(i*7)%40}%`, width:"2px", height:"2px", borderRadius:"50%", background:`rgba(255,255,255,${0.1+(i%5)*0.1})`, transition:`transform ${1.5+(i%3)}s ease, opacity ${1.5+(i%3)}s ease`, transform:step>=1?`translateY(-${60+(i%4)*30}px)`:"translateY(0)", opacity:step>=1?0:0.6 }} />
+        <div key={i} style={{ position: "absolute", left: `${(i * 5) % 95}%`, bottom: `${(i * 7) % 40}%`, width: "2px", height: "2px", borderRadius: "50%", background: `rgba(255,255,255,${0.1 + (i % 5) * 0.1})`, transition: `transform ${1.5 + (i % 3)}s ease, opacity ${1.5 + (i % 3)}s ease`, transform: step >= 1 ? `translateY(-${60 + (i % 4) * 30}px)` : "translateY(0)", opacity: step >= 1 ? 0 : 0.6 }} />
       ))}
-      <div style={{ position:"absolute", top:"40%", left:"50%", transform:"translate(-50%, -50%)", width:step>=2?"500px":"100px", height:step>=2?"500px":"100px", borderRadius:"50%", background:"radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)", transition:"width 1.5s ease, height 1.5s ease", pointerEvents:"none" }} />
-      <div style={{ display:"flex", alignItems:"center", gap:"12px", opacity:step>=1?1:0, transform:step>=1?"translateY(0)":"translateY(-10px)", transition:"all 0.6s ease" }}>
-        <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
-        <div style={{ width:"4px", height:"4px", borderRadius:"50%", background:"rgba(255,255,255,0.4)" }} />
-        <div style={{ width:"40px", height:"1px", background:"rgba(255,255,255,0.2)" }} />
+      <div style={{ position: "absolute", top: "40%", left: "50%", transform: "translate(-50%, -50%)", width: step >= 2 ? "500px" : "100px", height: step >= 2 ? "500px" : "100px", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 65%)", transition: "width 1.5s ease, height 1.5s ease", pointerEvents: "none" }} />
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(-10px)", transition: "all 0.6s ease" }}>
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
+        <div style={{ width: "4px", height: "4px", borderRadius: "50%", background: "rgba(255,255,255,0.4)" }} />
+        <div style={{ width: "40px", height: "1px", background: "rgba(255,255,255,0.2)" }} />
       </div>
-      <div style={{ opacity:step>=1?1:0, transform:step>=1?"translateY(0)":"translateY(30px)", transition:"all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s" }}>
-        <img src="/assets/black logo.webp" alt="LetsPure" decoding="async" style={{ maxHeight:"220px", maxWidth:"500px", objectFit:"contain", filter:"brightness(0) invert(1)" }} />
+      <div style={{ opacity: step >= 1 ? 1 : 0, transform: step >= 1 ? "translateY(0)" : "translateY(30px)", transition: "all 0.8s cubic-bezier(.2,.75,.2,1) 0.1s" }}>
+        <img src="/assets/black logo.webp" alt="LetsPure" decoding="async" style={{ maxHeight: "220px", maxWidth: "500px", objectFit: "contain", filter: "brightness(0) invert(1)" }} />
       </div>
-      <div style={{ display:"flex", alignItems:"center", gap:"12px", opacity:step>=3?1:0, transition:"all 0.6s ease" }}>
-        <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
-        <div style={{ fontSize:"0.68rem", color:"rgba(255,255,255,0.45)", letterSpacing:"0.25em", textTransform:"uppercase", fontFamily:"'Poppins', sans-serif", whiteSpace:"nowrap" }}>Molecular Purity · Engineered for Life</div>
-        <div style={{ width:"60px", height:"1px", background:"rgba(255,255,255,0.15)" }} />
+      <div style={{ display: "flex", alignItems: "center", gap: "12px", opacity: step >= 3 ? 1 : 0, transition: "all 0.6s ease" }}>
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
+        <div style={{ fontSize: "0.68rem", color: "rgba(255,255,255,0.45)", letterSpacing: "0.25em", textTransform: "uppercase", fontFamily: "'Poppins', sans-serif", whiteSpace: "nowrap" }}>Molecular Purity · Engineered for Life</div>
+        <div style={{ width: "60px", height: "1px", background: "rgba(255,255,255,0.15)" }} />
       </div>
-      <div style={{ opacity:step>=3?1:0, transition:"opacity 0.6s ease" }}>
+      <div style={{ opacity: step >= 3 ? 1 : 0, transition: "opacity 0.6s ease" }}>
         <PercentCounter onDone={onDone} />
       </div>
     </div>
@@ -2962,14 +3170,14 @@ function PercentCounter({ onDone }) {
   }, [onDone]);
 
   return (
-    <div style={{ textAlign:"center" }}>
-      <div style={{ fontFamily:"'Poppins', sans-serif", fontSize:"0.78rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.1em", marginBottom:"10px" }}>{String(pct).padStart(3,"0")}</div>
-      <div style={{ width:"260px", height:"1px", background:"rgba(255,255,255,0.1)", position:"relative" }}>
-        <div style={{ height:"1px", width:`${pct}%`, background:"linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position:"relative", transition:"width 0.022s linear" }}>
-          <div style={{ position:"absolute", right:"-1px", top:"50%", transform:"translateY(-50%)", width:"4px", height:"4px", borderRadius:"50%", background:"#fff", boxShadow:"0 0 8px 3px rgba(255,255,255,0.6)" }} />
+    <div style={{ textAlign: "center" }}>
+      <div style={{ fontFamily: "'Poppins', sans-serif", fontSize: "0.78rem", color: "rgba(255,255,255,0.5)", letterSpacing: "0.1em", marginBottom: "10px" }}>{String(pct).padStart(3, "0")}</div>
+      <div style={{ width: "260px", height: "1px", background: "rgba(255,255,255,0.1)", position: "relative" }}>
+        <div style={{ height: "1px", width: `${pct}%`, background: "linear-gradient(90deg, rgba(255,255,255,0.3), #fff)", position: "relative", transition: "width 0.022s linear" }}>
+          <div style={{ position: "absolute", right: "-1px", top: "50%", transform: "translateY(-50%)", width: "4px", height: "4px", borderRadius: "50%", background: "#fff", boxShadow: "0 0 8px 3px rgba(255,255,255,0.6)" }} />
         </div>
       </div>
-      <div style={{ marginTop:"10px", fontSize:"0.62rem", color:"rgba(255,255,255,0.25)", letterSpacing:"0.15em", textTransform:"uppercase", fontFamily:"'Poppins', sans-serif" }}>
+      <div style={{ marginTop: "10px", fontSize: "0.62rem", color: "rgba(255,255,255,0.25)", letterSpacing: "0.15em", textTransform: "uppercase", fontFamily: "'Poppins', sans-serif" }}>
         {pct < 30 ? "Initializing" : pct < 60 ? "Loading Assets" : pct < 90 ? "Preparing" : "Ready"}
       </div>
     </div>
@@ -2978,10 +3186,10 @@ function PercentCounter({ onDone }) {
 
 /* ─── APP ────────────────────────────────────────────────── */
 export default function LetsPure() {
-  const [page, setPage]             = useState("home");
-  const [scrolled, setScrolled]     = useState(false);
+  const [page, setPage] = useState("home");
+  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [tds, setTds]               = useState(280);
+  const [tds, setTds] = useState(280);
   const [preloaderDone, setPreloaderDone] = useState(false);
 
   useEffect(() => {
@@ -3022,10 +3230,10 @@ export default function LetsPure() {
   }, []);
 
   const pages = {
-    home:     <HomePage navigate={navigate} tds={tds} />,
-    about:    <AboutPage />,
+    home: <HomePage navigate={navigate} tds={tds} />,
+    about: <AboutPage />,
     products: <ProductsPage navigate={navigate} />,
-    contact:  <ContactPage />,
+    contact: <ContactPage />,
   };
 
   return (
@@ -3033,7 +3241,7 @@ export default function LetsPure() {
       {!preloaderDone && <Preloader onDone={() => setPreloaderDone(true)} />}
       <nav className={scrolled ? "scrolled" : ""}>
         <button type="button" className="nav-logo" onClick={() => navigate("home")}>
-          <img src="/assets/black logo.webp" alt="LetsPure" decoding="async" style={{ height:"100px", width:"200px", objectFit:"contain" }} />
+          <img src="/assets/black logo.webp" alt="LetsPure" decoding="async" style={{ height: "100px", width: "200px", objectFit: "contain" }} />
         </button>
         <div className="nav-links">
           {NAV_LINKS.map((p) => (
@@ -3041,7 +3249,7 @@ export default function LetsPure() {
               {p.charAt(0).toUpperCase() + p.slice(1)}
             </button>
           ))}
-          <button className="nav-cta" onClick={() => window.open("https://wa.me/919599026401","_blank")}>Get a Quote</button>
+          <button className="nav-cta" onClick={() => window.open("https://wa.me/919599026401", "_blank")}>Get a Quote</button>
         </div>
         <button className="hamburger" onClick={() => setMobileOpen((v) => !v)}>
           <span /><span /><span />
